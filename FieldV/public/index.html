@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+  </head>
+  <body>
+    <div id="fixed">
+
+      <div id="NavLine" class="L M bSha">
+        <div class="contain cur bRds" onclick="up()">
+          <img class="Avatar bSha" src="http://q1.qlogo.cn/g?b=qq&nk=1951327599&s=640">
+          <div class="Name">THAUMY的小站</div>
+        </div>
+        <div class="SiderBtn R" onclick="ListToggle()"></div>
+      </div>
+  
+      <div id="SiderList" class="bSha">
+  
+        <m-nav_card v-for="a in List" v-bind:item="a" v-bind:key="a.index"></m-nav_card>
+  
+        <div class="Co cur" onclick="up();ListToggle()">
+          Thaumy的博客©2016-2020保留所有权利<br>
+          基于pilipala构建<br>
+          Field Theme Designed By Thaumy<br>
+        </div>
+      </div>
+      <div class="Shadow" onclick="ListToggle()"></div>
+      <div class="upBtn bSha bRds" style="display: none" onclick="upBtn()"></div>
+    </div>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
