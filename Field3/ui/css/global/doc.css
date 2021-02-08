@@ -2,11 +2,6 @@ html::-webkit-scrollbar {
     display: none;
 }
 
-html {
-    background: url("http://thblog-img.test.upcdn.net/ui-background/pc.jpg") fixed;
-    background-size: cover;
-}
-
 body>#contain {
     margin: auto;
     max-width: 1160px;
@@ -19,6 +14,13 @@ body {
     margin: 0;
 }
 
+html {
+    background-image: url("https://cdn.thaumy.cn/ui-background/pc.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
 /* 屏幕宽度 [ 1001 , + ) */
 @media (min-width: 1001px) {
     body>#contain {
@@ -27,8 +29,16 @@ body {
     }
 }
 
-/* 屏幕宽度 ( - , 1000 ] */
-@media screen and (max-width: 1000px) {
+/* 屏幕宽度 [ 601 , 1000 ] */
+@media (min-width:601px) and (max-width: 1000px) {
+    body>#contain {
+        padding: 7px;
+        padding-top: 57px;
+    }
+}
+
+/* 屏幕宽度 ( - , 600 ] */
+@media screen and (max-width: 600px) {
     body>#contain {
         padding: 7px;
         padding-top: 57px;
