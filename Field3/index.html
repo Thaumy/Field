@@ -19,9 +19,12 @@
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.18/dist/vuetify.min.js"></script>
+
   <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
-  <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.0/build/styles/vs2015.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.0/build/highlight.min.js"></script>
 
   <script src="ui/js/global.js"></script>
 
@@ -34,9 +37,9 @@
     console.log(`%c 噼哩啪啦 %cBETA 8`, c, d)
   </script>
   <script>
-    let a =
+    const a =
       'background: #FFA500; padding:4px 10px 4px 10px; font-family:\'Source Sans Pro\'; color: #fff; border-radius: 3px 0 0 3px;'
-    let b =
+    const b =
       'background: #606060; padding:4px 10px 4px 10px; font-family:\'Source Sans Pro\'; color: #fff; border-radius: 0 3px 3px 0;'
     console.log(`  %cTheme%c氛V3 Designed By Thaumy`, a, b)
   </script>
@@ -232,7 +235,7 @@
 
               高亮测试
 
-              <pre>C#<code>public void HelloField()
+              <pre><code class="cs">public void HelloField()
 {
     Console.WriteLine("HelloField!");
 }</code></pre>
@@ -254,8 +257,7 @@
           </div>
           <!-- 代码高亮启用 -->
           <script>
-            hljs.initHighlighting.called = false;
-            hljs.initHighlighting();
+            hljs.highlightAll();
           </script>
         </div>
 
@@ -410,7 +412,7 @@
       }
     }
   })
-  var pcNavList = new Vue({
+  const pcNavList = new Vue({
     el: '#pcNavList',
     data: {
       barSeen: true,
@@ -455,13 +457,13 @@
       ]
     },
   })
-  var SiderList = new Vue({
+  const SiderList = new Vue({
     el: '#SiderList',
     data: {
       List: pcNavList.List
     },
   })
-  var AvaOutline = new Vue({
+  const AvaOutline = new Vue({
     el: '#Ava-outline',
     data: {
       style: {
@@ -480,7 +482,7 @@
       }
     }
   })
-  var CoOutline = new Vue({
+  const CoOutline = new Vue({
     el: '#Co-outline',
     data: {
       style: {
@@ -499,7 +501,7 @@
       }
     }
   })
-  var CommentBox = new Vue({
+  const CommentBox = new Vue({
     el: '#CommentBox',
     vuetify: new Vuetify(),
     data: {
@@ -537,7 +539,7 @@
     }
   })
 
-  var FloorText_temp;
+  let FloorText_temp;
 
   /* 鼠标移入移出回复按钮事件 */
   function CommentBox_ReplyBtn_Over() {
@@ -601,7 +603,7 @@
     if (value == "") {
       return false;
     } else {
-      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+      const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
       if (!reg.test(value)) {
         return false;
       } else {
@@ -614,7 +616,7 @@
     if (value == "") {
       return true;
     } else {
-      var reg0 = /^(http|https|ftp)\:\/\/([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}(\/)?$/;
+      const reg0 = /^(http|https|ftp)\:\/\/([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}(\/)?$/;
       if (!reg0.test(value)) {
         return false;
       } else {
@@ -629,7 +631,7 @@
 <script>
   /* 滑到底部查看壁纸 */
   $(window).scroll(throttle(function () {
-    var opacity = document.getElementById('column_bottom').getBoundingClientRect().top / 320;
+    let opacity = document.getElementById('column_bottom').getBoundingClientRect().top / 320;
     document.getElementById('fixed').style.opacity = opacity;
     document.getElementById('NavCol').style.opacity = opacity;
     document.getElementById('CardCol').style.opacity = opacity;
@@ -646,8 +648,8 @@
 </script>
 <script>
   /* 向上滚动NavLine展开 */
-  p = 0;
-  t = 0;
+  let p = 0;
+  let t = 0;
   $(window).scroll(debounce(function () {
     /* 触发宽度 */
     if ($(window).width() <= 1000) {
