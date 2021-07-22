@@ -10,7 +10,7 @@
   <title>Thaumy的博客|又一个码农的家</title>
 
   <link rel="stylesheet" href="ui/css/global.css">
-  <link rel="stylesheet" href="ui/css/white.css">
+  <link rel="stylesheet" href="ui/css/dark.css">
 
   <!-- vuetify -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
@@ -51,7 +51,7 @@
 
     <div id="NavLine" class="L M bSha">
       <div class="contain cur bRds" onclick="up()">
-        <img class="Avatar bSha" src="http://q1.qlogo.cn/g?b=qq&nk=1951327599&s=640">
+        <img class="Avatar bSha" src="ui/img/pp512.png">
         <div class=" Name">THAUMY的小站</div>
       </div>
       <div class="SiderBtn R" onclick="ListToggle()"></div>
@@ -70,16 +70,16 @@
 
 
     <div class="Shadow" onclick="ListToggle()"></div>
-    <div class="upBtn bSha bRds" style="display: none" onclick="upBtn()"></div>
+    <div class="upBtn bE-black bRds" style="display: none" onclick="upBtn()"></div>
   </div>
 
   <div id="contain">
-    <div id="NavCol" class="bSha bRds">
+    <div id="NavCol" class="bE-white bRds">
 
       <div class="box bSha bRds-t">
         <div class="AvaBox">
           <div class="Ava-outline" v-bind:style="style" v-on:click="click" id="Ava-outline">
-            <img class="Ava bSha cur" src="http://q1.qlogo.cn/g?b=qq&nk=1951327599&s=640">
+            <img class="Ava bSha cur" src="/ui/img/pp512.png">
           </div>
         </div>
 
@@ -111,7 +111,7 @@
     <div id="CardCol" class="R">
       <div class="Col">
 
-        <div class="Card M bSha bRds">
+        <div class="Card M bE-black bRds">
           <div onclick="up()" class="contain cur bRds">
             <div class="NoteContent bRds">
               这是一条笔记，适合短文本发布。
@@ -119,7 +119,7 @@
           </div>
         </div>
 
-        <div class="Card M bSha bRds">
+        <div class="Card M bE-black bRds">
 
           <div onclick="up()" class="contain cur">
             <img class="pXL" src="http://thblog-img.test.upcdn.net/md-img/氛V2/field2cg.jpg" />
@@ -135,7 +135,7 @@
           </div>
         </div>
 
-        <div class="Card M bSha bRds">
+        <div class="Card M bE-black bRds">
 
           <div onclick="up()" class="contain cur">
 
@@ -161,15 +161,15 @@
           </div>
         </div>
 
-        <div class="Card M bSha bRds">
+        <div class="Card M bE-black bRds">
           <div class="contain bRds">
             <div class="Title">四宫辉夜</div>
             <div class="Summary">Shinomiya Kaguya</div>
             <div class="SchedulTip bSha">
-              <div class="con">计划中的项目。此文章将会于近期更新</div>
+              <div class="con">计划中的项目：此文章将会于近期更新。</div>
             </div>
             <div class="ArchivTip bSha">
-              <div class="con">此文章已经归档。这意味着其内容将不受维护，但仍具有一定的参考价值。</div>
+              <div class="con">此文章已归档：不受维护但仍具参考价值的内容。</div>
             </div>
             <div class="ReadTimeTip bSha">
               <div class="con">约 6600字 阅读需要 5分钟</div>
@@ -261,7 +261,7 @@
           </script>
         </div>
 
-        <div class="CoBox M bSha">
+        <div class="CoBox M bE-white">
 
           <span class="text_auth L">由Thaumy最后编辑于19.04.05</span>
           <span title="MD5签名 : @MD5" class="text_mId R">004C01E</span>
@@ -277,7 +277,7 @@
           </div>
         </div>
 
-        <div class="CommentList M bSha bRds">
+        <div class="CommentList M bE-white bRds">
           <div class="Box bSha" onmouseover="CommentList_Over(this)" onmouseleave="CommentList_Leave(this)">
             <div class="Name">雅爱方雏丶YAMAHA</div>
             <div class="Floor cur bSha" data-f="1" data-id="12384" onclick="CommentBox.doReply(this)">1
@@ -309,19 +309,19 @@
           </div>
         </div>
 
-        <div class="ShadowBox M">
-          <div class="CommentTip bSha">
-            <div class="con">评论尚无，快来吃个螃蟹！</div>
-          </div>
-          <div class="WarningTip bSha">
-            <div class="con">CommentLake提交系统尚处于开发状态，这意味着评论功能尚不完全可用。</div>
-          </div>
-          <div class="LockTip bSha">
-            <div class="con">此文章的评论系统已上锁。</div>
-          </div>
+
+        <div class="CommentTip bE-white">
+          <div class="con">评论尚无，快来吃个螃蟹！</div>
+        </div>
+        <div class="WarningTip bE-white">
+          <div class="con">CommentLake提交系统尚处于开发状态，这意味着评论功能尚不完全可用。</div>
+        </div>
+        <div class="LockTip bE-white">
+          <div class="con">此文章的评论系统已上锁。</div>
         </div>
 
-        <div id="CommentBox" class="CommentBox M bRds bSha">
+
+        <div id="CommentBox" class="CommentBox M bRds bE-white">
 
           <div class="Content">
             <div class="Logo"></div>
@@ -501,7 +501,7 @@
       }
     }
   })
-  const CommentBox = new Vue({
+  var CommentBox = new Vue({
     el: '#CommentBox',
     vuetify: new Vuetify(),
     data: {
@@ -539,7 +539,7 @@
     }
   })
 
-  let FloorText_temp;
+  var FloorText_temp;
 
   /* 鼠标移入移出回复按钮事件 */
   function CommentBox_ReplyBtn_Over() {
@@ -632,10 +632,12 @@
   /* 滑到底部查看壁纸 */
   $(window).scroll(throttle(function () {
     let opacity = document.getElementById('column_bottom').getBoundingClientRect().top / 320;
-    document.getElementById('fixed').style.opacity = opacity;
-    document.getElementById('NavCol').style.opacity = opacity;
-    document.getElementById('CardCol').style.opacity = opacity;
-    document.getElementById('IllustCo').style.opacity = opacity * -4;
+    if (opacity < 2) {
+      document.getElementById('fixed').style.opacity = opacity;
+      document.getElementById('NavCol').style.opacity = opacity;
+      document.getElementById('CardCol').style.opacity = opacity;
+      document.getElementById('IllustCo').style.opacity = opacity * -4;
+    }
   }, 10))
   /* 返顶按钮淡入淡出 */
   $(window).scroll(throttle(function () {
