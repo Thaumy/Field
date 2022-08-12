@@ -1,0 +1,62 @@
+<template>
+  <div id="NavLine" class="L M bSha">
+    <div class="contain cur bRds" onclick="up()">
+      <img class="Avatar bSha" src="ui/img/pp512.png">
+      <div class=" Name">THAUMY的小站</div>
+    </div>
+    <div class="SiderBtn R" onclick="ListToggle()"></div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "NavLine"
+}
+</script>
+
+<style scoped>
+
+#NavLine {
+  height: 50px;
+  width: 100%;
+  z-index: 10;
+  position: fixed;
+
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+#NavLine>.contain>.Name {
+  float: left;
+
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  line-height: 50px;
+  color: rgba(250, 250, 250, 1);
+}
+
+#NavLine>.contain>.Avatar {
+  float: left;
+
+  width: 42px;
+  height: 41px;
+  margin: 4px 10px 4px 10px;
+
+  border-radius: 50px;
+}
+
+/* 屏幕宽度 [ 1001 , + ) */
+@media (min-width: 1001px) {
+  #NavLine {
+    display: none;
+  }
+}
+
+/* 屏幕宽度 ( - , 1000 ] */
+@media (max-width: 1000px) {
+  #NavLine {
+    display: block;
+  }
+}
+</style>
