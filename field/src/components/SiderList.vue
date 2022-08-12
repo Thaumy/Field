@@ -1,0 +1,106 @@
+<template>
+  <div id="SiderList" class="bE-black">
+
+    <m-nav_card v-for="a in List" v-bind:item="a" v-bind:key="a.index"></m-nav_card>
+
+    <div class="Co cur" onclick="up();ListToggle()">
+      Thaumy的博客©2016-2020保留所有权利<br>
+      基于pilipala构建<br>
+      Field Theme Designed By Thaumy<br>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "SiderList"
+}
+</script>
+
+<style scoped>
+
+#SiderList {
+  width: 60%;
+  z-index: 12;
+
+  border-radius: 4px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  top: 62px;
+  left: -800px;
+
+  position: fixed;
+
+  background: rgba(32, 32, 32, 1);
+}
+
+#SiderList>.Card {
+  width: 94%;
+  height: 36px;
+  display: flex;
+
+  margin: auto;
+
+  margin-bottom: 8px;
+
+  color: rgba(250, 250, 250, 1);
+  font-size: 17px;
+  letter-spacing: 1px;
+}
+
+#SiderList>.Card::after {
+  align-self: center;
+  margin-right: 3px;
+
+  font-family: 'field-icon';
+  font-size: 16px;
+  content: "\e3013";
+}
+
+#SiderList>.Card>.contain {
+  margin-right: auto;
+  align-self: center;
+  margin-left: 10px;
+}
+
+#SiderList>.Co {
+  width: 88%;
+  text-align: center;
+
+  margin: auto;
+  margin-top: 24px;
+
+  color: #FFFFFF;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.Shadow {
+  display: none;
+  z-index: 11;
+
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* 屏幕宽度 [ 1001 , + ) */
+@media (min-width: 1001px) {
+  #SiderList {
+    display: none;
+  }
+}
+
+/* 屏幕宽度 ( - , 1000 ] */
+@media (max-width: 1000px) {
+  #SiderList {
+    display: unset;
+  }
+}
+</style>
