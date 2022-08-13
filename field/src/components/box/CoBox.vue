@@ -81,9 +81,4 @@ export default {
   display: table-cell;
 }
 
-.CoBox {
-  /* 颜色模式 */
-  background: rgba(30, 30, 30, 1.00);
-}
-
 </style>

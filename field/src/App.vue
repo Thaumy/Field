@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import CardCol from '@/components/CardCol.vue'
-import NavCol from "@/components/NavCol.vue";
+import NavCol from "@/components/col/NavCol.vue";
+import CardCol from '@/components/col/CardCol.vue'
 import NavLine from "@/components/NavLine.vue";
-import SiderList from "@/components/SiderList.vue";
+import SiderList from "@/components/list/SiderList.vue";
 
 export default {
   name: 'App',

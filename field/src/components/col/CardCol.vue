@@ -2,16 +2,11 @@
   <div id="CardCol" class="R">
     <div class="Col">
       <NoteCard body="这是一条笔记，适合短文本发布。"/>
-      <PostPreviewCard
-          cover='<img class="pXL" src="http://thblog-img.test.upcdn.net/md-img/氛V2/field2cg.jpg"/>'
-          title="氛"
-          summary="Make a simple, intuitive UI"
-          createDate="22-07-12" viewCount="12345" commentCount="12345" starCount="12345"
-      />
+
       <PostPreviewCard
           cover='<img class="pXL" id="welcom_pic"/>'
           title="pilipala 1.0 :: Akane"
-          summary="诗的内容"
+          summary="超级大更新"
           createDate="22-07-12" viewCount="12345" commentCount="12345" starCount="12345"
           script=
               'let images = ["http://thblog-img.test.upcdn.net/ui-background/bg_1.jpg",
@@ -19,6 +14,11 @@
                              "http://thblog-img.test.upcdn.net/ui-background/bg_3.jpg",
                              "http://thblog-img.test.upcdn.net/ui-background/bg_4.jpg"];
                document.getElementById("welcom_pic").src = images[Math.floor(Math.random() * images.length)];'/>
+
+      <PostPreviewCard
+          title="氛"
+          summary="Make a simple, intuitive UI"
+          createDate="22-07-12" viewCount="12345" commentCount="12345" starCount="12345"/>
 
       <PostCard
           title="『空の青さを知る人よ』"
@@ -109,12 +109,12 @@
 import NoCommentTip from "@/components/tip/NoCommentTip.vue";
 import WarningTip from "@/components/tip/WarningTip.vue";
 import LockingTip from "@/components/tip/LockingTip.vue";
-import NoteCard from "@/components/box/NoteCard.vue";
-import PostCard from "@/components/box/PostCard.vue";
+import NoteCard from "@/components/card/NoteCard.vue";
+import PostCard from "@/components/card/PostCard.vue";
 import CoBox from "@/components/box/CoBox.vue";
-import CommentList from "@/components/CommentList.vue";
+import CommentList from "@/components/list/CommentList.vue";
 import CommentBox from "@/components/box/CommentBox.vue";
-import PostPreviewCard from "@/components/box/PostPreviewCard.vue";
+import PostPreviewCard from "@/components/card/PostPreviewCard.vue";
 
 export default {
   name: "CardCol",
@@ -139,10 +139,6 @@ export default {
   #CardCol {
     width: 76%;
     max-width: 1100px;
-  }
-
-  #CardCol .Card > .contain > .Title {
-    padding-top: 12px;
   }
 }
 

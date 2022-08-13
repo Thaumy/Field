@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import PcNavCard from "@/components/PcNavCard.vue";
+import PcNavCard from "@/components/card/PcNavCard.vue";
 
 export default {
   name: "PcNavList",

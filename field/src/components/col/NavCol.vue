@@ -28,7 +28,7 @@
 <script>
 //import PcNavCard from "@/components/PcNavCard";
 
-import PcNavList from "@/components/PcNavList.vue";
+import PcNavList from "@/components/list/PcNavList.vue";
 
 export default {
   name: "NavCol",
@@ -172,10 +172,5 @@ export default {
   #NavCol {
     display: none;
   }
-}
-
-#NavCol {
-  /* 颜色模式 */
-  background: rgba(30, 30, 30, 1.00);
 }
 </style>
