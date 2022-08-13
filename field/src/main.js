@@ -8,6 +8,7 @@ import './styles/color.css'
 import './styles/border.css'
 import './styles/transition.css'
 import './styles/markdown-dark.css'
+import './styles/dark/com.css'
 import 'highlight.js/styles/atom-one-dark.css'
 import {createApp} from 'vue'
 import App from './App.vue'
@@ -21,7 +22,7 @@ createApp(App)
     .use(app =>
         app.directive('hljs', {
             mounted(el) {
-                let blocks = el.querySelectorAll('pre code');
+                let blocks = el.querySelectorAll('pre code')
                 for (let i = 0; i < blocks.length; i++) {
                     hljs.highlightElement(blocks[i]);
                 }

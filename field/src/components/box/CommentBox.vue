@@ -1,6 +1,5 @@
 <template>
   <div id="CommentBox" class="CommentBox M bRds bE-white">
-
     <div class="Content">
       <div class="Logo"></div>
       <div class="ReplyLogo" v-show="HEAD"></div>
@@ -24,18 +23,14 @@
       <input v-model="WebSite" placeholder="网站(可选)"/>
     </div>
 
-    <v-app class="Captcha">
-      <div>
-        <v-btn color="primary" block height="34" class="CaptchaLine">提交</v-btn>
-      </div>
-    </v-app>
+    <div class="Captcha">
+      <v-btn color="primary" block height="34" class="CaptchaLine">提交</v-btn>
+    </div>
 
   </div>
 </template>
 
 <script>
-
-
 export default {
   name: "CommentBox",
   data() {
@@ -312,5 +307,29 @@ export default {
   box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.4);
 
   transition: all 0.2s ease;
+}
+
+.CommentBox {
+  /* 颜色模式 */
+  color: rgba(10, 10, 10, 1);
+  background: var(--b30);
+}
+
+.CommentBox input {
+  /* 颜色模式 */
+  color: rgba(120, 120, 120, 1);
+  background: rgba(16, 16, 16, 1);
+}
+
+.CommentBox textarea {
+  /* 颜色模式 */
+  color: rgba(120, 120, 120, 1);
+  background: rgba(16, 16, 16, 1);
+}
+
+.CommentBox > div > .Logo {
+  /* 颜色模式 */
+  color: rgba(160, 160, 160, 1);
+  background: var(--b40);
 }
 </style>

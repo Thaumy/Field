@@ -4,7 +4,7 @@
     <div class="box bSha bRds-t">
       <div class="AvaBox">
         <div class="Ava-outline" v-bind:style="style" v-on:click="click" id="Ava-outline">
-          <img class="Ava bSha cur" src="../styles/img/pp512.png">
+          <img class="Ava bSha cur" src="@/styles/img/pp512.png">
         </div>
       </div>
 
@@ -28,7 +28,7 @@
 <script>
 //import PcNavCard from "@/components/PcNavCard";
 
-import PcNavList from "@/components/PcNavList";
+import PcNavList from "@/components/PcNavList.vue";
 
 export default {
   name: "NavCol",

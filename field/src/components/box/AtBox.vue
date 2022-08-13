@@ -1,10 +1,10 @@
 <template>
   <div class="AtBox bRds-b">
-    <div v-if="createTime" class="Date">{{ createTime }}</div>
+    <div v-if="createDate" class="Date">{{ createDate }}</div>
     <div v-if="viewCount" class="UVCount">{{ viewCount }}</div>
     <div v-if="commentCount" class="CommentCount">{{ commentCount }}</div>
     <div v-if="starCount" class="StarCount">{{ starCount }}</div>
-    <div v-if="modifyTime" class="Time">{{ modifyTime }}</div>
+    <div v-if="createTime" class="Time">{{ createTime }}</div>
     <div v-if="archive" class="Archiv">{{ archive }}</div>
     <div v-if="label" class="Label">{{ label }}</div>
   </div>
@@ -14,14 +14,13 @@
 export default {
   name: "AtBox",
   props:
-      ['createTime',
+      ['createDate',
+        'createTime',
         'viewCount',
         'commentCount',
-        'modifyTime',
         'starCount',
         'archive',
-        'label',
-      ]
+        'label',]
 }
 </script>
 
@@ -35,21 +34,6 @@ export default {
   padding-bottom: 3px;
 }
 
-.CoBox > .AtBox {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-
-/* CoBox里的星星有不同的样式 */
-.CoBox > .AtBox > .StarCount::before {
-  line-height: 18px;
-  content: "\e3014";
-}
-
-.CoBox > .AtBox > .CommentCount::before {
-  line-height: 18px;
-  content: "\e3010";
-}
 
 /* 屏幕宽度 [ 1001 , + ) */
 @media (min-width: 1001px) {
@@ -130,6 +114,58 @@ export default {
 
 .AtBox > .Label::before {
   content: "\e3006";
+}
+
+.CoBox > .AtBox {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.CoBox > .AtBox > .StarCount {
+  color: rgba(250, 250, 250, 1.00);
+}
+
+.CoBox > .AtBox > .StarCount:hover {
+  box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.4);
+}
+
+.CoBox > .AtBox > .CommentCount {
+  color: rgba(250, 250, 250, 1.00);
+}
+
+.CoBox > .AtBox > .CommentCount:hover {
+  box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.4);
+}
+
+.CoBox > .AtBox > .StarCount {
+  /* 颜色模式 */
+  background: rgba(0, 194, 185, 1);
+}
+
+.CoBox > .AtBox > .CommentCount {
+  /* 颜色模式 */
+  background: rgba(1, 153, 255, 1);
+}
+
+/* CoBox里的星星有不同的样式 */
+.CoBox > .AtBox > .StarCount::before {
+  line-height: 18px;
+  content: "\e3014";
+}
+
+.CoBox > .AtBox > .CommentCount::before {
+  line-height: 18px;
+  content: "\e3010";
+}
+
+.CoBox > .AtBox > .StarCount {
+  /* 颜色模式 */
+  background: rgba(0, 194, 185, 1);
+}
+
+.CoBox > .AtBox > .CommentCount {
+  /* 颜色模式 */
+  background: rgba(1, 153, 255, 1);
 }
 
 .AtBox {

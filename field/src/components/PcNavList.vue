@@ -1,4 +1,5 @@
 <template>
+
   <div class="List" id="pcNavList">
     <div class="barBox">
       <transition name="fade">
@@ -9,10 +10,11 @@
       <PcNavCard/>
     </div>
   </div>
+
 </template>
 
 <script>
-import PcNavCard from "@/components/PcNavCard";
+import PcNavCard from "@/components/PcNavCard.vue";
 
 export default {
   name: "PcNavList",
