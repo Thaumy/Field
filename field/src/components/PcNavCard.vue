@@ -1,9 +1,11 @@
 <template>
+
   <div v-for="a in List" v-bind:item="a" v-bind:key="a.index">
     <div ref="foo" class="Card cur bRds" v-on:click="pc_nav_card_click" :key="a.index">
       <div class="contain">{{ a.Title }}</div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -41,32 +43,27 @@ export default {
         {
           index: 1,
           ID: 12346,
-          Title: '四宫辉夜'
+          Title: '摸摸鱼'
         },
         {
           index: 2,
           ID: 12349,
-          Title: '石上优'
+          Title: '追番'
         },
         {
           index: 3,
           ID: 12349,
-          Title: '白银御行'
+          Title: '看书'
         },
         {
           index: 4,
           ID: 12349,
-          Title: '藤原千花'
+          Title: '写代码'
         },
         {
           index: 5,
           ID: 12349,
-          Title: '早坂爱'
-        },
-        {
-          index: 6,
-          ID: 12349,
-          Title: '伊井野弥子'
+          Title: '睡大觉'
         }
       ]
     }

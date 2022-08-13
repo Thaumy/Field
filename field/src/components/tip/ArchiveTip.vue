@@ -17,8 +17,8 @@ export default {
 
 .ArchivTip {
   background: rgb(255, 165, 0);
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .ArchivTip::after {

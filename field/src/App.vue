@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main id="main">
       <div id="fixed">
         <NavLine/>
         <SiderList/>
@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import CardCol from './components/CardCol.vue'
-import NavCol from "@/components/NavCol";
-import NavLine from "@/components/NavLine";
-import SiderList from "@/components/SiderList";
+import CardCol from '@/components/CardCol.vue'
+import NavCol from "@/components/NavCol.vue";
+import NavLine from "@/components/NavLine.vue";
+import SiderList from "@/components/SiderList.vue";
 
 export default {
   name: 'App',
@@ -47,6 +47,13 @@ export default {
 </script>
 
 <style scoped>
+
+#main {
+  background: url("https://cdn.thaumy.cn/ui-background/pc.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
 
 #contain {
   margin: auto;

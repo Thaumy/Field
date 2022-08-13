@@ -1,11 +1,12 @@
 <template>
-  <div class="nxtBtn L bRds cur" onclick="up()">藤原千花</div>
-  <div class="pvsBtn R bRds cur" onclick="up()">石上优</div>
+  <div class="pvsBtn L bRds cur" onclick="up()">{{ prev }}</div>
+  <div class="nxtBtn R bRds cur" onclick="up()">{{ next }}</div>
 </template>
 
 <script>
 export default {
-  name: "SwitchBtn"
+  name: "SwitchBtn",
+  props: ['prev', 'next',]
 }
 </script>
 
@@ -16,7 +17,7 @@ export default {
   color: rgba(1, 153, 255, 1);
   font-size: 17px;
   line-height: 17px;
-  text-shadow: 0px 0px 1.6px rgb(180,180,180);
+  text-shadow: 0px 0px 1.6px rgb(180, 180, 180);
 
   margin: 3px;
   padding: 3px;
@@ -26,28 +27,28 @@ export default {
   text-overflow: ellipsis;
 }
 
-.nxtBtn {
+.pvsBtn {
   padding-right: 6px;
   padding-left: 0px;
 }
 
-.pvsBtn {
+.nxtBtn {
   padding-left: 6px;
   padding-right: 0px;
 }
 
-.nxtBtn::before,
-.pvsBtn::after {
+.nxtBtn::after,
+.pvsBtn::before {
   font-family: 'field-icon';
   font-size: 14px;
   color: rgba(1, 153, 255, 1);
 }
 
-.nxtBtn::before {
-  content: "\e3012";
+.nxtBtn::after {
+  content: "\e3013";
 }
 
-.pvsBtn::after {
-  content: "\e3013";
+.pvsBtn::before {
+  content: "\e3012";
 }
 </style>

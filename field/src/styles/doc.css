@@ -9,9 +9,3 @@ body {
     margin: 0;
 }
 
-body {
-    background: url("https://cdn.thaumy.cn/ui-background/pc.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
