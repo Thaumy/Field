@@ -1,0 +1,17 @@
+html::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+
+    margin: 0;
+}
+
+body {
+    background: url("https://cdn.thaumy.cn/ui-background/pc.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
