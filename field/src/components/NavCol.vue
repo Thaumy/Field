@@ -4,7 +4,7 @@
     <div class="box bSha bRds-t">
       <div class="AvaBox">
         <div class="Ava-outline" v-bind:style="style" v-on:click="click" id="Ava-outline">
-          <img class="Ava bSha cur" src="ui/img/pp512.png">
+          <img class="Ava bSha cur" src="../styles/img/pp512.png">
         </div>
       </div>
 
@@ -12,16 +12,7 @@
       <div class="Note"><span id="note"></span></div>
     </div>
 
-    <div class="List" id="pcNavList">
-      <div class="barBox">
-        <transition name="fade">
-          <div class="bar" v-if="barSeen" v-bind:style="style"></div>
-        </transition>
-      </div>
-      <div class="box">
-        <PcNavCard/>
-      </div>
-    </div>
+    <PcNavList/>
 
     <div class="Co-outline" v-bind:style="style" v-on:click="click" id="Co-outline">
       <div class="Co cur">
@@ -35,11 +26,16 @@
 </template>
 
 <script>
-import PcNavCard from "@/components/PcNavCard";
+//import PcNavCard from "@/components/PcNavCard";
+
+import PcNavList from "@/components/PcNavList";
 
 export default {
   name: "NavCol",
-  components: {PcNavCard}
+  components: {
+    PcNavList
+    /*PcNavCard*/
+  }
 }
 </script>
 
@@ -130,56 +126,6 @@ export default {
   font-size: 12px;
 }
 
-#NavCol > .List {
-  display: grid;
-  padding-bottom: 8px;
-  grid-template-columns: 1% 99%;
-}
-
-#NavCol > .List > .barBox > .bar {
-  position: relative;
-
-  height: 6vh;
-  max-height: 50px;
-  min-height: 28px;
-
-  background-color: rgba(1, 153, 255, 1);
-  border-radius: 2px;
-
-  transition: all 0.2s ease;
-}
-
-#NavCol > .List > .box > .Card {
-  display: flex;
-  width: 94%;
-  height: 6vh;
-  max-height: 50px;
-  min-height: 28px;
-
-  margin-left: 2.4%;
-
-  font-size: 17px;
-  letter-spacing: 1px;
-  color: rgba(230, 230, 230, 1.00);
-
-  transition: all 0.2s ease;
-}
-
-#NavCol > .List > .box > .Card::after {
-  align-self: center;
-
-  margin-right: 3px;
-  float: right;
-
-  font-family: 'field-icon';
-  content: "\e3013";
-}
-
-#NavCol > .List > .box > .Card > .contain {
-  margin-right: auto;
-  align-self: center;
-  margin-left: 10px;
-}
 
 #NavCol > .Co-outline {
   display: flex;

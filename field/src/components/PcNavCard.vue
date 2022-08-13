@@ -107,5 +107,4 @@ export default {
   align-self: center;
   margin-left: 10px;
 }
-
 </style>

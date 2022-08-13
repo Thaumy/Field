@@ -1,15 +1,27 @@
 <template>
   <div class="AtBox bRds-b">
-    <div class="Date">19-07-12</div>
-    <div class="UVCount">12345</div>
-    <div class="CommentCount">12345</div>
-    <div class="StarCount">12345</div>
+    <div v-if="createTime" class="Date">{{ createTime }}</div>
+    <div v-if="viewCount" class="UVCount">{{ viewCount }}</div>
+    <div v-if="commentCount" class="CommentCount">{{ commentCount }}</div>
+    <div v-if="starCount" class="StarCount">{{ starCount }}</div>
+    <div v-if="modifyTime" class="Time">{{ modifyTime }}</div>
+    <div v-if="archive" class="Archiv">{{ archive }}</div>
+    <div v-if="label" class="Label">{{ label }}</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "AtBox"
+  name: "AtBox",
+  props:
+      ['createTime',
+        'viewCount',
+        'commentCount',
+        'modifyTime',
+        'starCount',
+        'archive',
+        'label',
+      ]
 }
 </script>
 
@@ -26,6 +38,17 @@ export default {
 .CoBox > .AtBox {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+}
+
+/* CoBox里的星星有不同的样式 */
+.CoBox > .AtBox > .StarCount::before {
+  line-height: 18px;
+  content: "\e3014";
+}
+
+.CoBox > .AtBox > .CommentCount::before {
+  line-height: 18px;
+  content: "\e3010";
 }
 
 /* 屏幕宽度 [ 1001 , + ) */
@@ -96,16 +119,6 @@ export default {
   content: "\e3014";
 }
 
-/* CoBox里的星星有不同的样式 */
-.CoBox > .AtBox > .StarCount::before {
-  line-height: 18px;
-  content: "\e3014";
-}
-
-.CoBox > .AtBox > .CommentCount::before {
-  line-height: 18px;
-  content: "\e3010";
-}
 
 .AtBox > .Time::before {
   content: "\e3004";
@@ -118,7 +131,6 @@ export default {
 .AtBox > .Label::before {
   content: "\e3006";
 }
-
 
 .AtBox {
   /* 颜色模式 */

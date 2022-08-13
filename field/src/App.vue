@@ -12,7 +12,8 @@
         <NavCol/>
         <CardCol/>
         <div id="IllustCo"
-             style="float:right;color:white;width:100%;text-align:center;height:100px;letter-spacing:1px;line-height:24px;font-weight:400;">
+             style="float:right;
+             color:white;width:100%;text-align:center;height:100px;letter-spacing:1px;line-height:24px;font-weight:400;">
           Banishment<br>
           PixivID:75993030<br>
           <a href="http://beian.miit.gov.cn/" target="_blank"
@@ -45,33 +46,16 @@ export default {
 }
 </script>
 
-<style>
-html::-webkit-scrollbar {
-  display: none;
-}
+<style scoped>
 
-body > #contain {
+#contain {
   margin: auto;
   max-width: 1160px;
 }
 
-body {
-  font-family: 'Noto Sans SC', sans-serif;
-  font-weight: 300;
-
-  margin: 0;
-}
-
-html {
-  background-image: url("https://cdn.thaumy.cn/ui-background/pc.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
-
 /* 屏幕宽度 [ 1001 , + ) */
 @media (min-width: 1001px) {
-  body > #contain {
+  #contain {
     padding-top: 8px;
     width: 99%;
   }
@@ -79,7 +63,7 @@ html {
 
 /* 屏幕宽度 [ 601 , 1000 ] */
 @media (min-width: 601px) and (max-width: 1000px) {
-  body > #contain {
+  #contain {
     padding: 7px;
     padding-top: 57px;
   }
@@ -87,7 +71,7 @@ html {
 
 /* 屏幕宽度 ( - , 600 ] */
 @media screen and (max-width: 600px) {
-  body > #contain {
+  #contain {
     padding-top: 57px;
   }
 }

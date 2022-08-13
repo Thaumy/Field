@@ -1,7 +1,7 @@
 <template>
   <div id="NavLine" class="L M bSha">
     <div class="contain cur bRds" onclick="up()">
-      <img class="Avatar bSha" src="ui/img/pp512.png">
+      <img class="Avatar bSha" src="../styles/img/pp512.png">
       <div class=" Name">THAUMY的小站</div>
     </div>
     <div class="SiderBtn R" onclick="ListToggle()"></div>

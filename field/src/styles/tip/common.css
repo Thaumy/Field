@@ -1,0 +1,38 @@
+.ReadTimeTip,
+.ArchivTip,
+.SchedulTip,
+.CommentTip,
+.LockTip,
+.WarningTip
+{
+    color: white;
+    font-size: 15px;
+    display: flex;
+
+    padding-left: 2%;
+    padding-right: 2%;
+    margin: 4px;
+
+    border-radius: 3px;
+}
+
+.ReadTimeTip>.con,
+.ArchivTip>.con,
+.SchedulTip>.con,
+.CommentTip>.con,
+.LockTip>.con,
+.WarningTip>.con
+{
+    margin-right: auto;
+}
+
+.ReadTimeTip::after,
+.ArchivTip::after,
+.SchedulTip::after,
+.CommentTip::after,
+.LockTip::after,
+.WarningTip::after
+{
+    align-self: center;
+    font-family: 'field-icon';
+}

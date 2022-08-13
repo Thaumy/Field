@@ -1,0 +1,53 @@
+<template>
+  <div class="nxtBtn L bRds cur" onclick="up()">藤原千花</div>
+  <div class="pvsBtn R bRds cur" onclick="up()">石上优</div>
+</template>
+
+<script>
+export default {
+  name: "SwitchBtn"
+}
+</script>
+
+<style scoped>
+
+.nxtBtn,
+.pvsBtn {
+  color: rgba(1, 153, 255, 1);
+  font-size: 17px;
+  line-height: 17px;
+  text-shadow: 0px 0px 1.6px rgb(180,180,180);
+
+  margin: 3px;
+  padding: 3px;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nxtBtn {
+  padding-right: 6px;
+  padding-left: 0px;
+}
+
+.pvsBtn {
+  padding-left: 6px;
+  padding-right: 0px;
+}
+
+.nxtBtn::before,
+.pvsBtn::after {
+  font-family: 'field-icon';
+  font-size: 14px;
+  color: rgba(1, 153, 255, 1);
+}
+
+.nxtBtn::before {
+  content: "\e3012";
+}
+
+.pvsBtn::after {
+  content: "\e3013";
+}
+</style>

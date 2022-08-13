@@ -1,24 +1,39 @@
 <template>
   <div id="CardCol" class="R">
     <div class="Col">
-      <NoteCard/>
+      <!--<NoteCard/>-->
       <PostCard/>
       <CoBox/>
+      <CommentList/>
+      <NoCommentTip/>
+      <WarningTip/>
+      <LockingTip/>
       <div id="column_bottom"></div>
+      <CommentBox/>
     </div>
   </div>
 </template>
 
 <script>
-import NoteCard from "@/components/NoteCard";
-import PostCard from "@/components/PostCard";
-import CoBox from "@/components/CoBox";
+//import NoteCard from "@/components/NoteCard";
+import NoCommentTip from "@/components/tip/NoCommentTip";
+import WarningTip from "@/components/tip/WarningTip";
+import LockingTip from "@/components/tip/LockingTip";
+import PostCard from "@/components/box/PostCard";
+import CoBox from "@/components/box/CoBox";
+import CommentList from "@/components/CommentList";
+import CommentBox from "@/components/box/CommentBox";
 
 export default {
   name: "CardCol",
   components: {
+    CommentBox,
+    CommentList,
     CoBox,
-    NoteCard,
+    NoCommentTip,
+    WarningTip,
+    LockingTip,
+    //NoteCard,
     PostCard,
   }
 }
@@ -43,10 +58,6 @@ export default {
   #CardCol {
     width: 100%;
   }
-
-  #CardCol .Card > .contain > .Title {
-    padding-top: 10px;
-  }
 }
 
 #CardCol {
@@ -58,68 +69,5 @@ export default {
   transition: all 1s ease;
 }
 
-#CardCol .Card {
-  width: 100%;
 
-  overflow: hidden;
-  /* 颜色模式 */
-  background: rgba(40, 40, 40, 1.00);
-}
-
-#CardCol .Card > .contain {
-  overflow: hidden;
-  width: 100%;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-
-#CardCol .Card > .contain > .Title {
-  font-size: 24px;
-  line-height: 24px;
-
-  padding-left: 12px;
-  padding-bottom: 8px;
-}
-
-#CardCol .Card > .contain > img {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  margin-bottom: -5px;
-}
-
-#CardCol .Card > .contain > .Summary {
-  font-size: 15px;
-  line-height: 20px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  padding-left: 18px;
-  padding-right: 18px;
-
-  margin-bottom: 8px;
-}
-
-#CardCol .Card > .contain > .Content {
-  padding: 4px;
-  padding-left: 8px;
-  padding-right: 8px;
-
-  font-size: 15px;
-  line-height: 22px;
-  letter-spacing: 1px;
-  word-break: break-word;
-}
-
-#CardCol .Card > .contain > .NoteContent {
-  padding-top: 8px;
-  padding-bottom: 10px;
-  padding-left: 16px;
-  padding-right: 16px;
-
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 28px;
-  word-break: break-word;
-}
 </style>
