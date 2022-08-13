@@ -1,7 +1,7 @@
 <template>
 
-  <div v-for="a in List" v-bind:item="a" v-bind:key="a.index">
-    <div ref="foo" class="Card cur bRds" v-on:click="pc_nav_card_click" :key="a.index">
+  <div v-for="a in List" v-bind:key="a.index">
+    <div class="Card cur bRds" v-on:click="pc_nav_card_click" :key="a.index">
       <div class="contain">{{ a.Title }}</div>
     </div>
   </div>

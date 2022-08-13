@@ -28,7 +28,7 @@ export default {
 
 .AtBox {
   width: 100%;
-
+  line-height: initial;
   overflow: hidden;
   padding-top: 3px;
   padding-bottom: 3px;
@@ -137,16 +137,6 @@ export default {
   box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.4);
 }
 
-.CoBox > .AtBox > .StarCount {
-  /* 颜色模式 */
-  background: rgba(0, 194, 185, 1);
-}
-
-.CoBox > .AtBox > .CommentCount {
-  /* 颜色模式 */
-  background: rgba(1, 153, 255, 1);
-}
-
 /* CoBox里的星星有不同的样式 */
 .CoBox > .AtBox > .StarCount::before {
   line-height: 18px;
@@ -156,22 +146,6 @@ export default {
 .CoBox > .AtBox > .CommentCount::before {
   line-height: 18px;
   content: "\e3010";
-}
-
-.CoBox > .AtBox > .StarCount {
-  /* 颜色模式 */
-  background: rgba(0, 194, 185, 1);
-}
-
-.CoBox > .AtBox > .CommentCount {
-  /* 颜色模式 */
-  background: rgba(1, 153, 255, 1);
-}
-
-.AtBox {
-  /* 颜色模式 */
-  color: rgba(200, 200, 200, 1.00);
-  background: var(--b40);
 }
 
 </style>
