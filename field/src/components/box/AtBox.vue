@@ -1,5 +1,5 @@
 <template>
-  <div class="AtBox bRds-b">
+  <div class="AtBox border-radius-bottom">
     <div v-if="createDate" class="Date">{{ createDate }}</div>
     <div v-if="viewCount" class="UVCount">{{ viewCount }}</div>
     <div v-if="commentCount" class="CommentCount">{{ commentCount }}</div>
@@ -10,8 +10,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from 'vue'
+
+export default defineComponent({
   name: "AtBox",
   props:
       ['createDate',
@@ -21,7 +23,7 @@ export default {
         'starCount',
         'archive',
         'label',]
-}
+})
 </script>
 
 <style scoped>

@@ -1,17 +1,21 @@
 <template>
-  <div id="NavLine" class="L M bSha">
-    <div class="contain cur bRds" onclick="up()">
-      <img class="Avatar bSha" src="../styles/img/pp512.png">
+
+  <div id="NavLine" class="L M border-shadow">
+    <div class="contain cursor-pointer border-radius-all" onclick="up()">
+      <img class="Avatar border-shadow" src="../../assets/pp512.png">
       <div class=" Name">THAUMY的小站</div>
     </div>
     <div class="SiderBtn R" onclick="ListToggle()"></div>
   </div>
+
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from 'vue'
+
+export default defineComponent({
   name: "NavLine"
-}
+})
 </script>
 
 <style scoped>

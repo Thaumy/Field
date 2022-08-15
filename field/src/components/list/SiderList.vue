@@ -3,7 +3,7 @@
 
     <m-nav_card v-for="a in List" v-bind:item="a" v-bind:key="a.index"></m-nav_card>
 
-    <div class="Co cur" onclick="up();ListToggle()">
+    <div class="Co cursor-pointer" onclick="up();ListToggle()">
       Thaumy的博客©2016-2020保留所有权利<br>
       基于pilipala构建<br>
       Field Theme Designed By Thaumy<br>
@@ -11,10 +11,12 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
   name: "SiderList"
-}
+})
 </script>
 
 <style scoped>
@@ -35,7 +37,7 @@ export default {
   background: rgba(32, 32, 32, 1);
 }
 
-#SiderList>.Card {
+#SiderList > .Card {
   width: 94%;
   height: 36px;
   display: flex;
@@ -49,7 +51,7 @@ export default {
   letter-spacing: 1px;
 }
 
-#SiderList>.Card::after {
+#SiderList > .Card::after {
   align-self: center;
   margin-right: 3px;
 
@@ -58,13 +60,13 @@ export default {
   content: "\e3013";
 }
 
-#SiderList>.Card>.contain {
+#SiderList > .Card > .contain {
   margin-right: auto;
   align-self: center;
   margin-left: 10px;
 }
 
-#SiderList>.Co {
+#SiderList > .Co {
   width: 88%;
   text-align: center;
 

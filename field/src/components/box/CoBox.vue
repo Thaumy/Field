@@ -16,10 +16,11 @@
 
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from 'vue'
 import AtBox from "@/components/box/AtBox.vue";
 
-export default {
+export default defineComponent({
   name: "CoBox",
   props:
       ['userName',
@@ -34,7 +35,7 @@ export default {
         'archive',
         'label',],
   components: {AtBox}
-}
+})
 </script>
 
 <style scoped>

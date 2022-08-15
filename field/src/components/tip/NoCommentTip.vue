@@ -6,12 +6,13 @@
 
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from "vue";
 import '@/styles/tip/common.css'
 
-export default {
+export default defineComponent({
   name: "PlanningTip"
-}
+})
 </script>
 
 <style scoped>

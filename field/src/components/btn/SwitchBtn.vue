@@ -1,13 +1,14 @@
 <template>
-  <div class="pvsBtn L bRds cur" onclick="up()">{{ prev }}</div>
-  <div class="nxtBtn R bRds cur" onclick="up()">{{ next }}</div>
+  <div class="pvsBtn L border-radius-all cursor-pointer" onclick="up()">{{ prev }}</div>
+  <div class="nxtBtn R border-radius-all cursor-pointer" onclick="up()">{{ next }}</div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+export default defineComponent({
   name: "SwitchBtn",
   props: ['prev', 'next',]
-}
+})
 </script>
 
 <style scoped>

@@ -1,17 +1,18 @@
 <template>
 
-  <div class="SchedulTip bSha">
+  <div class="SchedulTip border-shadow">
     <div class="con">计划中的项目：此文章将会于近期更新。</div>
   </div>
 
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from "vue";
 import '@/styles/tip/common.css'
 
-export default {
+export default defineComponent({
   name: "ScheduleTip"
-}
+})
 </script>
 
 <style scoped>

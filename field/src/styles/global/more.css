@@ -6,7 +6,7 @@
     float: right;
 }
 
-.cur {
+.cursor-pointer {
     cursor: pointer;
 }
 
@@ -24,16 +24,32 @@
     }
 }
 
-.bE-black{
+.bE-black {
     border: rgb(158 158 158 / 65%);
     border-radius: 4px;
     border-width: 1px;
     border-style: solid;
 }
 
-.bE-white{
+.bE-white {
     border: rgb(158 158 158 / 65%);
     border-radius: 4px;
     border-width: 1px;
     border-style: solid;
+}
+
+.width-30 {
+    width: 30%;
+}
+
+.width-40 {
+    width: 40%;
+}
+
+.width-60 {
+    width: 60%;
+}
+
+.width-100 {
+    width: 100%;
 }
