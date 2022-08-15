@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'field-icon';
+    src: url('../../assets/field-icon/field-icon.ttf'),
+    url('../../assets/field-icon/field-icon.woff'),
+    url('../../assets/field-icon/field-icon.svg');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto Mono';
+    src: url('https://cdn.jsdelivr.net/npm/roboto-mono-webfont@2.0.986/fonts/RobotoMono-Bold.ttf');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('https://cdn.jsdelivr.net/npm/@fontsource/source-sans-pro@4.5.10/files/source-sans-pro-latin-400-normal.woff');
+    font-display: swap;
+}
