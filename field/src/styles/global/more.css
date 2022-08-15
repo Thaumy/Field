@@ -1,0 +1,55 @@
+.L {
+    float: left;
+}
+
+.R {
+    float: right;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* 屏幕宽度大于1000时 */
+@media (min-width: 1000px) {
+    .M {
+        margin-bottom: 10px;
+    }
+}
+
+/* 屏幕宽度小于1000时 */
+@media (max-width: 1000px) {
+    .M {
+        margin-bottom: 7px;
+    }
+}
+
+.bE-black {
+    border: rgb(158 158 158 / 65%);
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.bE-white {
+    border: rgb(158 158 158 / 65%);
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.width-30 {
+    width: 30%;
+}
+
+.width-40 {
+    width: 40%;
+}
+
+.width-60 {
+    width: 60%;
+}
+
+.width-100 {
+    width: 100%;
+}
