@@ -1,16 +1,17 @@
 <template>
 
-  <div class="ArchivTip bSha">
+  <div class="ArchivTip border-shadow">
     <div class="con">此文章已归档：不受维护但仍具参考价值的内容。</div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from "vue";
 import '@/styles/tip/common.css'
 
-export default {
+export default defineComponent({
   name: "ArchiveTip"
-}
+})
 </script>
 
 <style scoped>

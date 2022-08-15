@@ -1,12 +1,17 @@
 <template>
 
-  <div class="Box bSha" onmouseover="CommentList_Over(this)" onmouseleave="CommentList_Leave(this)">
+  <div class="Box border-shadow" @mouseover="over" @mouseleave="leave()">
     <div class="Name">{{ userName }}
-      <span v-if="replyFloor&&replyUserName">(回复)
-        <span class="ReplyLogo"></span><span class="ReplyFloor">{{ replyFloor }}F</span>{{ replyUserName }}
+      <span v-if="replyFloor&&replyUserName">
+        <span class="ReplyLogo"></span>
+        <span class="ReplyFloor">{{ replyFloor }}F</span>
+        {{ replyUserName }}
       </span>
     </div>
-    <div class="Floor cur bSha" data-f="1" data-id="12384" onclick="CommentBox.doReply(this)">{{ floor }}</div>
+    <div class="Floor cursor-pointer border-shadow"
+         :style="floorStyle"
+         onclick="CommentBox.doReply(this)">{{ floorText }}
+    </div>
     <div class="Email">{{ email }}</div>
     <div class="Time">{{ createTime }}</div>
     <div class="Content">{{ body }}</div>
@@ -14,11 +19,49 @@
 
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
   name: "CommentCard",
-  props: ['userName', 'floor', 'email', 'createTime', 'body', 'replyFloor', 'replyUserName']
-}
+  props: {
+    userName: String,
+    floor: String,
+    email: String,
+    createTime: String,
+    body: String,
+    replyFloor: String,
+    replyUserName: String
+  },
+  data() {
+    return {
+      floorText: this.floor,
+      floorStyle: {},
+      overStyle: {
+        "height": "22px",
+        "width": "32px",
+
+        "font-size": "0.8em",
+        "font-weight": "500",
+        "font-family": "Source Sans Pro",
+        "color": "rgb(255, 255, 255)",
+        "line-height": "22px",
+
+        "background": "rgb(0, 180, 255)"
+      }
+    }
+  },
+  methods: {
+    over() {
+      this.floorText = "回复"
+      this.floorStyle = this.overStyle
+    },
+    leave() {
+      this.floorText = this.floor
+      this.floorStyle = {}
+    },
+  }
+})
 </script>
 
 <style scoped>
@@ -114,7 +157,6 @@ export default {
   overflow: hidden;
   text-align: center;
   line-height: 13px;
-
 
   border-radius: 2px;
 

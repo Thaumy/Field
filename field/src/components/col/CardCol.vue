@@ -4,15 +4,15 @@
       <NoteCard body="这是一条笔记，适合短文本发布。"/>
 
       <PostPreviewCard
-          cover='<img class="pXL" id="welcom_pic"/>'
+          cover='<img class="width-100" id="welcom_pic"/>'
           title="pilipala 1.0 :: Akane"
           summary="超级大更新"
           createDate="22-07-12" viewCount="12345" commentCount="12345" starCount="12345"
           script=
-              'let images = ["http://thblog-img.test.upcdn.net/ui-background/bg_1.jpg",
-                             "http://thblog-img.test.upcdn.net/ui-background/bg_2.jpg",
-                             "http://thblog-img.test.upcdn.net/ui-background/bg_3.jpg",
-                             "http://thblog-img.test.upcdn.net/ui-background/bg_4.jpg"];
+              'let images = ["./rc/assets/bg_1.jpg",
+                             "./rc/assets/bg_2.jpg",
+                             "./rc/assets/bg_3.jpg",
+                             "./rc/assets/bg_4.jpg"];
                document.getElementById("welcom_pic").src = images[Math.floor(Math.random() * images.length)];'/>
 
       <PostPreviewCard
@@ -24,7 +24,7 @@
           title="『空の青さを知る人よ』"
           summary="《知晓天空之蓝的人啊》"
           body=
-              '<img src="@/styles/img/akane.jpg"/>
+              '<img src="./rc/assets/akane.jpg"/>
               <h1>相生茜 Aioi Akane</h1>
               <h2>简介</h2>
               <blockquote>
@@ -83,6 +83,8 @@
               代码高亮
               <pre v-hljs><code class="fs">let HelloField() : unit -> unit =
             Console.WriteLine "HelloField!"</code></pre>'
+
+          prev-title="你不知道的114514个单身技巧" next-title="构建pilipala应用的最佳实践"
       />
 
       <CoBox user-name="Thaumy" modify-time="19.04.05" hash-sign="004C01E"
@@ -101,11 +103,13 @@
       <LockingTip/>
       <div id="column_bottom"></div>
       <CommentBox/>
+
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from 'vue'
 import NoCommentTip from "@/components/tip/NoCommentTip.vue";
 import WarningTip from "@/components/tip/WarningTip.vue";
 import LockingTip from "@/components/tip/LockingTip.vue";
@@ -116,7 +120,7 @@ import CommentList from "@/components/list/CommentList.vue";
 import CommentBox from "@/components/box/CommentBox.vue";
 import PostPreviewCard from "@/components/card/PostPreviewCard.vue";
 
-export default {
+export default defineComponent({
   name: "CardCol",
   components: {
     PostPreviewCard,
@@ -129,11 +133,20 @@ export default {
     NoteCard,
     PostCard,
   }
-}
+})
 </script>
 
 <style scoped>
+#CardCol {
+  padding-bottom: 40vh;
+}
 
+.Col {
+  width: 100%;
+}
+</style>
+
+<style scoped>
 /* 屏幕宽度 [ 1001 , + ) */
 @media (min-width: 1001px) {
   #CardCol {
@@ -148,15 +161,4 @@ export default {
     width: 100%;
   }
 }
-
-#CardCol {
-  padding-bottom: 100vh;
-}
-
-#CardCol > .Col {
-  width: 100%;
-  transition: all 1s ease;
-}
-
-
 </style>

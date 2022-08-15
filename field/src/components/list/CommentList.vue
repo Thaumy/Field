@@ -1,5 +1,5 @@
 <template>
-  <div class="CommentList M bE-white bRds">
+  <div class="CommentList M bE-white border-radius-all">
 
     <CommentCard user-name="小品Pinn"
                  floor="1"
@@ -26,13 +26,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from "vue";
 import CommentCard from "@/components/card/CommentCard.vue";
 
-export default {
+export default defineComponent({
   name: "CommentList",
   components: {CommentCard}
-}
+})
 </script>
 
 <style scoped>

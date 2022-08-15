@@ -1,16 +1,47 @@
 <template>
-
+  <div>
+    <transition name="fade">
+      <div
+          v-show="isShow"
+          class="upBtn bE-black border-radius-all"
+          @click="goUp()"></div>
+    </transition>
+  </div>
 </template>
 
-<script>
-export default {
-  name: "UpBtn"
-}
+<script lang="ts">
+import {defineComponent} from "vue";
+import {makeThrottle} from "@/scripts/throttle";
+
+export default defineComponent({
+  name: "UpBtn",
+  mounted() {
+    /* 返顶按钮淡入淡出 */
+    window.addEventListener('scroll', makeThrottle(() => {
+      this.isShow = window.scrollY >= 1000
+    }, 300))
+  },
+  data() {
+    return {isShow: false}
+  },
+  methods: {
+    goUp: () => window.scrollTo({top: 0, behavior: 'smooth'})
+  }
+})
 </script>
 
 <style scoped>
 
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.35s;
+}
+
 .upBtn {
+  transition: all 0.35s;
   text-align: center;
   line-height: 28px;
 
@@ -47,7 +78,7 @@ export default {
 }
 
 /* 屏幕宽度 [ 1001 , 1490 ] */
-@media (min-width:1001px) and (max-width: 1490px) {
+@media (min-width: 1001px) and (max-width: 1490px) {
   .upBtn {
     font-size: 22px;
 

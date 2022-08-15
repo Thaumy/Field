@@ -1,10 +1,10 @@
 <template>
-  <div id="CommentBox" class="CommentBox M bRds bE-white">
+  <div id="CommentBox" class="CommentBox M border-radius-all bE-white">
     <div class="Content">
       <div class="Logo"></div>
       <div class="ReplyLogo" v-show="HEAD"></div>
       <transition name="fade">
-        <div class="ReplyFloor cur" v-show="HEAD" v-on:click="closeReply" onmouseover="CommentBox_ReplyBtn_Over()"
+        <div class="ReplyFloor cursor-pointer" v-show="HEAD" v-on:click="closeReply" onmouseover="CommentBox_ReplyBtn_Over()"
              onmouseleave="CommentBox_ReplyBtn_Leave()">{{ FloorText }}
         </div>
       </transition>
@@ -30,8 +30,9 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+export default defineComponent({
   name: "CommentBox",
   data() {
     return {
@@ -118,7 +119,7 @@ export default {
       this.HEAD = 0;
     }
   }
-}
+})
 </script>
 
 <style scoped>

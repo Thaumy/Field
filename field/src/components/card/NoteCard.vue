@@ -1,20 +1,20 @@
 <template>
-  <div class="Card M bE-black bRds">
-    <div onclick="up()" class="contain cur bRds">
-      <div class="NoteContent bRds">
+  <div class="Card M bE-black border-radius-all">
+    <div onclick="up()" class="contain cursor-pointer border-radius-all">
+      <div class="NoteContent border-radius-all">
         {{ body }}
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import '@/styles/card/common.css'
+<script lang="ts">
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   name: "NoteCard",
   props: ['body'],
-}
+})
 </script>
 
 <style scoped>
@@ -30,4 +30,5 @@ export default {
   line-height: 28px;
   word-break: break-word;
 }
+
 </style>

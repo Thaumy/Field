@@ -1,16 +1,17 @@
 <template>
 
-  <div class="ReadTimeTip bSha">
+  <div class="ReadTimeTip border-shadow">
     <div class="con">约 6600字 阅读需要 5分钟</div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from "vue";
 import '@/styles/tip/common.css'
 
-export default {
+export default defineComponent({
   name: "ReadTimeTip"
-}
+})
 </script>
 
 <style scoped>

@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'field-icon';
-    src: url('./img/field-icon/field-icon.ttf'),
-    url('./img/field-icon/field-icon.woff'),
-    url('./img/field-icon/field-icon.svg');
+    src: url('../../assets/field-icon/field-icon.ttf'),
+    url('../../assets/field-icon/field-icon.woff'),
+    url('../../assets/field-icon/field-icon.svg');
     font-display: swap;
 }
 

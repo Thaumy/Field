@@ -1,67 +1,135 @@
 <template>
   <v-app>
-    <v-main id="main">
-      <div id="fixed">
+    <v-main class="main">
+      <div id="content">
+        <transition-group name="fade">
+          <NavCol :style="commonOpacityStyle"/>
+          <CardCol :style="commonOpacityStyle"/>
+        </transition-group>
+      </div>
+      <!--
+      <div id="left_panel" :style="commonOpacityStyle">
         <NavLine/>
         <SiderList/>
-
         <div class="Shadow" onclick="ListToggle()"></div>
-        <div class="upBtn bE-black bRds" style="display: none" onclick="upBtn()"></div>
-      </div>
-      <div id="contain">
-        <NavCol/>
-        <CardCol/>
-        <div id="IllustCo"
-             style="float:right;
-             color:white;width:100%;text-align:center;height:100px;letter-spacing:1px;line-height:24px;font-weight:400;">
-          Banishment<br>
-          PixivID:75993030<br>
-          <a href="http://beian.miit.gov.cn/" target="_blank"
-             style="color: rgba(255,255,255,0.6);font-size: 14px;text-decoration: none;">鲁ICP备2021005067</a>
-        </div>
-      </div>
+      </div>-->
+      <UpBtn :style="commonOpacityStyle"/>
+      <PageFoot
+          id="page-foot"
+          body='基于pilipala构建 - Field Theme Designed By Thaumy<br>
+                      Thaumy的博客©2016-2023保留所有权利<br>
+                      <a href="http://beian.miit.gov.cn/"
+                         target="_blank"
+                         style="color: rgba(255,255,255,0.6);
+                          font-size: 14px;
+                          text-decoration: none;">
+                        鲁ICP备2021005067</a>'
+          :style="pageFootOpacityStyle"/>
     </v-main>
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from 'vue'
+
 import NavCol from "@/components/col/NavCol.vue";
 import CardCol from '@/components/col/CardCol.vue'
-import NavLine from "@/components/NavLine.vue";
 import SiderList from "@/components/list/SiderList.vue";
+import NavLine from "@/components/common/NavLine.vue";
+import UpBtn from "./components/btn/UpBtn.vue";
+import PageFoot from "./components/common/PageFoot.vue";
+import {notNullThen} from "./scripts/common";
 
-export default {
+export default defineComponent({
   name: 'App',
+
   components: {
+    PageFoot,
+    UpBtn,
     SiderList,
     NavLine,
     NavCol,
     CardCol,
   },
+  data() {
+    return {
+      commonOpacityStyle: {
+        opacity: 1,
+        'pointer-events': 'unset',
+        transition: 'all 0.35s ease'
+      },
+      pageFootOpacityStyle: {
+        opacity: 0,
+        'pointer-events': 'none',
+        transition: 'all 0.35s ease'
+      }
+    }
+  },
+  mounted() {
 
-  data: () => ({
-    //
-  }),
-}
+    /* 滑到底部查看壁纸 */
+    let target =
+        document.querySelector('#page-foot')
+
+    const handler = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio == 1) {
+          this.commonOpacityStyle.opacity = 0
+          this.commonOpacityStyle["pointer-events"] = 'none'
+          this.pageFootOpacityStyle.opacity = 1
+          this.pageFootOpacityStyle["pointer-events"] = 'unset'
+        } else if (entry.intersectionRatio == 0) {
+          this.commonOpacityStyle.opacity = 1
+          this.commonOpacityStyle["pointer-events"] = 'unset'
+          this.pageFootOpacityStyle.opacity = 0
+          this.pageFootOpacityStyle["pointer-events"] = 'none'
+        }
+      })
+    }
+
+    /*
+    */
+    /*
+    */
+
+    notNullThen(target,
+        x => new IntersectionObserver(handler, {
+          root: null,
+          rootMargin: '0px',
+          threshold: [0, 1]
+        }).observe(x))
+  }
+})
 </script>
 
 <style scoped>
 
-#main {
-  background: url("https://cdn.thaumy.cn/ui-background/pc.jpg");
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.35s;
+}
+
+.main {
+  background: url("@/assets/pc.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  transition: all 0.35s;
 }
 
-#contain {
+#content {
   margin: auto;
   max-width: 1160px;
 }
+</style>
 
+<style scoped>
 /* 屏幕宽度 [ 1001 , + ) */
 @media (min-width: 1001px) {
-  #contain {
+  #content {
     padding-top: 8px;
     width: 99%;
   }
@@ -69,7 +137,7 @@ export default {
 
 /* 屏幕宽度 [ 601 , 1000 ] */
 @media (min-width: 601px) and (max-width: 1000px) {
-  #contain {
+  #content {
     padding: 7px;
     padding-top: 57px;
   }
@@ -77,7 +145,7 @@ export default {
 
 /* 屏幕宽度 ( - , 600 ] */
 @media screen and (max-width: 600px) {
-  #contain {
+  #content {
     padding-top: 57px;
   }
 }
