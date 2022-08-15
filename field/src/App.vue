@@ -32,7 +32,6 @@ import SiderList from "@/components/list/SiderList.vue";
 
 export default {
   name: 'App',
-
   components: {
     SiderList,
     NavLine,
