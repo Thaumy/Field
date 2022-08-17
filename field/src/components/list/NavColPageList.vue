@@ -9,7 +9,7 @@
     </transition-group>
 
     <div>
-      <NavColPageCard :title="it.Title" v-for="(it,index) in pages" :key="index" @click="showBar(index)"/>
+      <NavColPageCard :title="it.title" v-for="(it,index) in pages.value" :key="index" @click="showBar(index)"/>
     </div>
 
     <transition-group tag="div" name="fade">
@@ -26,19 +26,16 @@
 import {defineComponent} from "vue";
 
 import NavColPageCard from "@/components/card/NavColPageCard.vue";
+import {PageSet} from "../../scripts/common";
 
 export default defineComponent({
   name: "NavColPageList",
   components: {NavColPageCard},
+  props: {
+    pages: PageSet,
+  },
   data() {
     return {
-      pages: [
-        {ID: 12345, Title: '首页'},
-        {ID: 12346, Title: '摸摸鱼'},
-        {ID: 12349, Title: '追番'},
-        {ID: 12349, Title: '看书'},
-        {ID: 12349, Title: '写代码'},
-        {ID: 12349, Title: '睡大觉'}],
       barStyles: [] as { color: string }[],
     }
   },
@@ -65,7 +62,7 @@ export default defineComponent({
 .fade-move,
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.35s ease;
+  transition: all 0.2s ease;
 }
 
 .fade-enter-from,

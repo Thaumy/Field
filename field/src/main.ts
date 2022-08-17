@@ -6,7 +6,6 @@ import {loadFonts} from './plugins/webfontloader'
 
 import '@/styles/dark/com.css'
 import '@/styles/global/el.css'
-import '@/styles/global/doc.css'
 import '@/styles/global/font.css'
 import '@/styles/global/more.css'
 import '@/styles/global/color.css'

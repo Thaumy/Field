@@ -1,10 +1,12 @@
 <template>
+  <div>
 
-  <!--Banishment<br>
-  PixivID:75993030<br>-->
+    <!--Banishment<br>
+    PixivID:75993030<br>-->
 
-  <div v-html="body"></div>
+    <div class="page-foot" v-html="body"></div>
 
+  </div>
 </template>
 
 <script lang="ts">
@@ -19,16 +21,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
-div {
-  float: right;
+.page-foot {
   color: white;
-  width: 100%;
   text-align: center;
-  height: 100px;
   letter-spacing: 1px;
   line-height: 24px;
   font-weight: 400;
 }
-
 </style>

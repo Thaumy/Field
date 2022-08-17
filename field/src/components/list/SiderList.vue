@@ -1,27 +1,42 @@
 <template>
-  <div id="SiderList" class="bE-black">
+  <div>
 
-    <m-nav_card v-for="a in List" v-bind:item="a" v-bind:key="a.index"></m-nav_card>
+    <div class="SiderList bE-black">
 
-    <div class="Co cursor-pointer" onclick="up();ListToggle()">
-      Thaumy的博客©2016-2020保留所有权利<br>
-      基于pilipala构建<br>
-      Field Theme Designed By Thaumy<br>
+      <div v-for="item in pages.value" class="Card cur bRds">
+        <div class="contain">{{ item.Title }}</div>
+      </div>
+
+      <div class="Co cursor-pointer" onclick="up();ListToggle()">
+        Thaumy的博客©2016-2023保留所有权利<br>
+        基于pilipala构建<br>
+        Field Theme Designed By Thaumy<br>
+      </div>
+
+      <div class="Shadow" onclick="ListToggle()"></div>
     </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
+import {PageSet} from "../../scripts/common";
 
 export default defineComponent({
-  name: "SiderList"
+  name: "SiderList",
+  props: {
+    pages: PageSet
+  },
+  data() {
+    return {}
+  }
 })
 </script>
 
 <style scoped>
 
-#SiderList {
+.SiderList {
   width: 60%;
   z-index: 12;
 
@@ -30,14 +45,15 @@ export default defineComponent({
   padding-bottom: 12px;
 
   top: 62px;
-  left: -800px;
+  /*
+  left: -800px;*/
 
   position: fixed;
 
   background: rgba(32, 32, 32, 1);
 }
 
-#SiderList > .Card {
+.Card {
   width: 94%;
   height: 36px;
   display: flex;
@@ -51,7 +67,7 @@ export default defineComponent({
   letter-spacing: 1px;
 }
 
-#SiderList > .Card::after {
+.Card::after {
   align-self: center;
   margin-right: 3px;
 
@@ -60,13 +76,13 @@ export default defineComponent({
   content: "\e3013";
 }
 
-#SiderList > .Card > .contain {
+.Card > .contain {
   margin-right: auto;
   align-self: center;
   margin-left: 10px;
 }
 
-#SiderList > .Co {
+.Co {
   width: 88%;
   text-align: center;
 
@@ -91,17 +107,19 @@ export default defineComponent({
 
   background: rgba(0, 0, 0, 0.8);
 }
+</style>
 
+<style scoped>
 /* 屏幕宽度 [ 1001 , + ) */
 @media (min-width: 1001px) {
-  #SiderList {
+  .SiderList {
     display: none;
   }
 }
 
 /* 屏幕宽度 ( - , 1000 ] */
 @media (max-width: 1000px) {
-  #SiderList {
+  .SiderList {
     display: unset;
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div id="CommentBox" class="CommentBox M border-radius-all bE-white">
+  <div id="CommentBox" class="CommentBox margin-bottom border-radius-all bE-white">
     <div class="Content">
       <div class="Logo"></div>
       <div class="ReplyLogo" v-show="HEAD"></div>

@@ -31,6 +31,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  font-family: 'Noto Sans SC', sans-serif;
 }
 
 h1 {

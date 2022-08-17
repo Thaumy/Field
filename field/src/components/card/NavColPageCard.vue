@@ -38,8 +38,6 @@ export default defineComponent({
   font-size: 17px;
   letter-spacing: 1px;
   color: rgba(230, 230, 230, 1.00);
-
-  transition: all 0.2s ease;
 }
 
 .contain {

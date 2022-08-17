@@ -3,7 +3,7 @@
 
     <AvatarBox avatar="../../assets/pp512.png" title="THAUMY的小站"/>
 
-    <NavColPageList/>
+    <NavColPageList :pages="pages"/>
 
     <NavColCoBox body=
                      'Thaumy的博客©2016-2020保留所有权利<br>
@@ -18,6 +18,7 @@ import {defineComponent} from "vue";
 import NavColPageList from "@/components/list/NavColPageList.vue";
 import NavColCoBox from "../box/NavColCoBox.vue";
 import AvatarBox from "../box/AvatarBox.vue";
+import {PageSet} from "../../scripts/common";
 
 export default defineComponent({
   name: "NavCol",
@@ -27,6 +28,15 @@ export default defineComponent({
     NavColPageList
   },
   data() {
+    return {
+      pages: new PageSet([
+        {id: 12345, title: '首页'},
+        {id: 12346, title: '摸摸鱼'},
+        {id: 12347, title: '追番'},
+        {id: 12348, title: '看书'},
+        {id: 12349, title: '写代码'},
+        {id: 12350, title: '睡大觉'}]),
+    }
   }
 })
 </script>

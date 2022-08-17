@@ -1,9 +1,9 @@
 <template>
 
-  <div class="CoBox M bE-white">
+  <div class="CoBox margin-bottom bE-white">
 
-    <span class="text_auth L">由{{ userName }}最后编辑于{{ modifyTime }}</span>
-    <span title="MD5签名 : @MD5" class="text_mId R">{{ hashSign }}</span>
+    <span class="text_auth float-left">由{{ userName }}最后编辑于{{ modifyTime }}</span>
+    <span title="MD5签名 : @MD5" class="text_mId float-right">{{ hashSign }}</span>
 
     <AtBox create-date="19-07-12"
            view-count="12345"
