@@ -1,6 +1,6 @@
 <template>
-  <div class="pvsBtn L border-radius-all cursor-pointer" onclick="up()">{{ prev }}</div>
-  <div class="nxtBtn R border-radius-all cursor-pointer" onclick="up()">{{ next }}</div>
+  <div class="pvsBtn float-left border-radius-all cursor-pointer" onclick="up()">{{ prev }}</div>
+  <div class="nxtBtn float-right border-radius-all cursor-pointer" onclick="up()">{{ next }}</div>
 </template>
 
 <script lang="ts">

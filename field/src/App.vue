@@ -1,22 +1,23 @@
 <template>
-  <v-app>
-    <v-main class="main">
-      <div id="content">
-        <transition-group name="fade">
-          <NavCol :style="commonOpacityStyle"/>
-          <CardCol :style="commonOpacityStyle"/>
-        </transition-group>
-      </div>
-      <!--
-      <div id="left_panel" :style="commonOpacityStyle">
-        <NavLine/>
-        <SiderList/>
-        <div class="Shadow" onclick="ListToggle()"></div>
-      </div>-->
-      <UpBtn :style="commonOpacityStyle"/>
-      <PageFoot
-          id="page-foot"
-          body='基于pilipala构建 - Field Theme Designed By Thaumy<br>
+  <v-app class="main">
+
+    <NavLine :style="commonOpacityStyle"/>
+
+    <div class="content">
+      <NavCol :style="commonOpacityStyle"/>
+      <CardCol :style="commonOpacityStyle"/>
+    </div>
+    <!--
+    <div id="left_panel" :style="commonOpacityStyle">
+      <SiderList/>
+      <div class="Shadow" onclick="ListToggle()"></div>
+    </div>-->
+
+    <GoUpBtn :style="commonOpacityStyle"/>
+
+    <PageFoot
+        id="page-foot"
+        body='基于pilipala构建 - Field Theme Designed By Thaumy<br>
                       Thaumy的博客©2016-2023保留所有权利<br>
                       <a href="http://beian.miit.gov.cn/"
                          target="_blank"
@@ -24,8 +25,8 @@
                           font-size: 14px;
                           text-decoration: none;">
                         鲁ICP备2021005067</a>'
-          :style="pageFootOpacityStyle"/>
-    </v-main>
+        style="margin: 30px"
+        :style="pageFootOpacityStyle"/>
   </v-app>
 </template>
 
@@ -36,7 +37,7 @@ import NavCol from "@/components/col/NavCol.vue";
 import CardCol from '@/components/col/CardCol.vue'
 import SiderList from "@/components/list/SiderList.vue";
 import NavLine from "@/components/common/NavLine.vue";
-import UpBtn from "./components/btn/UpBtn.vue";
+import GoUpBtn from "./components/btn/GoUpBtn.vue";
 import PageFoot from "./components/common/PageFoot.vue";
 import {notNullThen} from "./scripts/common";
 
@@ -45,7 +46,7 @@ export default defineComponent({
 
   components: {
     PageFoot,
-    UpBtn,
+    GoUpBtn,
     SiderList,
     NavLine,
     NavCol,
@@ -56,12 +57,12 @@ export default defineComponent({
       commonOpacityStyle: {
         opacity: 1,
         'pointer-events': 'unset',
-        transition: 'all 0.35s ease'
+        transition: 'all 0.2s ease'
       },
       pageFootOpacityStyle: {
-        opacity: 0,
+        opacity: 1,
         'pointer-events': 'none',
-        transition: 'all 0.35s ease'
+        transition: 'all 0.2s ease'
       }
     }
   },
@@ -73,12 +74,12 @@ export default defineComponent({
 
     const handler = (entries: IntersectionObserverEntry[]) => {
       entries.forEach(entry => {
-        if (entry.intersectionRatio == 1) {
+        if (entry.intersectionRatio > 0.9) {
           this.commonOpacityStyle.opacity = 0
           this.commonOpacityStyle["pointer-events"] = 'none'
           this.pageFootOpacityStyle.opacity = 1
           this.pageFootOpacityStyle["pointer-events"] = 'unset'
-        } else if (entry.intersectionRatio == 0) {
+        } else if (entry.intersectionRatio < 0.1) {
           this.commonOpacityStyle.opacity = 1
           this.commonOpacityStyle["pointer-events"] = 'unset'
           this.pageFootOpacityStyle.opacity = 0
@@ -86,11 +87,6 @@ export default defineComponent({
         }
       })
     }
-
-    /*
-    */
-    /*
-    */
 
     notNullThen(target,
         x => new IntersectionObserver(handler, {
@@ -103,24 +99,14 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: all 0.35s;
-}
-
 .main {
   background: url("@/assets/pc.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  transition: all 0.35s;
 }
 
-#content {
+.content {
   margin: auto;
   max-width: 1160px;
 }
@@ -129,7 +115,7 @@ export default defineComponent({
 <style scoped>
 /* 屏幕宽度 [ 1001 , + ) */
 @media (min-width: 1001px) {
-  #content {
+  .content {
     padding-top: 8px;
     width: 99%;
   }
@@ -137,7 +123,7 @@ export default defineComponent({
 
 /* 屏幕宽度 [ 601 , 1000 ] */
 @media (min-width: 601px) and (max-width: 1000px) {
-  #content {
+  .content {
     padding: 7px;
     padding-top: 57px;
   }
@@ -145,7 +131,7 @@ export default defineComponent({
 
 /* 屏幕宽度 ( - , 600 ] */
 @media screen and (max-width: 600px) {
-  #content {
+  .content {
     padding-top: 57px;
   }
 }

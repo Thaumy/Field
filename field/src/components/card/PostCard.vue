@@ -1,6 +1,6 @@
 <template>
 
-  <div class="Card M bE-black border-radius-all">
+  <div class="Card margin-bottom bE-black border-radius-all">
     <div class="contain border-radius-all">
 
       <div class="Title">{{ title }}</div>

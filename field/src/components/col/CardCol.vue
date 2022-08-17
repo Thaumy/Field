@@ -1,6 +1,7 @@
 <template>
-  <div id="CardCol" class="R">
-    <div class="Col">
+  <div>
+
+    <div class="CardCol float-right">
       <NoteCard body="这是一条笔记，适合短文本发布。"/>
 
       <PostPreviewCard
@@ -105,6 +106,7 @@
       <CommentBox/>
 
     </div>
+
   </div>
 </template>
 
@@ -137,19 +139,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#CardCol {
-  padding-bottom: 40vh;
-}
-
-.Col {
-  width: 100%;
-}
 </style>
 
 <style scoped>
 /* 屏幕宽度 [ 1001 , + ) */
 @media (min-width: 1001px) {
-  #CardCol {
+  .CardCol {
     width: 76%;
     max-width: 1100px;
   }
@@ -157,7 +152,7 @@ export default defineComponent({
 
 /* 屏幕宽度 ( - , 1000 ] */
 @media (max-width: 1000px) {
-  #CardCol {
+  .CardCol {
     width: 100%;
   }
 }

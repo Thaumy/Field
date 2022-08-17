@@ -8,10 +8,14 @@
         {{ replyUserName }}
       </span>
     </div>
+
     <div class="Floor cursor-pointer border-shadow"
          :style="floorStyle"
-         onclick="CommentBox.doReply(this)">{{ floorText }}
+         :key="floor"
+         onclick="CommentBox.doReply(this)">
+      {{ floorText }}
     </div>
+
     <div class="Email">{{ email }}</div>
     <div class="Time">{{ createTime }}</div>
     <div class="Content">{{ body }}</div>
@@ -65,7 +69,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .Box {
   display: grid;
   grid-template-columns: 50% 46% 4%;
@@ -77,7 +80,7 @@ export default defineComponent({
   margin: 4px;
 }
 
-.Box > .Name {
+.Name {
   justify-self: start;
   grid-column-start: 1;
   grid-column-end: 3;
@@ -108,7 +111,7 @@ export default defineComponent({
   margin-left: 4px;
   margin-right: 4px;
 
-  background: rgb(0, 180, 255);
+  background: rgb(0 84 119);
   border-radius: 4px;
   box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.4);
 }
@@ -123,11 +126,11 @@ export default defineComponent({
 .ReplyLogo::before {
   font-family: 'field-icon';
   font-size: 0.88em;
-  color: rgb(255, 159, 0);
+  color: rgb(0 180 255 / 40%);
   content: "\e3020";
 }
 
-.Box > .Time {
+.Time {
   justify-self: right;
   grid-column-start: 2;
   grid-column-end: 4;
@@ -136,7 +139,7 @@ export default defineComponent({
   color: rgba(170, 170, 170, 1);
 }
 
-.Box > .Email {
+.Email {
   justify-self: start;
   padding-left: 3px;
 
@@ -145,7 +148,7 @@ export default defineComponent({
   color: rgba(170, 170, 170, 1);
 }
 
-.Box > .Floor {
+.Floor {
   justify-self: end;
   grid-column-start: 3;
 
@@ -159,11 +162,10 @@ export default defineComponent({
   line-height: 13px;
 
   border-radius: 2px;
-
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0, 0.8, 0, 1);
 }
 
-.Box > .Content {
+.Content {
   grid-column-start: 1;
   grid-column-end: 4;
 
@@ -174,5 +176,4 @@ export default defineComponent({
   padding-left: 8px;
   padding-bottom: 2px;
 }
-
 </style>

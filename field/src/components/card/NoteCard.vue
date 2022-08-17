@@ -1,5 +1,5 @@
 <template>
-  <div class="Card M bE-black border-radius-all">
+  <div class="Card margin-bottom bE-black border-radius-all">
     <div onclick="up()" class="contain cursor-pointer border-radius-all">
       <div class="NoteContent border-radius-all">
         {{ body }}
