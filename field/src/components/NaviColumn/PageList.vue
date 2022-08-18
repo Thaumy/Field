@@ -1,7 +1,7 @@
 <template>
 
   <div class="List">
-    <transition-group tag="div" name="fade">
+    <transition-group tag="div" name="barMove">
       <div class="bar"
            :key="style"
            :style="{'background':style.color}"
@@ -9,10 +9,14 @@
     </transition-group>
 
     <div>
-      <NavColPageCard :title="it.title" v-for="(it,index) in pages.value" :key="index" @click="showBar(index)"/>
+      <PageListCard
+          v-for="(it,index) in pages.value"
+          :title="it.title"
+          @click="toggleBar(index)"
+      />
     </div>
 
-    <transition-group tag="div" name="fade">
+    <transition-group tag="div" name="barMove">
       <div class="bar"
            :key="style"
            :style="{'background':style.color}"
@@ -25,12 +29,12 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 
-import NavColPageCard from "@/components/card/NavColPageCard.vue";
+import PageListCard from "./PageListCard.vue";
 import {PageSet} from "../../scripts/common";
 
 export default defineComponent({
-  name: "NavColPageList",
-  components: {NavColPageCard},
+  name: "PageList",
+  components: {PageListCard},
   props: {
     pages: PageSet,
   },
@@ -40,7 +44,7 @@ export default defineComponent({
     }
   },
   methods: {
-    showBar(index: number) {
+    toggleBar(index: number) {
       let final = index + 1
       let need = final - this.barStyles.length
       if (need > 0)
@@ -59,21 +63,6 @@ export default defineComponent({
 
 <style scoped>
 
-.fade-move,
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.2s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-  transform: scaleY(0.1);
-}
-
-.fade-leave-active {
-  position: absolute;
-}
 
 .List {
   display: grid;
@@ -82,9 +71,26 @@ export default defineComponent({
 }
 
 .bar {
+  margin-top: 2px;
+  margin-bottom: 2px;
   height: 6vh;
   max-height: 50px;
   min-height: 28px;
 }
 
+.barMove-move,
+.barMove-enter-active,
+.barMove-leave-active {
+  transition: all 0.2s ease;
+}
+
+.barMove-enter-from,
+.barMove-leave-to {
+  opacity: 0;
+  transform: scaleY(0.1);
+}
+
+.barMove-leave-active {
+  position: absolute;
+}
 </style>

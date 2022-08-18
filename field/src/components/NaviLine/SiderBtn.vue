@@ -1,31 +1,29 @@
 <template>
   <div>
 
-    <div class="SiderBtn float-right" onclick="ListToggle()"></div>
+    <div class="sider-btn float-right"></div>
 
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import SiderList from "../list/SiderList.vue";
 
 export default defineComponent({
   name: "SiderBtn",
-  components: {SiderList}
 })
 </script>
 
 <style scoped>
 
-.SiderBtn {
+.sider-btn {
   font-size: 26px;
   line-height: 50px;
 
   color: #FFFFFF;
 }
 
-.SiderBtn::before {
+.sider-btn::before {
   font-family: 'field-icon';
 
   margin: 12px;

@@ -4,7 +4,7 @@
     <div class="CardCol float-right">
       <NoteCard body="这是一条笔记，适合短文本发布。"/>
 
-      <PostPreviewCard
+      <PreviewCard
           cover='<img class="width-100" id="welcom_pic"/>'
           title="pilipala 1.0 :: Akane"
           summary="超级大更新"
@@ -16,12 +16,12 @@
                              "./rc/assets/bg_4.jpg"];
                document.getElementById("welcom_pic").src = images[Math.floor(Math.random() * images.length)];'/>
 
-      <PostPreviewCard
+      <PreviewCard
           title="氛"
           summary="Make a simple, intuitive UI"
           createDate="22-07-12" viewCount="12345" commentCount="12345" starCount="12345"/>
 
-      <PostCard
+      <DetailCard
           title="『空の青さを知る人よ』"
           summary="《知晓天空之蓝的人啊》"
           body=
@@ -98,42 +98,41 @@
              label="氛标签"
       />
 
-      <CommentList/>
+      <div id="column_bottom"></div>
+
       <NoCommentTip/>
       <WarningTip/>
       <LockingTip/>
-      <div id="column_bottom"></div>
-      <CommentBox/>
+
+      <CommentColumn/>
 
     </div>
-
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue'
+
 import NoCommentTip from "@/components/tip/NoCommentTip.vue";
 import WarningTip from "@/components/tip/WarningTip.vue";
 import LockingTip from "@/components/tip/LockingTip.vue";
-import NoteCard from "@/components/card/NoteCard.vue";
-import PostCard from "@/components/card/PostCard.vue";
 import CoBox from "@/components/box/CoBox.vue";
-import CommentList from "@/components/list/CommentList.vue";
-import CommentBox from "@/components/box/CommentBox.vue";
-import PostPreviewCard from "@/components/card/PostPreviewCard.vue";
+import CommentColumn from "@/components/CommentColumn/CommentColumn.vue";
+import DetailCard from "./DetailCard.vue";
+import NoteCard from "./NoteCard.vue";
+import PreviewCard from "./PreviewCard.vue";
 
 export default defineComponent({
   name: "CardCol",
   components: {
-    PostPreviewCard,
-    CommentBox,
-    CommentList,
+    CommentColumn,
     CoBox,
     NoCommentTip,
     WarningTip,
     LockingTip,
     NoteCard,
-    PostCard,
+    DetailCard,
+    PreviewCard,
   }
 })
 </script>

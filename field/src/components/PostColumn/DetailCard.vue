@@ -1,13 +1,17 @@
 <template>
 
-  <div class="Card margin-bottom bE-black border-radius-all">
+  <div class="Card margin-bottom border-radius-all">
     <div class="contain border-radius-all">
 
-      <div class="Title">{{ title }}</div>
-      <div class="Summary">{{ summary }}</div>
+      <div class="title-flex">
+        <div class="title">{{ title }}</div>
+        <div class="title-chips">
+          <ScheduleChip/>
+          <ArchiveChip/>
+        </div>
+      </div>
+      <div class="summary">{{ summary }}</div>
 
-      <ScheduleTip/>
-      <ArchiveTip/>
       <ReadTimeTip/>
 
       <div class="Content markdown-body" v-html="body"></div>
@@ -20,9 +24,10 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import ScheduleTip from "@/components/tip/ScheduleTip.vue";
+
 import ReadTimeTip from "@/components/tip/ReadTimeTip.vue";
-import ArchiveTip from "@/components/tip/ArchiveTip.vue";
+import ScheduleChip from "@/components/tip/ScheduleChip.vue";
+import ArchiveChip from "@/components/tip/ArchiveChip.vue";
 import SwitchBtn from "@/components/btn/SwitchBtn.vue";
 
 export default defineComponent({
@@ -36,15 +41,25 @@ export default defineComponent({
   },
   components: {
     SwitchBtn,
-    ScheduleTip,
-    ArchiveTip,
+    ScheduleChip,
+    ArchiveChip,
     ReadTimeTip
   },
+  data() {
+  }
 
 })
 </script>
 
 <style scoped>
+.title-flex {
+  display: flex;
+  padding-top: 12px;
+  justify-content: space-between;
+  padding-right: 8px;
+  padding-bottom: 8px;
+}
+
 .Card {
   width: 100%;
 
@@ -60,12 +75,13 @@ export default defineComponent({
   border-top-right-radius: 4px;
 }
 
-.Title {
+.title {
   font-size: 24px;
   line-height: 24px;
+}
 
-  padding-left: 12px;
-  padding-bottom: 8px;
+.title-chips {
+  display: flex;
 }
 
 img {
@@ -74,7 +90,7 @@ img {
   margin-bottom: -5px;
 }
 
-.Summary {
+.summary {
   font-size: 15px;
   line-height: 20px;
   overflow: hidden;
@@ -89,28 +105,12 @@ img {
 
 .Content {
   padding: 4px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
 
   font-size: 15px;
   line-height: 22px;
   letter-spacing: 1px;
   word-break: break-word;
-}
-</style>
-
-<style scoped>
-/* 屏幕宽度 [ 1001 , + ) */
-@media (min-width: 1001px) {
-  .Title {
-    padding-top: 12px;
-  }
-}
-
-/* 屏幕宽度 ( - , 1000 ] */
-@media (max-width: 1000px) {
-  .Title {
-    padding-top: 10px;
-  }
 }
 </style>
