@@ -29,11 +29,14 @@ export default defineComponent({
 .card {
   display: flex;
   width: 94%;
+
   height: 6vh;
   max-height: 50px;
   min-height: 28px;
 
-  margin-left: 2.4%;
+  margin: auto;
+  margin-top: 2px;
+  margin-bottom: 2px;
 
   font-size: 17px;
   letter-spacing: 1px;

@@ -28,7 +28,8 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import CommentCard from "@/components/card/CommentCard.vue";
+
+import CommentCard from "./CommentCard.vue";
 
 export default defineComponent({
   name: "CommentList",

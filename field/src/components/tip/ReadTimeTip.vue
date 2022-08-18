@@ -1,7 +1,11 @@
 <template>
+  <div>
 
-  <div class="ReadTimeTip border-shadow">
-    <div class="con">约 6600字 阅读需要 5分钟</div>
+    <div class="read-time-tip border-shadow">
+      <div class="text">约 6600 字 / 阅读需要 5 分钟</div>
+      <v-icon icon="mdi-timer-sand"/>
+    </div>
+
   </div>
 </template>
 
@@ -16,13 +20,23 @@ export default defineComponent({
 
 <style scoped>
 
-.ReadTimeTip {
+.read-time-tip {
+  margin: auto;
+  width: 98%;
+  display: flex;
+  justify-content: space-between;
+
   background: rgb(52, 165, 61);
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding: 3px;
+
+  color: white;
+  font-size: 15px;
+
+  border-radius: 3px;
 }
 
-.ReadTimeTip::after {
-  content: "\e3004";
+.text {
+  margin-left: 1%;
 }
+
 </style>

@@ -1,20 +1,23 @@
 <template>
   <v-app class="main">
+    <v-main>
 
-    <NavLine :style="commonOpacityStyle"/>
+      <NaviLine :pages="pages" :style="commonOpacityStyle"/>
 
-    <div class="content">
-      <NavCol :style="commonOpacityStyle"/>
-      <CardCol :style="commonOpacityStyle"/>
-    </div>
-    <!--
-    <div id="left_panel" :style="commonOpacityStyle">
-      <SiderList/>
-      <div class="Shadow" onclick="ListToggle()"></div>
-    </div>-->
+      <div class="content">
+        <NaviColumn :pages="pages" :style="commonOpacityStyle"/>
 
-    <GoUpBtn :style="commonOpacityStyle"/>
+        <PostColumn :style="commonOpacityStyle"/>
+      </div>
+      <!--
+      <div id="left_panel" :style="commonOpacityStyle">
+        <SiderList/>
+        <div class="Shadow" onclick="ListToggle()"></div>
+      </div>-->
 
+      <GoUpBtn :style="commonOpacityStyle"/>
+
+    </v-main>
     <PageFoot
         id="page-foot"
         body='基于pilipala构建 - Field Theme Designed By Thaumy<br>
@@ -32,14 +35,13 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue'
+import {notNullThen, PageSet} from "./scripts/common";
 
-import NavCol from "@/components/col/NavCol.vue";
-import CardCol from '@/components/col/CardCol.vue'
-import SiderList from "@/components/list/SiderList.vue";
-import NavLine from "@/components/common/NavLine.vue";
-import GoUpBtn from "./components/btn/GoUpBtn.vue";
-import PageFoot from "./components/common/PageFoot.vue";
-import {notNullThen} from "./scripts/common";
+import NaviColumn from "@/components/NaviColumn/NaviColumn.vue";
+import PostColumn from '@/components/PostColumn/PostColumn.vue'
+import NaviLine from "@/components/NaviLine/NaviLine.vue";
+import GoUpBtn from "@/components/btn/GoUpBtn.vue";
+import PageFoot from "@/components/common/PageFoot.vue";
 
 export default defineComponent({
   name: 'App',
@@ -47,10 +49,9 @@ export default defineComponent({
   components: {
     PageFoot,
     GoUpBtn,
-    SiderList,
-    NavLine,
-    NavCol,
-    CardCol,
+    NaviLine,
+    NaviColumn,
+    PostColumn,
   },
   data() {
     return {
@@ -63,7 +64,14 @@ export default defineComponent({
         opacity: 1,
         'pointer-events': 'none',
         transition: 'all 0.2s ease'
-      }
+      },
+      pages: new PageSet([
+        {id: 12345, title: '首页'},
+        {id: 12346, title: '摸摸鱼'},
+        {id: 12347, title: '追番'},
+        {id: 12348, title: '看书'},
+        {id: 12349, title: '写代码'},
+        {id: 12350, title: '睡大觉'}]),
     }
   },
   mounted() {

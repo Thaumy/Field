@@ -4,7 +4,8 @@
       <div class="Logo"></div>
       <div class="ReplyLogo" v-show="HEAD"></div>
       <transition name="fade">
-        <div class="ReplyFloor cursor-pointer" v-show="HEAD" v-on:click="closeReply" onmouseover="CommentBox_ReplyBtn_Over()"
+        <div class="ReplyFloor cursor-pointer" v-show="HEAD" v-on:click="closeReply"
+             onmouseover="CommentBox_ReplyBtn_Over()"
              onmouseleave="CommentBox_ReplyBtn_Leave()">{{ FloorText }}
         </div>
       </transition>
@@ -24,7 +25,7 @@
     </div>
 
     <div class="Captcha">
-      <v-btn color="primary" block height="34" class="CaptchaLine">提交</v-btn>
+      <v-btn color="blue" height="34" class="CaptchaLine">提交</v-btn>
     </div>
 
   </div>
@@ -32,8 +33,9 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
+
 export default defineComponent({
-  name: "CommentBox",
+  name: "CommentEditor",
   data() {
     return {
       FloorText: '0F',
