@@ -4,7 +4,9 @@
 
     <div onclick="up()" class="contain cursor-pointer">
       <div v-html="cover"></div>
-      <div class="Title">{{ title }}</div>
+      <div class="title-flex">
+        <div class="title">{{ title }}</div>
+      </div>
       <div class="Summary">{{ summary }}</div>
       <component v-if="script" :is="'script'">{{ script }}</component>
     </div>
@@ -29,21 +31,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
-/* 屏幕宽度 [ 1001 , + ) */
-@media (min-width: 1001px) {
-  .Card > .contain > .Title {
-    padding-top: 12px;
-  }
-}
-
-/* 屏幕宽度 ( - , 1000 ] */
-@media (max-width: 1000px) {
-  .Card > .contain > .Title {
-    padding-top: 10px;
-  }
-}
-
 .Card {
   width: 100%;
 
@@ -59,12 +46,15 @@ export default defineComponent({
   border-top-right-radius: 4px;
 }
 
-.Title {
+.title {
   font-size: 24px;
-  line-height: 24px;
+}
 
+.title-flex {
+  display: flex;
+  padding: 8px;
   padding-left: 12px;
-  padding-bottom: 8px;
+  justify-content: space-between;
 }
 
 img {

@@ -31,7 +31,7 @@ export default defineComponent({
   width: 94%;
 
   height: 6vh;
-  max-height: 50px;
+  max-height: 44px;
   min-height: 28px;
 
   margin: auto;

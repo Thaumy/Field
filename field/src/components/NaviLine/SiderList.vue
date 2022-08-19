@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {PageSet} from "../../scripts/common";
+import {PageSet} from "@/scripts/common";
 
 import SiderListCard from "./SiderListCard.vue";
 

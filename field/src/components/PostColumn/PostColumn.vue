@@ -22,8 +22,15 @@
           createDate="22-07-12" viewCount="12345" commentCount="12345" starCount="12345"/>
 
       <DetailCard
-          title="『空の青さを知る人よ』"
+          title="氛"
+          summary="Make a simple, intuitive UI"
+      />
+
+      <DetailCard
+          title="空の青さを知る人よ"
           summary="《知晓天空之蓝的人啊》"
+          is-schedule="true"
+          is-archive="true"
           body=
               '<img src="./rc/assets/akane.jpg"/>
               <h1>相生茜 Aioi Akane</h1>
@@ -113,17 +120,17 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
 
-import NoCommentTip from "@/components/tip/NoCommentTip.vue";
+import CoBox from "@/components/box/CoBox.vue";
 import WarningTip from "@/components/tip/WarningTip.vue";
 import LockingTip from "@/components/tip/LockingTip.vue";
-import CoBox from "@/components/box/CoBox.vue";
+import NoCommentTip from "@/components/tip/NoCommentTip.vue";
 import CommentColumn from "@/components/CommentColumn/CommentColumn.vue";
 import DetailCard from "./DetailCard.vue";
 import NoteCard from "./NoteCard.vue";
 import PreviewCard from "./PreviewCard.vue";
 
 export default defineComponent({
-  name: "CardCol",
+  name: "PostColumn",
   components: {
     CommentColumn,
     CoBox,

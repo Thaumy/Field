@@ -18,7 +18,6 @@ export default defineComponent({
   color: rgba(1, 153, 255, 1);
   font-size: 17px;
   line-height: 17px;
-  text-shadow: 0px 0px 1px rgb(255, 0, 0);
 
   margin: 3px;
   padding: 3px;

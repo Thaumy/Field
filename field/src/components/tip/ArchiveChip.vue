@@ -16,6 +16,7 @@
         :timeout="2000"
         color="orange"
         location="top right"
+        @click="toggleSnackBar()"
     >
       <div class="snackbar-text">
         当前文章已归档 / 不受维护的内容
@@ -25,22 +26,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import {defineComponent} from "vue";
+<script setup lang="ts">
+import {ref} from "vue";
 
-export default defineComponent({
-  name: "ArchiveTip",
-  data() {
-    return {
-      snackbarVisibility: false,
-    }
-  },
-  methods: {
-    toggleSnackBar() {
-      this.snackbarVisibility = !this.snackbarVisibility
-    },
-  }
-})
+const snackbarVisibility = ref(false)
+
+function toggleSnackBar() {
+  snackbarVisibility.value = !snackbarVisibility.value
+}
 </script>
 
 <style scoped>

@@ -1,27 +1,7 @@
 <template>
   <div class="CommentList margin-bottom bE-white border-radius-all">
 
-    <CommentCard user-name="小品Pinn"
-                 floor="1"
-                 email="pinn@pilipala.org"
-                 create-time="22-08-11 | 01:34"
-                 body="这是一条评论！"/>
-
-    <CommentCard user-name="Thaumy"
-                 floor="2"
-                 email="love@thaumy.cn"
-                 create-time="22-08-12 | 02:12"
-                 body="贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴"
-                 reply-floor="1"
-                 reply-user-name="小品Pinn"/>
-
-    <CommentCard user-name="小品Pinn"
-                 floor="3"
-                 email="pinn@pilipala.org"
-                 create-time="22-08-13 | 03:51"
-                 body="不许贴贴！"
-                 reply-floor="2"
-                 reply-user-name="Thaumy"/>
+    <CommentCard v-for="item in comments" :comment='item'/>
 
   </div>
 </template>
@@ -33,11 +13,57 @@ import CommentCard from "./CommentCard.vue";
 
 export default defineComponent({
   name: "CommentList",
-  components: {CommentCard}
+  components: {CommentCard},
+  data() {
+    return {
+      comments: [
+        {
+          id: 1000,
+          user: '小品',
+          body: '这是一条评论！',
+          replyTo: null,
+          siteUrl: 'https://www.thaumy.cn',
+          avatarUrl: null,
+          createTime: "22-08-11 | 01:34"
+        },
+        {
+          id: 1001,
+          user: 'Thaumy',
+          body: '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴',
+          replyTo: 1000,
+          siteUrl: 'https://www.thaumy.cn',
+          avatarUrl: null,
+          createTime: "22-08-12 | 02:12"
+        },
+        {
+          id: 1002,
+          user: '小品',
+          body: '不许贴贴！',
+          replyTo: 1000,
+          siteUrl: 'https://www.thaumy.cn',
+          avatarUrl: null,
+          createTime: "22-08-13 | 03:51"
+        },
+        {
+          id: 1003,
+          user: 'Fubuki',
+          body: 'moemoemoemoemoemoemoemoemoemoemoemoe',
+          replyTo: null,
+          siteUrl: null,
+          avatarUrl: null,
+          createTime: '22-08-13 | 05:15'
+        }]
+    }
+  }
 })
 </script>
 
 <style scoped>
+
+.CommentList {
+  /* 颜色模式 */
+  background: rgba(0, 0, 0, 0.4);
+}
 
 .CommentList {
   width: 100%;

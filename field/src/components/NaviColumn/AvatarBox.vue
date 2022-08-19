@@ -2,7 +2,7 @@
 
   <div class="box border-shadow border-radius-top">
     <div class="AvaBox">
-      <div class="outline" :style="outlineStyle" @click="outlineClick()">
+      <div class="outline" :style="outlineStyle" @click="showOutline()">
         <img class="Avatar border-shadow cursor-pointer" :src="avatar" alt="avatar">
       </div>
     </div>
@@ -14,10 +14,11 @@
 </template>
 
 <script lang="ts">
+import {defineComponent} from "vue";
 
 import Typed from "typed.js";
 
-export default {
+export default defineComponent({
   name: "AvatarBox",
   props: {
     avatar: String,
@@ -27,11 +28,11 @@ export default {
     return {
       outlineStyle: {
         'border-color': 'transparent'
-      }
+      },
     }
   },
   methods: {
-    outlineClick() {
+    showOutline() {
       this.outlineStyle = {
         'border-color': 'rgba(1, 153, 255, 1)'
       }
@@ -47,7 +48,7 @@ export default {
       loop: false
     });
   },
-}
+})
 </script>
 
 <style scoped>
