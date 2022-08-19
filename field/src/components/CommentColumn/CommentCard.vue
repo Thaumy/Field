@@ -1,78 +1,72 @@
 <template>
 
-  <div class="Box border-shadow" @mouseover="over" @mouseleave="leave()">
-    <div class="Name">{{ userName }}
-      <span v-if="replyFloor&&replyUserName">
-        <span class="ReplyLogo"></span>
-        <span class="ReplyFloor">{{ replyFloor }}F</span>
-        {{ replyUserName }}
-      </span>
+  <div class="card border-shadow"
+       @mouseover="showReplyIcon()"
+       @mouseleave="hideReplyIcon()"
+  >
+    <v-avatar
+        class="user-avatar"
+        :class="comment.siteUrl?'cursor-pointer':''"
+        rounded="true"
+        size="32"
+        @click="blankUrl(comment.siteUrl)"
+    >
+      <v-img :src="avatar" cover="true"/>
+    </v-avatar>
+    <v-icon
+        class="site-icon"
+        icon="mdi-web"
+        size="10"
+        color="blue"
+        v-if="comment.siteUrl"
+    />
+    <div class="user-name">{{ comment.user }}
+      <transition name="reply-btn-rotate">
+        <v-icon class="reply-btn"
+                color="orange"
+                icon="mdi-reply"
+                size="1.1em"
+                @click=""
+                v-show="replyIconVisibility"
+        />
+      </transition>
     </div>
-
-    <div class="Floor cursor-pointer border-shadow"
-         :style="floorStyle"
-         :key="floor"
-         onclick="CommentBox.doReply(this)">
-      {{ floorText }}
-    </div>
-
-    <div class="Email">{{ email }}</div>
-    <div class="Time">{{ createTime }}</div>
-    <div class="Content">{{ body }}</div>
+    <div class="create-time">{{ comment.createTime }}</div>
+    <div class="body">{{ comment.body }}</div>
   </div>
 
 </template>
 
-<script lang="ts">
-import {defineComponent} from "vue";
+<script setup lang="ts">
+import {defineProps, ref} from "vue";
+import {Comment} from "@/scripts/common";
 
-export default defineComponent({
-  name: "CommentCard",
-  props: {
-    userName: String,
-    floor: String,
-    email: String,
-    createTime: String,
-    body: String,
-    replyFloor: String,
-    replyUserName: String
-  },
-  data() {
-    return {
-      floorText: this.floor,
-      floorStyle: {},
-      overStyle: {
-        "height": "22px",
-        "width": "32px",
-
-        "font-size": "0.8em",
-        "font-weight": "500",
-        "font-family": "Source Sans Pro",
-        "color": "rgb(255, 255, 255)",
-        "line-height": "22px",
-
-        "background": "rgb(0, 180, 255)"
-      }
-    }
-  },
-  methods: {
-    over() {
-      this.floorText = "回复"
-      this.floorStyle = this.overStyle
-    },
-    leave() {
-      this.floorText = this.floor
-      this.floorStyle = {}
-    },
-  }
+defineProps({
+  comment: Comment
 })
+
+const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.meta.url).href
+const replyIconVisibility = ref(false)
+
+function blankUrl(url: string) {
+  if (url)
+    window.open(url)
+}
+
+function showReplyIcon() {
+  replyIconVisibility.value = true
+}
+
+function hideReplyIcon() {
+  replyIconVisibility.value = false
+}
 </script>
 
 <style scoped>
-.Box {
+.card {
   display: grid;
-  grid-template-columns: 50% 46% 4%;
-  grid-template-rows: 24px 20px auto;
+  grid-template-columns: 30px 10px 4px auto;
+  grid-template-rows: 20px 20px auto auto;
 
   padding: 4px;
 
@@ -80,100 +74,85 @@ export default defineComponent({
   margin: 4px;
 }
 
-.Name {
-  justify-self: start;
-  grid-column-start: 1;
-  grid-column-end: 3;
+.reply-btn-rotate-enter-active,
+.reply-btn-rotate-leave-active {
+  transition: all 0.2s ease;
+}
 
-  max-width: 93.4%;
-  padding-left: 3px;
+.reply-btn-rotate-leave-to {
+  opacity: 0;
+}
 
-  font-size: 1.1em;
-  font-weight: 400;
-  line-height: 1.2em;
+.reply-btn-rotate-enter-from {
+  opacity: 0;
+  transform-origin: left bottom;
+  transform: rotate(90deg);
+}
+
+.user-avatar {
+  margin: 4px;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.user-name {
+  align-self: end;
+  font-size: 0.8rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  grid-column-start: 4;
 }
 
-.ReplyFloor {
-  float: right;
 
-  color: white;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 18px;
-  margin-top: 2px;
-  padding-bottom: 1px;
+.create-time {
+  align-self: center;
+  grid-row-start: 2;
+  grid-column-start: 4;
 
-  padding-left: 3px;
-  padding-right: 3px;
-  margin-left: 4px;
-  margin-right: 4px;
-
-  background: rgb(0 84 119);
-  border-radius: 4px;
-  box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.4);
+  font-size: 0.6rem;
+  color: rgba(170, 170, 170, 1);
 }
 
-.ReplyLogo {
-  display: inline;
-
-  margin-left: 4px;
-  margin-right: 4px;
-}
-
-.ReplyLogo::before {
-  font-family: 'field-icon';
-  font-size: 0.88em;
-  color: rgb(0 180 255 / 40%);
-  content: "\e3020";
-}
-
-.Time {
-  justify-self: right;
+.site-icon {
+  grid-row-start: 2;
   grid-column-start: 2;
-  grid-column-end: 4;
-
-  font-size: 0.7em;
-  color: rgba(170, 170, 170, 1);
+  align-self: end;
+  padding-right: 4px;
+  padding-bottom: 4px;
 }
 
-.Email {
-  justify-self: start;
-  padding-left: 3px;
 
-  font-size: 0.7em;
-  text-align: right;
-  color: rgba(170, 170, 170, 1);
-}
-
-.Floor {
-  justify-self: end;
-  grid-column-start: 3;
-
-  height: 14px;
-  width: 14px;
-
-  font-size: 0.6em;
-  font-family: 'Roboto Mono', monospace;
-  overflow: hidden;
-  text-align: center;
-  line-height: 13px;
-
-  border-radius: 2px;
-  transition: all 0.3s cubic-bezier(0, 0.8, 0, 1);
-}
-
-.Content {
+.body {
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 5;
 
-  font-size: 0.9em;
+  font-size: 0.9rem;
   text-align: left;
 
   padding-top: 4px;
   padding-left: 8px;
   padding-bottom: 2px;
+}
+</style>
+<style scoped>
+.card {
+  /* 颜色模式 */
+  background: var(--b30);
+}
+
+.user-name {
+  /* 颜色模式 */
+  color: var(--w220);
+}
+
+.body {
+  /* 颜色模式 */
+  color: var(--w200);
+}
+
+.create-time {
+  /* 颜色模式 */
+  color: rgba(170, 170, 170, 1);
 }
 </style>

@@ -30,7 +30,7 @@
 import {defineComponent} from "vue";
 
 import PageListCard from "./PageListCard.vue";
-import {PageSet} from "../../scripts/common";
+import {PageSet} from "@/scripts/common";
 
 export default defineComponent({
   name: "PageList",
@@ -74,7 +74,7 @@ export default defineComponent({
   margin-top: 2px;
   margin-bottom: 2px;
   height: 6vh;
-  max-height: 50px;
+  max-height: 44px;
   min-height: 28px;
 }
 

@@ -10,7 +10,7 @@
           class="cursor-pointer border-radius-all"
           onclick="up()"
       >
-        <img class="Avatar border-shadow" src="../../assets/pp512.png">
+        <img class="Avatar border-shadow" src="@/assets/pp512.png">
         <div class=" Name">THAUMY的小站</div>
       </div>
 

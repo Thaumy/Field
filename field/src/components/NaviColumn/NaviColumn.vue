@@ -1,14 +1,17 @@
 <template>
   <div id="NavCol" class="bE-white border-radius-all">
 
-    <AvatarBox avatar="../../assets/pp512.png" title="THAUMY的小站"/>
+    <AvatarBox
+        avatar="/pp512.png"
+        title="THAUMY的小站"
+    />
 
     <PageList :pages="pages"/>
 
     <CoBox body=
-                     'Thaumy的博客©2016-2020保留所有权利<br>
-                      基于pilipala构建<br>
-                      Field Theme Designed By Thaumy<br>'/>
+               'Thaumy的博客©2016-2020保留所有权利<br>
+                基于pilipala构建<br>
+                Field Theme Designed By Thaumy<br>'/>
   </div>
 </template>
 
@@ -18,7 +21,7 @@ import {defineComponent} from "vue";
 import PageList from "./PageList.vue";
 import CoBox from "./CoBox.vue";
 import AvatarBox from "./AvatarBox.vue";
-import {PageSet} from "../../scripts/common";
+import {PageSet} from "@/scripts/common";
 
 export default defineComponent({
   name: "NavCol",
@@ -29,8 +32,11 @@ export default defineComponent({
     PageList
   },
   data() {
-    return {}
-  }
+    return {
+      hhh: new URL('@/assets/pp512.png', import.meta.url).href
+    }
+  },
+  methods: {}
 })
 </script>
 
