@@ -84,11 +84,6 @@ export default defineComponent({
   padding-right: 6px;
 }
 
-.AtBox > .CommentCount,
-.AtBox > .StarCount {
-  transition: all 0.2s ease;
-}
-
 .AtBox > .Date::before {
   content: "\e3007";
 }
