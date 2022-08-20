@@ -3,9 +3,9 @@
 
     <div class="body">
       <div class="content markdown-body" v-html="body" v-if="body"/>
-      <div class="info-flex">
-        <CreateTimeChip :create-time="createTime" style="align-self: end"/>
-        <CreateTimeChip :create-time="createTime" style="align-self: end"/>
+
+      <div class="bottom-slot">
+        <slot name="bottom-slot"/>
       </div>
     </div>
 
@@ -13,12 +13,12 @@
 </template>
 
 <script setup lang="ts">
-import CreateTimeChip from "@/components/PostColumn/CreateTimeChip.vue";
-import {defineProps, PropType} from "vue";
+import {createApp, defineProps, PropType, toRefs} from "vue";
 
 const props = defineProps({
   body: String,
-  createTime: Date as PropType<Date>
+  createTime: Date as PropType<Date>,
+  modifyTime: Date as PropType<Date>
 })
 
 </script>
@@ -31,11 +31,6 @@ const props = defineProps({
 .body {
   padding: 6px;
   background: rgba(30, 30, 30, 1.00);
-}
-
-.info-flex {
-  display: flex;
-  justify-content: space-between;
 }
 
 .content {
@@ -56,5 +51,10 @@ img {
   line-height: 22px;
   letter-spacing: 1px;
   word-break: break-word;
+}
+
+.bottom-slot {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

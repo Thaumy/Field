@@ -2,12 +2,19 @@
   <div>
 
     <div class="CardCol float-right">
-      <NoteCard body=""/>
-
       <DetailCard
           comment-count="8"
           body="这是一条笔记，适合短文本发布。"
-          :create-time="new Date('2022-07-12T08:24:00')"
+          :create-time="new Date('2022-08-19T08:24:00')"
+          :modify-time="new Date('2022-08-19T08:24:00')"
+      />
+
+      <DetailCard
+          title="氛"
+          summary="Make a simple, intuitive UI"
+          comment-count="8"
+          :create-time="new Date('2022-08-12T08:24:00')"
+          :modify-time="new Date('2022-08-13T08:24:00')"
       />
 
       <DetailCard
@@ -16,29 +23,25 @@
           comment-count="8"
           is-schedule="true"
           is-archive="true"
-          body="ssk"
-          :create-time="new Date('2022-07-12T08:24:00')"
+          body="This is Field V4!"
+          :create-time="new Date('2022-07-13T08:24:00')"
+          :modify-time="new Date('2022-07-13T09:24:00')"
       />
-      <DetailCard
-          title="氛"
-          summary="Make a simple, intuitive UI"
-          comment-count="8"
-          :create-time="new Date('2022-07-12T08:24:00')"
-      />
-
       <DetailCard
           coverUrl='/src/assets/akane_cover.png'
           title="空の青さを知る人よ"
           summary="《知晓天空之蓝的人啊》"
           comment-count="18"
-          :create-time="new Date('2022-06-10T08:24:00')"
+          :create-time="new Date('2022-08-20T11:45:16')"
+          :modify-time="new Date('2022-08-21T11:45:16')"
       />
 
       <DetailCard
           coverUrl='/src/assets/akane_cover.png'
           title="空の青さを知る人よ"
           summary="《知晓天空之蓝的人啊》"
-          :create-time="new Date('2022-06-10T08:02:00')"
+          :create-time="new Date('2022-08-20T11:45:16')"
+          :modify-time="new Date('2022-08-21T11:45:16')"
           is-schedule="true"
           is-archive="true"
           body=

@@ -7,7 +7,7 @@
         size="small"
         @click="toggleSnackbar()"
     >
-      <v-icon icon="mdi-archive"></v-icon>
+      <v-icon icon="mdi-archive"/>
     </v-chip>
 
     <v-snackbar

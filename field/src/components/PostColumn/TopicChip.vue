@@ -1,15 +1,23 @@
 <template>
   <div>
 
-
+    <v-chip
+        size="x-small"
+    >
+      <v-icon icon="mdi-pound" size="0.8rem"/>
+      {{ topic }}
+    </v-chip>
 
   </div>
 </template>
 
-<script>
-export default {
-  name: "TopicChip"
-}
+<script setup lang="ts">
+import {defineProps} from "vue";
+
+const props = defineProps({
+  topic: String
+})
+
 </script>
 
 <style scoped>
