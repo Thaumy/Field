@@ -11,3 +11,7 @@ export function formatToDateTime(d: Date) {
         d.getHours() + ':' +
         d.getMinutes()
 }
+
+export function secTimespan(big: Date, small: Date) {
+    return (big.getTime() - small.getTime()) / 1000
+}

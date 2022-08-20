@@ -19,9 +19,9 @@
             <ArchiveChip v-if="isArchive"/>
           </template>
 
-          <template v-slot:summary-right-slot>
+          <template v-slot:summary-right-slot v-if="!body">
             <ModifyTimeChip :modify-time="modifyTime" style="align-self: end" v-if="modifyTimeVisibility()"/>
-            <CreateTimeChip :create-time="createTime" style="align-self: end" date-only="true" v-if="!body"/>
+            <CreateTimeChip :create-time="createTime" style="align-self: end" date-only="true"/>
           </template>
 
           <template v-slot:bottom-slot>
@@ -37,15 +37,13 @@
       >
       <template v-slot:bottom-slot>
         <div class="topic-flex">
-          <TopicChip class="mr-1" topic="花花"/>
-          <TopicChip class="mr-1" topic="草草"/>
-          <TopicChip class="mr-1" topic="实例话题"/>
+          <TopicChip class="mr-1" v-for="topic in topics" :topic="topic"/>
         </div>
         <div class="time-flex">
           <ModifyTimeChip
               :modify-time="modifyTime"
               :active="modifyTimeVisibility()"
-              v-if="createTime.getHours() !== modifyTime.getHours()"
+              v-if="secTimespan(modifyTime,createTime)>7200"
           />
           <CreateTimeChip :create-time="createTime"/>
         </div>
@@ -58,7 +56,8 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, toRefs} from "vue";
+import {defineProps, PropType, toRefs} from "vue";
+import {secTimespan} from "@/scripts/date";
 
 import ScheduleChip from "@/components/tip/ScheduleChip.vue";
 import ReadTimeTip from "@/components/tip/ReadTimeTip.vue";
@@ -82,6 +81,7 @@ const props = defineProps({
   nextTitle: String,
   isSchedule: Boolean,
   isArchive: Boolean,
+  topics: Object as PropType<string[]>
 })
 
 /*
@@ -132,12 +132,12 @@ function modifyTimeVisibility() {
   if (!createTime || !modifyTime)
     return
 
-  const createTimespan = Date.now() - createTime.getTime()
-  const modifyTimespan = Date.now() - createTime.getTime()
+  const createTimespan = secTimespan(new Date(), createTime)
+  const modifyTimespan = secTimespan(new Date(), modifyTime)
 
 
-  const createWithinOneWeek = createTimespan < 604800000//if create within one week
-  const noModifyWithinOneMonth = modifyTimespan > 2592000000//or NO modify within one month
+  const createWithinOneWeek = createTimespan < 604800//if create within one week
+  const noModifyWithinOneMonth = modifyTimespan > 2592000//or NO modify within one month
   const createTimeEqToModifyTime =//or create time equal to modify time
       createTime === modifyTime
 
