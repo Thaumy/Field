@@ -2,24 +2,26 @@
   <div>
 
     <div
-        class="border-radius-all"
-        :style=
-            "coverUrl?`background-image:url(${coverUrl});background-size:cover`:''"
+        class="preview"
     >
-      <div
-          class="preview"
-          :style="coverUrl?withCoverStyle:noneCoverStyle"
-      >
-        <div class="title-flex">
-          <div class="title">{{ title }}</div>
-          <div class="title-chips">
-            <ScheduleChip v-if="isSchedule"/>
-            <ArchiveChip v-if="isArchive"/>
-          </div>
+      <div class="title-flex" v-if="title">
+        <div class="title">{{ title }}</div>
+
+        <div class="title-right-slot">
+          <slot name="title-right-slot"/>
         </div>
-        <div class="summary">{{ summary }}</div>
-        <ReadTimeTip word-count='6600' need-minute='5'/>
       </div>
+
+      <div class="summary-flex" v-if="title&&summary">
+        <div class="summary">{{ summary }}</div>
+
+        <div class="summary-right-slot">
+          <slot name="summary-right-slot"/>
+        </div>
+      </div>
+
+      <slot name="bottom-slot"/>
+
     </div>
 
   </div>
@@ -27,40 +29,21 @@
 
 <script setup lang="ts">
 import {ref, defineProps, toRefs, PropType} from "vue";
-import ScheduleChip from "@/components/tip/ScheduleChip.vue";
-import ReadTimeTip from "@/components/tip/ReadTimeTip.vue";
-import ArchiveChip from "@/components/tip/ArchiveChip.vue";
 
 let props = defineProps({
   title: String,
   summary: String,
-  coverUrl: String,
-  isSchedule: Boolean,
-  isArchive: Boolean,
+  blurBg: Boolean
 })
-
-const withCoverStyle = ref({
-  'backdrop-filter': 'blur(10px)',
-  'background': 'rgba(30, 30, 30, 0.9)'
-})
-
-const noneCoverStyle = ref({
-  'background': 'rgba(30, 30, 30, 1)'
-})
-const backgroundStyle =
-    ref({})
 
 </script>
 
 <style scoped>
 
-.title {
-  font-size: 24px;
-}
 
-.title-chips {
+.summary-flex {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
 }
 
 .summary {
@@ -86,4 +69,16 @@ const backgroundStyle =
   justify-content: space-between;
 }
 
+.title {
+  font-size: 24px;
+}
+
+.title-right-slot {
+  display: flex;
+  align-items: center;
+}
+
+.summary-right-slot {
+  display: flex;
+}
 </style>

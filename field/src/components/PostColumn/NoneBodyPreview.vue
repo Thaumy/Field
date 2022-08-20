@@ -24,7 +24,10 @@
         </div>
         <div class="summary-flex">
           <div class="summary">{{ summary }}</div>
-          <CreateTimeChip :create-time="createTime" style="align-self: end"/>
+          <div class="time-flex">
+            <ModifyTimeChip :modify-time="modifyTime" style="align-self: end" v-if="modifyTimeVisibility()"/>
+            <CreateTimeChip :create-time="createTime" style="align-self: end" date-only="true"/>
+          </div>
         </div>
       </div>
 
@@ -36,12 +39,14 @@
 import {ref, defineProps, toRefs, PropType} from "vue";
 import CommentChip from "@/components/tip/CommentChip.vue";
 import CreateTimeChip from "@/components/PostColumn/CreateTimeChip.vue";
+import ModifyTimeChip from "@/components/PostColumn/ModifyTimeChip.vue";
 
 let props = defineProps({
   title: String,
   summary: String,
   coverUrl: String,
   createTime: Date as PropType<Date>,
+  modifyTime: Date as PropType<Date>,
   commentCount: Number,
 })
 
@@ -54,19 +59,28 @@ const noneCoverStyle = ref({
   'background': 'rgba(30, 30, 30, 1)'
 })
 
-/*
-const {createTime} = toRefs(props)
-const timespan = Date.now() - createTime!.value!.getMilliseconds()
+function modifyTimeVisibility() {
+  const createTime = toRefs(props).createTime?.value
+  const modifyTime = toRefs(props).modifyTime?.value
 
-if (timespan < 3137625600) {//if within a week, show green time
-  createTimeColor.value = 'rgb(124 252 0 / 60%)'
-}*/
+  if (!createTime || !modifyTime)
+    return
+
+  const createTimespan = Date.now() - createTime.getTime()
+  const modifyTimespan = Date.now() - createTime.getTime()
+  //if create within a week or no modify within a month, hide the modify time
+  return !(createTimespan < 604800000 || modifyTimespan > 2592000000)
+}
 </script>
 
 <style scoped>
 
 .none-body-preview {
   padding: 6px;
+}
+
+.time-flex {
+  display: flex;
 }
 
 .title-flex {

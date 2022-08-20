@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import {defineProps, ref} from "vue";
-import {Comment} from "@/scripts/common";
+import {Comment} from "@/scripts/comment";
 
 defineProps({
   comment: Comment
