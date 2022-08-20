@@ -17,7 +17,7 @@ import {defineProps, PropType, toRefs} from "vue";
 import {formatToDate, formatToDateTime} from "@/scripts/date"
 
 const props = defineProps({
-  modifyTime: Date as PropType<Date>,
+  modifyTime: Object as PropType<Date>,
   active: {
     type: Boolean,
     default: true

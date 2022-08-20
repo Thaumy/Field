@@ -14,7 +14,7 @@
           summary="Make a simple, intuitive UI"
           comment-count="8"
           :create-time="new Date('2022-08-12T08:24:00')"
-          :modify-time="new Date('2022-08-13T08:24:00')"
+          :modify-time="new Date('2022-08-14T08:24:00')"
       />
 
       <DetailCard
@@ -24,26 +24,30 @@
           is-schedule="true"
           is-archive="true"
           body="This is Field V4!"
-          :create-time="new Date('2022-07-13T08:24:00')"
-          :modify-time="new Date('2022-07-13T09:24:00')"
-      />
-      <DetailCard
-          coverUrl='/src/assets/akane_cover.png'
-          title="空の青さを知る人よ"
-          summary="《知晓天空之蓝的人啊》"
-          comment-count="18"
-          :create-time="new Date('2022-08-20T11:45:16')"
-          :modify-time="new Date('2022-08-21T11:45:16')"
+          :create-time="new Date('2022-08-16T08:24:00')"
+          :modify-time="new Date('2022-08-18T08:24:00')"
+          :topics="['花花','草草','云云']"
       />
 
       <DetailCard
           coverUrl='/src/assets/akane_cover.png'
           title="空の青さを知る人よ"
           summary="《知晓天空之蓝的人啊》"
-          :create-time="new Date('2022-08-20T11:45:16')"
-          :modify-time="new Date('2022-08-21T11:45:16')"
+          comment-count="18"
+          :topics="['花花','草草','云云']"
+          :create-time="new Date('2022-08-20T08:00:00')"
+          :modify-time="new Date('2022-08-20T10:00:01')"
+      />
+
+      <DetailCard
+          coverUrl='/src/assets/akane_cover.png'
+          title="空の青さを知る人よ"
+          summary="《知晓天空之蓝的人啊》"
+          :create-time="new Date('2022-08-20T08:00:00')"
+          :modify-time="new Date('2022-08-20T10:00:01')"
           is-schedule="true"
           is-archive="true"
+          :topics="['花花','草草','云云']"
           body=
               '<img src="./src/assets/akane.jpg"/>
               <h1>相生茜 Aioi Akane</h1>
