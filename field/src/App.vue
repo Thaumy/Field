@@ -25,7 +25,7 @@
                       <a href="http://beian.miit.gov.cn/"
                          target="_blank"
                          style="color: rgba(255,255,255,0.6);
-                          font-size: 14px;
+                          font-size: 0.7rem;
                           text-decoration: none;">
                         鲁ICP备2021005067</a>'
         style="margin: 30px"

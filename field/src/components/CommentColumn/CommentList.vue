@@ -1,7 +1,15 @@
 <template>
-  <div class="CommentList margin-bottom bE-white border-radius-all">
+  <div>
 
-    <CommentCard v-for="item in comments" :comment='item'/>
+    <div class="CommentList margin-bottom border-line border-radius-all">
+
+      <CommentEditor/>
+      <div v-for="item in comments">
+        <v-divider style="margin: auto" length="98%"/>
+        <CommentCard :comment='item'/>
+      </div>
+    </div>
+
 
   </div>
 </template>
@@ -10,10 +18,11 @@
 import {defineComponent} from "vue";
 
 import CommentCard from "./CommentCard.vue";
+import CommentEditor from "./CommentEditor.vue";
 
 export default defineComponent({
   name: "CommentList",
-  components: {CommentCard},
+  components: {CommentEditor, CommentCard},
   data() {
     return {
       comments: [
@@ -62,14 +71,12 @@ export default defineComponent({
 
 .CommentList {
   /* 颜色模式 */
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--b30);
 }
 
 .CommentList {
   width: 100%;
   overflow: hidden;
-
-  backdrop-filter: saturate(180%) blur(20px);
 }
 
 </style>

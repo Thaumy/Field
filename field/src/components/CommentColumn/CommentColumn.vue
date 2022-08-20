@@ -2,7 +2,6 @@
   <div>
 
     <CommentList/>
-    <CommentEditor/>
 
   </div>
 </template>

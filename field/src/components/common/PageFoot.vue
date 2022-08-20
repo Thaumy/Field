@@ -9,14 +9,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import {defineComponent} from "vue";
+<script setup lang="ts">
+import {defineProps} from "vue";
 
-export default defineComponent({
-  name: "PageFoot",
-  props: {
-    body: String
-  }
+const props = defineProps({
+  body: String
 })
 </script>
 
@@ -25,7 +22,6 @@ export default defineComponent({
   color: white;
   text-align: center;
   letter-spacing: 1px;
-  line-height: 24px;
-  font-weight: 400;
+  font-size: 0.8rem;
 }
 </style>

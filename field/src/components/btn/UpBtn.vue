@@ -11,10 +11,10 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {makeThrottle} from "../../scripts/throttle";
+import {makeThrottle} from "@/scripts/throttle";
 
 export default defineComponent({
-  name: "GoUpBtn",
+  name: "UpBtn",
   mounted() {
     /* 返顶按钮淡入淡出 */
     window.addEventListener('scroll', makeThrottle(() => {
