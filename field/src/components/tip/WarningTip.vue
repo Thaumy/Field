@@ -1,6 +1,6 @@
 <template>
 
-  <div class="WarningTip bE-white">
+  <div class="WarningTip border-line">
     <div class="con">CommentLake提交系统尚处于开发状态，这意味着评论功能尚不完全可用。</div>
   </div>
 </template>

@@ -1,40 +1,42 @@
 <template>
+  <div>
 
-  <div class="card border-shadow"
-       @mouseover="showReplyIcon()"
-       @mouseleave="hideReplyIcon()"
-  >
-    <v-avatar
-        class="user-avatar"
-        :class="comment.siteUrl?'cursor-pointer':''"
-        rounded="true"
-        size="32"
-        @click="blankUrl(comment.siteUrl)"
+    <div class="card"
+         @mouseover="showReplyIcon()"
+         @mouseleave="hideReplyIcon()"
     >
-      <v-img :src="avatar" cover="true"/>
-    </v-avatar>
-    <v-icon
-        class="site-icon"
-        icon="mdi-web"
-        size="10"
-        color="blue"
-        v-if="comment.siteUrl"
-    />
-    <div class="user-name">{{ comment.user }}
-      <transition name="reply-btn-rotate">
-        <v-icon class="reply-btn"
-                color="orange"
-                icon="mdi-reply"
-                size="1.1em"
-                @click=""
-                v-show="replyIconVisibility"
-        />
-      </transition>
+      <v-avatar
+          class="user-avatar"
+          :class="comment.siteUrl?'cursor-pointer':''"
+          rounded="true"
+          size="32"
+          @click="blankUrl(comment.siteUrl)"
+      >
+        <v-img :src="avatar" cover="true"/>
+      </v-avatar>
+      <v-icon
+          class="site-icon"
+          icon="mdi-web"
+          size="10"
+          color="blue"
+          v-if="comment.siteUrl"
+      />
+      <div class="user-name">{{ comment.user }}
+        <transition name="reply-btn-rotate">
+          <v-icon class="reply-btn"
+                  color="orange"
+                  icon="mdi-reply"
+                  size="1.1em"
+                  @click=""
+                  v-show="replyIconVisibility"
+          />
+        </transition>
+      </div>
+      <div class="create-time">{{ comment.createTime }}</div>
+      <div class="body">{{ comment.body }}</div>
     </div>
-    <div class="create-time">{{ comment.createTime }}</div>
-    <div class="body">{{ comment.body }}</div>
-  </div>
 
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -69,9 +71,6 @@ function hideReplyIcon() {
   grid-template-rows: 20px 20px auto auto;
 
   padding: 4px;
-
-  border-radius: 2px;
-  margin: 4px;
 }
 
 .reply-btn-rotate-enter-active,
@@ -103,7 +102,6 @@ function hideReplyIcon() {
   white-space: nowrap;
   grid-column-start: 4;
 }
-
 
 .create-time {
   align-self: center;
@@ -137,8 +135,8 @@ function hideReplyIcon() {
 </style>
 <style scoped>
 .card {
-  /* 颜色模式 */
-  background: var(--b30);
+  /* 颜色模式
+  background: var(--b30);*/
 }
 
 .user-name {

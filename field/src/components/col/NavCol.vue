@@ -1,42 +1,33 @@
 <template>
   <div id="NavCol" class="border-line border-radius-all">
 
-    <AvatarBox
-        avatar="/pp512.png"
-        title="THAUMY的小站"
-    />
+    <AvatarBox avatar="../../assets/pp512.png" title="THAUMY的小站"/>
 
-    <PageList :pages="pages"/>
+    <NavColPageList/>
 
-    <CoBox body=
-               'Thaumy的博客©2016-2020保留所有权利<br>
-                基于pilipala构建<br>
-                Field Theme Designed By Thaumy<br>'/>
+    <NavColCoBox body=
+                     'Thaumy的博客©2016-2020保留所有权利<br>
+                      基于pilipala构建<br>
+                      Field Theme Designed By Thaumy<br>'/>
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
 
-import PageList from "./PageList.vue";
-import CoBox from "./CoBox.vue";
-import AvatarBox from "./AvatarBox.vue";
-import {PageSet} from "@/scripts/common";
+import NavColPageList from "@/components/list/NavColPageList.vue";
+import NavColCoBox from "../box/NavColCoBox.vue";
+import AvatarBox from "../box/AvatarBox.vue";
 
 export default defineComponent({
   name: "NavCol",
-  props: {pages: PageSet},
   components: {
     AvatarBox,
-    CoBox,
-    PageList
+    NavColCoBox,
+    NavColPageList
   },
   data() {
-    return {
-      hhh: new URL('@/assets/pp512.png', import.meta.url).href
-    }
-  },
-  methods: {}
+  }
 })
 </script>
 

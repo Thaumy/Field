@@ -1,6 +1,6 @@
 <template>
 
-  <div class="LockTip bE-white">
+  <div class="LockTip border-line">
     <div class="con">此文章的评论系统已上锁。</div>
   </div>
 </template>

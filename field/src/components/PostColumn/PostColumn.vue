@@ -2,37 +2,47 @@
   <div>
 
     <div class="CardCol float-right">
-      <NoteCard body="这是一条笔记，适合短文本发布。"/>
-
-      <PreviewCard
-          cover='<img class="width-100" id="welcom_pic"/>'
-          title="pilipala 1.0 :: Akane"
-          summary="超级大更新"
-          createDate="22-07-12" viewCount="12345" commentCount="12345" starCount="12345"
-          script=
-              'let images = ["./rc/assets/bg_1.jpg",
-                             "./rc/assets/bg_2.jpg",
-                             "./rc/assets/bg_3.jpg",
-                             "./rc/assets/bg_4.jpg"];
-               document.getElementById("welcom_pic").src = images[Math.floor(Math.random() * images.length)];'/>
-
-      <PreviewCard
-          title="氛"
-          summary="Make a simple, intuitive UI"
-          createDate="22-07-12" viewCount="12345" commentCount="12345" starCount="12345"/>
+      <NoteCard body=""/>
 
       <DetailCard
-          title="氛"
-          summary="Make a simple, intuitive UI"
+          comment-count="8"
+          body="这是一条笔记，适合短文本发布。"
+          :create-time="new Date('2022-07-12T08:24:00')"
       />
 
       <DetailCard
+          title="氛"
+          summary="Make a simple, intuitive UI"
+          comment-count="8"
+          is-schedule="true"
+          is-archive="true"
+          body="ssk"
+          :create-time="new Date('2022-07-12T08:24:00')"
+      />
+      <DetailCard
+          title="氛"
+          summary="Make a simple, intuitive UI"
+          comment-count="8"
+          :create-time="new Date('2022-07-12T08:24:00')"
+      />
+
+      <DetailCard
+          coverUrl='/src/assets/akane_cover.png'
           title="空の青さを知る人よ"
           summary="《知晓天空之蓝的人啊》"
+          comment-count="18"
+          :create-time="new Date('2022-06-10T08:24:00')"
+      />
+
+      <DetailCard
+          coverUrl='/src/assets/akane_cover.png'
+          title="空の青さを知る人よ"
+          summary="《知晓天空之蓝的人啊》"
+          :create-time="new Date('2022-06-10T08:02:00')"
           is-schedule="true"
           is-archive="true"
           body=
-              '<img src="./rc/assets/akane.jpg"/>
+              '<img src="./src/assets/akane.jpg"/>
               <h1>相生茜 Aioi Akane</h1>
               <h2>简介</h2>
               <blockquote>
@@ -95,6 +105,7 @@
           prev-title="你不知道的114514个单身技巧" next-title="构建pilipala应用的最佳实践"
       />
 
+      <!--
       <CoBox user-name="Thaumy" modify-time="19.04.05" hash-sign="004C01E"
              create-date="19-07-12"
              view-count="12345"
@@ -110,7 +121,7 @@
       <NoCommentTip/>
       <WarningTip/>
       <LockingTip/>
-
+-->
       <CommentColumn/>
 
     </div>

@@ -5,7 +5,7 @@
         class="archive-chip"
         color="orange"
         size="small"
-        @click="toggleSnackBar()"
+        @click="toggleSnackbar()"
     >
       <v-icon icon="mdi-archive"></v-icon>
     </v-chip>
@@ -16,7 +16,7 @@
         :timeout="2000"
         color="orange"
         location="top right"
-        @click="toggleSnackBar()"
+        @click="toggleSnackbar()"
     >
       <div class="snackbar-text">
         当前文章已归档 / 不受维护的内容
@@ -31,7 +31,7 @@ import {ref} from "vue";
 
 const snackbarVisibility = ref(false)
 
-function toggleSnackBar() {
+function toggleSnackbar() {
   snackbarVisibility.value = !snackbarVisibility.value
 }
 </script>
