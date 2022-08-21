@@ -106,8 +106,8 @@
               </table>
 
               代码高亮
-              <pre v-hljs><code class="fs">let HelloField() : unit -> unit =
-            Console.WriteLine "HelloField!"</code></pre>'
+              <pre><code class="language-fsharp">let HelloField() : unit -> unit =
+  Console.WriteLine "HelloField!"</code></pre>'
 
           prev-title="你不知道的114514个单身技巧" next-title="构建pilipala应用的最佳实践"
       />

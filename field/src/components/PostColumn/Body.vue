@@ -2,7 +2,7 @@
   <div>
 
     <div class="body">
-      <div class="content markdown-body" v-html="body" v-if="body"/>
+      <div id='body_html' class="content markdown-body" v-html="body" v-if="body"/>
 
       <div class="bottom-slot">
         <slot name="bottom-slot"/>
@@ -13,12 +13,21 @@
 </template>
 
 <script setup lang="ts">
-import {createApp, defineProps, PropType, toRefs} from "vue";
+import {onMounted, createApp, defineProps, PropType, toRefs} from "vue";
+import '@/styles/prism.css'
+import Prism from 'prismjs'
 
 const props = defineProps({
   body: String,
   createTime: Date as PropType<Date>,
   modifyTime: Date as PropType<Date>
+})
+
+onMounted(() => {
+  const block = document.getElementById('body_html')
+  Prism.highlightAll()
+  if (block)
+    Prism.highlightAllUnder(block)
 })
 
 </script>
