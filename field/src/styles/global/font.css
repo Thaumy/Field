@@ -7,8 +7,8 @@
 }
 
 @font-face {
-    font-family: 'Roboto Mono';
-    src: url('https://cdn.jsdelivr.net/npm/roboto-mono-webfont@2.0.986/fonts/RobotoMono-Bold.ttf');
+    font-family: 'JetBrains Mono';
+    src: url('https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/fonts/webfonts/JetBrainsMono-Regular.woff2');
     font-display: swap;
 }
 
@@ -17,3 +17,4 @@
     src: url('https://cdn.jsdelivr.net/npm/@fontsource/source-sans-pro@4.5.10/files/source-sans-pro-latin-400-normal.woff');
     font-display: swap;
 }
+

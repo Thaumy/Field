@@ -1,5 +1,5 @@
 <template>
-  <div id="NavCol" class="bE-white border-radius-all">
+  <div id="NavCol" class="border-line border-radius-all">
 
     <AvatarBox avatar="../../assets/pp512.png" title="THAUMY的小站"/>
 

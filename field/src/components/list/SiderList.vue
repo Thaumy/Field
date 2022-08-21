@@ -1,5 +1,5 @@
 <template>
-  <div id="SiderList" class="bE-black">
+  <div id="SiderList" class="border-line">
 
     <m-nav_card v-for="a in List" v-bind:item="a" v-bind:key="a.index"></m-nav_card>
 

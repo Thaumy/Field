@@ -1,5 +1,5 @@
 <template>
-  <div class="CommentList M bE-white border-radius-all">
+  <div class="CommentList M border-line border-radius-all">
 
     <CommentCard user-name="小品Pinn"
                  floor="1"

@@ -1,0 +1,62 @@
+<template>
+  <div>
+
+    <v-chip
+        size="x-small"
+        variant="text"
+        :style="'color:'+genTimeColor()"
+    >
+      创建于{{ genTimeText() }}
+    </v-chip>
+
+  </div>
+</template>
+
+<script setup lang="ts">
+import {defineProps, PropType, toRefs} from "vue";
+import {formatToDate, formatToDateTime} from "@/scripts/date"
+
+const props = defineProps({
+  createTime: Object as PropType<Date>,
+  dateOnly: Boolean
+})
+
+const createTime = toRefs(props).createTime?.value
+
+function genTimeColor() {
+  if (!createTime)
+    return
+
+  const createTimespan = Date.now() - createTime.getTime()
+
+  if (createTimespan < 604800000)
+      //if create within a week, show blue time
+    return 'rgb(0 196 255 / 80%)'
+  else
+    return 'grey'
+}
+
+function genTimeText() {
+  if (!createTime)
+    return
+
+  const formatter = (x: Date) => {
+    if (toRefs(props).dateOnly?.value)
+      return formatToDate(x)
+    else
+      return formatToDateTime(x)
+  }
+
+  let final: string
+  if (new Date().getFullYear() === createTime.getFullYear())
+    final = formatter(createTime).substring(3)
+  else
+    final = formatter(createTime)
+  return final
+}
+
+</script>
+
+<style scoped>
+
+</style>

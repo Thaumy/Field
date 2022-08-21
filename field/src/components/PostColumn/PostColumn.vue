@@ -2,37 +2,54 @@
   <div>
 
     <div class="CardCol float-right">
-      <NoteCard body="这是一条笔记，适合短文本发布。"/>
-
-      <PreviewCard
-          cover='<img class="width-100" id="welcom_pic"/>'
-          title="pilipala 1.0 :: Akane"
-          summary="超级大更新"
-          createDate="22-07-12" viewCount="12345" commentCount="12345" starCount="12345"
-          script=
-              'let images = ["./rc/assets/bg_1.jpg",
-                             "./rc/assets/bg_2.jpg",
-                             "./rc/assets/bg_3.jpg",
-                             "./rc/assets/bg_4.jpg"];
-               document.getElementById("welcom_pic").src = images[Math.floor(Math.random() * images.length)];'/>
-
-      <PreviewCard
-          title="氛"
-          summary="Make a simple, intuitive UI"
-          createDate="22-07-12" viewCount="12345" commentCount="12345" starCount="12345"/>
-
       <DetailCard
-          title="氛"
-          summary="Make a simple, intuitive UI"
+          comment-count="8"
+          body="这是一条笔记，适合短文本发布。"
+          :create-time="new Date('2022-08-19T08:24:00')"
+          :modify-time="new Date('2022-08-19T08:24:00')"
       />
 
       <DetailCard
-          title="空の青さを知る人よ"
-          summary="《知晓天空之蓝的人啊》"
+          title="氛"
+          summary="Make a simple, intuitive UI"
+          comment-count="8"
+          :create-time="new Date('2022-08-12T08:24:00')"
+          :modify-time="new Date('2022-08-14T08:24:00')"
+      />
+
+      <DetailCard
+          title="氛"
+          summary="Make a simple, intuitive UI"
+          comment-count="8"
           is-schedule="true"
           is-archive="true"
+          body="This is Field V4!"
+          :create-time="new Date('2022-08-16T08:24:00')"
+          :modify-time="new Date('2022-08-18T08:24:00')"
+          :topics="['花花','草草','云云']"
+      />
+
+      <DetailCard
+          coverUrl='/src/assets/akane_cover.png'
+          title="空の青さを知る人よ"
+          summary="《知晓天空之蓝的人啊》"
+          comment-count="18"
+          :topics="['花花','草草','云云']"
+          :create-time="new Date('2022-08-20T08:00:00')"
+          :modify-time="new Date('2022-08-20T10:00:01')"
+      />
+
+      <DetailCard
+          coverUrl='/src/assets/akane_cover.png'
+          title="空の青さを知る人よ"
+          summary="《知晓天空之蓝的人啊》"
+          :create-time="new Date('2022-08-20T08:00:00')"
+          :modify-time="new Date('2022-08-20T10:00:01')"
+          is-schedule="true"
+          is-archive="true"
+          :topics="['花花','草草','云云']"
           body=
-              '<img src="./rc/assets/akane.jpg"/>
+              '<img src="./src/assets/akane.jpg"/>
               <h1>相生茜 Aioi Akane</h1>
               <h2>简介</h2>
               <blockquote>
@@ -89,12 +106,13 @@
               </table>
 
               代码高亮
-              <pre v-hljs><code class="fs">let HelloField() : unit -> unit =
-            Console.WriteLine "HelloField!"</code></pre>'
+              <pre><code class="language-fsharp">let HelloField() : unit -> unit =
+  Console.WriteLine "HelloField!"</code></pre>'
 
           prev-title="你不知道的114514个单身技巧" next-title="构建pilipala应用的最佳实践"
       />
 
+      <!--
       <CoBox user-name="Thaumy" modify-time="19.04.05" hash-sign="004C01E"
              create-date="19-07-12"
              view-count="12345"
@@ -110,8 +128,8 @@
       <NoCommentTip/>
       <WarningTip/>
       <LockingTip/>
-
-      <CommentColumn/>
+-->
+      <CommentList/>
 
     </div>
   </div>
@@ -124,7 +142,7 @@ import CoBox from "@/components/box/CoBox.vue";
 import WarningTip from "@/components/tip/WarningTip.vue";
 import LockingTip from "@/components/tip/LockingTip.vue";
 import NoCommentTip from "@/components/tip/NoCommentTip.vue";
-import CommentColumn from "@/components/CommentColumn/CommentColumn.vue";
+import CommentList from "@/components/CommentList/CommentList.vue";
 import DetailCard from "./DetailCard.vue";
 import NoteCard from "./NoteCard.vue";
 import PreviewCard from "./PreviewCard.vue";
@@ -132,7 +150,7 @@ import PreviewCard from "./PreviewCard.vue";
 export default defineComponent({
   name: "PostColumn",
   components: {
-    CommentColumn,
+    CommentList,
     CoBox,
     NoCommentTip,
     WarningTip,

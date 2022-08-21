@@ -1,6 +1,6 @@
 <template>
 
-  <div class="CoBox margin-bottom bE-white">
+  <div class="CoBox margin-bottom border-line">
 
     <span class="text_auth float-left">由{{ userName }}最后编辑于{{ modifyTime }}</span>
     <span title="MD5签名 : @MD5" class="text_mId float-right">{{ hashSign }}</span>
