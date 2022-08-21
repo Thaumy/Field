@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
-    "highlight.js": "^11.6.0",
+    "prismjs": "^1.28.0",
     "roboto-fontface": "*",
     "typed.js": "^2.0.12",
     "vue": "^3.2.37",
@@ -18,10 +18,12 @@
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
+    "@types/prismjs": "^1.26.0",
     "@types/webfontloader": "^1.0.0",
     "@vitejs/plugin-vue": "^3.0.3",
     "typescript": "^4.6.4",
     "vite": "^3.0.7",
+    "vite-plugin-prismjs": "^0.0.8",
     "vite-plugin-vuetify": "^1.0.0-alpha.0",
     "vue-cli-plugin-vuetify": "~2.5.1",
     "vue-tsc": "^0.39.5"
