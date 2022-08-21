@@ -1,161 +1,172 @@
 <template>
+  <div>
 
-  <div class="card margin-bottom border-radius-all bE-black">
-    <div class="contain border-radius-all">
+    <div class="card margin-bottom border-radius-all border-line">
 
-      <div class="none-body-preview-zone" v-if="!body">
-        <div class="title-flex">
-          <div class="title">{{ title }}</div>
-          <div class="title-chips">
-          </div>
-        </div>
-        <div class="summary">{{ summary }}</div>
-      </div>
-
-      <div class="preview-zone" v-if="body">
-        <div class="title-flex">
-          <div class="title">{{ title }}</div>
-          <div class="title-chips">
+      <v-img
+          :eager=true
+          :src=coverUrl
+          v-if=coverUrl&&!body
+      />
+      <div :style=genPreviewBgStyle()>
+        <Preview :title=title
+                 :summary=summary
+                 :style=genPreviewStyle()
+                 v-if=title
+        >
+          <template v-slot:title-right-slot>
             <ScheduleChip v-if="isSchedule"/>
             <ArchiveChip v-if="isArchive"/>
-          </div>
-        </div>
-        <div class="summary">{{ summary }}</div>
-        <ReadTimeTip word-count='6600' need-minute='5'/>
+          </template>
+
+          <template v-slot:summary-right-slot v-if="!body">
+            <ModifyTimeChip :modify-time="modifyTime" style="align-self: end" v-if="modifyTimeVisibility()"/>
+            <CreateTimeChip :create-time="createTime" style="align-self: end" date-only="true"/>
+          </template>
+
+          <template v-slot:bottom-slot>
+            <ReadTimeTip word-count='6600' need-minute='5' v-if="body"/>
+          </template>
+        </Preview>
       </div>
 
-      <div class="content markdown-body" v-html="body" v-if="body"></div>
-      <!--
-      <SwitchBtn :prev="prevTitle" :next="nextTitle" v-if="body"/>
--->
+      <Body :body="body"
+            :create-time="createTime"
+            :modify-time="modifyTime"
+            v-if="body"
+      >
+      <template v-slot:bottom-slot>
+        <div class="topic-flex">
+          <TopicChip class="mr-1" v-for="topic in topics" :topic="topic"/>
+        </div>
+        <div class="time-flex">
+          <ModifyTimeChip
+              :modify-time="modifyTime"
+              :active="modifyTimeVisibility()"
+              v-if="secTimespan(modifyTime,createTime)>7200"
+          />
+          <CreateTimeChip :create-time="createTime"/>
+        </div>
+      </template>
+      </Body>
+      <!--<SwitchBtn :prev="prevTitle" :next="nextTitle" v-if="body"/>-->
     </div>
-  </div>
 
+  </div>
 </template>
 
-<script lang="ts">
-import {defineComponent} from "vue";
+<script setup lang="ts">
+import {defineProps, PropType, toRefs} from "vue";
+import {secTimespan} from "@/scripts/date";
 
-import ReadTimeTip from "@/components/tip/ReadTimeTip.vue";
 import ScheduleChip from "@/components/tip/ScheduleChip.vue";
+import ReadTimeTip from "@/components/tip/ReadTimeTip.vue";
 import ArchiveChip from "@/components/tip/ArchiveChip.vue";
+import TopicChip from "@/components/PostColumn/TopicChip.vue";
+import ModifyTimeChip from "@/components/PostColumn/ModifyTimeChip.vue";
+import CreateTimeChip from "@/components/PostColumn/CreateTimeChip.vue";
 import SwitchBtn from "@/components/btn/SwitchBtn.vue";
+import Preview from "./Preview.vue";
+import Body from "@/components/PostColumn/Body.vue";
 
-export default defineComponent({
-  name: "PostCard",
-  props: {
-    title: String,
-    summary: String,
-    body: String,
-    prevTitle: String,
-    nextTitle: String,
-    isSchedule: Boolean,
-    isArchive: Boolean,
-  },
-  components: {
-    SwitchBtn,
-    ScheduleChip,
-    ArchiveChip,
-    ReadTimeTip
-  },
-  data() {
-  }
-
+const props = defineProps({
+  coverUrl: String,
+  title: String,
+  summary: String,
+  body: String,
+  createTime: Date,
+  modifyTime: Date,
+  commentCount: Number,
+  prevTitle: String,
+  nextTitle: String,
+  isSchedule: Boolean,
+  isArchive: Boolean,
+  topics: Object as PropType<string[]>
 })
+
+/*
+function modifyTimeVisibility() {
+  const createTime = toRefs(props).createTime?.value
+
+  if (!createTime)
+    return
+
+  const timespan = Date.now() - createTime.getTime()
+  return timespan > 604800000//if create within a week, hide modify time
+}
+*/
+
+function genPreviewStyle() {
+//:style="{'background-color': }"
+  const coverUrl = toRefs(props).coverUrl?.value
+  const body = toRefs(props).body?.value
+
+  if (coverUrl)
+    return {
+      'backdrop-filter': coverUrl ? 'blur(10px)' : '',
+      'background-color': 'rgba(10, 10, 10, 0.8)'
+    }
+  else return {}
+}
+
+function genPreviewBgStyle() {
+  const coverUrl = toRefs(props).coverUrl?.value
+  const body = toRefs(props).body?.value
+
+  if (coverUrl)
+    return {
+      'background-image': `url(${coverUrl})`,
+      'background-position': body ? 'center' : 'bottom',
+      'background-size': 'cover',
+    }
+  else
+    return {
+      'background-color': body ? 'rgba(36, 36, 36, 1)' : 'rgba(30, 30, 30, 1)',
+    }
+}
+
+function modifyTimeVisibility() {
+  const createTime = toRefs(props).createTime?.value
+  const modifyTime = toRefs(props).modifyTime?.value
+
+  if (!createTime || !modifyTime)
+    return
+
+  const createTimespan = secTimespan(new Date(), createTime)
+  const modifyTimespan = secTimespan(new Date(), modifyTime)
+
+
+  const createWithinOneWeek = createTimespan < 604800//if create within one week
+  const noModifyWithinOneMonth = modifyTimespan > 2592000//or NO modify within one month
+  const createTimeEqToModifyTime =//or create time equal to modify time
+      createTime === modifyTime
+
+  //hide modify time
+  return !(createWithinOneWeek || noModifyWithinOneMonth || createTimeEqToModifyTime)
+}
 </script>
 
 <style scoped>
-.none-body-preview-zone {
-  padding: 6px;
-  background: rgba(30, 30, 30, 1.00);
-}
 
-.preview-zone {
-  padding: 6px;
-  display: grid;
-  grid-template-rows: auto 30px auto;
-}
-
-.title-flex {
+.topic-flex {
   display: flex;
-  padding: 2px;
-  padding-left: 6px;
-  justify-content: space-between;
+}
+
+.time-flex {
+  display: flex;
 }
 
 .card {
   width: 100%;
-
   overflow: hidden;
 }
 
-.contain {
-  overflow: hidden;
-  width: 100%;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-
-.title {
-  font-size: 24px;
-}
-
-.title-chips {
-  display: flex;
-  align-items: center;
-}
-
-img {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  margin-bottom: -5px;
-}
-
-.summary {
-  font-size: 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  padding-left: 18px;
-  padding-right: 18px;
-}
-
-.content {
-  padding: 12px;
-
-  font-size: 15px;
-  line-height: 22px;
-  letter-spacing: 1px;
-  word-break: break-word;
-}
 </style>
 
 <style scoped>
 .card {
   /* 颜色模式 */
-  background: rgba(40, 40, 40, 1.00);
-}
-
-.contain {
-  /* 颜色模式 */
   /*
-  background: rgba(30, 30, 30, 1.00);*/
-}
-
-.title {
-  /* 颜色模式 */
-  color: rgba(240, 240, 240, 1.00);
-}
-
-.summary {
-  /* 颜色模式 */
-  color: rgba(210, 210, 210, 1.00);
-}
-
-.content {
-  /* 颜色模式 */
-  color: rgba(240, 240, 240, 1.00);
-  background: rgba(30, 30, 30, 1.00);
+  background: rgba(40, 40, 40, 1.00);*/
 }
 </style>

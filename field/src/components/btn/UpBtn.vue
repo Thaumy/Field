@@ -3,7 +3,7 @@
     <transition name="fade">
       <div
           v-show="isShow"
-          class="upBtn bE-black border-radius-all"
+          class="upBtn border-line border-radius-all"
           @click="goUp()"></div>
     </transition>
   </div>

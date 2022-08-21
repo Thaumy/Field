@@ -319,7 +319,7 @@
     appearance: none
 }
 
-.markdown-body :checked+.radio-label {
+.markdown-body :checked + .radio-label {
     position: relative;
     z-index: 1;
     border-color: #0366d6
@@ -642,11 +642,11 @@
     clear: both
 }
 
-.markdown-body>:first-child {
+.markdown-body > :first-child {
     margin-top: 0 !important
 }
 
-.markdown-body>:last-child {
+.markdown-body > :last-child {
     margin-bottom: 0 !important
 }
 
@@ -682,11 +682,11 @@
     background: rgba(40, 40, 40, 1);
 }
 
-.markdown-body blockquote>:first-child {
+.markdown-body blockquote > :first-child {
     margin-top: 0
 }
 
-.markdown-body blockquote>:last-child {
+.markdown-body blockquote > :last-child {
     margin-bottom: 0
 }
 
@@ -750,11 +750,11 @@
     word-wrap: break-all
 }
 
-.markdown-body li>p {
+.markdown-body li > p {
     margin-top: 16px
 }
 
-.markdown-body li+li {
+.markdown-body li + li {
     margin-top: .25em
 }
 
@@ -833,7 +833,7 @@
 }
 
 .markdown-body code {
-    padding: .2em .4em;
+    padding: 0.2em;/*原为.2em .4em*/
     margin-left: 2px;
     margin-right: 2px;
 
@@ -846,16 +846,14 @@
 .markdown-body pre {
     word-wrap: normal;
 
-
     background-color: rgb(16, 16, 16);
     margin-top: 6px;
     margin-bottom: 6px;
 
-    font-family: 'Source Sans Pro', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 1em;
-    font-weight: 600;
 
-    text-align: right;
+    text-align: left; /*原来是right*/
     white-space: pre-wrap;
 
     color: rgba(200, 200, 200, 1.00);
@@ -864,7 +862,7 @@
     box-shadow: 0px 0px 3px 0.2px rgba(0, 0, 0, 0.4);
 }
 
-.markdown-body pre>code {
+.markdown-body pre > code {
     padding: 0;
     margin: 0;
     color: unset;
@@ -875,8 +873,7 @@
     border: 0;
 
     text-align: left;
-    font-family: 'Roboto Mono', monospace;
-    font-weight: 400;
+    font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0px;
 }
 
@@ -1043,7 +1040,7 @@
     list-style-type: none
 }
 
-.markdown-body .task-list-item+.task-list-item {
+.markdown-body .task-list-item + .task-list-item {
     margin-top: 3px
 }
 

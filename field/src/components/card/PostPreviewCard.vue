@@ -1,6 +1,6 @@
 <template>
 
-  <div class="Card M bE-black border-radius-all">
+  <div class="Card M border-line border-radius-all">
 
     <div onclick="up()" class="contain cursor-pointer">
       <div v-html="cover"></div>

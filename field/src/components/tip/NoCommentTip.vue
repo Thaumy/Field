@@ -1,6 +1,6 @@
 <template>
 
-  <div class="CommentTip bE-white">
+  <div class="CommentTip border-line">
     <div class="con">评论尚无，快来吃个螃蟹！</div>
   </div>
 
