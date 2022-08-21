@@ -129,7 +129,7 @@
       <WarningTip/>
       <LockingTip/>
 -->
-      <CommentColumn/>
+      <CommentList/>
 
     </div>
   </div>
@@ -142,7 +142,7 @@ import CoBox from "@/components/box/CoBox.vue";
 import WarningTip from "@/components/tip/WarningTip.vue";
 import LockingTip from "@/components/tip/LockingTip.vue";
 import NoCommentTip from "@/components/tip/NoCommentTip.vue";
-import CommentColumn from "@/components/CommentColumn/CommentColumn.vue";
+import CommentList from "@/components/CommentList/CommentList.vue";
 import DetailCard from "./DetailCard.vue";
 import NoteCard from "./NoteCard.vue";
 import PreviewCard from "./PreviewCard.vue";
@@ -150,7 +150,7 @@ import PreviewCard from "./PreviewCard.vue";
 export default defineComponent({
   name: "PostColumn",
   components: {
-    CommentColumn,
+    CommentList,
     CoBox,
     NoCommentTip,
     WarningTip,

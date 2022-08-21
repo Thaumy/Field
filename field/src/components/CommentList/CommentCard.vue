@@ -22,17 +22,23 @@
           v-if="comment.siteUrl"
       />
       <div class="user-name">{{ comment.user }}
-        <transition name="reply-btn-rotate">
+        <transition name="reply-btn-rotate" v-if="enableReply">
           <v-icon class="reply-btn"
                   color="orange"
                   icon="mdi-reply"
                   size="1.1em"
-                  @click=""
+                  @click="$emit('doReply')"
                   v-show="replyIconVisibility"
           />
         </transition>
       </div>
+      <div class="user-name-right-end-slot">
+        <slot name="user-name-right-end-slot"/>
+      </div>
       <div class="create-time">{{ comment.createTime }}</div>
+      <div class="body-left-slot">
+        <slot name="body-left-slot"/>
+      </div>
       <div class="body">{{ comment.body }}</div>
     </div>
 
@@ -44,8 +50,14 @@ import {defineProps, ref} from "vue";
 import {Comment} from "@/scripts/comment";
 
 defineProps({
-  comment: Comment
+  comment: Comment,
+  enableReply: {
+    type: Boolean,
+    default: true
+  }
 })
+
+defineEmits(['doReply'])
 
 const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.meta.url).href
 const replyIconVisibility = ref(false)
@@ -65,9 +77,16 @@ function hideReplyIcon() {
 </script>
 
 <style scoped>
+.user-name-right-end-slot {
+  display: flex;
+  justify-content: end;
+  grid-row-start: 1;
+  grid-column-start: 4;
+}
+
 .card {
   display: grid;
-  grid-template-columns: 30px 10px 4px auto;
+  grid-template-columns: 30px 10px auto;
   grid-template-rows: 20px 20px auto auto;
 
   padding: 4px;
@@ -100,13 +119,20 @@ function hideReplyIcon() {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  grid-column-start: 4;
+
+  grid-row-start: 1;
+  grid-column-start: 3;
+
+  padding-left: 4px;
+
 }
 
 .create-time {
   align-self: center;
   grid-row-start: 2;
-  grid-column-start: 4;
+  grid-column-start: 3;
+
+  padding-left: 4px;
 
   font-size: 0.6rem;
   color: rgba(170, 170, 170, 1);
@@ -120,17 +146,20 @@ function hideReplyIcon() {
   padding-bottom: 4px;
 }
 
-
 .body {
-  grid-column-start: 1;
+  grid-column-start: 3;
   grid-column-end: 5;
 
   font-size: 0.9rem;
   text-align: left;
 
   padding-top: 4px;
-  padding-left: 8px;
+  padding-left: 4px;
   padding-bottom: 2px;
+}
+
+.body-left-slot {
+  grid-row-start: 3;
 }
 </style>
 <style scoped>
