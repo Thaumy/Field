@@ -9,7 +9,7 @@
             key="reply-target-zone"
         >
           <div class="reference-bar"/>
-          <!-- TODO 此实现有缺陷，当收起动画未完成时，回复仍然有效 -->
+          <!-- TODO 此实现有缺陷，当收起动画未完成时，回复仍然有效。并且不能适应后期缩放 -->
           <f-slider
               ref="reply-target-slider"
               :after-closed="()=>{this.replyTo=postId}"
@@ -40,7 +40,7 @@
                 :enable-reply='replyTo!==item.id'
                 @do-reply="
                     replyTo=item.id;
-                    $refs['reply-target-slider'].expand($refs['comment-list'][index].offsetHeight)"
+                    $refs['reply-target-slider'].expand($refs['comment-list'][index].children[1].offsetHeight)"
             />
           </div>
         </div>
@@ -108,54 +108,40 @@ function getCommentById(id: Number) {
 }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
 
-.reply-target-zone {
-  display: grid;
-  grid-template-columns: 2px auto;
-  overflow: hidden;
-}
+.reply-target-zone
+  display: grid
+  grid-template-columns: 2px auto
+  overflow: hidden
 
-.comment-zone-enter-active,
-.comment-zone-leave-active {
-  transition: all 2s ease;
-}
+.comment-zone-enter-active
+.comment-zone-leave-active
+  transition: all 2s ease
 
 .comment-zone-leave-to,
-.comment-zone-enter-from {
-  height: 0;
-  opacity: 0;
-}
+.comment-zone-enter-from
+  height: 0
+  opacity: 0
 
-/*
-.comment-zone-leave-to {
-}
+.reference-filter
+  filter: saturate(0.6)
+  background-color: rgba(100 100 100 0.1)
 
-.comment-zone-leave-active {
-  position: absolute;
-}*/
+.reference-bar
+  width: 2px
+  background-color: #0078d7
 
-.reference-filter {
-  filter: grayscale(0.6);
-}
-
-.reference-bar {
-  width: 2px;
-  background-color: #0078d7;
-}
-
-.comment-divider {
-  border-top: 1px solid rgb(50, 50, 50);
-  margin-left: 44px;
+.comment-divider
+  border-top: 1px solid rgb(50 50 50)
+  margin-left: 44px
   margin-right: 8px
-}
 
-.comment-zone {
-  width: 100%;
-  overflow: hidden;
+.comment-zone
+  width: 100%
+  overflow: hidden
   /* 颜色模式 */
-  background: var(--b30);
-  transition: all 0.2s ease;
-}
+  background: var(--b30)
+  transition: all 0.2s ease
 
 </style>
