@@ -1,25 +1,47 @@
 <template>
   <div>
 
-    <div class="comment-list margin-bottom border-line border-radius-all">
-      <transition-group name="comment-list">
+    <div class="comment-zone margin-bottom border-line border-radius-all">
+      <transition-group name="comment-zone">
 
-        <div class="reply-target-zone" v-if="replyTo!==postId" key="reply-target-zone">
-          <div class="reference-bar"></div>
-
-          <CommentCard class="reference-filter" :comment="getCommentById(replyTo)" :enable-reply=false>
-            <template v-slot:user-name-right-end-slot>
-              <v-icon icon="mdi-close" size="x-small" color="grey" @click="replyTo=postId"/>
-            </template>
-          </CommentCard>
+        <div
+            class="reply-target-zone"
+            key="reply-target-zone"
+        >
+          <div class="reference-bar"/>
+          <!-- TODO 此实现有缺陷，当收起动画未完成时，回复仍然有效 -->
+          <f-slider
+              ref="reply-target-slider"
+              :after-closed="()=>{this.replyTo=postId}"
+          >
+            <CommentCard
+                class="reference-filter"
+                :comment="getCommentById(replyTo)"
+                :enable-reply=false
+            >
+              <template v-slot:user-name-right-end-slot>
+                <v-icon icon="mdi-close"
+                        size="x-small"
+                        color="grey"
+                        @click="$refs['reply-target-slider'].close()"
+                />
+              </template>
+            </CommentCard>
+          </f-slider>
         </div>
 
         <CommentEditor :reply-mode="replyTo!==postId" key="comment-editor"/>
 
         <div>
-          <div v-for="item in comments" :key="item">
+          <div v-for="(item,index) in comments" ref="comment-list">
             <div class="comment-divider"/>
-            <CommentCard :comment='item' @do-reply="replyTo=item.id"/>
+            <CommentCard
+                :comment='item'
+                :enable-reply='replyTo!==item.id'
+                @do-reply="
+                    replyTo=item.id;
+                    $refs['reply-target-slider'].expand($refs['comment-list'][index].offsetHeight)"
+            />
           </div>
         </div>
 
@@ -34,10 +56,12 @@ import CommentEditor from './CommentEditor.vue'
 import CommentCard from './CommentCard.vue'
 import {Comment} from "@/scripts/comment";
 import {Ref, ref} from "vue";
+import FSlider from "@/components/field/f-slider.vue";
 
 //TODO add props
-const postId = ref(12384)
+const postId = 12384
 const replyTo = ref(12384)
+
 const comments = [
   <Comment>{
     id: 1000,
@@ -89,29 +113,25 @@ function getCommentById(id: Number) {
 .reply-target-zone {
   display: grid;
   grid-template-columns: 2px auto;
-  position: relative;
-  max-height: 100vh;
   overflow: hidden;
 }
 
-.comment-list-enter-active,
-.comment-list-leave-active {
+.comment-zone-enter-active,
+.comment-zone-leave-active {
   transition: all 2s ease;
 }
 
-.comment-list-leave-to,
-.comment-list-enter-from {
-  max-height: 0;
+.comment-zone-leave-to,
+.comment-zone-enter-from {
+  height: 0;
   opacity: 0;
-  transform-origin: top;
-  transform: rotateX(90deg);
 }
 
 /*
-.comment-list-leave-to {
+.comment-zone-leave-to {
 }
 
-.comment-list-leave-active {
+.comment-zone-leave-active {
   position: absolute;
 }*/
 
@@ -130,7 +150,7 @@ function getCommentById(id: Number) {
   margin-right: 8px
 }
 
-.comment-list {
+.comment-zone {
   width: 100%;
   overflow: hidden;
   /* 颜色模式 */
