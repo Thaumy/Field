@@ -13,6 +13,14 @@
       <input class="user-name-input border-radius-all"/>
       <input class="email-input border-radius-all"/>
       <textarea class="body-input border-radius-all"></textarea>
+      <v-switch
+          class="preview-switch"
+          v-model="previewMode"
+          color="blue"
+          @click="previewMode=!previewMode"
+      >
+        {{ previewMode ? '编辑' : '预览' }}
+      </v-switch>
       <v-btn
           class="commit-btn"
           :color="replyMode ?'orange':'#238636'"
@@ -26,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps} from "vue";
+import {defineProps, ref} from "vue";
 
 defineProps({
   replyMode: {
@@ -35,86 +43,70 @@ defineProps({
   }
 })
 
+const previewMode = ref(false)
 const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.meta.url).href
 
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+.comment-editor
+  display grid
+  grid-template-columns 40px 20% auto 100px 100px
+  grid-template-rows auto auto auto
+  border-radius 2px
+  padding 4px
 
-.comment-editor {
-  display: grid;
-  grid-template-columns: 40px 20% auto 100px 100px;
-  grid-template-rows: auto auto auto;
+.user-avatar
+  margin 4px
 
-  border-radius: 2px;
-  padding: 4px;
-}
+.user-name-input
+  resize none
+  height 1.5rem
+  align-self center
 
-.user-avatar {
-  margin: 4px;
-}
+  padding-left 4px
+  padding-right 4px
 
-.user-name-input {
-  resize: none;
-  height: 1.5rem;
-  align-self: center;
+  background var(--b20)
+  color var(--w220)
+  margin 4px
+  font-size 0.7rem
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
 
-  padding-left: 4px;
-  padding-right: 4px;
+  grid-column-start 2
 
-  background: var(--b20);
-  color: var(--w220);
-  margin: 4px;
-  font-size: 0.7rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.body-input
+  resize none
+  background var(--b20)
 
-  grid-column-start: 2;
-}
+  margin-left 4px
+  margin-right 2px
+  height 4rem
 
-.body-input {
-  resize: none;
-  background: var(--b20);
+  color var(--w200)
 
-  margin-left: 4px;
-  margin-right: 2px;
-  height: 4rem;
+  grid-row-start 2
+  grid-column-start 2
+  grid-column-end 6
 
-  color: var(--w200);
+  font-size 0.8rem
+  text-align left
 
-  grid-row-start: 2;
-  grid-column-start: 2;
-  grid-column-end: 6;
+  padding-top 2px
+  padding-left 4px
+  padding-right 4px
+  padding-bottom 2px
 
-  font-size: 0.8rem;
-  text-align: left;
+.preview-switch
+  margin 4px
+  height 10px
+  grid-row-start 3
+  grid-column-start 4
 
-  padding-top: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-bottom: 2px;
-}
-
-.commit-btn {
-  margin: 4px;
-  grid-row-start: 3;
-  grid-column-start: 5;
-}
-</style>
-<style scoped>
-.card {
-  /* 颜色模式 */
-  background: var(--b30);
-}
-
-.user-name {
-  /* 颜色模式 */
-  color: var(--w220);
-}
-
-.body {
-  /* 颜色模式 */
-  color: var(--w200);
-}
+.commit-btn
+  margin 4px
+  grid-row-start 3
+  grid-column-start 5
 </style>
