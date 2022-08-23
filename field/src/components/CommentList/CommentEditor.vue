@@ -3,31 +3,42 @@
 
     <div class="comment-editor"
     >
-      <v-avatar
-          class="user-avatar"
-          rounded="true"
-          size="32"
-      >
-        <v-img :src="avatar" cover="true"/>
-      </v-avatar>
-      <input class="user-name-input border-radius-all"/>
-      <input class="email-input border-radius-all"/>
-      <textarea class="body-input border-radius-all"></textarea>
-      <v-switch
-          class="preview-switch"
-          v-model="previewMode"
-          color="blue"
-          @click="previewMode=!previewMode"
-      >
-        {{ previewMode ? '编辑' : '预览' }}
-      </v-switch>
-      <v-btn
-          class="commit-btn"
-          :color="replyMode ?'orange':'#238636'"
-          size="small"
-      >
-        {{ replyMode ? '回复' : '提交' }}
-      </v-btn>
+      <v-tabs :height=12>
+        <v-tab>
+          编辑
+        </v-tab>
+        <v-tab>
+          预览
+        </v-tab>
+      </v-tabs>
+
+      <div class="editor-header">
+        <div/>
+        <div class="tools">
+          <v-icon color="grey" size="x-small" icon="mdi-format-header-3"/>
+          <v-icon color="grey" size="x-small" icon="mdi-format-bold"/>
+          <v-icon color="grey" size="x-small" icon="mdi-format-italic"/>
+          <v-icon color="grey" size="x-small" icon="mdi-format-strikethrough"/>
+          <v-icon color="grey" size="x-small" icon="mdi-format-quote-open"/>
+          <v-icon color="grey" size="x-small" icon="mdi-code-tags"/>
+          <v-icon color="grey" size="x-small" icon="mdi-format-list-checks"/>
+          <v-icon color="grey" size="x-small" icon="mdi-format-list-bulleted"/>
+          <v-icon color="grey" size="x-small" icon="mdi-format-list-numbered"/>
+          <v-icon color="grey" size="x-small" icon="mdi-link-variant"/>
+        </div>
+      </div>
+      <textarea class="body-input border-radius-all"/>
+      <div class="editor-footer">
+        <div/>
+        <v-btn
+            width="15%"
+            class="commit-btn"
+            :color="replyMode ?'orange':'#238636'"
+            size="small"
+        >
+          {{ replyMode ? '回复' : '提交' }}
+        </v-btn>
+      </div>
     </div>
 
   </div>
@@ -49,15 +60,45 @@ const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.me
 </script>
 
 <style lang="stylus" scoped>
+.editor-header
+  grid-row-start 1
+  display flex
+  justify-content space-between
+
+.editor-footer
+  grid-row-start 3
+  display flex
+  justify-content space-between
+
+.tools
+  > i
+    margin-left 2px
+    margin-right 2px
+
 .comment-editor
   display grid
-  grid-template-columns 40px 20% auto 100px 100px
   grid-template-rows auto auto auto
   border-radius 2px
   padding 4px
 
 .user-avatar
   margin 4px
+
+.email-input
+  resize none
+  height 1.5rem
+  align-self center
+
+  padding-left 4px
+  padding-right 4px
+
+  background var(--b20)
+  color var(--w220)
+  margin 4px
+  font-size 0.7rem
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
 
 .user-name-input
   resize none
@@ -75,21 +116,13 @@ const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.me
   text-overflow ellipsis
   white-space nowrap
 
-  grid-column-start 2
-
 .body-input
   resize none
   background var(--b20)
 
-  margin-left 4px
-  margin-right 2px
   height 4rem
 
   color var(--w200)
-
-  grid-row-start 2
-  grid-column-start 2
-  grid-column-end 6
 
   font-size 0.8rem
   text-align left
@@ -99,14 +132,9 @@ const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.me
   padding-right 4px
   padding-bottom 2px
 
-.preview-switch
-  margin 4px
-  height 10px
-  grid-row-start 3
-  grid-column-start 4
+  grid-row-start 2
 
 .commit-btn
   margin 4px
   grid-row-start 3
-  grid-column-start 5
 </style>

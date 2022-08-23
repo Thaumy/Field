@@ -1,7 +1,7 @@
 import App from './App.vue'
 import {createApp} from 'vue'
-import vuetify from './plugins/vuetify'
-import {loadFonts} from './plugins/webfontloader'
+import vuetify from '@/plugins/vuetify'
+import {loadFonts} from '@/plugins/webfontloader'
 
 import '@/styles/dark/com.css'
 import '@/styles/global/el.css'
