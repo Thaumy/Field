@@ -4,16 +4,16 @@
     <div class="comment-zone margin-bottom border-line border-radius-all">
       <transition-group name="comment-zone">
 
-        <div
-            class="reply-target-zone"
-            key="reply-target-zone"
+        <!-- TODO 此实现有缺陷，当收起动画未完成时，回复仍然有效。并且不能适应后期缩放 -->
+        <f-slider
+            ref="reply-target-slider"
+            :after-closed="()=>{this.replyTo=postId}"
         >
-          <div class="reference-bar"/>
-          <!-- TODO 此实现有缺陷，当收起动画未完成时，回复仍然有效。并且不能适应后期缩放 -->
-          <f-slider
-              ref="reply-target-slider"
-              :after-closed="()=>{this.replyTo=postId}"
+          <div
+              class="reply-target-zone"
+              key="reply-target-zone"
           >
+            <div class="reference-bar"/>
             <CommentCard
                 class="reference-filter"
                 :comment="getCommentById(replyTo)"
@@ -27,8 +27,8 @@
                 />
               </template>
             </CommentCard>
-          </f-slider>
-        </div>
+          </div>
+        </f-slider>
 
         <CommentEditor :reply-mode="replyTo!==postId" key="comment-editor"/>
 

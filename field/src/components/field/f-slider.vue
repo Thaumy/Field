@@ -1,8 +1,7 @@
 <template>
   <div>
 
-    <div class="f-slider"
-    >
+    <div class="f-slider">
       <div
           class="holder"
           :style="style"
@@ -27,7 +26,7 @@ const props = defineProps({
 })
 
 const render = ref(false)
-const style = ref<{ top: string, height: string }>(null)
+const style = ref<{ top: string, height: string, opacity: number }>(null)
 const latestHeight = ref(0)
 
 defineExpose({
@@ -36,12 +35,14 @@ defineExpose({
     style.value = {
       top: '-' + height + 'px',
       height: '0',
+      opacity: 0
     }
     render.value = true
     requestAnimationFrame(() => {
       style.value = {
         top: '0',
         height: height + 'px',
+        opacity: 1
       }
     })
   },
@@ -49,6 +50,7 @@ defineExpose({
     style.value = {
       top: '-' + latestHeight.value + 'px',
       height: '0',
+      opacity: 0
     }
     setTimeout(() => {
       render.value = false

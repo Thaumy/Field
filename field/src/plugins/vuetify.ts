@@ -13,8 +13,8 @@ export default createVuetify(
         directives,
         // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
         theme: {
-            defaultTheme: 'dark'
-        }
+            defaultTheme: 'dark',
+        },
     }
 )
 
