@@ -10,6 +10,14 @@
     cursor: pointer;
 }
 
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.flex {
+    display: flex;
+}
+
 /* 屏幕宽度大于1000时 */
 @media (min-width: 1000px) {
     .margin-bottom {

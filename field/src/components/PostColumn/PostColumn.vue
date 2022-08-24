@@ -30,7 +30,7 @@
       />
 
       <DetailCard
-          coverUrl='/src/assets/akane_cover.png'
+          coverUrl='1/src/assets/akane_cover.png'
           title="空の青さを知る人よ"
           summary="《知晓天空之蓝的人啊》"
           comment-count="18"
@@ -40,7 +40,7 @@
       />
 
       <DetailCard
-          coverUrl='/src/assets/akane_cover.png'
+          coverUrl='1/src/assets/akane_cover.png'
           title="空の青さを知る人よ"
           summary="《知晓天空之蓝的人啊》"
           :create-time="new Date('2022-08-20T08:00:00')"
@@ -49,7 +49,7 @@
           is-archive="true"
           :topics="['花花','草草','云云']"
           body=
-              '<img src="./src/assets/akane.jpg"/>
+              '<img src="1/src/assets/akane.jpg"/>
               <h1>相生茜 Aioi Akane</h1>
               <h2>简介</h2>
               <blockquote>
@@ -111,9 +111,6 @@
 
       />
 
-      <f-card class="margin-bottom">
-        <SwitchBtn prev="你不知道的114514个单身技巧" next="构建pilipala应用的最佳实践"/>
-      </f-card>
 
       <!--
       <CoBox user-name="Thaumy" modify-time="19.04.05" hash-sign="004C01E"
@@ -134,57 +131,36 @@
 
       <CommentList/>
 
+      <f-card class="margin-bottom">
+        <div>继续阅读</div>
+        <SwitchBtn prev="你不知道的114514个单身技巧" next="构建pilipala应用的最佳实践"/>
+      </f-card>
+
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import {defineComponent} from 'vue'
-
-import CoBox from "@/components/box/CoBox.vue";
+<script lang="ts" setup>
 import WarningTip from "@/components/tip/WarningTip.vue";
 import LockingTip from "@/components/tip/LockingTip.vue";
 import NoCommentTip from "@/components/tip/NoCommentTip.vue";
 import CommentList from "@/components/CommentList/CommentList.vue";
-import DetailCard from "./DetailCard.vue";
-import NoteCard from "./NoteCard.vue";
+import DetailCard from "./PostCard.vue";
 import PreviewCard from "./PreviewCard.vue";
 import FCard from "@/components/field/f-card.vue";
 import SwitchBtn from "@/components/btn/SwitchBtn.vue";
-
-export default defineComponent({
-  name: "PostColumn",
-  components: {
-    SwitchBtn,
-    FCard,
-    CommentList,
-    CoBox,
-    NoCommentTip,
-    WarningTip,
-    LockingTip,
-    NoteCard,
-    DetailCard,
-    PreviewCard,
-  }
-})
 </script>
 
-<style scoped>
-</style>
-
-<style scoped>
+<style lang="stylus" scoped>
 /* 屏幕宽度 [ 1001 , + ) */
-@media (min-width: 1001px) {
-  .CardCol {
-    width: 76%;
-    max-width: 1100px;
-  }
-}
+@media (min-width: 1001px)
+  .CardCol
+    width 76%
+    max-width 1100px
 
 /* 屏幕宽度 ( - , 1000 ] */
-@media (max-width: 1000px) {
-  .CardCol {
-    width: 100%;
-  }
-}
+@media (max-width: 1000px)
+  .CardCol
+    width 100%
+
 </style>

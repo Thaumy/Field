@@ -2,16 +2,26 @@
   <div>
 
     <div class="holder">
-      <div
-          class="prev-btn cursor-pointer"
-      >
-        {{ prev }}
+      <div class="prev-btn cursor-pointer">
+        <v-btn
+            prepend-icon="mdi-chevron-left"
+            color="rgb(30,30,30)"
+            flat=""
+            rounded="pill"
+        >
+          {{ prev }}
+        </v-btn>
       </div>
 
-      <div
-          class="next-btn cursor-pointer"
-      >
-        {{ next }}
+      <div class="next-btn cursor-pointer">
+        <v-btn
+            append-icon="mdi-chevron-right"
+            color="rgb(30,30,30)"
+            flat=""
+            rounded="pill"
+        >
+          {{ next }}
+        </v-btn>
       </div>
     </div>
 
@@ -35,21 +45,7 @@ defineProps({
 .next-btn
 .prev-btn
   color rgba(1 153 255 1)
-  font-size 17px
-  line-height 17px
 
-  margin 3px
-  padding 3px
-
-  overflow hidden
   white-space nowrap
   text-overflow ellipsis
-
-.prev-btn
-  padding-right 6px
-  padding-left 0px
-
-.next-btn
-  padding-left 6px
-  padding-right 0px
 </style>
