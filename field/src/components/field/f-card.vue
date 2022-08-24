@@ -14,4 +14,5 @@
 <style lang="stylus" scoped>
 .f-card
   background: var(--b30)
+  overflow hidden
 </style>

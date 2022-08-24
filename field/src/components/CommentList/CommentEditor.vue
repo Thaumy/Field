@@ -1,8 +1,8 @@
 <template>
   <div>
 
-    <div class="comment-editor"
-    >
+    <div class="comment-editor"   >
+      <!--
       <v-tabs :height=12>
         <v-tab>
           编辑
@@ -11,7 +11,7 @@
           预览
         </v-tab>
       </v-tabs>
-
+-->
       <div class="editor-header">
         <div/>
         <div class="tools">

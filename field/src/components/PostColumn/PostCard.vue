@@ -1,8 +1,7 @@
 <template>
   <div>
 
-    <div class="card margin-bottom border-radius-all border-line">
-
+    <f-card class="margin-bottom">
       <v-img
           :eager=true
           :src=coverUrl
@@ -25,7 +24,7 @@
           </template>
 
           <template v-slot:bottom-slot>
-            <ReadTimeTip word-count='6600' need-minute='5' v-if="body"/>
+            <ReadTimeBar :target-text="body" v-if="body"/>
           </template>
         </Preview>
       </div>
@@ -36,10 +35,10 @@
             v-if="body"
       >
       <template v-slot:bottom-slot>
-        <div class="topic-flex">
+        <div class="flex">
           <TopicChip class="mr-1" v-for="topic in topics" :topic="topic"/>
         </div>
-        <div class="time-flex">
+        <div class="flex">
           <ModifyTimeChip
               :modify-time="modifyTime"
               :active="modifyTimeVisibility()"
@@ -50,24 +49,25 @@
       </template>
       </Body>
       <!--<SwitchBtn :prev="prevTitle" :next="nextTitle" v-if="body"/>-->
-    </div>
+    </f-card>
 
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {defineProps, PropType, toRefs} from "vue";
 import {secTimespan} from "@/scripts/date";
 
 import ScheduleChip from "@/components/tip/ScheduleChip.vue";
-import ReadTimeTip from "@/components/tip/ReadTimeTip.vue";
+import ReadTimeBar from "@/components/tip/ReadTimeBar.vue";
 import ArchiveChip from "@/components/tip/ArchiveChip.vue";
-import TopicChip from "@/components/PostColumn/TopicChip.vue";
-import ModifyTimeChip from "@/components/PostColumn/ModifyTimeChip.vue";
-import CreateTimeChip from "@/components/PostColumn/CreateTimeChip.vue";
+import TopicChip from "@/components/chip/TopicChip.vue";
+import ModifyTimeChip from "@/components/chip/ModifyTimeChip.vue";
+import CreateTimeChip from "@/components/chip/CreateTimeChip.vue";
 import SwitchBtn from "@/components/btn/SwitchBtn.vue";
 import Preview from "./Preview.vue";
 import Body from "@/components/PostColumn/Body.vue";
+import FCard from "@/components/field/f-card.vue";
 
 const props = defineProps({
   coverUrl: String,
@@ -83,18 +83,6 @@ const props = defineProps({
   isArchive: Boolean,
   topics: Object as PropType<string[]>
 })
-
-/*
-function modifyTimeVisibility() {
-  const createTime = toRefs(props).createTime?.value
-
-  if (!createTime)
-    return
-
-  const timespan = Date.now() - createTime.getTime()
-  return timespan > 604800000//if create within a week, hide modify time
-}
-*/
 
 function genPreviewStyle() {
 //:style="{'background-color': }"
@@ -147,26 +135,7 @@ function modifyTimeVisibility() {
 </script>
 
 <style scoped>
-
-.topic-flex {
-  display: flex;
-}
-
-.time-flex {
-  display: flex;
-}
-
-.card {
-  width: 100%;
-  overflow: hidden;
-}
-
 </style>
 
 <style scoped>
-.card {
-  /* 颜色模式 */
-  /*
-  background: rgba(40, 40, 40, 1.00);*/
-}
 </style>
