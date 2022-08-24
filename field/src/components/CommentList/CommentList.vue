@@ -1,7 +1,10 @@
 <template>
   <div>
 
-    <div class="comment-zone margin-bottom border-line border-radius-all">
+    <f-card
+        class="margin-bottom"
+        style="overflow: hidden"
+    >
       <transition-group name="comment-zone">
 
         <!-- TODO 此实现有缺陷，当收起动画未完成时，回复仍然有效。并且不能适应后期缩放 -->
@@ -46,7 +49,7 @@
         </div>
 
       </transition-group>
-    </div>
+    </f-card>
 
   </div>
 </template>
@@ -57,6 +60,7 @@ import CommentCard from './CommentCard.vue'
 import {Comment} from "@/scripts/comment";
 import {Ref, ref} from "vue";
 import FSlider from "@/components/field/f-slider.vue";
+import FCard from "@/components/field/f-card.vue";
 
 //TODO add props
 const postId = 12384
@@ -136,12 +140,5 @@ function getCommentById(id: Number) {
   border-top: 1px solid rgb(50 50 50)
   margin-left: 44px
   margin-right: 8px
-
-.comment-zone
-  width: 100%
-  overflow: hidden
-  /* 颜色模式 */
-  background: var(--b30)
-  transition: all 0.2s ease
 
 </style>
