@@ -109,8 +109,11 @@
               <pre><code class="language-fsharp">let HelloField() : unit -> unit =
   Console.WriteLine "HelloField!"</code></pre>'
 
-          prev-title="你不知道的114514个单身技巧" next-title="构建pilipala应用的最佳实践"
       />
+
+      <f-card class="margin-bottom">
+        <SwitchBtn prev="你不知道的114514个单身技巧" next="构建pilipala应用的最佳实践"/>
+      </f-card>
 
       <!--
       <CoBox user-name="Thaumy" modify-time="19.04.05" hash-sign="004C01E"
@@ -127,8 +130,8 @@
 
       <NoCommentTip/>
       <WarningTip/>
-      <LockingTip/>
--->
+      <LockingTip/>-->
+
       <CommentList/>
 
     </div>
@@ -146,10 +149,14 @@ import CommentList from "@/components/CommentList/CommentList.vue";
 import DetailCard from "./DetailCard.vue";
 import NoteCard from "./NoteCard.vue";
 import PreviewCard from "./PreviewCard.vue";
+import FCard from "@/components/field/f-card.vue";
+import SwitchBtn from "@/components/btn/SwitchBtn.vue";
 
 export default defineComponent({
   name: "PostColumn",
   components: {
+    SwitchBtn,
+    FCard,
     CommentList,
     CoBox,
     NoCommentTip,

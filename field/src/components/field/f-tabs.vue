@@ -11,11 +11,11 @@
       </transition-group>
 
       <transition-group tag='div' style="grid-column-start: 2">
-        <PageListCard
-            v-for="(item,index) in pages.value"
+        <f-tab
+            v-for="(item,index) in tabs"
             :title="item.title"
             :key="item"
-            @click="toggleBar(index)"
+            @click="$emit('tabClick',item);toggleBar(index)"
         />
       </transition-group>
 
@@ -32,14 +32,20 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, defineProps} from "vue";
-import PageListCard from "./PageListCard.vue";
-import {PageSet} from "@/scripts/common";
+import {ref, defineProps, PropType} from "vue";
+import FTab from "@/components/field/f-tab.vue";
 
 const props = defineProps({
-  pages: PageSet
+  tabs: Object as PropType<{ title: string }[]>
 })
-const barStyles: { color: string }[] = ref([])
+
+defineEmits({
+  tabClick() {
+
+  }
+})
+
+const barStyles = ref<{ color: string }[]>([])
 
 function toggleBar(index: number) {
   const final = index + 1
