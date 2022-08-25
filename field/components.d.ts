@@ -9,9 +9,9 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ArchiveChip: typeof import('./src/components/tip/ArchiveChip.vue')['default']
     AtBox: typeof import('./src/components/box/AtBox.vue')['default']
-    AvatarBox: typeof import('./src/components/NaviColumn/AvatarBox.vue')['default']
+    AvatarBox: typeof import('./src/components/NaviColumn/Avatar.vue')['default']
     Body: typeof import('./src/components/PostColumn/Body.vue')['default']
-    CoBox: typeof import('./src/components/NaviColumn/CoBox.vue')['default']
+    CoBox: typeof import('./src/components/NaviColumn/About.vue')['default']
     CommentBox: typeof import('./src/components/box/CommentBox.vue')['default']
     CommentCard: typeof import('./src/components/CommentList/CommentCard.vue')['default']
     CommentChip: typeof import('./src/components/tip/CommentChip.vue')['default']

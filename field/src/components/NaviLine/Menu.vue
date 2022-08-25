@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 import {defineProps, PropType} from "vue";
 import {Page} from "@/scripts/common";
-import FTabs from "@/components/field/f-tabs.vue";
+import FTabs from "@/components/field/f-vertical-tabs.vue";
 
 defineProps({
   pages: Object as PropType<Page[]>
