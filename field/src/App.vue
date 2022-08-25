@@ -16,14 +16,14 @@
 
     <PageFoot
         id="page-foot"
-        body='基于pilipala构建 - Field Theme Designed By Thaumy<br>
-                      Thaumy的博客©2016-2023保留所有权利<br>
-                      <a href="http://beian.miit.gov.cn/"
-                         target="_blank"
-                         style="color: rgba(255,255,255,0.6);
+        body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
+                      Thaumy'Blog 2016-2023<br>
+                      <a href='http://beian.miit.gov.cn/'
+                         target='_blank'
+                         style='color: rgba(255,255,255,0.6);
                           font-size: 0.7rem;
-                          text-decoration: none;">
-                        鲁ICP备2021005067</a>'
+                          text-decoration: none;'>
+                        鲁ICP备2021005067</a>"
         style="margin: 20px;margin-top: 80px"
         :style="pageFootOpacityStyle"/>
   </v-app>

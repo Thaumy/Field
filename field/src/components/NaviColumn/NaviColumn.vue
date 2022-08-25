@@ -3,17 +3,22 @@
 
     <f-card class="navi-card">
 
-      <AvatarBox
-          avatar="/pp512.png"
+      <Avatar avatar="/pp512.png"/>
+
+      <Info
           title="THAUMY的小站"
+          :typing="[
+            '你好！~~^400',
+            '这里是THAUMY的博客！^300',
+            '又一个码农的家',
+            '又一个码农的家.',
+            '又一个码农的家..',
+            '又一个码农的家...']"
       />
 
       <f-tabs :tabs="pages"/>
 
-      <CoBox body=
-                 'Thaumy的博客©2016-2020保留所有权利<br>
-                基于pilipala构建<br>
-                Field Theme Designed By Thaumy<br>'/>
+      <About info="Thaumy's Blog©2016-2023<br>About Site"/>
     </f-card>
 
   </div>
@@ -21,11 +26,12 @@
 
 <script lang="ts" setup>
 import {defineProps, PropType, ref} from "vue";
-import CoBox from "./CoBox.vue";
-import AvatarBox from "./AvatarBox.vue";
+import About from "./About.vue";
+import Info from "./Info.vue";
+import Avatar from "./Avatar.vue";
 import {Page} from "@/scripts/common";
 import FCard from "@/components/field/f-card.vue";
-import FTabs from "@/components/field/f-tabs.vue";
+import FTabs from "@/components/field/f-vertical-tabs.vue";
 
 const props = defineProps({
   pages: Object as PropType<Page[]>

@@ -129,7 +129,7 @@
       <WarningTip/>
       <LockingTip/>-->
 
-      <CommentList/>
+      <CommentZone/>
 
       <f-card class="margin-bottom">
         <div>继续阅读</div>
@@ -144,7 +144,7 @@
 import WarningTip from "@/components/tip/WarningTip.vue";
 import LockingTip from "@/components/tip/LockingTip.vue";
 import NoCommentTip from "@/components/tip/NoCommentTip.vue";
-import CommentList from "@/components/CommentList/CommentList.vue";
+import CommentZone from "@/components/CommentList/CommentZone.vue";
 import DetailCard from "./PostCard.vue";
 import PreviewCard from "./PreviewCard.vue";
 import FCard from "@/components/field/f-card.vue";
