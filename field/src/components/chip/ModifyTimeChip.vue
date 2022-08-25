@@ -12,18 +12,17 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
+import {defineProps, PropType, toRefs} from "vue";
+import {formatToDate, formatToDateTime} from "@/scripts/date"
 
-import {toRefs} from "vue"
-import {formatToDate, formatToDateTime} from "@/scripts/util/time"
-
-const props = withDefaults(
-    defineProps<{
-      modifyTime: Date,
-      active: boolean
-    }>(), {
-      active: true
-    })
+const props = defineProps({
+  modifyTime: Object as PropType<Date>,
+  active: {
+    type: Boolean,
+    default: true
+  }
+})
 
 function genTimeColor() {
   const modifyTime = toRefs(props).modifyTime?.value
@@ -33,7 +32,7 @@ function genTimeColor() {
     const timespan = Date.now() - modifyTime.getTime()
 
     if (timespan < 2592000000) //if modify within a month, show blue time
-      return 'rgba(var(--v-theme-primary))'
+      return 'rgb(0 196 255 / 80%)'
     else
       return 'grey'
   } else
@@ -55,6 +54,6 @@ function genTimeText() {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 
 </style>

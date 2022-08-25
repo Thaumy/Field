@@ -1,10 +1,7 @@
 <template>
   <div>
 
-    <div
-        class="f-card border-line transition-standard"
-        :style="{'border-radius': radius+'px'}"
-    >
+    <div class="f-card border-line border-radius-all">
       <slot/>
     </div>
 
@@ -12,23 +9,10 @@
 </template>
 
 <script lang="ts" setup>
-
-withDefaults(
-    defineProps<{
-      radius: number
-    }>(), {
-      radius: 4
-    })
-
 </script>
 
 <style lang="stylus" scoped>
 .f-card
+  background: var(--b30)
   overflow hidden
-
-@css {
-  .f-card {
-    background: rgb(var(--v-theme-surface));
-  }
-}
 </style>
