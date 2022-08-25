@@ -35,12 +35,11 @@
 
         <CommentEditor :reply-mode="replyTarget!==postId" key="comment-editor"/>
 
-        <div class="editor-divider"/>
-
+        <f-divider/>
         <div class="comment-list">
 
           <div v-for="(comment,index) in comments" ref="commentList">
-            <div class="comment-divider" v-if="index!==0"/>
+            <f-divider ml="48" v-if="index!==0"/>
             <CommentCard
                 :comment='comment'
                 :enable-reply='replyTo!==comment.id'
@@ -57,12 +56,13 @@
 </template>
 
 <script setup lang="ts">
-import {Comment} from "@/scripts/comment";
-import {PropType, Ref, ref} from "vue";
+import {PropType, Ref, ref} from "vue"
+import {Comment} from "@/scripts/comment"
 import CommentEditor from './CommentEditor.vue'
 import CommentCard from './CommentCard.vue'
-import FSlider from "@/components/field/f-slider.vue";
-import FCard from "@/components/field/f-card.vue";
+import FSlider from "@/components/field/f-slider.vue"
+import FCard from "@/components/field/f-card.vue"
+import FDivider from "@/components/field/f-divider.vue"
 
 defineProps({
   postId: Number
@@ -156,15 +156,5 @@ function expandReference(index: number) {
 .reference-bar
   width 2px
   background-color #0078d7
-
-.editor-divider
-  border-top 1px solid rgb(50 50 50)
-  margin-left 8px
-  margin-right 8px
-
-.comment-divider
-  border-top 1px solid rgb(50 50 50)
-  margin-left 44px
-  margin-right 8px
 
 </style>

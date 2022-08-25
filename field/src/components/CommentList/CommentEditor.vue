@@ -7,7 +7,7 @@
         <f-horizontal-tabs
             class="mode-tabs"
             :tabs="[{title:'编辑',mode:Mode.Edit},{title:'预览',mode:Mode.Preview}]"
-            @tab-click="(ev)=>this.mode=ev.mode"
+            @tab-click="(ev)=>toggleMode(ev.mode)"
         />
         <div class="tools">
           <v-icon icon="mdi-format-header-3"/>
@@ -25,10 +25,10 @@
 
       <v-window v-model="mode" style="grid-row-start: 2" reverse="">
         <v-window-item>
-          <textarea class="body-input border-radius-all" rows="3"/>
+          <textarea v-model="body" class="body-input border-radius-all" rows="3"/>
         </v-window-item>
         <v-window-item>
-          <div style="height: 200px;background:green"></div>
+          <div ref="CommentEditorPreviewZone"></div>
         </v-window-item>
       </v-window>
 
@@ -57,6 +57,7 @@
 <script setup lang="ts">
 import {defineProps, ref} from "vue";
 import FHorizontalTabs from "@/components/field/f-horizontal-tabs.vue";
+import {marked} from "marked"
 
 defineProps({
   replyMode: {
@@ -67,7 +68,23 @@ defineProps({
 
 enum Mode {Edit = 0, Preview = 1}
 
-const mode = ref(Mode.Edit)
+const body = ref("")
+const currentMode = ref(Mode.Edit)
+
+const CommentEditorPreviewZone = ref()
+
+function toggleMode(mode: Mode) {
+  if (mode === Mode.Preview)
+    renderMarkdown()
+
+  currentMode.value = mode
+}
+
+function renderMarkdown() {
+  CommentEditorPreviewZone
+      .value
+      .innerHTML = marked(body.value)
+}
 
 </script>
 
@@ -88,7 +105,7 @@ const mode = ref(Mode.Edit)
 
 .tools
   > i
-    color rgba(200,200,200,0.8)
+    color rgba(200, 200, 200, 0.8)
     font-size 1rem
     cursor pointer
     margin-left 2px
