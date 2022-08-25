@@ -1,19 +1,14 @@
 <template>
   <div>
 
-    <div class="comment-editor"
-    >
-      <v-tabs :height=12>
-        <v-tab>
-          编辑
-        </v-tab>
-        <v-tab>
-          预览
-        </v-tab>
-      </v-tabs>
+    <div class="comment-editor">
 
       <div class="editor-header">
-        <div/>
+        <f-horizontal-tabs
+            class="mode-tabs"
+            :tabs="[{title:'编辑',mode:Mode.Edit},{title:'预览',mode:Mode.Preview}]"
+            @tab-click="(ev)=>this.mode=ev.mode"
+        />
         <div class="tools">
           <v-icon color="grey" size="x-small" icon="mdi-format-header-3"/>
           <v-icon color="grey" size="x-small" icon="mdi-format-bold"/>
@@ -27,9 +22,24 @@
           <v-icon color="grey" size="x-small" icon="mdi-link-variant"/>
         </div>
       </div>
-      <textarea class="body-input border-radius-all"/>
+
+      <v-window v-model="mode" style="grid-row-start: 2" reverse="">
+        <v-window-item>
+          <textarea class="body-input border-radius-all" rows="3"/>
+        </v-window-item>
+        <v-window-item>
+          <div style="height: 200px;background:green"></div>
+        </v-window-item>
+      </v-window>
+
       <div class="editor-footer">
-        <div/>
+        <v-chip color="grey"
+                size="small"
+                variant="text"
+                prepend-icon="mdi-language-markdown"
+        >
+          支持使用Markdown
+        </v-chip>
         <v-btn
             width="15%"
             class="commit-btn"
@@ -46,6 +56,7 @@
 
 <script setup lang="ts">
 import {defineProps, ref} from "vue";
+import FHorizontalTabs from "@/components/field/f-horizontal-tabs.vue";
 
 defineProps({
   replyMode: {
@@ -54,12 +65,17 @@ defineProps({
   }
 })
 
-const previewMode = ref(false)
-const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.meta.url).href
+enum Mode {Edit = 0, Preview = 1}
+
+const mode = ref(Mode.Edit)
 
 </script>
 
 <style lang="stylus" scoped>
+.mode-tabs
+  margin-left 4px
+  align-self end
+
 .editor-header
   grid-row-start 1
   display flex
@@ -117,24 +133,23 @@ const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.me
   white-space nowrap
 
 .body-input
-  resize none
   background var(--b20)
+  width 100%
 
-  height 4rem
+  display block
+  min-height 3rem
 
   color var(--w200)
 
   font-size 0.8rem
   text-align left
 
-  padding-top 2px
-  padding-left 4px
-  padding-right 4px
-  padding-bottom 2px
-
-  grid-row-start 2
+  padding 4px
+  padding-left 6px
+  padding-right 6px
 
 .commit-btn
   margin 4px
   grid-row-start 3
+
 </style>

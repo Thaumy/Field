@@ -1,12 +1,4 @@
 @font-face {
-    font-family: 'field-icon';
-    src: url('../../assets/field-icon/field-icon.ttf'),
-    url('../../assets/field-icon/field-icon.woff'),
-    url('../../assets/field-icon/field-icon.svg');
-    font-display: swap;
-}
-
-@font-face {
     font-family: 'JetBrains Mono';
     src: url('https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/fonts/webfonts/JetBrainsMono-Regular.woff2');
     font-display: swap;

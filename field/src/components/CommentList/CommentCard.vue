@@ -5,41 +5,44 @@
          @mouseover="showReplyIcon()"
          @mouseleave="hideReplyIcon()"
     >
-      <v-avatar
-          class="user-avatar"
-          :class="comment.siteUrl?'cursor-pointer':''"
-          rounded="true"
-          size="32"
-          @click="blankUrl(comment.siteUrl)"
-      >
-        <v-img :src="avatar" cover="true"/>
-      </v-avatar>
-      <v-icon
-          class="site-icon"
-          icon="mdi-web"
-          size="10"
-          color="blue"
-          v-if="comment.siteUrl"
-      />
-      <div class="user-name">{{ comment.user }}
-        <transition name="reply-btn-rotate" v-if="enableReply">
-          <v-icon class="reply-btn"
-                  color="orange"
-                  icon="mdi-reply"
-                  size="1.1em"
-                  @click="$emit('doReply')"
-                  v-show="replyIconVisibility"
-          />
-        </transition>
+
+      <div class="avatar-zone">
+        <v-avatar
+            class="user-avatar"
+            :class="comment.siteUrl?'cursor-pointer':''"
+            rounded="true"
+            size="32"
+            @click="blankUrl(comment.siteUrl)"
+        >
+          <v-img :src="avatar" cover="true"/>
+
+        </v-avatar>
+        <v-icon
+            class="web-icon"
+            icon="mdi-web"
+            size="10"
+            color="blue"
+            v-if="comment.siteUrl"
+        />
       </div>
+
+
+      <div class="user-name">{{ comment.user }}
+        <slot name="user-name-right-slot"/>
+      </div>
+
       <div class="user-name-right-end-slot">
         <slot name="user-name-right-end-slot"/>
       </div>
+
       <div class="create-time">{{ comment.createTime }}</div>
+
       <div class="body-left-slot">
         <slot name="body-left-slot"/>
       </div>
+
       <div class="body">{{ comment.body }}</div>
+
     </div>
 
   </div>
@@ -56,8 +59,6 @@ defineProps({
     default: true
   }
 })
-
-defineEmits(['doReply'])
 
 const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.meta.url).href
 const replyIconVisibility = ref(false)
@@ -76,110 +77,94 @@ function hideReplyIcon() {
 }
 </script>
 
-<style scoped>
-.user-name-right-end-slot {
-  display: flex;
-  justify-content: end;
-  grid-row-start: 1;
-  grid-column-start: 4;
-}
+<style lang="stylus" scoped>
 
-.card {
-  display: grid;
-  grid-template-columns: 30px 10px auto;
-  grid-template-rows: 20px 20px auto auto;
+.user-name-right-end-slot
+  display flex
+  justify-content end
+  grid-row-start 1
+  grid-column-start 4
 
-  padding: 4px;
-}
+.card
+  display grid
+  grid-template-columns 40px auto
+  grid-template-rows 22px 18px auto auto
 
-.reply-btn-rotate-enter-active,
-.reply-btn-rotate-leave-active {
-  transition: all 0.2s ease;
-}
+  padding 4px
 
-.reply-btn-rotate-leave-to {
-  opacity: 0;
-}
+.reply-btn-enter-active
+.reply-btn-leave-active
+  transition all 0.2s ease
 
-.reply-btn-rotate-enter-from {
-  opacity: 0;
-  transform-origin: left bottom;
-  transform: rotate(90deg);
-}
+.reply-btn-leave-to
+  opacity 0
 
-.user-avatar {
-  margin: 4px;
-  grid-row-start: 1;
-  grid-row-end: 3;
-}
+.reply-btn-enter-from
+  opacity 0
+  transform-origin left bottom
+  transform rotate(90deg)
 
-.user-name {
-  align-self: end;
-  font-size: 0.8rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 
-  grid-row-start: 1;
-  grid-column-start: 3;
+.user-name
+  align-self end
+  font-size 0.8rem
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
 
-  padding-left: 4px;
+  grid-row-start 1
+  grid-column-start 2
 
-}
+  padding-left 4px
 
-.create-time {
-  align-self: center;
-  grid-row-start: 2;
-  grid-column-start: 3;
+.create-time
+  align-self center
+  grid-row-start 2
+  grid-column-start 2
 
-  padding-left: 4px;
+  padding-left 4px
 
-  font-size: 0.6rem;
-  color: rgba(170, 170, 170, 1);
-}
+  font-size 0.6rem
+  color rgba(170 170 170 1)
 
-.site-icon {
-  grid-row-start: 2;
-  grid-column-start: 2;
-  align-self: end;
-  padding-right: 4px;
-  padding-bottom: 4px;
-}
+.avatar-zone
+  grid-row-start 1
+  grid-row-end 3
+  display grid
 
-.body {
-  grid-column-start: 3;
-  grid-column-end: 5;
+  grid-template-rows 28px 12px
+  grid-template-columns 28px 12px
 
-  font-size: 0.9rem;
-  text-align: left;
+.user-avatar
+  margin 4px
 
-  padding-top: 4px;
-  padding-left: 4px;
-  padding-bottom: 2px;
-}
+.web-icon
+  grid-row-start 2
+  grid-column-start 2
 
-.body-left-slot {
-  grid-row-start: 3;
-}
-</style>
-<style scoped>
-.card {
-  /* 颜色模式
-  background: var(--b30);*/
-}
+.body
+  grid-column-start 2
 
-.user-name {
+  font-size 0.9rem
+  text-align left
+
+  padding-top 4px
+  padding-left 4px
+  padding-bottom 2px
+
+.body-left-slot
+  grid-row-start 3
+
+.user-name
   /* 颜色模式 */
-  color: var(--w220);
-}
+  color var(--w220)
 
-.body {
+.body
   /* 颜色模式 */
-  color: var(--w200);
-}
+  color var(--w200)
 
-.create-time {
+.create-time
   /* 颜色模式 */
-  color: rgba(170, 170, 170, 1);
-}
+  color rgba(170 170 170 1)
+
 </style>

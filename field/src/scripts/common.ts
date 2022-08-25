@@ -23,23 +23,16 @@ export class TopicSet {
     value
 }
 
-export class PageSet {
-    constructor(value: {
-        id: number,
-        title: string,
-        summary: string,
-        body: string,
-        createTime: string,
-        modifyTime: string,
-        viewCount: number,
-        commentCount: number,
-        user: string,
-        archives: ArchiveSet,
-        topics: TopicSet
-    }[]) {
-        this.value = value
-    }
-
-    value
+export type Page = {
+    id: number,
+    title: string,
+    summary: string,
+    body: string,
+    createTime: string,
+    modifyTime: string,
+    viewCount: number,
+    commentCount: number,
+    user: string,
+    archives: ArchiveSet,
+    topics: TopicSet
 }
-
