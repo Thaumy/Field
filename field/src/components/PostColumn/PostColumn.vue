@@ -129,10 +129,9 @@
       <WarningTip/>
       <LockingTip/>-->
 
-      <CommentZone/>
+      <CommentZone :post-id="12384"/>
 
-      <f-card class="margin-bottom">
-        <div>继续阅读</div>
+      <f-card style="width: fit-content;margin: auto">
         <SwitchBtn prev="你不知道的114514个单身技巧" next="构建pilipala应用的最佳实践"/>
       </f-card>
 
