@@ -10,16 +10,16 @@
             @tab-click="(ev)=>this.mode=ev.mode"
         />
         <div class="tools">
-          <v-icon color="grey" size="x-small" icon="mdi-format-header-3"/>
-          <v-icon color="grey" size="x-small" icon="mdi-format-bold"/>
-          <v-icon color="grey" size="x-small" icon="mdi-format-italic"/>
-          <v-icon color="grey" size="x-small" icon="mdi-format-strikethrough"/>
-          <v-icon color="grey" size="x-small" icon="mdi-format-quote-open"/>
-          <v-icon color="grey" size="x-small" icon="mdi-code-tags"/>
-          <v-icon color="grey" size="x-small" icon="mdi-format-list-checks"/>
-          <v-icon color="grey" size="x-small" icon="mdi-format-list-bulleted"/>
-          <v-icon color="grey" size="x-small" icon="mdi-format-list-numbered"/>
-          <v-icon color="grey" size="x-small" icon="mdi-link-variant"/>
+          <v-icon icon="mdi-format-header-3"/>
+          <v-icon icon="mdi-format-bold"/>
+          <v-icon icon="mdi-format-italic"/>
+          <v-icon icon="mdi-format-strikethrough"/>
+          <v-icon icon="mdi-format-quote-open"/>
+          <v-icon icon="mdi-code-tags"/>
+          <v-icon icon="mdi-format-list-checks"/>
+          <v-icon icon="mdi-format-list-bulleted"/>
+          <v-icon icon="mdi-format-list-numbered"/>
+          <v-icon icon="mdi-link-variant"/>
         </div>
       </div>
 
@@ -88,6 +88,9 @@ const mode = ref(Mode.Edit)
 
 .tools
   > i
+    color rgba(200,200,200,0.8)
+    font-size 1rem
+    cursor pointer
     margin-left 2px
     margin-right 2px
 

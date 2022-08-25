@@ -7,7 +7,6 @@
             prepend-icon="mdi-chevron-left"
             color="rgb(30,30,30)"
             flat=""
-            rounded="pill"
         >
           {{ prev }}
         </v-btn>
@@ -18,7 +17,6 @@
             append-icon="mdi-chevron-right"
             color="rgb(30,30,30)"
             flat=""
-            rounded="pill"
         >
           {{ next }}
         </v-btn>
@@ -40,7 +38,8 @@ defineProps({
 <style lang="stylus" scoped>
 .holder
   display flex
-  justify-content space-between
+  justify-content center
+  flex-flow wrap
 
 .next-btn
 .prev-btn
@@ -48,4 +47,5 @@ defineProps({
 
   white-space nowrap
   text-overflow ellipsis
+
 </style>
