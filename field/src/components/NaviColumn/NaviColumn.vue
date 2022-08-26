@@ -3,7 +3,7 @@
 
     <f-card class="navi-card">
 
-      <Avatar avatar="/pp512.png"/>
+      <Avatar avatarUrl="src/assets/pp512.png"/>
 
       <Info
           title="THAUMY的小站"
@@ -16,9 +16,9 @@
             '又一个码农的家...']"
       />
 
-      <f-tabs vertical :tabs="pages"/>
+      <f-tabs vertical double-bar :tabs="pages"/>
 
-      <About info="Thaumy's Blog©2016-2023<br>About Site"/>
+      <About info="Thaumy's Blog©2016-2023<br>About Site" v-ripple/>
     </f-card>
 
   </div>

@@ -2,11 +2,29 @@
   <div>
 
     <div class="f-horizontal-tabs">
+      <transition-group name="bar">
+        <div
+            class="bar"
+            key="bar"
+            style="grid-row-start: 1"
+            :style="{'grid-column-start':barPosition}"
+            v-if="doubleBar"
+        />
+        <div
+            class="bar"
+            key="bar"
+            style="grid-row-start: 3"
+            :style="{'grid-column-start':barPosition}"
+        />
+      </transition-group>
 
       <transition-group name="tab">
         <div
             class="tab"
             v-for="(tab,index) in tabs"
+            v-ripple
+            v-ripple.stop="!tab.disabled"
+            style="grid-row-start: 2"
             :style="{'grid-column-start':index+1,
                       color:tab.disabled?'grey':'',
                       cursor:tab.disabled?'default':'pointer'}"
@@ -15,15 +33,6 @@
           {{ tab.title }}
         </div>
       </transition-group>
-
-      <transition-group name="bar">
-        <div
-            class="bar"
-            key="bar"
-            :style="{'grid-column-start':barPosition}"
-        />
-      </transition-group>
-
     </div>
 
   </div>
@@ -36,7 +45,11 @@ import {Tab} from "@/components/field/types";
 const emits = defineEmits<{ (e: 'tabClick', tab: Tab): void }>()
 
 const props = defineProps({
-  tabs: Object as PropType<Tab[]>
+  tabs: Object as PropType<Tab[]>,
+  doubleBar: {
+    type: Boolean,
+    default: false
+  }
 })
 
 const barPosition = ref(1)
@@ -54,8 +67,10 @@ function tabClick(tab: Tab, index: number) {
 
 .tab
   font-size 0.8rem
-  margin-left 4px
-  margin-right 4px
+  padding-left 4px
+  padding-right 4px
+  margin-left 2px
+  margin-right 2px
 
 .f-horizontal-tabs
   display grid

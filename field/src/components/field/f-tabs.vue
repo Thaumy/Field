@@ -3,12 +3,14 @@
 
     <f-vertical-tabs
         :tabs="tabs"
+        :double-bar="doubleBar"
         @tab-click="t=>$emit('tabClick',t)"
         v-if="vertical"
     />
 
     <f-horizontal-tabs
         :tabs="tabs"
+        :double-bar="doubleBar"
         @tab-click="t=>$emit('tabClick',t)"
         v-else
     />
@@ -26,6 +28,10 @@ defineEmits<{ (e: 'tabClick', tab: Tab): void }>()
 
 defineProps({
   tabs: Object as PropType<Tab[]>,
+  doubleBar: {
+    type: Boolean,
+    default: false
+  },
   vertical: {
     type: Boolean,
     default: false
