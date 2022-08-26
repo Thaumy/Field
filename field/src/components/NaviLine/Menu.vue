@@ -3,13 +3,12 @@
 
     <div class="menu">
       <div class="tab-list">
-        <f-tabs :tabs="pages"/>
+        <f-tabs vertical :tabs="pages"/>
       </div>
 
       <div class="info cursor-pointer" @click="">
-        Thaumy的博客©2016-2023保留所有权利<br>
-        基于pilipala构建<br>
-        Field Theme Designed By Thaumy<br>
+        Thaumy's Blog@2016-2023<br>
+        About Site
       </div>
     </div>
 
@@ -19,7 +18,7 @@
 <script lang="ts" setup>
 import {defineProps, PropType} from "vue";
 import {Page} from "@/scripts/common";
-import FTabs from "@/components/field/f-vertical-tabs.vue";
+import FTabs from "@/components/field/f-tabs.vue";
 
 defineProps({
   pages: Object as PropType<Page[]>
@@ -44,13 +43,13 @@ defineProps({
   display grid
 
 .info
+  color: grey;
   width 88%
   text-align center
 
   margin auto
 
-  font-size 11px
-  line-height 16px
+  font-size 0.6rem
 
 /* 屏幕宽度 [ 1001  + ) */
 @media (min-width 1001px)

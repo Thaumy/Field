@@ -3,16 +3,20 @@
 
     <div class="f-horizontal-tabs">
 
-      <div
-          class="tab cursor-pointer"
-          v-for="(item,index) in tabs"
-          :style="{'grid-column-start':index+1}"
-          @click="$emit('tabClick',item);toggleBar(index)"
-      >
-        {{ item.title }}
-      </div>
+      <transition-group name="tab">
+        <div
+            class="tab"
+            v-for="(tab,index) in tabs"
+            :style="{'grid-column-start':index+1,
+                      color:tab.disabled?'grey':'',
+                      cursor:tab.disabled?'default':'pointer'}"
+            @click="tabClick(tab,index)"
+        >
+          {{ tab.title }}
+        </div>
+      </transition-group>
 
-      <transition-group>
+      <transition-group name="bar">
         <div
             class="bar"
             key="bar"
@@ -27,21 +31,27 @@
 
 <script lang="ts" setup>
 import {ref, defineProps, PropType} from "vue";
+import {Tab} from "@/components/field/types";
 
-defineEmits<{ (e: 'tabClick', item: { title: string }): void }>()
+const emits = defineEmits<{ (e: 'tabClick', tab: Tab): void }>()
 
 const props = defineProps({
-  tabs: Object as PropType<{ title: string }[]>
+  tabs: Object as PropType<Tab[]>
 })
 
 const barPosition = ref(1)
 
-function toggleBar(index: number) {
-  barPosition.value = index + 1
+function tabClick(tab: Tab, index: number) {
+  if (tab.disabled)
+    return
+
+  emits('tabClick', tab);
+  barPosition.value = index + 1//toggleBar
 }
 </script>
 
 <style lang="stylus" scoped>
+
 .tab
   font-size 0.8rem
   margin-left 4px
@@ -56,14 +66,22 @@ function toggleBar(index: number) {
   height 2px
   background rgba(1, 153, 255, 1)
 
-.v-move
-.v-enter-active
-.v-leave-active
+.tab-move
+.tab-enter-active
+.tab-leave-active
+.bar-move
+.bar-enter-active
+.bar-leave-active
   transition all 0.2s ease
 
-.v-enter-from
-.v-leave-to
-  transform scaleX(0.1)
+.tab-enter-from
+.tab-leave-to
+.bar-enter-from
+.bar-leave-to
   opacity 0
+
+.bar-enter-from
+.bar-leave-to
+  transform scaleX(0.1)
 
 </style>
