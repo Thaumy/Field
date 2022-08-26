@@ -1,45 +1,57 @@
 <template>
   <div>
 
-    <transition-group class="tab-list" tag="div">
-      <div class="bar"
-           key="bar"
-           :style="{'grid-row-start':barPosition,'grid-column-start':1}"
-      />
+    <div class="tab-list">
+      <transition-group name="bar">
+        <div class="bar"
+             key="bar"
+             style="grid-column-start:1"
+             :style="{'grid-row-start':barPosition}"
+        />
+        <div class="bar"
+             key="bar"
+             style="grid-column-start:3"
+             :style="{'grid-row-start':barPosition}"
+        />
+      </transition-group>
 
-      <div
-          class="tab cursor-pointer border-radius-all"
-          v-for="(item,index) in tabs"
-          :style="{'grid-column-start': 2,'grid-row-start':index+1}"
-          :title="item.title"
-          :key="item"
-          @click="$emit('tabClick',item);toggleBar(index)"
-      >
-        <div class="tab-title">{{ item.title }}</div>
-      </div>
-
-      <div class="bar"
-           key="bar"
-           :style="{'grid-row-start':barPosition,'grid-column-start':3}"
-      />
-    </transition-group>
+      <transition-group name="tab">
+        <div
+            class="tab border-radius-all"
+            v-for="(tab,index) in tabs"
+            :style="{'grid-row-start':index+1,
+                      color:tab.disabled?'grey':'',
+                      cursor:tab.disabled?'default':'pointer'}"
+            :title="tab.title"
+            :key="tab"
+            @click="tabClick(tab,index)"
+        >
+          <div class="tab-title">{{ tab.title }}</div>
+        </div>
+      </transition-group>
+    </div>
 
   </div>
 </template>
 
 <script lang="ts" setup>
 import {ref, defineProps, PropType} from "vue";
+import {Tab} from "@/components/field/types";
 
-defineEmits<{ (e: 'tabClick', item: { title: string }): void }>()
+const emits = defineEmits<{ (e: 'tabClick', tab: Tab): void }>()
 
 const props = defineProps({
-  tabs: Object as PropType<{ title: string }[]>
+  tabs: Object as PropType<Tab[]>
 })
 
 const barPosition = ref(1)
 
-function toggleBar(index: number) {
-  barPosition.value = index + 1
+function tabClick(tab: Tab, index: number) {
+  if (tab.disabled)
+    return
+
+  emits('tabClick', tab);
+  barPosition.value = index + 1//toggleBar
 }
 </script>
 
@@ -54,23 +66,31 @@ function toggleBar(index: number) {
   margin-bottom 2px
   background rgba(1, 153, 255, 1)
 
-.v-move
-.v-enter-active
-.v-leave-active
+.tab-move
+.tab-enter-active
+.tab-leave-active
+.bar-move
+.bar-enter-active
+.bar-leave-active
   transition all 0.2s ease
 
-.v-enter-from
-.v-leave-to
+.tab-enter-from
+.tab-leave-to
+.bar-enter-from
+.bar-leave-to
   opacity 0
+
+.bar-enter-from
+.bar-leave-to
   transform scaleY(0.1)
 
-.v-leave-active
+.bar-leave-active
   position absolute
 
 .tab
+  grid-column-start 2
   display flex
   width 94%
-
   height 5vh
   max-height 44px
   min-height 28px

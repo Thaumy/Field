@@ -9,8 +9,8 @@
 
         <!-- TODO 此实现有缺陷，当收起动画未完成时，回复仍然有效。并且不能适应后期缩放 -->
         <f-slider
-            ref="reply-target-slider"
-            :after-closed="()=>{this.replyTo=postId}"
+            ref="replyTargetZone"
+            :after-closed="()=>{this.replyTarget=postId}"
         >
           <div
               class="reply-target-zone"
@@ -19,25 +19,35 @@
             <div class="reference-bar"/>
             <CommentCard
                 class="reference-filter"
-                :comment="getCommentById(replyTo)"
-                :enable-reply=false
+                :comment="getCommentById(replyTarget)"
+                :disable-reply=true
             >
-              <template v-slot:user-name-right-end-slot>
+              <template #user-name-right-end-slot>
                 <v-icon icon="mdi-close"
                         size="x-small"
                         color="grey"
-                        @click="$refs['reply-target-slider'].close()"
+                        @click="$refs.replyTargetZone.close()"
                 />
               </template>
             </CommentCard>
           </div>
         </f-slider>
 
-        <CommentEditor :reply-mode="replyTo!==postId" key="comment-editor"/>
+        <CommentEditor :reply-mode="replyTarget!==postId"/>
 
-        <div class="editor-divider"/>
+        <f-divider/>
+        <div class="comment-list">
 
-        <CommentList :comments="comments"/>
+          <div v-for="(comment,index) in comments" ref="commentList">
+            <f-divider ml="48" v-if="index!==0"/>
+            <CommentCard
+                :comment='comment'
+                :enable-reply='replyTo!==comment.id'
+                @reply-click="replyTo(comment);expandReference(index)"
+            />
+          </div>
+
+        </div>
 
       </transition-group>
     </f-card>
@@ -46,19 +56,19 @@
 </template>
 
 <script setup lang="ts">
+import {PropType, Ref, ref} from "vue"
+import {Comment} from "@/scripts/comment"
 import CommentEditor from './CommentEditor.vue'
 import CommentCard from './CommentCard.vue'
-import {Comment} from "@/scripts/comment";
-import {Ref, ref} from "vue";
-import FSlider from "@/components/field/f-slider.vue";
-import FCard from "@/components/field/f-card.vue";
-import CommentList from "@/components/CommentList/CommentList.vue";
+import FSlider from "@/components/field/f-slider.vue"
+import FCard from "@/components/field/f-card.vue"
+import FDivider from "@/components/field/f-divider.vue"
 
 defineProps({
   postId: Number
 })
 
-const replyTo = ref(12384)
+const replyTarget = ref(12384)
 
 const comments = [
   <Comment>{
@@ -104,9 +114,26 @@ const comments = [
 function getCommentById(id: Number) {
   return comments.filter(x => x.id === id)[0]
 }
+
+function replyTo(comment: Comment) {
+  replyTarget.value = comment.id;
+}
+
+const replyTargetZone = ref()
+const commentList = ref()
+
+function expandReference(index: number) {
+  const height = commentList.value[index].children[index === 0 ? 0 : 1].offsetHeight
+  replyTargetZone.value.expand(height)
+}
 </script>
 
 <style lang="stylus" scoped>
+
+.comment-divider
+  border-top 1px solid rgb(50 50 50)
+  margin-left 44px
+  margin-right 8px
 
 .reply-target-zone
   display grid
@@ -128,16 +155,6 @@ function getCommentById(id: Number) {
 
 .reference-bar
   width 2px
-  background-color #0078d7
-
-.editor-divider
-  border-top 1px solid rgb(50 50 50)
-  margin-left 8px
-  margin-right 8px
-
-.comment-divider
-  border-top 1px solid rgb(50 50 50)
-  margin-left 44px
-  margin-right 8px
+  background-color #0199ff
 
 </style>
