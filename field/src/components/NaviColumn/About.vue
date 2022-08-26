@@ -1,14 +1,19 @@
 <template>
   <div>
 
-    <div class="outline"
-         :style="outlineStyle"
-         @click="outlineClick"
-    >
-
-      <div class="info cursor-pointer" v-html="info"></div>
-
+    <div class="about-zone">
+      <div class="text cursor-pointer" v-html="info"></div>
     </div>
+    <!--
+        <div class="outline"
+             :style="outlineStyle"
+             v-ripple
+             @click="outlineClick"
+        >
+
+          <div class="info cursor-pointer" v-html="info"></div>
+      </div>
+      -->
 
   </div>
 </template>
@@ -18,6 +23,7 @@ import {defineProps, ref} from "vue";
 
 defineProps({info: String})
 
+/*
 const outlineStyle = ref({
   'border-color': 'transparent'
 })
@@ -28,11 +34,24 @@ function outlineClick() {
   setTimeout(
       () => outlineStyle.value = {'border-color': 'transparent'},
       200)
-}
+}*/
 </script>
 
 <style lang="stylus" scoped>
 
+.about-zone
+  margin-top 8px
+  margin-bottom 8px
+
+.text
+  color grey
+  align-self center
+  text-align center
+
+  margin auto
+  font-size 0.6rem
+
+/*
 .outline
   display flex
 
@@ -55,5 +74,5 @@ function outlineClick() {
 
   margin auto
   font-size 0.6rem
-
+*/
 </style>

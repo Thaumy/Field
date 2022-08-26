@@ -3,10 +3,9 @@
 
     <div
         class="read-time-bar border-shadow"
-        v-if="minutes>1"
     >
       <div style="margin-left:1%">
-        约 {{ words }} 字 / 阅读成本 {{ minutes }} 分钟
+        {{ genText() }}
       </div>
 
       <v-icon
@@ -23,11 +22,34 @@
 import {defineProps, ref} from "vue";
 
 const props = defineProps({
-  targetText: String,
+  targetText: {
+    type: String,
+    default: ''
+  },
 })
 
-const words = ref(6600)
-const minutes = ref(12)
+function genText(): string {
+  if (props.targetText?.length < 120)
+    return "几秒读完"
+  else {
+    const pureText = props.targetText//TODO 未经优化的正则
+        .replace(/[，,。.《》（(）)！!“”‘’？?/\s\n]/g, '')//空白和常用标点去除
+        .replace(/<script[^>]*>(.|\n)*?<\/script>/g, '')//脚本标签
+        .replace(/<style>(.|\n)*<\/style>/g, '')//样式标签
+        .replace(/<([^>]|\n)+>/g, '')//其他标签
+        .replace(/&#*\w+;/g, '')//去除转义
+
+    console.log(pureText)
+    const words = Math.round(pureText.length / 100) * 100//精确到百字
+    const sec = pureText.length / 10
+
+    if (sec < 12)
+      return `几秒读完`
+    else
+      return `约 ${words} 字 / 阅读成本 ${Math.round(sec / 60)} 分钟`
+  }
+}
+
 
 //TODO auto calculus...
 </script>

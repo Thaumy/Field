@@ -10,27 +10,26 @@
             @tab-click="ev=>toggleMode(ev.mode)"
         />
         <div class="tools">
-          <v-icon icon="mdi-format-header-3" @click="body+='### '"/>
-          <v-icon icon="mdi-format-bold" @click="body+='** **'"/>
-          <v-icon icon="mdi-format-italic" @click="body+='_ _'"/>
-          <v-icon icon="mdi-format-strikethrough" @click="body+='~~ ~~'"/>
-          <v-icon icon="mdi-format-quote-open" @click="body+='>'"/>
-          <v-icon icon="mdi-code-tags" @click="body+='` `'"/>
-          <v-icon icon="mdi-format-list-checks" @click="body+='- []'"/>
-          <v-icon icon="mdi-format-list-bulleted" @click="body+='-'"/>
-          <v-icon icon="mdi-format-list-numbered" @click="body+='1.'"/>
-          <v-icon icon="mdi-link-variant" @click="body+='[](url)'"/>
+          <v-icon icon="mdi-format-header-3" @click="body+='### h3'"/>
+          <v-icon icon="mdi-format-bold" @click="body+='**bold**'"/>
+          <v-icon icon="mdi-format-italic" @click="body+='_italic_'"/>
+          <v-icon icon="mdi-format-strikethrough" @click="body+='~lineThrough~'"/>
+          <v-icon icon="mdi-format-quote-open" @click="body+='> reference'"/>
+          <v-icon icon="mdi-code-tags" @click="body+='`code`'"/>
+          <v-icon icon="mdi-format-list-checks" @click="body+=' [x] todo'"/>
+          <v-icon icon="mdi-format-list-bulleted" @click="body+='- item'"/>
+          <v-icon icon="mdi-format-list-numbered" @click="body+='1. item'"/>
+          <v-icon icon="mdi-link-variant" @click="body+='[description](url)'"/>
         </div>
       </div>
 
       <v-window
           reverse=""
-          direction="vertical"
           v-model="currentMode"
           style="grid-row-start: 2"
       >
         <v-window-item :eager=true>
-          <!--TODO auto expand-->
+          <!--TODO auto expand in vertical-->
           <textarea
               class="body-input border-radius-all"
               placeholder="El Psy Kongroo."
@@ -132,6 +131,7 @@ _italic_
   grid-template-rows auto auto auto
   border-radius 2px
   padding 4px
+  padding-top 0
 
 .mode-tabs
   margin-left 8px

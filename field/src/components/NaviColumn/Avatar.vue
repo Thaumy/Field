@@ -2,17 +2,30 @@
   <div>
 
     <div class="avatar-zone">
-      <div
-          class="avatar-outline"
-          :style="outlineStyle"
-          @click="showOutline()"
+
+      <div class="avatar-holder border-shadow cursor-pointer"
+           v-ripple
       >
         <img
-            alt="avatar"
+            class="avatar"
             :src="avatarUrl"
-            class="avatar border-shadow cursor-pointer"
+            alt="avatar"
         />
       </div>
+      <!--
+            <div
+
+                v-ripple
+                class="avatar-outline"
+                :style="outlineStyle"
+                @click="showOutline()"
+            >
+              <img
+                  alt="avatar"
+                  :src="avatarUrl"
+                  class="avatar border-shadow cursor-pointer"
+              />
+            </div>    -->
     </div>
 
   </div>
@@ -24,7 +37,7 @@ import {ref, defineProps} from "vue";
 const props = defineProps({
   avatarUrl: String,
 })
-
+/*
 const outlineStyle = ref({
   'border-color': 'transparent'
 })
@@ -34,7 +47,7 @@ function showOutline() {
     'border-color': 'rgba(1, 153, 255, 1)'
   }
   setTimeout(() => outlineStyle.value = {'border-color': 'transparent'}, 200)
-}
+}*/
 </script>
 
 <style lang="stylus" scoped>
@@ -46,6 +59,24 @@ function showOutline() {
   max-height 160px
   min-height 150px
 
+.avatar-holder
+  width 10vw
+  height 10vw
+
+  max-width 100px
+  max-height 100px
+  margin auto
+
+  border-radius 100px
+
+.avatar
+  width 10vw
+  height 10vw
+  max-width 100px
+  max-height 100px
+  border-radius 100px
+
+/*
 .avatar-outline
   margin auto
   display flex
@@ -71,5 +102,5 @@ function showOutline() {
 
   margin auto
   border-radius 100px
-
+*/
 </style>
