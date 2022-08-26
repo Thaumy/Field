@@ -1,9 +1,9 @@
 <template>
   <div>
 
-    <div class="card"
-         @mouseover="showReplyIcon()"
-         @mouseleave="hideReplyIcon()"
+    <div class="comment-card"
+         @mouseover="showReplyBtn()"
+         @mouseleave="hideReplyBtn()"
     >
 
       <div class="avatar-zone">
@@ -27,13 +27,26 @@
       </div>
 
 
-      <div class="user-name">{{ comment.user }}
-        <slot name="user-name-right-slot"/>
-      </div>
+      <div class="user-name-zone">
+        <div class="flex align-self-end">
+          <div class="user-name">
+            {{ comment.user }}
+          </div>
 
-      <div class="user-name-right-end-slot">
+          <transition name="reply-btn" v-if="!disableReply">
+            <v-icon class="reply-btn ml-1"
+                    color="orange"
+                    icon="mdi-reply"
+                    size="1.1rem"
+                    v-show="replyBtnVisibility"
+                    @click="$emit('replyClick',comment)"
+            />
+          </transition>
+        </div>
+
         <slot name="user-name-right-end-slot"/>
       </div>
+
 
       <div class="create-time">{{ comment.createTime }}</div>
 
@@ -52,28 +65,31 @@
 import {defineProps, ref} from "vue";
 import {Comment} from "@/scripts/comment";
 
+defineEmits<{ (e: 'replyClick', comment: Comment): void }>()
+
 defineProps({
   comment: Comment,
-  enableReply: {
+  disableReply: {
     type: Boolean,
-    default: true
+    default: false
   }
 })
 
 const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.meta.url).href
-const replyIconVisibility = ref(false)
+
+const replyBtnVisibility = ref(false)
 
 function blankUrl(url: string) {
   if (url)
     window.open(url)
 }
 
-function showReplyIcon() {
-  replyIconVisibility.value = true
+function showReplyBtn() {
+  replyBtnVisibility.value = true
 }
 
-function hideReplyIcon() {
-  replyIconVisibility.value = false
+function hideReplyBtn() {
+  replyBtnVisibility.value = false
 }
 </script>
 
@@ -85,7 +101,7 @@ function hideReplyIcon() {
   grid-row-start 1
   grid-column-start 4
 
-.card
+.comment-card
   display grid
   grid-template-columns 40px auto
   grid-template-rows 22px 18px auto auto
@@ -104,9 +120,12 @@ function hideReplyIcon() {
   transform-origin left bottom
   transform rotate(90deg)
 
+.user-name-zone
+  display flex
+  justify-content space-between
 
 .user-name
-  align-self end
+  color var(--w220)
   font-size 0.8rem
   overflow hidden
   text-overflow ellipsis
@@ -143,6 +162,7 @@ function hideReplyIcon() {
   grid-column-start 2
 
 .body
+  color var(--w200)
   grid-column-start 2
 
   font-size 0.9rem
@@ -154,17 +174,5 @@ function hideReplyIcon() {
 
 .body-left-slot
   grid-row-start 3
-
-.user-name
-  /* 颜色模式 */
-  color var(--w220)
-
-.body
-  /* 颜色模式 */
-  color var(--w200)
-
-.create-time
-  /* 颜色模式 */
-  color rgba(170 170 170 1)
 
 </style>
