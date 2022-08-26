@@ -16,7 +16,7 @@
             '又一个码农的家...']"
       />
 
-      <f-tabs :tabs="pages"/>
+      <f-tabs vertical :tabs="pages"/>
 
       <About info="Thaumy's Blog©2016-2023<br>About Site"/>
     </f-card>
@@ -31,7 +31,7 @@ import Info from "./Info.vue";
 import Avatar from "./Avatar.vue";
 import {Page} from "@/scripts/common";
 import FCard from "@/components/field/f-card.vue";
-import FTabs from "@/components/field/f-vertical-tabs.vue";
+import FTabs from "@/components/field/f-tabs.vue";
 
 const props = defineProps({
   pages: Object as PropType<Page[]>

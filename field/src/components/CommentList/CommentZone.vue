@@ -33,7 +33,7 @@
           </div>
         </f-slider>
 
-        <CommentEditor :reply-mode="replyTarget!==postId" key="comment-editor"/>
+        <CommentEditor :reply-mode="replyTarget!==postId"/>
 
         <f-divider/>
         <div class="comment-list">
@@ -155,6 +155,6 @@ function expandReference(index: number) {
 
 .reference-bar
   width 2px
-  background-color #0078d7
+  background-color #0199ff
 
 </style>
