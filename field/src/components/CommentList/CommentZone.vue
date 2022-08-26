@@ -142,7 +142,7 @@ function expandReference(index: number) {
 
 .comment-zone-enter-active
 .comment-zone-leave-active
-  transition all 2s ease
+  transition all 0.2s ease
 
 .comment-zone-leave-to
 .comment-zone-enter-from

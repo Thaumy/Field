@@ -45,7 +45,7 @@ function tabClick(tab: Tab, index: number) {
   if (tab.disabled)
     return
 
-  emits('tabClick', tab);
+  emits('tabClick', tab)
   barPosition.value = index + 1//toggleBar
 }
 </script>
