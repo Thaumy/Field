@@ -7,7 +7,7 @@
         <f-tabs
             class="mode-tabs"
             :tabs="genTabs(body)"
-            @tab-click="(ev)=>toggleMode(ev.mode)"
+            @tab-click="ev=>toggleMode(ev.mode)"
         />
         <div class="tools">
           <v-icon icon="mdi-format-header-3" @click="body+='### '"/>
@@ -25,10 +25,12 @@
 
       <v-window
           reverse=""
+          direction="vertical"
           v-model="currentMode"
           style="grid-row-start: 2"
       >
         <v-window-item :eager=true>
+          <!--TODO auto expand-->
           <textarea
               class="body-input border-radius-all"
               placeholder="El Psy Kongroo."
@@ -78,15 +80,15 @@ defineProps({
 
 enum Mode {Edit = 0, Preview = 1}
 
-const body = ref("")
 const genTabs = (body: string) => [
   <Tab><unknown>{title: '编辑', mode: Mode.Edit},
   <Tab><unknown>{title: '预览', disabled: (body === ""), mode: Mode.Preview}
 ]
+
+const body = ref("")
 const currentMode = ref(Mode.Edit)
 
 function toggleMode(mode: Mode) {
-  console.log(marked(body.value))
   if (mode === Mode.Preview)
     renderMarkdown()
 
@@ -96,6 +98,7 @@ function toggleMode(mode: Mode) {
 const BodyPreview = ref()
 
 function renderMarkdown() {
+  console.log(BodyPreview.value)
   BodyPreview
       .value
       .innerHTML = marked(body.value)
