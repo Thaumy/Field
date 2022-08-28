@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <transition name="drawer" tag="div">
 
-    <div class="menu">
+    <div class="drawer" v-show="visibility">
       <div class="tab-list">
-        <f-tabs vertical :tabs="pages"/>
+        <f-tabs double-bar vertical :tabs="tabs"/>
       </div>
 
       <div class="info cursor-pointer" @click="">
@@ -12,25 +12,34 @@
       </div>
     </div>
 
-  </div>
+  </transition>
 </template>
 
 <script lang="ts" setup>
 import {defineProps, PropType} from "vue";
-import {Page} from "@/scripts/common";
+import {Tab} from "@/components/field/types";
 import FTabs from "@/components/field/f-tabs.vue";
 
 defineProps({
-  pages: Object as PropType<Page[]>
+  tabs: {
+    type: Object as PropType<Tab[]>,
+    default: []
+  },
+  visibility: {
+    type: Boolean,
+    default: false
+  }
 })
+
 </script>
 
 <style lang="stylus" scoped>
 
-.menu
-  z-index 10
+.drawer
+  left 0
+  z-index 3
   padding-top 50px
-  width 246px
+  width 242px
 
   height 100%
   position fixed
@@ -51,14 +60,28 @@ defineProps({
 
   font-size 0.6rem
 
+.drawer-enter-from
+.drawer-leave-to
+  left -246px
+
+.drawer-enter-to
+.drawer-leave-from
+  left 0
+
+.drawer-enter-active
+.drawer-leave-active
+.drawer-enter-active
+.drawer-leave-active
+  transition all 0.2s ease
+
 /* 屏幕宽度 [ 1001  + ) */
 @media (min-width 1001px)
-  .menu
+  .drawer
     display none
 
 /* 屏幕宽度 ( -  1000 ] */
 @media (max-width 1000px)
-  .menu
+  .drawer
     display grid
 
 </style>

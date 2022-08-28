@@ -97,7 +97,6 @@ function toggleMode(mode: Mode) {
 const BodyPreview = ref()
 
 function renderMarkdown() {
-  console.log(BodyPreview.value)
   BodyPreview
       .value
       .innerHTML = marked(body.value)

@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 import {onMounted, ref} from "vue";
-import {makeThrottle} from "@/scripts/throttle"
+import {makeThrottle} from "@/scripts/util/throttle"
 
 const visibility = ref(false)
 const goUp = () => window.scrollTo({top: 0, behavior: 'smooth'})

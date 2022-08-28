@@ -39,7 +39,6 @@ function genText(): string {
         .replace(/<([^>]|\n)+>/g, '')//其他标签
         .replace(/&#*\w+;/g, '')//去除转义
 
-    console.log(pureText)
     const words = Math.round(pureText.length / 100) * 100//精确到百字
     const sec = pureText.length / 10
 

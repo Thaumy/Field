@@ -62,13 +62,13 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, ref} from "vue";
-import {Comment} from "@/scripts/comment";
+import {defineProps, PropType, ref} from "vue"
+import {Comment} from "@/scripts/type/comment"
 
 defineEmits<{ (e: 'replyClick', comment: Comment): void }>()
 
 defineProps({
-  comment: Comment,
+  comment: Object as PropType<Comment>,
   disableReply: {
     type: Boolean,
     default: false

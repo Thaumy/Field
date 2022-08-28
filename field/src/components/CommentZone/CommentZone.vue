@@ -57,62 +57,25 @@
 
 <script setup lang="ts">
 import {PropType, Ref, ref} from "vue"
-import {Comment} from "@/scripts/comment"
+import {Comment} from "@/scripts/type/comment"
 import CommentEditor from './CommentEditor.vue'
 import CommentCard from './CommentCard.vue'
 import FSlider from "@/components/field/f-slider.vue"
 import FCard from "@/components/field/f-card.vue"
 import FDivider from "@/components/field/f-divider.vue"
 
-defineProps({
-  postId: Number
+const props = defineProps({
+  postId: Number,
+  comments: {
+    type: Object as PropType<Comment[]>,
+    default: []
+  }
 })
 
 const replyTarget = ref(12384)
 
-const comments = [
-  <Comment>{
-    id: 1000,
-    user: '小品',
-    body: '这是一条评论！',
-    replyTo: null,
-    siteUrl: 'https://www.thaumy.cn',
-    avatarUrl: null,
-    createTime: "22-08-11 | 01:34"
-  },
-  <Comment>{
-    id: 1001,
-    user: 'Thaumy',
-    body:
-        '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
-        '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
-        '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴',
-    replyTo: 1000,
-    siteUrl: 'https://www.thaumy.cn',
-    avatarUrl: null,
-    createTime: "22-08-12 | 02:12"
-  },
-  <Comment>{
-    id: 1002,
-    user: '小品',
-    body: '不许贴贴！',
-    replyTo: 1000,
-    siteUrl: 'https://www.thaumy.cn',
-    avatarUrl: null,
-    createTime: "22-08-13 | 03:51"
-  },
-  <Comment>{
-    id: 1003,
-    user: 'Fubuki',
-    body: 'moemoemoemoemoemoemoemoemoemoemoemoe',
-    replyTo: null,
-    siteUrl: null,
-    avatarUrl: null,
-    createTime: '22-08-13 | 05:15'
-  }]
-
 function getCommentById(id: Number) {
-  return comments.filter(x => x.id === id)[0]
+  return props.comments.filter(x => x.id === id)[0]
 }
 
 function replyTo(comment: Comment) {
