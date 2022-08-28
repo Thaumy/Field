@@ -43,7 +43,12 @@ onMounted(() => {
 <style lang="stylus" scoped>
 .body
   padding 6px
-  background rgb(30 30 30)
+
+@css {
+  .body {
+    background: rgb(var(--v-theme-surface));
+  }
+}
 
 img
   border-top-left-radius 3px

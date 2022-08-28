@@ -6,6 +6,8 @@ import 'vuetify/styles'
 import {createVuetify} from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import {fieldDark} from "@/scripts/theme/fieldDark"
+import {fieldLight} from "@/scripts/theme/fieldLight";
 
 export default createVuetify(
     {
@@ -13,8 +15,14 @@ export default createVuetify(
         directives,
         // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
         theme: {
-            defaultTheme: 'dark',
+            //defaultTheme: 'fieldDark',
+            defaultTheme: 'fieldLight',
+            //defaultTheme: 'dark',
             //defaultTheme: 'light',
+            themes: {
+                fieldDark,
+                fieldLight,
+            }
         },
     }
 )

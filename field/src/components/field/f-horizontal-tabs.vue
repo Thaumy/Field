@@ -72,6 +72,12 @@ function tabClick(tab: Tab, index: number) {
   margin-left 2px
   margin-right 2px
 
+@css {
+  .tab {
+    color: rgb(var(--v-theme-on-surface));
+  }
+}
+
 .f-horizontal-tabs
   display grid
 

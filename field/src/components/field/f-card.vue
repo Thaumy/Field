@@ -13,6 +13,11 @@
 
 <style lang="stylus" scoped>
 .f-card
-  background: var(--b30)
   overflow hidden
+
+@css {
+  .f-card {
+    background: rgb(var(--v-theme-surface));
+  }
+}
 </style>
