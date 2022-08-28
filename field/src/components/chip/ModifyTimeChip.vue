@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import {defineProps, PropType, toRefs} from "vue";
-import {formatToDate, formatToDateTime} from "@/scripts/date"
+import {formatToDate, formatToDateTime} from "@/scripts/util/time"
 
 const props = defineProps({
   modifyTime: Object as PropType<Date>,

@@ -4,90 +4,108 @@
     <f-card class="margin-bottom">
       <v-img
           :eager=true
-          :src=coverUrl
-          v-if=coverUrl&&!body
+          :src="coverUrl"
+          v-if="coverUrl&&!post.body"
       />
       <div :style=genPreviewBgStyle()>
-        <Preview :title=title
+        <Preview :title=post.title
                  :summary=summary
                  :style=genPreviewStyle()
-                 v-if=title
+                 v-if=post.title
         >
           <template v-slot:title-right-slot>
+
+            <!--TODO body逻辑判断此时不再有效-->
+            <CommentCountChip
+                :comment-count="commentCount"
+                v-if="commentCount!==0&&!post.body"
+            />
             <ScheduleChip v-if="isSchedule"/>
             <ArchiveChip v-if="isArchive"/>
           </template>
 
-          <template v-slot:summary-right-slot v-if="!body">
-            <ModifyTimeChip :modify-time="modifyTime" style="align-self: end" v-if="modifyTimeVisibility()"/>
-            <CreateTimeChip :create-time="createTime" style="align-self: end" date-only="true"/>
+          <template v-slot:summary-right-slot v-if="!post.body">
+            <ModifyTimeChip :modify-time="post.modifyTime" style="align-self: end" v-if="modifyTimeVisibility()"/>
+            <CreateTimeChip :create-time="post.createTime" style="align-self: end" date-only="true"/>
           </template>
 
           <template v-slot:bottom-slot>
-            <ReadTimeBar :target-text="body" v-if="body"/>
+            <ReadTimeBar :target-text="post.body" v-if="post.body"/>
           </template>
         </Preview>
       </div>
 
-      <Body :body="body"
-            :create-time="createTime"
-            :modify-time="modifyTime"
-            v-if="body"
+      <Body :body="post.body"
+            :create-time="post.createTime"
+            :modify-time="post.modifyTime"
+            v-if="post.body"
       >
       <template v-slot:bottom-slot>
-        <div class="flex">
-          <TopicChip class="mr-1" v-for="topic in topics" :topic="topic"/>
+        <div class="flex" style="flex-wrap: wrap">
+          <TopicChip class="mr-1" v-for="topic in topics" :topic="topic.name"/>
         </div>
-        <div class="flex">
+        <div class="flex" style="flex-wrap: wrap">
           <ModifyTimeChip
-              :modify-time="modifyTime"
+              :modify-time="post.modifyTime"
               :active="modifyTimeVisibility()"
-              v-if="secTimespan(modifyTime,createTime)>7200"
+              v-if="secTimespan(post.modifyTime,post.createTime)>7200"
           />
-          <CreateTimeChip :create-time="createTime"/>
+          <CreateTimeChip :create-time="post.createTime"/>
         </div>
       </template>
       </Body>
-      <!--<SwitchBtn :prev="prevTitle" :next="nextTitle" v-if="body"/>-->
     </f-card>
 
   </div>
 </template>
 
 <script lang="ts" setup>
-import {defineProps, PropType, toRefs} from "vue";
-import {secTimespan} from "@/scripts/date";
-
+import {defineProps, onMounted, PropType} from "vue";
+import {secTimespan} from "@/scripts/util/time";
 import ScheduleChip from "@/components/tip/ScheduleChip.vue";
 import ReadTimeBar from "@/components/tip/ReadTimeBar.vue";
 import ArchiveChip from "@/components/tip/ArchiveChip.vue";
 import TopicChip from "@/components/chip/TopicChip.vue";
 import ModifyTimeChip from "@/components/chip/ModifyTimeChip.vue";
 import CreateTimeChip from "@/components/chip/CreateTimeChip.vue";
-import SwitchBtn from "@/components/btn/SwitchBtn.vue";
 import Preview from "./Preview.vue";
-import Body from "@/components/PostColumn/Body.vue";
+import Body from "@/components/PostCard/Body.vue";
 import FCard from "@/components/field/f-card.vue";
+import {Post} from "@/scripts/type/post";
+import CommentCountChip from "@/components/tip/CommentCountChip.vue";
+import {Topic} from "@/scripts/type/topic";
+import {PostCardData} from "@/components/PostCard/type";
 
 const props = defineProps({
-  coverUrl: String,
-  title: String,
-  summary: String,
-  body: String,
-  createTime: Date,
-  modifyTime: Date,
+  post: Object as PropType<Post>,
+  coverUrl: {
+    type: String,
+    default: null
+  },
+  summary: {
+    type: String,
+    default: null
+  },
+  viewCount: Number,
   commentCount: Number,
-  prevTitle: String,
-  nextTitle: String,
-  isSchedule: Boolean,
   isArchive: Boolean,
-  topics: Object as PropType<string[]>
+  isSchedule: Boolean,
+  prevTitle: {
+    type: String,
+    default: null
+  },
+  nextTitle: {
+    type: String,
+    default: null
+  },
+  topics: {
+    type: Object as PropType<Topic[]>,
+    default: <Topic[]>[]
+  }
 })
 
 function genPreviewStyle() {
-//:style="{'background-color': }"
-  const coverUrl = toRefs(props).coverUrl?.value
-  const body = toRefs(props).body?.value
+  const coverUrl = props.data?.coverUrl
 
   if (coverUrl)
     return {
@@ -98,8 +116,8 @@ function genPreviewStyle() {
 }
 
 function genPreviewBgStyle() {
-  const coverUrl = toRefs(props).coverUrl?.value
-  const body = toRefs(props).body?.value
+  const coverUrl = props.data?.coverUrl
+  const body = props.data?.post.body
 
   if (coverUrl)
     return {
@@ -114,8 +132,8 @@ function genPreviewBgStyle() {
 }
 
 function modifyTimeVisibility() {
-  const createTime = toRefs(props).createTime?.value
-  const modifyTime = toRefs(props).modifyTime?.value
+  const createTime = props.data?.post.createTime
+  const modifyTime = props.data?.post.modifyTime
 
   if (!createTime || !modifyTime)
     return
