@@ -19,6 +19,7 @@
       <f-tabs vertical double-bar :tabs="tabs"/>
 
       <About info="Thaumy's Blog©2016-2023<br>About Site" v-ripple/>
+
     </f-card>
 
   </div>
@@ -32,7 +33,7 @@ import Avatar from "./Avatar.vue";
 import {Post} from "@/scripts/type/post";
 import FCard from "@/components/field/f-card.vue";
 import FTabs from "@/components/field/f-tabs.vue";
-import {Tab} from "@/components/field/types";
+import {Tab} from "@/components/field/type";
 
 const props = defineProps({
   posts: Object as PropType<Post[]>
@@ -42,20 +43,8 @@ const tabs = <Tab[]><unknown[]>props.posts
 </script>
 
 <style lang="stylus" scoped>
+
 .menu
   color rgba(230 230 230 1.00)
-
-/* 屏幕宽度 [ 1001 , + ) */
-@media (min-width: 1001px)
-  .menu
-    width 23%
-    min-width 230px
-    max-width 270px
-    position fixed
-
-/* 屏幕宽度 ( - , 1000 ] */
-@media screen and (max-width: 1000px)
-  .menu
-    display none
 
 </style>

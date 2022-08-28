@@ -32,7 +32,7 @@ import {onMounted, ref, PropType} from 'vue'
 import {makeDebounce} from "@/scripts/util/debounce";
 import Drawer from "./Drawer.vue";
 import {Post} from "@/scripts/type/post";
-import {Tab} from "@/components/field/types";
+import {Tab} from "@/components/field/type";
 import Shadow from "@/components/MenuBar/Shadow.vue";
 
 const props = defineProps({

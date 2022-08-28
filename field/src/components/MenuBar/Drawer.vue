@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import {defineProps, PropType} from "vue";
-import {Tab} from "@/components/field/types";
+import {Tab} from "@/components/field/type";
 import FTabs from "@/components/field/f-tabs.vue";
 
 defineProps({
