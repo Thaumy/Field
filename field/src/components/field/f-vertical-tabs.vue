@@ -39,7 +39,7 @@
 
 <script lang="ts" setup>
 import {ref, defineProps, PropType} from "vue";
-import {Tab} from "@/components/field/types";
+import {Tab} from "@/components/field/type";
 
 const emits = defineEmits<{ (e: 'tabClick', tab: Tab): void }>()
 
