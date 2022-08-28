@@ -7,7 +7,7 @@
           :src="coverUrl"
           v-if="coverUrl&&!post.body"
       />
-      <div :style=genPreviewBgStyle()>
+      <div :style="genPreviewBgStyle()">
         <Preview :title=post.title
                  :summary=summary
                  :style=genPreviewStyle()
@@ -20,13 +20,21 @@
                 :comment-count="commentCount"
                 v-if="commentCount!==0&&!post.body"
             />
-            <ScheduleChip v-if="isSchedule"/>
-            <ArchiveChip v-if="isArchive"/>
+            <ScheduleChip v-if="isSchedule&&post.body"/>
+            <ArchiveChip v-if="isArchive&&post.body"/>
           </template>
 
           <template v-slot:summary-right-slot v-if="!post.body">
-            <ModifyTimeChip :modify-time="post.modifyTime" style="align-self: end" v-if="modifyTimeVisibility()"/>
-            <CreateTimeChip :create-time="post.createTime" style="align-self: end" date-only="true"/>
+            <ModifyTimeChip
+                style="align-self: end"
+                :modify-time="post.modifyTime"
+                v-if="modifyTimeVisibility()"
+            />
+            <CreateTimeChip
+                style="align-self: end"
+                :create-time="post.createTime"
+                :date-only="true"
+            />
           </template>
 
           <template v-slot:bottom-slot>
@@ -69,12 +77,12 @@ import TopicChip from "@/components/chip/TopicChip.vue";
 import ModifyTimeChip from "@/components/chip/ModifyTimeChip.vue";
 import CreateTimeChip from "@/components/chip/CreateTimeChip.vue";
 import Preview from "./Preview.vue";
-import Body from "@/components/PostCard/Body.vue";
+import Body from "@/components/PostZone/Body.vue";
 import FCard from "@/components/field/f-card.vue";
 import {Post} from "@/scripts/type/post";
 import CommentCountChip from "@/components/tip/CommentCountChip.vue";
 import {Topic} from "@/scripts/type/topic";
-import {PostCardData} from "@/components/PostCard/type";
+import {PostCardData} from "@/components/PostZone/type";
 
 const props = defineProps({
   post: Object as PropType<Post>,
@@ -105,7 +113,7 @@ const props = defineProps({
 })
 
 function genPreviewStyle() {
-  const coverUrl = props.data?.coverUrl
+  const coverUrl = props.coverUrl
 
   if (coverUrl)
     return {
@@ -116,8 +124,8 @@ function genPreviewStyle() {
 }
 
 function genPreviewBgStyle() {
-  const coverUrl = props.data?.coverUrl
-  const body = props.data?.post.body
+  const coverUrl = props.coverUrl
+  const body = props.post?.body
 
   if (coverUrl)
     return {
@@ -132,8 +140,8 @@ function genPreviewBgStyle() {
 }
 
 function modifyTimeVisibility() {
-  const createTime = props.data?.post.createTime
-  const modifyTime = props.data?.post.modifyTime
+  const createTime = props.post?.createTime
+  const modifyTime = props.post?.modifyTime
 
   if (!createTime || !modifyTime)
     return

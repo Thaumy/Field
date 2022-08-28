@@ -42,7 +42,7 @@
             <f-divider ml="48" v-if="index!==0"/>
             <CommentCard
                 :comment='comment'
-                :enable-reply='replyTo!==comment.id'
+                :enable-reply='replyTarget!==comment.id'
                 @reply-click="replyTo(comment);expandReference(index)"
             />
           </div>
@@ -68,11 +68,11 @@ const props = defineProps({
   postId: Number,
   comments: {
     type: Object as PropType<Comment[]>,
-    default: []
+    default: <Comment[]>[]
   }
 })
 
-const replyTarget = ref(12384)
+const replyTarget = ref(props.postId)
 
 function getCommentById(id: Number) {
   return props.comments.filter(x => x.id === id)[0]

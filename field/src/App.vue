@@ -5,9 +5,19 @@
       <MenuBar :posts="menu_posts" :style="commonOpacityStyle"/>
 
       <div class="content">
-        <Menu :posts="menu_posts" :style="commonOpacityStyle"/>
+        <div class="left-part">
+          <Menu :posts="menu_posts" :style="commonOpacityStyle"/>
+        </div>
 
-        <PostZone :data-collection="post_data" :style="commonOpacityStyle"/>
+        <div class="right-part float-right">
+          <PostZone :comments="comments" :data-collection="post_data" :style="commonOpacityStyle"/>
+
+          <CommentZone :comments="comments" :post-id="12384"/>
+
+          <f-card style="width: fit-content;margin: auto">
+            <SwitchBtn prev="你不知道的114514个单身技巧" next="构建pilipala应用的最佳实践"/>
+          </f-card>
+        </div>
       </div>
 
       <GoUpBtn :style="commonOpacityStyle"/>
@@ -25,7 +35,8 @@
                         text-decoration: none;'
               >鲁ICP备2021005067</a>"
         style="margin: 20px;margin-top: 80px"
-        :style="pageFootOpacityStyle"/>
+        :style="pageFootOpacityStyle"
+    />
   </v-app>
 </template>
 
@@ -34,12 +45,15 @@ import {onMounted, ref} from 'vue'
 import GoUpBtn from "@/components/btn/GoUpBtn.vue";
 import PageFoot from "@/components/common/PageFoot.vue";
 import {Post} from "@/scripts/type/post";
-import PostZone from "@/components/common/PostZone.vue";
+import PostZone from "@/components/PostZone/PostZone.vue";
 import Menu from "@/components/Menu/Menu.vue";
 import MenuBar from "@/components/MenuBar/MenuBar.vue";
 import {Comment} from "@/scripts/type/comment";
-import {PostCardData} from "@/components/PostCard/type";
+import {PostCardData} from "@/components/PostZone/type";
 import {Topic} from "@/scripts/type/topic";
+import CommentZone from "@/components/CommentZone/CommentZone.vue";
+import FCard from "@/components/field/f-card.vue";
+import SwitchBtn from "@/components/btn/SwitchBtn.vue";
 
 const commonOpacityStyle = ref({
   opacity: 1,
@@ -61,7 +75,7 @@ const comments = [
     replyTo: null,
     siteUrl: 'https://www.thaumy.cn',
     avatarUrl: null,
-    createTime: new Date('2022-08-11T01:34:00')//"22-08-11 | 01:34"
+    createTime: new Date('2022-08-11T01:34:00')
   },
   <Comment>{
     id: 1001,
@@ -300,4 +314,27 @@ onMounted(() => {
   .content
     padding-top 57px
 
+/* 屏幕宽度 [ 1001 , + ) */
+@media (min-width: 1001px)
+  .right-part
+    width 76%
+    max-width 1100px
+
+/* 屏幕宽度 ( - , 1000 ] */
+@media (max-width: 1000px)
+  .right-part
+    width 100%
+
+/* 屏幕宽度 [ 1001 , + ) */
+@media (min-width: 1001px)
+  .left-part
+    width 23%
+    min-width 230px
+    max-width 270px
+    position fixed
+
+/* 屏幕宽度 ( - , 1000 ] */
+@media screen and (max-width: 1000px)
+  .left-part
+    display none
 </style>

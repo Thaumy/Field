@@ -66,7 +66,7 @@
 
 <script setup lang="ts">
 import {defineProps, ref} from "vue";
-import {Tab} from "@/components/field/types";
+import {Tab} from "@/components/field/type";
 import {marked} from "marked"
 import FTabs from "@/components/field/f-tabs.vue";
 
