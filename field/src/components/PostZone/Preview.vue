@@ -38,47 +38,42 @@ let props = defineProps({
 
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
 
+.summary-flex
+  display flex
+  justify-content space-between
 
-.summary-flex {
-  display: flex;
-  justify-content: space-between;
-}
+.summary
+  font-size 0.9rem
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
 
-.summary {
-  font-size: 0.9rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  padding-left 18px
+  padding-right 18px
 
-  padding-left: 18px;
-  padding-right: 18px;
-}
+.preview
+  padding 6px
+  display grid
+  grid-template-columns 100%
+  grid-template-rows auto 30px auto
 
-.preview {
-  padding: 6px;
-  display: grid;
-  grid-template-rows: auto 30px auto;
-}
+.title-flex
+  display flex
+  padding 2px
+  padding-left 6px
+  justify-content space-between
 
-.title-flex {
-  display: flex;
-  padding: 2px;
-  padding-left: 6px;
-  justify-content: space-between;
-}
+.title
+  font-size 1.4rem
+  word-break break-all
 
-.title {
-  font-size: 24px;
-}
+.title-right-slot
+  display flex
+  align-items center
 
-.title-right-slot {
-  display: flex;
-  align-items: center;
-}
+.summary-right-slot
+  display flex
 
-.summary-right-slot {
-  display: flex;
-}
 </style>

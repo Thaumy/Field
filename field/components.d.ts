@@ -7,14 +7,14 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    ArchiveChip: typeof import('./src/components/tip/ArchiveChip.vue')['default']
+    ArchiveChip: typeof import('./src/components/chip/ArchiveChip.vue')['default']
     AtBox: typeof import('./src/components/box/AtBox.vue')['default']
     AvatarBox: typeof import('./src/components/Menu/Avatar.vue')['default']
     Body: typeof import('./src/components/PostZone/Body.vue')['default']
     CoBox: typeof import('./src/components/Menu/About.vue')['default']
     CommentBox: typeof import('./src/components/box/CommentBox.vue')['default']
     CommentCard: typeof import('./src/components/CommentZone/CommentCard.vue')['default']
-    CommentChip: typeof import('./src/components/tip/CommentCountChip.vue')['default']
+    CommentChip: typeof import('./src/components/chip/CommentCountChip.vue')['default']
     CommentEditor: typeof import('./src/components/CommentZone/CommentEditor.vue')['default']
     CommentList: typeof import('./src/components/CommentZone/CommentList.vue')['default']
     CreateTimeChip: typeof import('./src/components/chip/CreateTimeChip.vue')['default']
@@ -37,8 +37,8 @@ declare module '@vue/runtime-core' {
     PostPreviewCard: typeof import('./src/components/card/PostPreviewCard.vue')['default']
     Preview: typeof import('./src/components/PostZone/Preview.vue')['default']
     PreviewCard: typeof import('./src/components/PostZone/PreviewCard.vue')['default']
-    ReadTimeTip: typeof import('./src/components/tip/ReadTimeBar.vue')['default']
-    ScheduleChip: typeof import('./src/components/tip/ScheduleChip.vue')['default']
+    ReadTimeTip: typeof import('./src/components/PostZone/ReadTimeBar.vue')['default']
+    ScheduleChip: typeof import('./src/components/chip/ScheduleChip.vue')['default']
     SiderBtn: typeof import('./src/components/MenuBar/SiderBtn.vue')['default']
     SiderList: typeof import('./src/components/MenuBar/Drawer.vue')['default']
     SiderListCard: typeof import('./src/components/MenuBar/SiderListCard.vue')['default']

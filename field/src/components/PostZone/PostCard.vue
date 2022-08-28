@@ -70,9 +70,9 @@
 <script lang="ts" setup>
 import {defineProps, onMounted, PropType} from "vue";
 import {secTimespan} from "@/scripts/util/time";
-import ScheduleChip from "@/components/tip/ScheduleChip.vue";
-import ReadTimeBar from "@/components/tip/ReadTimeBar.vue";
-import ArchiveChip from "@/components/tip/ArchiveChip.vue";
+import ScheduleChip from "@/components/chip/ScheduleChip.vue";
+import ReadTimeBar from "@/components/PostZone/ReadTimeBar.vue";
+import ArchiveChip from "@/components/chip/ArchiveChip.vue";
 import TopicChip from "@/components/chip/TopicChip.vue";
 import ModifyTimeChip from "@/components/chip/ModifyTimeChip.vue";
 import CreateTimeChip from "@/components/chip/CreateTimeChip.vue";
@@ -80,7 +80,7 @@ import Preview from "./Preview.vue";
 import Body from "@/components/PostZone/Body.vue";
 import FCard from "@/components/field/f-card.vue";
 import {Post} from "@/scripts/type/post";
-import CommentCountChip from "@/components/tip/CommentCountChip.vue";
+import CommentCountChip from "@/components/chip/CommentCountChip.vue";
 import {Topic} from "@/scripts/type/topic";
 import {PostCardData} from "@/components/PostZone/type";
 
@@ -159,9 +159,6 @@ function modifyTimeVisibility() {
   return !(createWithinOneWeek || noModifyWithinOneMonth || createTimeEqToModifyTime)
 }
 </script>
-
-<style scoped>
-</style>
 
 <style scoped>
 </style>

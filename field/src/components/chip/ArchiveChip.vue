@@ -11,11 +11,11 @@
     </v-chip>
 
     <v-snackbar
-        class="snackbar"
+        content-class="snackbar"
         v-model="snackbarVisibility"
         :timeout="2000"
         color="orange"
-        location="top right"
+        location=""
         @click="toggleSnackbar()"
     >
       <div class="snackbar-text">
@@ -25,6 +25,7 @@
 
   </div>
 </template>
+
 
 <script setup lang="ts">
 import {ref} from "vue";
@@ -36,19 +37,15 @@ function toggleSnackbar() {
 }
 </script>
 
-<style scoped>
-.archive-chip {
-  margin-left: 2px;
-  margin-right: 2px;
-}
+<style lang="stylus" scoped>
 
-.snackbar {
-  margin-top: 50px;
-}
+.archive-chip
+  margin-left 2px
+  margin-right 2px
 
-.snackbar-text {
-  width: fit-content;
-  margin: auto;
-  color: white;
-}
+.snackbar-text
+  width fit-content
+  margin auto
+  color white
+
 </style>

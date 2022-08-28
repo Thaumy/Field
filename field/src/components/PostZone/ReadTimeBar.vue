@@ -48,9 +48,6 @@ function genText(): string {
       return `约 ${words} 字 / 阅读成本 ${Math.round(sec / 60)} 分钟`
   }
 }
-
-
-//TODO auto calculus...
 </script>
 
 <style lang="stylus" scoped>
@@ -69,4 +66,5 @@ function genText(): string {
 
   font-size 15px
   border-radius 3px
+
 </style>
