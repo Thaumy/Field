@@ -3,6 +3,7 @@
 
     <v-chip
         size="x-small"
+        color="on-surface"
     >
       <v-icon icon="mdi-pound" size="0.8rem"/>
       {{ topic }}

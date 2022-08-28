@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, defineProps, toRefs, PropType} from "vue";
+import {defineProps} from "vue";
 
 let props = defineProps({
   title: String,
@@ -67,6 +67,12 @@ let props = defineProps({
 .title
   font-size 1.4rem
   word-break break-all
+
+@css {
+  .title {
+    color: rgb(var(--v-theme-on-surface));
+  }
+}
 
 .title-right-slot
   display flex

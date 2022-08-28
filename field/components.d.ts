@@ -42,7 +42,7 @@ declare module '@vue/runtime-core' {
     SiderBtn: typeof import('./src/components/MenuBar/SiderBtn.vue')['default']
     SiderList: typeof import('./src/components/MenuBar/Drawer.vue')['default']
     SiderListCard: typeof import('./src/components/MenuBar/SiderListCard.vue')['default']
-    SwitchBtn: typeof import('./src/components/btn/SwitchBtn.vue')['default']
+    SwitchBtn: typeof import('./src/components/btn/SwitchZone.vue')['default']
     TopicChip: typeof import('./src/components/chip/TopicChip.vue')['default']
     UpBtn: typeof import('./src/components/btn/UpBtn.vue')['default']
     WarningTip: typeof import('./src/components/tip/WarningTip.vue')['default']

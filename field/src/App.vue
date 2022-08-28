@@ -53,7 +53,7 @@ import {PostCardData} from "@/components/PostZone/type";
 import {Topic} from "@/scripts/type/topic";
 import CommentZone from "@/components/CommentZone/CommentZone.vue";
 import FCard from "@/components/field/f-card.vue";
-import SwitchBtn from "@/components/btn/SwitchBtn.vue";
+import SwitchBtn from "@/components/btn/SwitchZone.vue";
 
 const commonOpacityStyle = ref({
   opacity: 1,

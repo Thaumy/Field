@@ -5,7 +5,7 @@
       <div class="prev-btn cursor-pointer">
         <v-btn
             prepend-icon="mdi-chevron-left"
-            color="rgb(30,30,30)"
+            color="surface"
             flat=""
         >
           {{ prev }}
@@ -15,7 +15,7 @@
       <div class="next-btn cursor-pointer">
         <v-btn
             append-icon="mdi-chevron-right"
-            color="rgb(30,30,30)"
+            color="surface"
             flat=""
         >
           {{ next }}
@@ -38,14 +38,14 @@ defineProps({
 <style lang="stylus" scoped>
 .holder
   display flex
-  justify-content center
+  justify-content end
   flex-flow wrap
 
-.next-btn
 .prev-btn
-  color rgba(1 153 255 1)
+  margin-right auto
 
-  white-space nowrap
-  text-overflow ellipsis
+.prev-btn
+.next-btn
+  color rgba(1 153 255 1)
 
 </style>

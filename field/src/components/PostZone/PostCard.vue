@@ -68,6 +68,7 @@
 </template>
 
 <script lang="ts" setup>
+
 import {defineProps, onMounted, PropType} from "vue";
 import {secTimespan} from "@/scripts/util/time";
 import ScheduleChip from "@/components/chip/ScheduleChip.vue";
@@ -158,6 +159,7 @@ function modifyTimeVisibility() {
   //hide modify time
   return !(createWithinOneWeek || noModifyWithinOneMonth || createTimeEqToModifyTime)
 }
+
 </script>
 
 <style scoped>
