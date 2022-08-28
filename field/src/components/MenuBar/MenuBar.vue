@@ -42,7 +42,7 @@ const props = defineProps({
 const tabs = <Tab[]><unknown[]>props.posts
 
 const visibility = ref(true)
-const drawerVisibility = ref(true)
+const drawerVisibility = ref(false)
 const topPosition = ref(0)
 
 function openDrawer() {
@@ -59,12 +59,13 @@ function closeDrawer() {
 
 onMounted(() => {
   //TODO 此实现有缺陷，当快速在阈值附近resize时，不能正确收起drawer
+  //TODO 此问题已被解决，等待测试
   window.addEventListener('resize', makeDebounce(() => {
     if (window.innerWidth > 1000) {//触发宽度外，收起SiderList和shadow
       drawerVisibility.value = false
       document.getElementsByTagName('html')[0].style.overflowY = 'scroll'
     }
-  }, 100))
+  }, 200))
 
   {
     let prev = 0

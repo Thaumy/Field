@@ -9,6 +9,7 @@ import '@/styles/global/font.css'
 import '@/styles/global/more.css'
 import '@/styles/global/color.css'
 import '@/styles/global/border.css'
+import '@/styles/vuetify/snackbar.styl'
 
 loadFonts().then()
 

@@ -11,12 +11,11 @@
     </v-chip>
 
     <v-snackbar
-        class="snackbar"
+        content-class="snackbar"
         v-model="snackbarVisibility"
         :timeout="3000"
-
         color="blue"
-        location="top right"
+        location=""
         @click="toggleSnackbar()"
     >
       <div class="snackbar-text">
@@ -73,19 +72,15 @@ function toggleSnackBar() {
 }*/
 </script>
 
-<style scoped>
-.schedule-chip {
-  margin-left: 2px;
-  margin-right: 2px;
-}
+<style lang="stylus" scoped>
 
-.snackbar {
-  margin-top: 50px;
-}
+.schedule-chip
+  margin-left 2px
+  margin-right 2px
 
-.snackbar-text {
-  width: fit-content;
-  margin: auto;
-  color: white;
-}
+.snackbar-text
+  width fit-content
+  margin auto
+  color white
+
 </style>
