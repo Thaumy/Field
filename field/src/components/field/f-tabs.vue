@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
 import {PropType} from "vue";
-import {Tab} from "@/components/field/types";
+import {Tab} from "@/components/field/type";
 import FHorizontalTabs from "@/components/field/f-horizontal-tabs.vue";
 import FVerticalTabs from "@/components/field/f-vertical-tabs.vue";
 

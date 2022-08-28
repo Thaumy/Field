@@ -26,7 +26,6 @@
         />
       </div>
 
-
       <div class="user-name-zone">
         <div class="flex align-self-end">
           <div class="user-name">
@@ -47,8 +46,7 @@
         <slot name="user-name-right-end-slot"/>
       </div>
 
-
-      <div class="create-time">{{ comment.createTime }}</div>
+      <div class="create-time">{{ formatToDateTime(comment.createTime) }}</div>
 
       <div class="body-left-slot">
         <slot name="body-left-slot"/>
@@ -64,6 +62,7 @@
 <script setup lang="ts">
 import {defineProps, PropType, ref} from "vue"
 import {Comment} from "@/scripts/type/comment"
+import {formatToDateTime} from "@/scripts/util/time"
 
 defineEmits<{ (e: 'replyClick', comment: Comment): void }>()
 
