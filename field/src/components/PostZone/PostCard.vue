@@ -37,8 +37,8 @@
             />
           </template>
 
-          <template v-slot:bottom-slot>
-            <ReadTimeBar :target-text="post.body" v-if="post.body"/>
+          <template v-slot:bottom-slot v-else>
+            <ReadTimeBar :target-text="post.body"/>
           </template>
         </Preview>
       </div>

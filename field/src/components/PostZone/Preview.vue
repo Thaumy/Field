@@ -40,30 +40,29 @@ let props = defineProps({
 
 <style lang="stylus" scoped>
 
-.summary-flex
-  display flex
-  justify-content space-between
-
-.summary
-  font-size 0.9rem
-  overflow hidden
-  text-overflow ellipsis
-  white-space nowrap
-
-  padding-left 18px
-  padding-right 18px
-
 .preview
   padding 6px
   display grid
   grid-template-columns 100%
-  grid-template-rows auto 30px auto
+  grid-template-rows auto auto auto
 
 .title-flex
   display flex
   padding 2px
   padding-left 6px
   justify-content space-between
+
+.summary-flex
+  display flex
+  flex-wrap wrap
+  justify-content end
+
+.summary
+  font-size 0.9rem
+  margin-right auto
+  margin-bottom 10px
+  padding-left 18px
+  word-break break-all
 
 .title
   font-size 1.4rem
