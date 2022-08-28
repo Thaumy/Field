@@ -12,18 +12,21 @@
              key="bar"
              style="grid-column-start:3"
              :style="{'grid-row-start':barPosition}"
+             v-if="doubleBar"
         />
       </transition-group>
 
       <transition-group name="tab">
         <div
-            class="tab border-radius-all"
+            class="tab"
             v-for="(tab,index) in tabs"
             :style="{'grid-row-start':index+1,
                       color:tab.disabled?'grey':'',
                       cursor:tab.disabled?'default':'pointer'}"
             :title="tab.title"
             :key="tab"
+            v-ripple
+            v-ripple.stop="!tab.disabled"
             @click="tabClick(tab,index)"
         >
           <div class="tab-title">{{ tab.title }}</div>
@@ -41,7 +44,11 @@ import {Tab} from "@/components/field/types";
 const emits = defineEmits<{ (e: 'tabClick', tab: Tab): void }>()
 
 const props = defineProps({
-  tabs: Object as PropType<Tab[]>
+  tabs: Object as PropType<Tab[]>,
+  doubleBar: {
+    type: Boolean,
+    default: false
+  }
 })
 
 const barPosition = ref(1)
@@ -50,7 +57,7 @@ function tabClick(tab: Tab, index: number) {
   if (tab.disabled)
     return
 
-  emits('tabClick', tab);
+  emits('tabClick', tab)
   barPosition.value = index + 1//toggleBar
 }
 </script>
@@ -88,18 +95,19 @@ function tabClick(tab: Tab, index: number) {
   position absolute
 
 .tab
-  grid-column-start 2
   display flex
-  width 94%
+  width 100%
   height 5vh
   max-height 44px
   min-height 28px
 
   margin auto
-  margin-top 4px
-  margin-bottom 4px
+  padding-top 2px
+  padding-bottom 2px
+  margin-top 2px
+  margin-bottom 2px
+  grid-column-start 2
 
-  font-size 17px
   letter-spacing 1px
   color rgba(230 230 230 1.00)
 
