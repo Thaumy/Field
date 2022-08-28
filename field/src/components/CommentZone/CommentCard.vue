@@ -5,6 +5,7 @@
          @mouseover="showReplyBtn()"
          @mouseleave="hideReplyBtn()"
     >
+
       <div class="avatar-zone">
         <v-avatar
             class="user-avatar"
@@ -13,29 +14,32 @@
             size="32"
             @click="blankUrl(comment.siteUrl)"
         >
-          <img :src="comment.avatarUrl" alt="" style="width:100%"/>
+          <v-img :src="avatar" cover="true"/>
+
         </v-avatar>
         <v-icon
             class="web-icon"
             icon="mdi-web"
             size="10"
+            color="blue"
             v-if="comment.siteUrl"
         />
       </div>
 
+
       <div class="user-name-zone">
         <div class="flex align-self-end">
-          <div class="user-name" v-text="comment.user"/>
+          <div class="user-name">
+            {{ comment.user }}
+          </div>
 
-          <transition name="reply-btn">
-            <v-icon
-                v-if="!disableReply"
-                class="reply-btn ml-1"
-                color="orange"
-                icon="mdi-reply"
-                size="1.1rem"
-                v-show="replyBtnAlwaysOn||replyBtnVisibility"
-                @click="$emit('replyClick')"
+          <transition name="reply-btn" v-if="!disableReply">
+            <v-icon class="reply-btn ml-1"
+                    color="orange"
+                    icon="mdi-reply"
+                    size="1.1rem"
+                    v-show="replyBtnVisibility"
+                    @click="$emit('replyClick',comment)"
             />
           </transition>
         </div>
@@ -43,41 +47,36 @@
         <slot name="user-name-right-end-slot"/>
       </div>
 
-      <div
-          class="create-time"
-          v-text="formatToDateTime(comment.createTime)"
-      />
 
-      <div class="body">
-        <slot name="body-top-slot"/>
-        <f-text-render :text="comment.body"/>
+      <div class="create-time">{{ comment.createTime }}</div>
+
+      <div class="body-left-slot">
+        <slot name="body-left-slot"/>
       </div>
+
+      <div class="body">{{ comment.body }}</div>
+
     </div>
 
   </div>
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue"
+import {defineProps, PropType, ref} from "vue"
 import {Comment} from "@/scripts/type/comment"
-import {formatToDateTime} from "@/scripts/util/time"
 
-defineEmits<{
-  (e: 'replyClick'): void
-}>()
+defineEmits<{ (e: 'replyClick', comment: Comment): void }>()
 
-withDefaults(
-    defineProps<{
-      comment: Comment,
-      replyBtnAlwaysOn: boolean,
-      disableReply: boolean
-    }>(), {
-      disableReply: false,
-      replyBtnAlwaysOn: false
-    })
+defineProps({
+  comment: Object as PropType<Comment>,
+  disableReply: {
+    type: Boolean,
+    default: false
+  }
+})
 
-const replyBtnAlwaysOn = //when using mobile devices
-    !/Windows|Mac|Linux/.test(navigator.userAgent)
+const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.meta.url).href
+
 const replyBtnVisibility = ref(false)
 
 function blankUrl(url: string) {
@@ -126,6 +125,7 @@ function hideReplyBtn() {
   justify-content space-between
 
 .user-name
+  color var(--w220)
   font-size 0.8rem
   overflow hidden
   text-overflow ellipsis
@@ -136,12 +136,6 @@ function hideReplyBtn() {
 
   padding-left 4px
 
-@css {
-  .user-name {
-    color: rgb(var(--v-theme-on-surface));
-  }
-}
-
 .create-time
   align-self center
   grid-row-start 2
@@ -149,14 +143,8 @@ function hideReplyBtn() {
 
   padding-left 4px
 
-  font-size 0.7rem
+  font-size 0.6rem
   color rgba(170 170 170 1)
-
-@css {
-  .create-time {
-    color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
-  }
-}
 
 .avatar-zone
   grid-row-start 1
@@ -174,23 +162,17 @@ function hideReplyBtn() {
   grid-column-start 2
 
 .body
+  color var(--w200)
   grid-column-start 2
 
   font-size 0.9rem
   text-align left
 
-  padding 4px
+  padding-top 4px
+  padding-left 4px
+  padding-bottom 2px
 
 .body-left-slot
   grid-row-start 3
-
-@css {
-  .body {
-    color: rgba(var(--v-theme-on-surface), 0.8);
-  }
-  .web-icon {
-    color: rgb(var(--v-theme-primary));
-  }
-}
 
 </style>

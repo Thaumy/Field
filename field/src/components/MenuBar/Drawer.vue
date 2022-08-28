@@ -2,93 +2,62 @@
   <transition name="drawer" tag="div">
 
     <div class="drawer" v-show="visibility">
-
-      <div class="btn-zone position-absolute">
-        <theme-toggle-btn
-            class="ma-2"
-            style="opacity: 0.8"
-        />
+      <div class="tab-list">
+        <f-tabs double-bar vertical :tabs="tabs"/>
       </div>
 
-      <f-tabs
-          class="menu-tabs"
-          vertical
-          double-bar
-          router-binding
-          :tabs="items"
-          v-slot="{tab}"
-      >
-        <f-tab
-            class="menu-tab"
-            :title="tab.title"
-            @click="$emit('tabClick');$router.push(tab.route)"
-        />
-      </f-tabs>
-
-      <div class="info cursor-pointer" v-html="info" @click=""/>
-
+      <div class="info cursor-pointer" @click="">
+        Thaumy's Blog@2016-2023<br>
+        About Site
+      </div>
     </div>
 
   </transition>
 </template>
 
 <script lang="ts" setup>
+import {defineProps, PropType} from "vue";
+import {Tab} from "@/components/field/types";
+import FTabs from "@/components/field/f-tabs.vue";
 
-import {Tab} from "@/components/field/type"
-import FTabs from "@/components/field/f-tabs.vue"
-import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
-import FTab from "@/components/field/f-tab.vue"
-
-const emits = defineEmits<{
-  (e: 'tabClick'): void
-}>()
-
-const props = withDefaults(
-    defineProps<{
-      items: Tab[],
-      visibility: boolean
-      info: string
-    }>(), {
-      visibility: false
-    })
+defineProps({
+  tabs: {
+    type: Object as PropType<Tab[]>,
+    default: []
+  },
+  visibility: {
+    type: Boolean,
+    default: false
+  }
+})
 
 </script>
 
 <style lang="stylus" scoped>
 
 .drawer
-  width 242px
-  height 100%
-
   left 0
-  z-index 4
+  z-index 3
+  padding-top 50px
+  width 242px
+
+  height 100%
   position fixed
-  grid-template-rows 86% 14%
 
-  backdrop-filter saturate(200%) blur(24px)
+  backdrop-filter saturate(180%) blur(20px)
+  grid-template-rows 84% 16%
 
-@css {
-  .drawer {
-    background: rgba(var(--v-theme-background), 0.6);
-  }
-}
-
-.menu-tabs
-  padding-top 60px
-  grid-row-start 1
-
-.menu-tab
-  height 6vh
-  max-height 44px
-  min-height 28px
-  letter-spacing 1px
+.tab-list
+  margin-top 20px
+  display grid
 
 .info
-  grid-row-start 2
-  color grey
+  color: grey;
   width 88%
   text-align center
+
   margin auto
+
   font-size 0.6rem
 
 .drawer-enter-from

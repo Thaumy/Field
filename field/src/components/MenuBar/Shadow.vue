@@ -21,13 +21,13 @@ withDefaults(
 <style lang="stylus" scoped>
 
 .shadow
-  width calc(100% - 240px) /*多出来的像素用来弥补可能的渲染误差导致的空隙*/
+  width calc(100% - 240px) /*多出来的4像素用来弥补可能的渲染误差导致的空隙*/
   height 100%
-  z-index 3
+  z-index 5
 
   position fixed
   padding-top 50px
-  left 240px
+  left 242px
 
   background-color rgba(0 0 0 0.8)
   backdrop-filter saturate(10%)

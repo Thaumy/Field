@@ -6,9 +6,9 @@
       <div class="title">{{ title }}</div>
 
       <div class="typing">
-        <v-icon class="quote-icon" icon="mdi-format-quote-open"/>
+        <v-icon icon="mdi-format-quote-open"/>
         <span id="typing_area"/>
-        <v-icon class="quote-icon" icon="mdi-format-quote-close"/>
+        <v-icon icon="mdi-format-quote-close"/>
       </div>
 
     </div>
@@ -17,26 +17,22 @@
 </template>
 
 <script lang="ts" setup>
+import {defineProps, onMounted, PropType} from "vue";
+import Typed from "typed.js";
 
-import {onMounted} from "vue"
-import Typed from "typed.js"
-
-const props =
-    defineProps<{
-      title: string,
-      typing: string[]
-    }>()
+const props = defineProps({
+  title: String,
+  typing: Object as PropType<string[]>
+})
 
 onMounted(() => {
-  const options = {
+  new Typed('#typing_area', {
     strings: props.typing,
     typeSpeed: 100,
     backSpeed: 0,
-    cursorChar: '_',
     smartBackspace: true,
     loop: false
-  }
-  new Typed('#typing_area', options)
+  })
 })
 </script>
 
@@ -50,24 +46,16 @@ onMounted(() => {
   text-align center
 
 .typing
-  width 90%
+  color rgba(230 230 230 80%)
+  height 6vh
+  max-height 50px
+  min-height 30px
+  width 98%
+
   font-size 15px
+
   text-align center
-  margin-top 6px
-  margin-left auto
-  margin-right auto
 
-
-@css {
-  .title {
-    color: rgb(var(--v-theme-on-surface));
-  }
-  .typing {
-    color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
-  }
-  .quote-icon {
-    color: rgba(var(--v-theme-on-surface), var(--v-activated-opacity));
-  }
-}
+  margin auto
 
 </style>
