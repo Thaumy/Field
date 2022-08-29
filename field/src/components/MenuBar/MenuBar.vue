@@ -15,7 +15,6 @@
         <v-icon
             class="open-drawer-btn"
             icon="mdi-menu"
-            v-show="!drawerVisibility"
             @click="openDrawer()"
         />
       </transition>
@@ -48,20 +47,20 @@ const topPosition = ref(0)
 function openDrawer() {
   drawerVisibility.value = true
   document.getElementsByTagName('html')[0].style.overflowY = 'hidden'
-  visibility.value = true
+  topPosition.value = -50
 }
 
 function closeDrawer() {
   drawerVisibility.value = false
   document.getElementsByTagName('html')[0].style.overflowY = 'scroll'
-  visibility.value = true
+  topPosition.value = 0
 }
 
 onMounted(() => {
   //TODO 此实现有缺陷，当快速在阈值附近resize时，不能正确收起drawer
   //TODO 此问题已被解决，等待测试
   window.addEventListener('resize', makeDebounce(() => {
-    if (window.innerWidth > 1000) {//触发宽度外，收起SiderList和shadow
+    if (window.innerWidth > 1000) {//触发宽度外，收起MenuBar和shadow
       drawerVisibility.value = false
       document.getElementsByTagName('html')[0].style.overflowY = 'scroll'
     }
@@ -71,6 +70,11 @@ onMounted(() => {
     let prev = 0
     let next = 0
     window.addEventListener('scroll', makeDebounce(() => {
+      if (drawerVisibility.value) {//抽屉可用时，收起菜单条
+        topPosition.value = -50
+        return
+      }
+
       next = window.scrollY
       if (next < 50) {
         topPosition.value = -next
@@ -94,16 +98,28 @@ onMounted(() => {
   z-index 20
   position fixed
 
-  background rgba(0 0 0 0.8)
   backdrop-filter saturate(180%) blur(20px)
   transition all 0.1s ease
+
+//background rgba(0 0 0 0.8)
+@css {
+  .menu-bar {
+    background: rgba(var(--v-theme-surface), var(--v-medium-emphasis-opacity));
+  }
+}
 
 .name
   font-size 20px
   font-weight 400
   letter-spacing 4px
   line-height 50px
-  color rgba(250 250 250 1)
+
+//color rgba(250 250 250 1)
+@css {
+  .name {
+    color: rgb(var(--v-theme-on-surface));
+  }
+}
 
 .avatar
   width 42px
@@ -114,6 +130,12 @@ onMounted(() => {
 .open-drawer-btn
   margin-right 12px
   align-self center
+
+@css {
+  .open-drawer-btn {
+    color: rgb(var(--v-theme-on-surface));
+  }
+}
 
 .open-drawer-btn-enter-from
 .open-drawer-btn-leave-to

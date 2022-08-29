@@ -67,47 +67,6 @@ const pageFootOpacityStyle = ref({
   transition: 'all 0.2s ease'
 })
 
-const comments = [
-  <Comment>{
-    id: 1000,
-    user: '小品',
-    body: '这是一条评论！',
-    replyTo: null,
-    siteUrl: 'https://www.thaumy.cn',
-    avatarUrl: null,
-    createTime: new Date('2022-08-11T01:34:00')
-  },
-  <Comment>{
-    id: 1001,
-    user: 'Thaumy',
-    body:
-        '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
-        '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
-        '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴',
-    replyTo: 1000,
-    siteUrl: 'https://www.thaumy.cn',
-    avatarUrl: null,
-    createTime: new Date('2022-08-12T02:12:00')//"22-08-12 | 02:12"
-  },
-  <Comment>{
-    id: 1002,
-    user: '小品',
-    body: '不许贴贴！',
-    replyTo: 1000,
-    siteUrl: 'https://www.thaumy.cn',
-    avatarUrl: null,
-    createTime: new Date('2022-08-13T03:51:00')//"22-08-13 | 03:51"
-  },
-  <Comment>{
-    id: 1003,
-    user: 'Fubuki',
-    body: 'moemoemoemoemoemoemoemoemoemoemoemoe',
-    replyTo: null,
-    siteUrl: null,
-    avatarUrl: null,
-    createTime: new Date('2022-08-13T05:15:00')//"22-08-13 | 05:15"
-  }]
-
 const menu_posts = ref([
   <Post>{id: 12345, title: '首页'},
   <Post>{id: 12346, title: '摸摸鱼'},
@@ -171,7 +130,7 @@ const post_data = ref([
       createTime: new Date('2022-08-20T08:00:00'),
       modifyTime: new Date('2022-08-20T10:00:01'),
     },
-    coverUrl: "1/src/assets/akane_cover.png",
+    coverUrl: "/src/assets/akane_cover.png",
     summary: "《知晓天空之蓝的人啊》",
     commentCount: 18,
     isSchedule: true,
@@ -182,11 +141,11 @@ const post_data = ref([
     post: <Post>{
       id: 12347,
       title: '空の青さを知る人よ@@@@@@@@@@@@@@@@@@',
-      body: '<img src="1/src/assets/akane.jpg" alt=""/>\n              <h1>相生茜 Aioi Akane</h1>\n              <h2>简介</h2>\n              <blockquote>\n                井底之蛙，不知大海之宽阔，却晓天空之蓝。\n              </blockquote>\n              31岁。相生葵的姐姐。慎之介以前的恋人。<br>\n              通勤时使用自家用车接送葵。工作是市民生活课。<br>\n              被葵称为「あか姉（ねえ）」（姐姐和茜的变体）。<br>\n              从高中时期就一直戴著眼镜。\n              <h2>经历</h2>\n              <li>高中时代时常看慎之介的乐团练习，做的饭团大多为葵喜欢吃的昆布，而非慎之介喜欢的。</li>\n              <li>在父母因车祸双亡后，独自一人撑起家中的生活，照顾著葵，甚至放弃了与慎之介一起前往东京之事。在葵的眼里总是表现得完美无缺。（但也因此让葵觉得自己害了姐姐的梦想没能实现）</li>\n              <li>实际上无论是做的料理、还是做的事情都下足了功夫，葵曾于厨房中找到茜的笔记。悲伤之事很少与茜谈到。</li>\n              <li>知道一起工作的儿时玩伴中村正道喜欢自己，但由于现实面而没有戳破。</li>\n              <li>\n                13年后与回到镇里的慎之介再次相遇，于彩排前曾与慎之介在阶梯处谈心，并要求对方唱慎之介得出道曲《知道天空有多蓝的人啊》，同时指出是葵经常听的歌，在慎之介离开后哭了出来，被一堂偷看的葵表示「从过去到现在，能让她笑得这么开心以及哭得这么难过的，一直都是慎之介」。\n              </li>\n              <li>为了找新渡户团吉掉的项链而遇上了地震，前往的地方有些微土石流。</li>\n              <li>平安找到项链后，遇到了前来的「慎之」，接受现况后与其谈心，随后被慎之抱出洞口。</li>\n              <li>在见到慎之介与葵时，第一个反应是前往拥抱葵。</li>\n              <li>后与慎之介以及慎之座车返回，途中表示自己还未放弃梦想，并与慎之介下了约定。「慎之」也在不久后从后座消失。</li>\n              <li>多年后与慎之介举行婚礼。</li>\n\n              <br>链接测试\n              <a href="https://www.thaumy.cn">这里是THAUMY的博客！</a>\n              <br>小块代码<code>rm -rf /*</code>\n              <br>表格渲染\n              <table id="post_comic_list">\n                <thead>\n                <th>TODO</th>\n                <th>//</th>\n                <th>优先级</th>\n                </thead>\n                <tr>\n                  <td>思考人生</td>\n                  <td>去码头整点薯条。</td>\n                  <td>⭐⭐⭐⭐⭐</td>\n                </tr>\n                <tr>\n                  <td>写代码</td>\n                  <td>pilipala又出bug了！</td>\n                  <td>⭐⭐⭐⭐</td>\n                </tr>\n                <tr>\n                  <td>看番</td>\n                  <td>😄</td>\n                  <td>⭐⭐⭐</td>\n                </tr>\n                <tr>\n                  <td>睡觉觉</td>\n                  <td>只有弱者才睡觉！</td>\n                  <td>⭐⭐</td>\n                </tr>\n              </table>\n\n              代码高亮\n              <pre><code class="language-fsharp">let HelloField() : unit -> unit =\n  Console.WriteLine "HelloField!"</code></pre>',
+      body: '<img src="/src/assets/akane.jpg" alt=""/>\n              <h1>相生茜 Aioi Akane</h1>\n              <h2>简介</h2>\n              <blockquote>\n                井底之蛙，不知大海之宽阔，却晓天空之蓝。\n              </blockquote>\n              31岁。相生葵的姐姐。慎之介以前的恋人。<br>\n              通勤时使用自家用车接送葵。工作是市民生活课。<br>\n              被葵称为「あか姉（ねえ）」（姐姐和茜的变体）。<br>\n              从高中时期就一直戴著眼镜。\n              <h2>经历</h2>\n              <li>高中时代时常看慎之介的乐团练习，做的饭团大多为葵喜欢吃的昆布，而非慎之介喜欢的。</li>\n              <li>在父母因车祸双亡后，独自一人撑起家中的生活，照顾著葵，甚至放弃了与慎之介一起前往东京之事。在葵的眼里总是表现得完美无缺。（但也因此让葵觉得自己害了姐姐的梦想没能实现）</li>\n              <li>实际上无论是做的料理、还是做的事情都下足了功夫，葵曾于厨房中找到茜的笔记。悲伤之事很少与茜谈到。</li>\n              <li>知道一起工作的儿时玩伴中村正道喜欢自己，但由于现实面而没有戳破。</li>\n              <li>\n                13年后与回到镇里的慎之介再次相遇，于彩排前曾与慎之介在阶梯处谈心，并要求对方唱慎之介得出道曲《知道天空有多蓝的人啊》，同时指出是葵经常听的歌，在慎之介离开后哭了出来，被一堂偷看的葵表示「从过去到现在，能让她笑得这么开心以及哭得这么难过的，一直都是慎之介」。\n              </li>\n              <li>为了找新渡户团吉掉的项链而遇上了地震，前往的地方有些微土石流。</li>\n              <li>平安找到项链后，遇到了前来的「慎之」，接受现况后与其谈心，随后被慎之抱出洞口。</li>\n              <li>在见到慎之介与葵时，第一个反应是前往拥抱葵。</li>\n              <li>后与慎之介以及慎之座车返回，途中表示自己还未放弃梦想，并与慎之介下了约定。「慎之」也在不久后从后座消失。</li>\n              <li>多年后与慎之介举行婚礼。</li>\n\n              <br>链接测试\n              <a href="https://www.thaumy.cn">这里是THAUMY的博客！</a>\n              <br>小块代码<code>rm -rf /*</code>\n              <br>表格渲染\n              <table id="post_comic_list">\n                <thead>\n                <th>TODO</th>\n                <th>//</th>\n                <th>优先级</th>\n                </thead>\n                <tr>\n                  <td>思考人生</td>\n                  <td>去码头整点薯条。</td>\n                  <td>⭐⭐⭐⭐⭐</td>\n                </tr>\n                <tr>\n                  <td>写代码</td>\n                  <td>pilipala又出bug了！</td>\n                  <td>⭐⭐⭐⭐</td>\n                </tr>\n                <tr>\n                  <td>看番</td>\n                  <td>😄</td>\n                  <td>⭐⭐⭐</td>\n                </tr>\n                <tr>\n                  <td>睡觉觉</td>\n                  <td>只有弱者才睡觉！</td>\n                  <td>⭐⭐</td>\n                </tr>\n              </table>\n\n              代码高亮\n              <pre><code class="language-fsharp">let HelloField() : unit -> unit =\n  Console.WriteLine "HelloField!"</code></pre>',
       createTime: new Date('2022-08-20T08:00:00'),
       modifyTime: new Date('2022-08-20T10:00:01'),
     },
-    coverUrl: "1/src/assets/akane_cover.png",
+    coverUrl: "/src/assets/akane_cover.png",
     summary: "《知晓天空之蓝的人啊》",
     commentCount: 18,
     topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}],
@@ -194,6 +153,47 @@ const post_data = ref([
     isArchive: true,
   },
 ]);
+
+const comments = [
+  <Comment>{
+    id: 1000,
+    user: '小品',
+    body: '这是一条评论！',
+    replyTo: null,
+    siteUrl: 'https://www.thaumy.cn',
+    avatarUrl: null,
+    createTime: new Date('2022-08-11T01:34:00')
+  },
+  <Comment>{
+    id: 1001,
+    user: 'Thaumy',
+    body:
+        '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
+        '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
+        '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴',
+    replyTo: 1000,
+    siteUrl: 'https://www.thaumy.cn',
+    avatarUrl: null,
+    createTime: new Date('2022-08-12T02:12:00')//"22-08-12 | 02:12"
+  },
+  <Comment>{
+    id: 1002,
+    user: '小品',
+    body: '不许贴贴！',
+    replyTo: 1000,
+    siteUrl: 'https://www.thaumy.cn',
+    avatarUrl: null,
+    createTime: new Date('2022-08-13T03:51:00')//"22-08-13 | 03:51"
+  },
+  <Comment>{
+    id: 1003,
+    user: 'Fubuki',
+    body: 'moemoemoemoemoemoemoemoemoemoemoemoe',
+    replyTo: null,
+    siteUrl: null,
+    avatarUrl: null,
+    createTime: new Date('2022-08-13T05:15:00')//"22-08-13 | 05:15"
+  }]
 
 /* 滑到底部查看壁纸 */
 /*

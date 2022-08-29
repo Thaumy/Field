@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import {onMounted, defineProps, PropType, toRefs} from "vue";
-import '@/styles/prism.css'
+import '@/styles/prism/prism.css'
 import Prism from 'prismjs'
 
 const props = defineProps({
@@ -37,7 +37,8 @@ onMounted(() => {
 </script>
 
 <style lang="stylus">
-@import '@/styles/dark/markdown-dark.css'
+//@import '@/styles/markdown-dark.styl'
+@import '@/styles/markdown/markdown-light.styl'
 </style>
 
 <style lang="stylus" scoped>
@@ -56,14 +57,19 @@ img
   margin-bottom -5px
 
 .text
-  /* 颜色模式 */
-  color rgba(240 240 240 1.00)
   padding 6px
 
   font-size 15px
   line-height 22px
   letter-spacing 1px
   word-break break-word
+
+//color rgba(240 240 240 1.00)
+@css {
+  .text {
+    color: rgb(var(--v-theme-on-surface));
+  }
+}
 
 .bottom-slot
   display flex
