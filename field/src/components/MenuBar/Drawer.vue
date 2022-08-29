@@ -47,6 +47,12 @@ defineProps({
   backdrop-filter saturate(180%) blur(20px)
   grid-template-rows 84% 16%
 
+@css {
+  .drawer {
+    background: rgba(var(--v-theme-background), var(--v-medium-emphasis-opacity));
+  }
+}
+
 .tab-list
   margin-top 20px
   display grid

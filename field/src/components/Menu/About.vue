@@ -44,12 +44,18 @@ function outlineClick() {
   margin-bottom 8px
 
 .text
-  color grey
   align-self center
   text-align center
 
   margin auto
   font-size 0.6rem
+
+@css {
+  .text {
+    /*color grey*/
+    color: rgb(var(--v-theme-on-surface),var(--v-medium-emphasis-opacity));
+  }
+}
 
 /*
 .outline

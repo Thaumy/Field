@@ -3,10 +3,11 @@ import {ThemeDefinition} from "vuetify/dist/vuetify";
 export const fieldLight: ThemeDefinition = {
     dark: true,
     variables: {
-        'medium-emphasis-opacity': 0.6
+        'medium-emphasis-opacity': 0.6,
+        'high-emphasis-opacity': 0.9
     },
     colors: {
-        background: "#000000",
+        background: "#ffffff",
         'on-background': "#000000",//0
 
         surface: "#f6f6f6",//246

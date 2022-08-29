@@ -150,28 +150,38 @@ _italic_
   margin-right 2px
 
   > i
-    color rgba(200, 200, 200, 0.8)
     font-size 1rem
     cursor pointer
     margin-left 2px
     margin-right 2px
 
+//color rgba(200, 200, 200, 0.8)
+@css {
+  .tools > i {
+    color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+  }
+}
+
 .body-preview
-  color var(--w200)
   min-height 3rem
   padding-left 8px
   padding-right 8px
   font-size 0.7rem
 
+//color var(--w200)
+@css {
+  .body-preview {
+    color: rgba(var(--v-theme-on-surface));
+  }
+}
+
 .body-input
-  background var(--b20)
   width 100%
 
   display block
   min-height 3rem
   max-height 80vh
 
-  color var(--w200)
 
   font-size 0.8rem
   text-align left
@@ -179,6 +189,18 @@ _italic_
   padding 4px
   padding-left 6px
   padding-right 6px
+
+/*
+  background var(--b20)
+  color var(--w200)
+*/
+//TODO surface的下一层颜色如何设置？
+@css {
+  .body-input {
+    color: rgb(var(--v-theme-on-background));
+    background: rgb(var(--v-theme-background));
+  }
+}
 
 .commit-btn
   margin 4px

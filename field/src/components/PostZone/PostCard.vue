@@ -118,8 +118,9 @@ function genPreviewStyle() {
 
   if (coverUrl)
     return {
-      'backdrop-filter': coverUrl ? 'blur(10px)' : '',
-      'background-color': 'rgba(10, 10, 10, 0.8)'
+      'backdrop-filter': 'blur(10px)',
+      //'background-color': 'rgba(10, 10, 10, 0.8)'
+      'background-color': 'rgba(var(--v-theme-background),var(--v-medium-emphasis-opacity))'
     }
   else return {}
 }
@@ -136,7 +137,12 @@ function genPreviewBgStyle() {
     }
   else
     return {
-      'background-color': body ? 'rgba(36, 36, 36, 1)' : 'rgba(30, 30, 30, 1)',
+      //36
+      //30
+      'background-color':
+          body ?
+              'rgb(var(--v-theme-background))' :
+              'rgb(var(--v-theme-surface))',
     }
 }
 

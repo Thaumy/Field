@@ -3,12 +3,11 @@ import {createApp} from 'vue'
 import vuetify from '@/plugins/vuetify'
 import {loadFonts} from '@/plugins/webfontloader'
 
-import '@/styles/dark/com.css'
-import '@/styles/global/el.css'
-import '@/styles/global/font.css'
-import '@/styles/global/more.css'
-import '@/styles/global/color.css'
-import '@/styles/global/border.css'
+import '@/styles/global/font.styl'
+import '@/styles/global/tag.styl'
+import '@/styles/global/util/border.styl'
+import '@/styles/global/util/color.styl'
+import '@/styles/global/util/common.styl'
 import '@/styles/vuetify/snackbar.styl'
 
 loadFonts().then()
