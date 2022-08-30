@@ -32,7 +32,8 @@ function genTimeColor() {
     const timespan = Date.now() - modifyTime.getTime()
 
     if (timespan < 2592000000) //if modify within a month, show blue time
-      return 'rgb(0 196 255 / 80%)'
+      //return 'rgb(0 196 255 / 80%)'
+      return 'rgba(var(--v-theme-primary))'
     else
       return 'grey'
   } else

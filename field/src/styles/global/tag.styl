@@ -1,16 +1,31 @@
-@css {
-  html {
-    font-family: "DejaVu Sans", sans-serif, Emoji;
-  }
-}
+input
+  outline none
 
-body
-  overflow hidden //防止文章卡进入时导致溢出
-  background-size cover
-  background-position center
-  background-attachment fixed
-  //background-image url("@/public/background.jpg")
-  background-image url("https://cdn.thaumy.cn/ui/background.jpg")
+  &:focus
+    outline none
 
-.v-application
-  background unset
+button
+  border-radius 2px
+  border 0
+  background-color blue
+  transition-duration 0.4s
+
+  &:hover
+    background-color blue
+
+  &:focus
+    outline none
+    background-color blue
+
+textarea
+  outline none
+
+  &:focus
+    outline none
+
+p
+  display block
+  margin-block-start 0.8em
+  margin-block-end 0.4em
+  margin-inline-start 0
+  margin-inline-end 0

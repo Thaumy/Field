@@ -124,7 +124,6 @@ function hideReplyBtn() {
   justify-content space-between
 
 .user-name
-  color var(--w220)
   font-size 0.8rem
   overflow hidden
   text-overflow ellipsis
@@ -135,6 +134,13 @@ function hideReplyBtn() {
 
   padding-left 4px
 
+//color var(--w220)
+@css {
+  .user-name {
+    color: rgb(var(--v-theme-on-surface));
+  }
+}
+
 .create-time
   align-self center
   grid-row-start 2
@@ -144,6 +150,13 @@ function hideReplyBtn() {
 
   font-size 0.6rem
   color rgba(170 170 170 1)
+
+//color rgba(170 170 170 1)
+@css {
+  .create-time {
+    color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+  }
+}
 
 .avatar-zone
   grid-row-start 1
@@ -161,7 +174,6 @@ function hideReplyBtn() {
   grid-column-start 2
 
 .body
-  color var(--w200)
   grid-column-start 2
 
   font-size 0.9rem
@@ -170,6 +182,13 @@ function hideReplyBtn() {
   padding-top 4px
   padding-left 4px
   padding-bottom 2px
+
+//color var(--w200)
+@css {
+  .body {
+    color: rgb(var(--v-theme-on-surface));
+  }
+}
 
 .body-left-slot
   grid-row-start 3

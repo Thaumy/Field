@@ -63,6 +63,7 @@ function tabClick(tab: Tab, index: number) {
 </script>
 
 <style lang="stylus" scoped>
+
 .tab-list
   display grid
   padding-bottom 8px
@@ -71,7 +72,12 @@ function tabClick(tab: Tab, index: number) {
 .bar
   margin-top 2px
   margin-bottom 2px
-  background rgba(1, 153, 255, 1)
+
+@css {
+  .bar {
+    background: rgb(var(--v-theme-primary));
+  }
+}
 
 .tab-move
 .tab-enter-active
@@ -115,4 +121,11 @@ function tabClick(tab: Tab, index: number) {
   margin-right auto
   align-self center
   margin-left auto
+
+@css {
+  .tab-title {
+    color: rgb(var(--v-theme-on-surface));
+  }
+}
+
 </style>

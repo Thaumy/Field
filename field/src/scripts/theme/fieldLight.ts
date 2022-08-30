@@ -1,10 +1,10 @@
 import {ThemeDefinition} from "vuetify/dist/vuetify";
 
 export const fieldLight: ThemeDefinition = {
-    dark: false,
+    dark: true,
     variables: {
         'medium-emphasis-opacity': 0.6,
-        'high-emphasis-opacity': 0.9,
+        'high-emphasis-opacity': 0.9
     },
     colors: {
         background: "#ffffff",
@@ -17,15 +17,17 @@ export const fieldLight: ThemeDefinition = {
         'on-primary': "#000000",
 
         secondary: "#2da44e",
-        'on-secondary': "#000000",
-
+        'on-secondary': "#ffffff",
 
         success: "#000000",
         'on-success': "#000000",
+
         warning: "#000000",
         'on-warning': "#000000",
+
         error: "#000000",
         'on-error': "#000000",
+
         info: "#000000",
         'on-info': "#000000",
     },
