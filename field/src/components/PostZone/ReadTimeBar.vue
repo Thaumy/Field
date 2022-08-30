@@ -10,6 +10,7 @@
 
       <v-icon
           icon="mdi-timer-sand"
+          color="green"
           size="18px"
           style="align-self: center"
       />
@@ -57,7 +58,8 @@ function genText(): string {
   display flex
   justify-content space-between
 
-  background rgba(0 143 11 20%)
+  //raw light
+  //background rgba(0 143 11 20%)
 
   //day mode
   //background rgb(52 165 61)
@@ -67,4 +69,9 @@ function genText(): string {
   font-size 15px
   border-radius 3px
 
+@css {
+  .read-time-bar {
+    background: rgba(var(--v-theme-secondary), var(--v-activated-opacity));
+  }
+}
 </style>

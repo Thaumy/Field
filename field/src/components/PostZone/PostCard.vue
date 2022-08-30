@@ -120,7 +120,7 @@ function genPreviewStyle() {
     return {
       'backdrop-filter': 'blur(10px)',
       //'background-color': 'rgba(10, 10, 10, 0.8)'
-      'background-color': 'rgba(var(--v-theme-background),var(--v-medium-emphasis-opacity))'
+      'background-color': 'rgba(var(--v-theme-background),var(--v-high-emphasis-opacity))'
     }
   else return {}
 }

@@ -18,7 +18,10 @@
 
 <script setup lang="ts">
 import {onMounted, defineProps, PropType, toRefs} from "vue";
-import '@/styles/prism/prism.css'
+//import '@/styles/prism/dark.css'
+import '@/styles/prism/light.css'
+//import "@/styles/markdown/dark.styl"
+import "@/styles/markdown/light.styl"
 import Prism from 'prismjs'
 
 const props = defineProps({
@@ -35,11 +38,6 @@ onMounted(() => {
 })
 
 </script>
-
-<style lang="stylus">
-//@import '@/styles/markdown-dark.styl'
-@import '@/styles/markdown/markdown-light.styl'
-</style>
 
 <style lang="stylus" scoped>
 .body
@@ -58,9 +56,6 @@ img
 
 .text
   padding 6px
-
-  font-size 15px
-  line-height 22px
   letter-spacing 1px
   word-break break-word
 

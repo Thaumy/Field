@@ -13,11 +13,11 @@ export const fieldLight: ThemeDefinition = {
         surface: "#f6f6f6",//246
         'on-surface': "#000000",//0
 
-        primary: "#000000",
+        primary: "#0078d7",//#0199ff
         'on-primary': "#000000",
 
-        secondary: "#000000",
-        'on-secondary': "#000000",
+        secondary: "#2da44e",
+        'on-secondary': "#ffffff",
 
         success: "#000000",
         'on-success': "#000000",

@@ -23,4 +23,11 @@ const props = defineProps({
 .count
   margin-left 4px
 
+//color="grey"
+/*
+@css {
+  .count {
+    color: rgba(var(--v-theme-on-surface), var(--v-activated-opacity));
+  }
+}*/
 </style>
