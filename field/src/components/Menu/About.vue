@@ -53,7 +53,7 @@ function outlineClick() {
 @css {
   .text {
     /*color grey*/
-    color: rgb(var(--v-theme-on-surface),var(--v-medium-emphasis-opacity));
+    color: rgb(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
   }
 }
 

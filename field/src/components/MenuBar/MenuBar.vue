@@ -70,11 +70,6 @@ onMounted(() => {
     let prev = 0
     let next = 0
     window.addEventListener('scroll', makeDebounce(() => {
-      if (drawerVisibility.value) {//抽屉可用时，收起菜单条
-        topPosition.value = -50
-        return
-      }
-
       next = window.scrollY
       if (next < 50) {
         topPosition.value = -next

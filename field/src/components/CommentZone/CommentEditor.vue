@@ -50,11 +50,16 @@
         >
           支持使用Markdown
         </v-chip>
+        <!--#238636-->
         <v-btn
             width="15%"
             class="commit-btn"
-            :color="replyMode ?'orange':'#238636'"
+            :style=
+                "replyMode?
+                    {color:'',background:'orange'}:
+                    {color:'rgb(var(--v-theme-on-secondary))',background:'rgb(var(--v-theme-secondary))'}"
             size="small"
+            :disabled="!body"
         >
           {{ replyMode ? '回复' : '提交' }}
         </v-btn>
@@ -164,6 +169,7 @@ _italic_
 
 .body-preview
   min-height 3rem
+  padding-top 8px
   padding-left 8px
   padding-right 8px
   font-size 0.7rem
@@ -189,16 +195,20 @@ _italic_
   padding 4px
   padding-left 6px
   padding-right 6px
+  transition all 0.1s ease
 
 /*
   background var(--b20)
   color var(--w200)
 */
-//TODO surface的下一层颜色如何设置？
 @css {
   .body-input {
     color: rgb(var(--v-theme-on-background));
-    background: rgb(var(--v-theme-background));
+    background: rgba(var(--v-theme-on-background), var(--v-activated-opacity));
+  }
+  .body-input:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 1px rgb(var(--v-theme-primary), var(--v-high-emphasis-opacity));
   }
 }
 

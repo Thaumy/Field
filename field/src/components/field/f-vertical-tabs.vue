@@ -72,7 +72,12 @@ function tabClick(tab: Tab, index: number) {
 .bar
   margin-top 2px
   margin-bottom 2px
-  background rgba(1, 153, 255, 1)
+
+@css {
+  .bar {
+    background: rgb(var(--v-theme-primary));
+  }
+}
 
 .tab-move
 .tab-enter-active
