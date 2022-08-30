@@ -6,9 +6,9 @@
       <div class="title">{{ title }}</div>
 
       <div class="typing">
-        <v-icon icon="mdi-format-quote-open"/>
+        <v-icon class="quote-icon" icon="mdi-format-quote-open"/>
         <span id="typing_area"/>
-        <v-icon icon="mdi-format-quote-close"/>
+        <v-icon class="quote-icon" icon="mdi-format-quote-close"/>
       </div>
 
     </div>
@@ -46,7 +46,7 @@ onMounted(() => {
   text-align center
 
 .typing
-  color rgba(230 230 230 80%)
+  //color rgba(230 230 230 80%)
   height 6vh
   max-height 50px
   min-height 30px
@@ -57,5 +57,18 @@ onMounted(() => {
   text-align center
 
   margin auto
+
+
+@css {
+  .title {
+    color: rgb(var(--v-theme-on-surface));
+  }
+  .typing {
+    color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+  }
+  .quote-icon {
+    color: rgba(var(--v-theme-on-surface), var(--v-activated-opacity));
+  }
+}
 
 </style>

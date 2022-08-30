@@ -37,8 +37,8 @@
             />
           </template>
 
-          <template v-slot:bottom-slot>
-            <ReadTimeBar :target-text="post.body" v-if="post.body"/>
+          <template v-slot:bottom-slot v-else>
+            <ReadTimeBar :target-text="post.body"/>
           </template>
         </Preview>
       </div>
@@ -68,11 +68,12 @@
 </template>
 
 <script lang="ts" setup>
+
 import {defineProps, onMounted, PropType} from "vue";
 import {secTimespan} from "@/scripts/util/time";
-import ScheduleChip from "@/components/tip/ScheduleChip.vue";
-import ReadTimeBar from "@/components/tip/ReadTimeBar.vue";
-import ArchiveChip from "@/components/tip/ArchiveChip.vue";
+import ScheduleChip from "@/components/chip/ScheduleChip.vue";
+import ReadTimeBar from "@/components/PostZone/ReadTimeBar.vue";
+import ArchiveChip from "@/components/chip/ArchiveChip.vue";
 import TopicChip from "@/components/chip/TopicChip.vue";
 import ModifyTimeChip from "@/components/chip/ModifyTimeChip.vue";
 import CreateTimeChip from "@/components/chip/CreateTimeChip.vue";
@@ -80,7 +81,7 @@ import Preview from "./Preview.vue";
 import Body from "@/components/PostZone/Body.vue";
 import FCard from "@/components/field/f-card.vue";
 import {Post} from "@/scripts/type/post";
-import CommentCountChip from "@/components/tip/CommentCountChip.vue";
+import CommentCountChip from "@/components/chip/CommentCountChip.vue";
 import {Topic} from "@/scripts/type/topic";
 import {PostCardData} from "@/components/PostZone/type";
 
@@ -117,8 +118,9 @@ function genPreviewStyle() {
 
   if (coverUrl)
     return {
-      'backdrop-filter': coverUrl ? 'blur(10px)' : '',
-      'background-color': 'rgba(10, 10, 10, 0.8)'
+      'backdrop-filter': 'blur(10px)',
+      //'background-color': 'rgba(10, 10, 10, 0.8)'
+      'background-color': 'rgba(var(--v-theme-background),var(--v-high-emphasis-opacity))'
     }
   else return {}
 }
@@ -135,7 +137,12 @@ function genPreviewBgStyle() {
     }
   else
     return {
-      'background-color': body ? 'rgba(36, 36, 36, 1)' : 'rgba(30, 30, 30, 1)',
+      //36
+      //30
+      'background-color':
+          body ?
+              'rgb(var(--v-theme-background))' :
+              'rgb(var(--v-theme-surface))',
     }
 }
 
@@ -158,10 +165,8 @@ function modifyTimeVisibility() {
   //hide modify time
   return !(createWithinOneWeek || noModifyWithinOneMonth || createTimeEqToModifyTime)
 }
-</script>
 
-<style scoped>
-</style>
+</script>
 
 <style scoped>
 </style>
