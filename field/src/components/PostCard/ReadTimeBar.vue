@@ -3,6 +3,7 @@
 
     <div
         class="read-time-bar border-shadow"
+        :style="genColor()"
     >
       <div style="margin-left:1%">
         {{ genText() }}
@@ -21,6 +22,7 @@
 
 <script setup lang="ts">
 import {defineProps, ref} from "vue";
+import {useTheme} from "vuetify";
 
 const props = defineProps({
   targetText: {
@@ -49,6 +51,20 @@ function genText(): string {
       return `约 ${words} 字 / 阅读成本 ${Math.round(sec / 60)} 分钟`
   }
 }
+
+function genColor() {
+  if (useTheme().global.current.value.dark) {
+    return {
+      color: 'white',
+      'background-color': 'rgba(0,255,71,0.12)'
+    }
+  } else {
+    return {
+      color: 'black',
+      'background-color': 'rgba(45,164,78,0.12)'
+    }
+  }
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -69,9 +85,4 @@ function genText(): string {
   font-size 15px
   border-radius 3px
 
-@css {
-  .read-time-bar {
-    background: rgba(var(--v-theme-secondary), var(--v-activated-opacity));
-  }
-}
 </style>

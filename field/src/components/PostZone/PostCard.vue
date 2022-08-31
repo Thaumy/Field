@@ -7,11 +7,12 @@
           :src="coverUrl"
           v-if="coverUrl&&!post.body"
       />
-      <div :style="genPreviewBgStyle()">
-        <Preview :title=post.title
-                 :summary=summary
-                 :style=genPreviewStyle()
-                 v-if=post.title
+      <div :style="genBackground()">
+        <Preview
+            :style="genBackgroundFilter()"
+            :title=post.title
+            :summary=summary
+            v-if=post.title
         >
           <template v-slot:title-right-slot>
 
@@ -113,19 +114,23 @@ const props = defineProps({
   }
 })
 
-function genPreviewStyle() {
-  const coverUrl = props.coverUrl
-
-  if (coverUrl)
+function genBackgroundFilter() {
+  if (props.coverUrl)
     return {
       'backdrop-filter': 'blur(10px)',
-      //'background-color': 'rgba(10, 10, 10, 0.8)'
       'background-color': 'rgba(var(--v-theme-background),var(--v-high-emphasis-opacity))'
     }
-  else return {}
+  else {
+    if (props.post?.body)
+      return {
+        'backdrop-filter': 'invert(0.03)'
+      }
+    else
+      return {}
+  }
 }
 
-function genPreviewBgStyle() {
+function genBackground() {
   const coverUrl = props.coverUrl
   const body = props.post?.body
 
@@ -137,12 +142,7 @@ function genPreviewBgStyle() {
     }
   else
     return {
-      //36
-      //30
-      'background-color':
-          body ?
-              'rgb(var(--v-theme-background))' :
-              'rgb(var(--v-theme-surface))',
+      'background-color': 'rgb(var(--v-theme-surface))'
     }
 }
 
@@ -168,5 +168,5 @@ function modifyTimeVisibility() {
 
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
 </style>

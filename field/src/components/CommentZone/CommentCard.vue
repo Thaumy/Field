@@ -186,7 +186,7 @@ function hideReplyBtn() {
 //color var(--w200)
 @css {
   .body {
-    color: rgb(var(--v-theme-on-surface));
+    color: rgba(var(--v-theme-on-surface), 0.8);
   }
 }
 
