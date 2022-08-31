@@ -53,8 +53,14 @@ onMounted(() => {
   bottom 10%
 
   cursor pointer
-  background rgba(0 0 0 0.8)
   backdrop-filter blur(20px)
+
+//background rgba(0 0 0 0.8)
+@css {
+  .go-up-btn {
+    background: rgba(var(--v-theme-surface), 0.8)
+  }
+}
 
 /* 屏幕宽度 [ 1491  + ) */
 @media (min-width 1491px)
