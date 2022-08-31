@@ -18,10 +18,10 @@
 
 <script setup lang="ts">
 import {onMounted, defineProps, PropType, toRefs} from "vue";
-//import '@/styles/prism/dark.css'
-import '@/styles/prism/light.css'
-//import "@/styles/markdown/dark.styl"
-import "@/styles/markdown/light.styl"
+//import '@/styles/prism/light.css'
+//import "@/styles/markdown/light.styl"
+import '@/styles/prism/dark.css'
+import "@/styles/markdown/dark.styl"
 import Prism from 'prismjs'
 
 const props = defineProps({

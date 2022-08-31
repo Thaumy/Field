@@ -6,6 +6,7 @@
           class="go-up-btn border-line border-radius-all"
           @click="goUp()"
           v-show="visibility"
+          v-ripple
       >
         <v-icon
             icon="mdi-arrow-up-bold"

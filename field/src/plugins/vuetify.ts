@@ -17,8 +17,6 @@ export default createVuetify(
         theme: {
             //defaultTheme: 'fieldDark',
             defaultTheme: 'fieldLight',
-            //defaultTheme: 'dark',
-            //defaultTheme: 'light',
             themes: {
                 fieldDark,
                 fieldLight,

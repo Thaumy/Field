@@ -30,11 +30,10 @@
       >
         <v-window-item :eager=true>
           <!--TODO auto expand in vertical-->
-          <textarea
-              class="body-input border-radius-all"
-              placeholder="El Psy Kongroo."
-              rows="3"
+          <f-textarea
+              class="body-textarea"
               v-model="body"
+              label="El Psy Kongroo."
           />
         </v-window-item>
         <v-window-item :eager=true>
@@ -50,13 +49,12 @@
         >
           支持使用Markdown
         </v-chip>
-        <!--#238636-->
         <v-btn
             width="15%"
             class="commit-btn"
             :style=
                 "replyMode?
-                    {color:'',background:'orange'}:
+                    {color:'black',background:'orange'}:
                     {color:'rgb(var(--v-theme-on-secondary))',background:'rgb(var(--v-theme-secondary))'}"
             size="small"
             :disabled="!body"
@@ -74,6 +72,7 @@ import {defineProps, ref} from "vue";
 import {Tab} from "@/components/field/type";
 import {marked} from "marked"
 import FTabs from "@/components/field/f-tabs.vue";
+import FTextarea from "@/components/field/f-textarea.vue";
 
 defineProps({
   replyMode: {
@@ -181,39 +180,20 @@ _italic_
   }
 }
 
-.body-input
+.body-textarea
   width 100%
-
-  display block
   min-height 3rem
   max-height 80vh
-
-
   font-size 0.8rem
-  text-align left
-
-  padding 4px
-  padding-left 6px
-  padding-right 6px
-  transition all 0.1s ease
-
-/*
-  background var(--b20)
-  color var(--w200)
-*/
-@css {
-  .body-input {
-    color: rgb(var(--v-theme-on-background));
-    background: rgba(var(--v-theme-on-background), var(--v-activated-opacity));
-  }
-  .body-input:focus-visible {
-    outline: none;
-    box-shadow: inset 0 0 0 1px rgb(var(--v-theme-primary), var(--v-high-emphasis-opacity));
-  }
-}
 
 .commit-btn
   margin 4px
   grid-row-start 3
 
+</style>
+
+<style>
+.commit-btn > .v-btn__overlay {
+  background: rgb(var(--v-theme-background));
+}
 </style>
