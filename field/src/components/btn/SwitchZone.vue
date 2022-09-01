@@ -1,48 +1,54 @@
 <template>
   <div>
 
-    <div class="holder">
-      <div class="prev-btn cursor-pointer">
-        <v-btn
-            prepend-icon="mdi-chevron-left"
-            color="surface"
-            flat=""
+    <f-card
+        :style="{margin:'auto'}"
+    >
+      <div class="switch-zone">
+        <v-chip
+            class="prev-btn cursor-pointer"
+            variant="text"
+            v-if="prev"
         >
+          <v-icon icon="mdi-chevron-left"/>
           {{ prev }}
-        </v-btn>
-      </div>
+        </v-chip>
 
-      <div class="next-btn cursor-pointer">
-        <v-btn
-            append-icon="mdi-chevron-right"
-            color="surface"
-            flat=""
+        <v-chip
+            class="next-btn cursor-pointer"
+            variant="text"
+            v-if="next"
         >
           {{ next }}
-        </v-btn>
+          <v-icon icon="mdi-chevron-right"/>
+        </v-chip>
       </div>
-    </div>
+    </f-card>
 
   </div>
 </template>
 
 <script lang="ts" setup>
+import FCard from "@/components/field/f-card.vue";
 import {defineProps} from "vue";
 
 defineProps({
-  prev: String,
-  next: String
+  prev: {type: String, default: null},
+  next: {type: String, default: null},
 })
 </script>
 
 <style lang="stylus" scoped>
-.holder
+.switch-zone
   display flex
   justify-content end
   flex-flow wrap
 
 .prev-btn
   margin-right auto
+
+.next-btn
+  margin-left 1rem
 
 .prev-btn
 .next-btn

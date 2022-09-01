@@ -123,7 +123,7 @@ function genBackgroundFilter() {
   else {
     if (props.post?.body)
       return {
-        'backdrop-filter': 'invert(0.03)'
+        'backdrop-filter': 'invert(0.05)'
       }
     else
       return {}

@@ -192,14 +192,27 @@
     color #6a737d
 
   ol
+    padding-left 1.7rem
+
   ul
-    //padding-left 2em
-    padding-left 0
-    margin-top 0
-    margin-bottom 0
+    padding-left 1.2rem
 
   ul
   ol
+
+    li
+      //word-wrap break-all
+      word-break break-all
+
+      > p
+        margin-top 16px
+
+      &::marker
+        color rgb(120 120 120)
+
+    li + li
+      margin-top .25em
+
     ol
       list-style-type lower-roman
 
@@ -210,16 +223,6 @@
 
       ol
         list-style-type lower-alpha
-
-  li
-    //word-wrap break-all
-    word-break break-all
-
-    > p
-      margin-top 16px
-
-  li + li
-    margin-top .25em
 
   dl
     padding 0

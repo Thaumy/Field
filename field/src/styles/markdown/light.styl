@@ -155,10 +155,10 @@
   h4
   h5
   h6
-    margin-top 24px
-    margin-bottom 16px
+    margin-top 2rem
+    margin-bottom 1rem
     font-weight 600
-    line-height 1.25
+    line-height 1.2
 
   h1
     font-size 1.8em
@@ -167,7 +167,7 @@
   h2
     font-weight 600
     padding-bottom .3em
-    border-bottom 1px solid #eaecef
+    border-bottom 1px solid #dcdcdc
 
   h2
     font-size 1.3em
@@ -192,14 +192,27 @@
     color #6a737d
 
   ol
+    padding-left 1.7rem
+
   ul
-    //padding-left 2em
-    padding-left 0
-    margin-top 0
-    margin-bottom 0
+    padding-left 1.2rem
 
   ul
   ol
+
+    li
+      //word-wrap break-all
+      word-break break-all
+
+      > p
+        margin-top 16px
+
+      &::marker
+        color #a0a0a0
+
+    li + li
+      margin-top .25em
+
     ol
       list-style-type lower-roman
 
@@ -210,16 +223,6 @@
 
       ol
         list-style-type lower-alpha
-
-  li
-    //word-wrap break-all
-    word-break break-all
-
-    > p
-      margin-top 16px
-
-  li + li
-    margin-top .25em
 
   dl
     padding 0
@@ -261,11 +264,11 @@
       text-align center
       padding 6px
 
-  tr
-    td
-      &:not(:last-child):not(:first-child)
-        border-left 1px solid rgb(220 220 220)
-        border-right 1px solid rgb(220 220 220)
+    tr
+      td
+        &:not(:last-child):not(:first-child)
+          border-left 1px solid rgb(220 220 220)
+          border-right 1px solid rgb(220 220 220)
 
     thead
 

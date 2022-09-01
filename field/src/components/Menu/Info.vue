@@ -17,8 +17,8 @@
 </template>
 
 <script lang="ts" setup>
-import {defineProps, onMounted, PropType} from "vue";
-import Typed from "typed.js";
+import {defineProps, onMounted, PropType} from "vue"
+import Typed from "typed.js"
 
 const props = defineProps({
   title: String,
@@ -26,13 +26,15 @@ const props = defineProps({
 })
 
 onMounted(() => {
-  new Typed('#typing_area', {
+  const options = {
     strings: props.typing,
     typeSpeed: 100,
     backSpeed: 0,
+    cursorChar: '_',
     smartBackspace: true,
     loop: false
-  })
+  }
+  new Typed('#typing_area', options)
 })
 </script>
 
