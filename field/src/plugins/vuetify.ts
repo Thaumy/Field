@@ -13,7 +13,6 @@ export default createVuetify(
     {
         components,
         directives,
-        // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
         theme: {
             //defaultTheme: 'fieldDark',
             defaultTheme: 'fieldLight',

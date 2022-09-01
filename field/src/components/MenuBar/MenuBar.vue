@@ -99,7 +99,7 @@ onMounted(() => {
 //background rgba(0 0 0 0.8)
 @css {
   .menu-bar {
-    background: rgba(var(--v-theme-surface), var(--v-medium-emphasis-opacity));
+    background: rgba(var(--v-theme-background), 0.8);
   }
 }
 

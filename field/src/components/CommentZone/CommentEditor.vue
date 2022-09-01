@@ -168,9 +168,7 @@ _italic_
 
 .body-preview
   min-height 3rem
-  padding-top 8px
-  padding-left 8px
-  padding-right 8px
+  padding 8px
   font-size 0.7rem
 
 //color var(--w200)

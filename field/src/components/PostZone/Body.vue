@@ -18,11 +18,12 @@
 
 <script setup lang="ts">
 import {onMounted, defineProps, PropType, toRefs} from "vue";
-//import '@/styles/prism/light.css'
-//import "@/styles/markdown/light.styl"
-import '@/styles/prism/dark.css'
-import "@/styles/markdown/dark.styl"
+import '@/styles/prism/light.css'
+import "@/styles/markdown/light.styl"
+//import '@/styles/prism/dark.css'
+//import "@/styles/markdown/dark.styl"
 import Prism from 'prismjs'
+import {typeSetAsync} from "@/scripts/mathjax/render"
 
 const props = defineProps({
   body: String,
@@ -32,9 +33,10 @@ const props = defineProps({
 
 onMounted(() => {
   const block = document.getElementById('body_html')
-  Prism.highlightAll()
-  if (block)
+  if (block) {
     Prism.highlightAllUnder(block)
+    typeSetAsync()
+  }
 })
 
 </script>

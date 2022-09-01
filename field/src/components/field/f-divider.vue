@@ -12,6 +12,7 @@
 </template>
 
 <script lang="ts" setup>
+
 import {defineProps} from "vue";
 
 defineProps({
@@ -24,9 +25,15 @@ defineProps({
     default: 8
   },
 })
+
 </script>
 
 <style lang="stylus" scoped>
-.f-divider
-  border-top 1px solid rgb(50 50 50)
+
+@css {
+  .f-divider {
+    border-top: 1px solid rgb(var(--v-theme-on-surface), 0.1);
+  }
+}
+
 </style>
