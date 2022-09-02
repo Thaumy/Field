@@ -15,13 +15,11 @@
             @click="blankUrl(comment.siteUrl)"
         >
           <v-img :src="avatar" cover="true"/>
-
         </v-avatar>
         <v-icon
             class="web-icon"
             icon="mdi-web"
             size="10"
-            color="blue"
             v-if="comment.siteUrl"
         />
       </div>
@@ -52,8 +50,10 @@
         <slot name="body-left-slot"/>
       </div>
 
-      <div class="body">{{ comment.body }}</div>
-
+      <div class="body">
+        <slot name="body-top-slot"/>
+        <f-text-render :text="comment.body"/>
+      </div>
     </div>
 
   </div>
@@ -63,6 +63,7 @@
 import {defineProps, PropType, ref} from "vue"
 import {Comment} from "@/scripts/type/comment"
 import {formatToDateTime} from "@/scripts/util/time"
+import FTextRender from "@/components/field/f-text-render.vue";
 
 defineEmits<{ (e: 'replyClick', comment: Comment): void }>()
 
@@ -134,7 +135,6 @@ function hideReplyBtn() {
 
   padding-left 4px
 
-//color var(--w220)
 @css {
   .user-name {
     color: rgb(var(--v-theme-on-surface));
@@ -148,10 +148,9 @@ function hideReplyBtn() {
 
   padding-left 4px
 
-  font-size 0.6rem
+  font-size 0.7rem
   color rgba(170 170 170 1)
 
-//color rgba(170 170 170 1)
 @css {
   .create-time {
     color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
@@ -179,18 +178,18 @@ function hideReplyBtn() {
   font-size 0.9rem
   text-align left
 
-  padding-top 4px
-  padding-left 4px
-  padding-bottom 2px
+  padding 4px
 
-//color var(--w200)
+.body-left-slot
+  grid-row-start 3
+
 @css {
   .body {
     color: rgba(var(--v-theme-on-surface), 0.8);
   }
+  .web-icon {
+    color: rgb(var(--v-theme-primary));
+  }
 }
-
-.body-left-slot
-  grid-row-start 3
 
 </style>

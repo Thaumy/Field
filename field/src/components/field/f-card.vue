@@ -1,7 +1,10 @@
 <template>
   <div>
 
-    <div class="f-card border-line border-radius-all">
+    <div
+        class="f-card border-line transition-standard"
+        :style="{'border-radius': radius+'px'}"
+    >
       <slot/>
     </div>
 
@@ -9,6 +12,12 @@
 </template>
 
 <script lang="ts" setup>
+defineProps({
+  radius: {
+    type: Number,
+    default: 4
+  }
+})
 </script>
 
 <style lang="stylus" scoped>

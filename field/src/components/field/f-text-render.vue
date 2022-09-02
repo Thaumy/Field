@@ -2,38 +2,61 @@
   <div>
 
     <div
-        class="markdown-zone code-zone transition-standard"
-        ref="textRenderZone"
         v-html="text"
+        class="text-render-zone"
+        :class="genClass()"
+        ref="textRenderZone"
     />
 
   </div>
 </template>
 
 <script lang="ts" setup>
+//highlight theme
+import '@/styles/prism/dark.css'
+import '@/styles/prism/light.css'
+//markdown theme
+import "@/styles/markdown/dark.styl"
+import "@/styles/markdown/light.styl"
 
-import {queueTypeSet} from "@/scripts/mathjax/render"
-import {onMounted, Ref, ref, watch} from "vue"
+import {typeSetAsync} from "@/scripts/mathjax/render"
 import {useTheme} from "vuetify"
 import Prism from 'prismjs'
+import {onMounted, Ref, ref} from "vue";
 
-defineProps<{
-  text: string
-}>()
+defineProps({
+  text: String
+})
 
-const textRenderZone = ref()
+const textRenderZone: Ref<HTMLElement | null> = ref(null)
 const theme = useTheme()
 
-onMounted(() => {
-  if (!textRenderZone.value)
-    return
+function genClass() {
+  if (theme.global.current.value.dark)
+    return "markdown-dark code-dark"
+  else
+    return "markdown-light code-light"
+}
 
-  Prism.highlightAllUnder(textRenderZone.value)
-  queueTypeSet(textRenderZone.value)
+onMounted(() => {
+  if (textRenderZone.value) {
+    Prism.highlightAllUnder(textRenderZone.value)
+    typeSetAsync()
+  }
 })
 
 </script>
 
 <style lang="stylus" scoped>
+
+.text-render-zone
+  letter-spacing 0.5px
+  word-break break-word
+
+@css {
+  .text-render-zone {
+    color: rgb(var(--v-theme-on-surface));
+  }
+}
 
 </style>

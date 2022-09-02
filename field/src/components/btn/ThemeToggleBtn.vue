@@ -18,9 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-
 import {useTheme} from "vuetify"
-import {inject} from "vue";
 
 const theme = useTheme()
 
