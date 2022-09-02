@@ -2,7 +2,7 @@
   <div>
 
           <textarea
-              class="f-textarea border-radius-all"
+              class="f-textarea border-radius-all transition-standard"
               :style="genColor()"
               rows="3"
               v-model="modelValue"
@@ -53,7 +53,6 @@ function genColor() {
   padding-right 6px
 
   display block
-  transition all 0.1s ease
 
 @css {
   .f-textarea:focus {

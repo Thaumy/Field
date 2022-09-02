@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <GoUpBtn :style="commonOpacityStyle"/>
+      <FixedBtnZone :style="commonOpacityStyle"/>
 
     </v-main>
 
@@ -52,6 +52,7 @@ import {Topic} from "@/scripts/type/topic";
 import CommentZone from "@/components/CommentZone/CommentZone.vue";
 import SwitchBtn from "@/components/btn/SwitchZone.vue";
 import SwitchZone from "@/components/btn/SwitchZone.vue";
+import FixedBtnZone from "@/components/btn/FixedBtnZone.vue";
 
 const commonOpacityStyle = ref({
   opacity: 1,
@@ -128,7 +129,7 @@ const post_data = ref([
       createTime: new Date('2022-08-20T08:00:00'),
       modifyTime: new Date('2022-08-20T10:00:01'),
     },
-    coverUrl: "/src/assets/akane.jpg",
+    coverUrl: "/src/assets/akane_cover.png",
     summary: "《知晓天空之蓝的人啊》",
     commentCount: 18,
     isSchedule: true,

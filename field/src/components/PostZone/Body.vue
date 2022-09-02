@@ -1,11 +1,12 @@
 <template>
   <div>
 
-    <div class="body">
-      <div class="text markdown-body"
-           id='body_html'
-           v-html="body"
-           v-if="body"
+    <div class="body transition-standard">
+      <div
+          class="text markdown-body"
+          id='body_html'
+          v-html="body"
+          v-if="body"
       />
 
       <div class="bottom-slot">

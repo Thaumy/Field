@@ -2,7 +2,7 @@
   <div>
 
     <div
-        class="read-time-bar border-shadow"
+        class="read-time-bar border-shadow transition-standard"
         :style="genColor()"
     >
       <div style="margin-left:1%">
