@@ -3,7 +3,12 @@
 
     <div class="body transition-standard">
       <div
-          class="text markdown-body"
+          class="text"
+          :class=
+              "{'markdown-dark':theme.global.current.value.dark,
+                'markdown-light':!theme.global.current.value.dark,
+                'code-dark':theme.global.current.value.dark,
+                'code-light':!theme.global.current.value.dark}"
           id='body_html'
           v-html="body"
           v-if="body"
@@ -18,13 +23,17 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, defineProps, PropType, toRefs} from "vue";
-import '@/styles/prism/light.css'
-import "@/styles/markdown/light.styl"
-//import '@/styles/prism/dark.css'
-//import "@/styles/markdown/dark.styl"
-import Prism from 'prismjs'
+import {onMounted, defineProps, PropType, toRefs} from "vue"
 import {typeSetAsync} from "@/scripts/mathjax/render"
+import {useTheme} from "vuetify"
+import Prism from 'prismjs'
+
+//highlight theme
+import '@/styles/prism/dark.css'
+import '@/styles/prism/light.css'
+//markdown theme
+import "@/styles/markdown/dark.styl"
+import "@/styles/markdown/light.styl"
 
 const props = defineProps({
   body: String,
@@ -39,6 +48,8 @@ onMounted(() => {
     typeSetAsync()
   }
 })
+
+const theme = useTheme()
 
 </script>
 

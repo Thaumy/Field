@@ -2,10 +2,15 @@
   <div>
 
     <f-card class="menu">
+      <theme-toggle-btn
+          class="position-absolute ma-1"
+          style="opacity: 0.4"
+      />
 
       <Avatar avatarUrl="src/assets/pp512.png"/>
 
       <Info
+          class="mb-4"
           title="THAUMY的小站"
           :typing="[
             '你好！~~^400',
@@ -34,6 +39,7 @@ import {Post} from "@/scripts/type/post";
 import FCard from "@/components/field/f-card.vue";
 import FTabs from "@/components/field/f-tabs.vue";
 import {Tab} from "@/components/field/type";
+import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue";
 
 const props = defineProps({
   posts: Object as PropType<Post[]>
@@ -43,8 +49,5 @@ const tabs = <Tab[]><unknown[]>props.posts
 </script>
 
 <style lang="stylus" scoped>
-
-.menu
-  color rgba(230 230 230 1.00)
 
 </style>

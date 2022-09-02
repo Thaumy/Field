@@ -48,17 +48,12 @@ onMounted(() => {
   text-align center
 
 .typing
-  //color rgba(230 230 230 80%)
-  height 6vh
-  max-height 50px
-  min-height 30px
-  width 98%
-
+  width 90%
   font-size 15px
-
   text-align center
-
-  margin auto
+  margin-top 6px
+  margin-left auto
+  margin-right auto
 
 
 @css {

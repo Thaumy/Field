@@ -7,6 +7,7 @@ import '@/styles/global/font.styl'
 import '@/styles/global/tag.styl'
 import '@/styles/global/util/border.styl'
 import '@/styles/global/util/common.styl'
+import '@/styles/global/util/layout.styl'
 import '@/styles/vuetify/snackbar.styl'
 
 loadFonts().then()

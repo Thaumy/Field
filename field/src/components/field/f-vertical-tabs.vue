@@ -103,7 +103,7 @@ function tabClick(tab: Tab, index: number) {
 .tab
   display flex
   width 100%
-  height 5vh
+  height 6vh
   max-height 44px
   min-height 28px
 
