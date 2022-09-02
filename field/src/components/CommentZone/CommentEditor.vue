@@ -10,7 +10,6 @@
             @tab-click="ev=>toggleMode(ev.mode)"
         />
         <div class="tools">
-          <v-icon icon="mdi-format-header-3" @click="body+='### h3'"/>
           <v-icon icon="mdi-format-bold" @click="body+='**bold**'"/>
           <v-icon icon="mdi-format-italic" @click="body+='_italic_'"/>
           <v-icon icon="mdi-format-strikethrough" @click="body+='~lineThrough~'"/>
@@ -37,15 +36,16 @@
           />
         </v-window-item>
         <v-window-item :eager=true>
-          <div class="body-preview markdown-body" ref="BodyPreview"/>
+          <f-text-render class="body-preview" :text="bodyRenderResult"/>
         </v-window-item>
       </v-window>
 
       <div class="editor-footer">
-        <v-chip color="grey"
-                size="small"
-                variant="text"
-                prepend-icon="mdi-language-markdown"
+        <v-chip
+            color="grey"
+            size="small"
+            variant="text"
+            prepend-icon="mdi-language-markdown"
         >
           支持使用Markdown
         </v-chip>
@@ -73,6 +73,7 @@ import {Tab} from "@/components/field/type";
 import {marked} from "marked"
 import FTabs from "@/components/field/f-tabs.vue";
 import FTextarea from "@/components/field/f-textarea.vue";
+import FTextRender from "@/components/field/f-text-render.vue";
 
 defineProps({
   replyMode: {
@@ -91,19 +92,13 @@ const genTabs = (body: string) => [
 const body = ref("")
 const currentMode = ref(Mode.Edit)
 
+const bodyRenderResult = ref('')
+
 function toggleMode(mode: Mode) {
   if (mode === Mode.Preview)
-    renderMarkdown()
+    bodyRenderResult.value = marked(body.value)
 
   currentMode.value = mode
-}
-
-const BodyPreview = ref()
-
-function renderMarkdown() {
-  BodyPreview
-      .value
-      .innerHTML = marked(body.value)
 }
 
 /*
@@ -134,7 +129,7 @@ _italic_
   grid-template-rows auto auto auto
   border-radius 2px
   padding 4px
-  padding-top 0
+  padding-top 2px
 
 .mode-tabs
   margin-left 8px
@@ -171,13 +166,6 @@ _italic_
   padding 8px
   font-size 0.7rem
 
-//color var(--w200)
-@css {
-  .body-preview {
-    color: rgba(var(--v-theme-on-surface));
-  }
-}
-
 .body-textarea
   width 100%
   min-height 3rem
@@ -188,11 +176,10 @@ _italic_
   margin 4px
   grid-row-start 3
 
-</style>
-
-<style>
-.commit-btn > .v-btn__overlay {
-  background: rgb(var(--v-theme-background));
-  transition: inherit;
+@css {
+  .commit-btn > .v-btn__overlay {
+    background: rgb(var(--v-theme-background));
+    transition: inherit;
+  }
 }
 </style>

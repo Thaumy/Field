@@ -20,11 +20,13 @@
   &::after
     clear both
 
+  /*
   > :first-child
     margin-top 0 !important
 
   > :last-child
     margin-bottom 0 !important
+  */
 
   details
     display block
@@ -138,7 +140,7 @@
     margin-bottom 16px
 
   blockquote
-    padding 0.2em 1em
+    padding 0.2rem 0.5rem
     color #6a737d
     border-left .25em solid #0078d7
     background rgb(236 236 236)
@@ -194,8 +196,14 @@
   ol
     padding-left 1.7rem
 
+    li::marker
+      color rgb(120 120 120)
+
   ul
     padding-left 1.2rem
+
+    li::marker
+      color rgb(160 160 160)
 
   ul
   ol
@@ -206,9 +214,6 @@
 
       > p
         margin-top 16px
-
-      &::marker
-        color #a0a0a0
 
     li + li
       margin-top .25em

@@ -13,6 +13,9 @@ export default createVuetify(
     {
         components,
         directives,
+        icons: {
+            iconfont: 'fa',
+        },
         theme: {
             defaultTheme: 'fieldDark',
             //defaultTheme: 'fieldLight',

@@ -40,8 +40,8 @@ function outlineClick() {
 <style lang="stylus" scoped>
 
 .about-zone
-  margin-top 8px
-  margin-bottom 8px
+  margin-top 6px
+  margin-bottom 12px
 
 .text
   align-self center
