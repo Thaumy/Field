@@ -2,14 +2,20 @@
   <transition name="drawer" tag="div">
 
     <div class="drawer" v-show="visibility">
+
+      <div class="btn-zone position-absolute">
+        <theme-toggle-btn
+            class="ma-2"
+            style="opacity: 0.8"
+        />
+      </div>
+
       <div class="tab-list">
         <f-tabs double-bar vertical :tabs="tabs"/>
       </div>
 
-      <div class="info cursor-pointer" @click="">
-        Thaumy's Blog@2016-2023<br>
-        About Site
-      </div>
+      <div class="info cursor-pointer" v-html="info" @click=""/>
+
     </div>
 
   </transition>
@@ -19,6 +25,7 @@
 import {defineProps, PropType} from "vue";
 import {Tab} from "@/components/field/type";
 import FTabs from "@/components/field/f-tabs.vue";
+import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue";
 
 defineProps({
   tabs: {
@@ -28,7 +35,8 @@ defineProps({
   visibility: {
     type: Boolean,
     default: false
-  }
+  },
+  info: String
 })
 
 </script>
@@ -36,16 +44,16 @@ defineProps({
 <style lang="stylus" scoped>
 
 .drawer
-  left 0
   z-index 3
-  padding-top 50px
-  width 242px
 
+  width 242px
   height 100%
+
+  left 0
   position fixed
+  grid-template-rows 86% 14%
 
   backdrop-filter saturate(180%) blur(20px)
-  grid-template-rows 84% 16%
 
 @css {
   .drawer {
@@ -54,16 +62,16 @@ defineProps({
 }
 
 .tab-list
-  margin-top 20px
+  padding-top 60px
+  grid-row-start 1
   display grid
 
 .info
-  color: grey;
+  grid-row-start 2
+  color grey
   width 88%
   text-align center
-
   margin auto
-
   font-size 0.6rem
 
 .drawer-enter-from

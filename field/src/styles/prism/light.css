@@ -1,0 +1,398 @@
+.code-light code[class*="language-"],
+.code-light pre[class*="language-"] {
+    /*background: hsl(230, 1%, 98%);*/
+    color: hsl(230, 8%, 24%);
+    font-family: 'JetBrains Mono', monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    line-height: 1.5;
+    -moz-tab-size: 2;
+    -o-tab-size: 2;
+    tab-size: 2;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+/* Selection */
+.code-light code[class*="language-"]::-moz-selection,
+.code-light code[class*="language-"] *::-moz-selection,
+.code-light pre[class*="language-"] *::-moz-selection {
+    /*background: hsl(230, 1%, 90%);*/
+    color: inherit;
+}
+
+.code-light code[class*="language-"]::selection,
+.code-light code[class*="language-"] *::selection,
+.code-light pre[class*="language-"] *::selection {
+    /*background: hsl(230, 1%, 90%);*/
+    color: inherit;
+}
+
+/* Code blocks */
+.code-light pre[class*="language-"] {
+    padding: 1em;
+    margin: 0.5em 0;
+    overflow: auto;
+    border-radius: 0.3em;
+}
+
+/* Inline code */
+.code-light :not(pre) > code[class*="language-"] {
+    padding: 0.2em 0.3em;
+    border-radius: 0.3em;
+    white-space: normal;
+}
+
+.code-light .token.comment,
+.code-light .token.prolog,
+.code-light .token.cdata {
+    color: hsl(230, 4%, 64%);
+}
+
+.code-light .token.doctype,
+.code-light .token.punctuation,
+.code-light .token.entity {
+    color: hsl(230, 8%, 24%);
+}
+
+.code-light .token.attr-name,
+.code-light .token.class-name,
+.code-light .token.boolean,
+.code-light .token.constant,
+.code-light .token.number,
+.code-light .token.atrule {
+    color: hsl(35, 99%, 36%);
+}
+
+.code-light .token.keyword {
+    color: hsl(301, 63%, 40%);
+}
+
+.code-light .token.property,
+.code-light .token.tag,
+.code-light .token.symbol,
+.code-light .token.deleted,
+.code-light .token.important {
+    color: hsl(5, 74%, 59%);
+}
+
+.code-light .token.selector,
+.code-light .token.string,
+.code-light .token.char,
+.code-light .token.builtin,
+.code-light .token.inserted,
+.code-light .token.regex,
+.code-light .token.attr-value,
+.code-light .token.attr-value > .token.punctuation {
+    color: hsl(119, 34%, 47%);
+}
+
+.code-light .token.variable,
+.code-light .token.operator,
+.code-light .token.function {
+    color: hsl(221, 87%, 60%);
+}
+
+.code-light .token.url {
+    color: hsl(198, 99%, 37%);
+}
+
+/* HTML overrides */
+.code-light .token.attr-value > .token.punctuation.attr-equals,
+.code-light .token.special-attr > .token.attr-value > .token.value.css {
+    color: hsl(230, 8%, 24%);
+}
+
+/* CSS overrides */
+.code-light .language-css .token.selector {
+    color: hsl(5, 74%, 59%);
+}
+
+.code-light .language-css .token.property {
+    color: hsl(230, 8%, 24%);
+}
+
+.code-light .language-css .token.function,
+.code-light .language-css .token.url > .token.function {
+    color: hsl(198, 99%, 37%);
+}
+
+.code-light .language-css .token.url > .token.string.url {
+    color: hsl(119, 34%, 47%);
+}
+
+.code-light .language-css .token.important,
+.code-light .language-css .token.atrule .token.rule {
+    color: hsl(301, 63%, 40%);
+}
+
+/* JS overrides */
+.code-light .language-javascript .token.operator {
+    color: hsl(301, 63%, 40%);
+}
+
+.code-light .language-javascript .token.template-string > .token.interpolation > .token.interpolation-punctuation.punctuation {
+    color: hsl(344, 84%, 43%);
+}
+
+/* JSON overrides */
+.code-light .language-json .token.operator {
+    color: hsl(230, 8%, 24%);
+}
+
+.code-light .language-json .token.null.keyword {
+    color: hsl(35, 99%, 36%);
+}
+
+/* MD overrides */
+.code-light .language-markdown .token.url,
+.code-light .language-markdown .token.url > .token.operator,
+.code-light .language-markdown .token.url-reference.url > .token.string {
+    color: hsl(230, 8%, 24%);
+}
+
+.code-light .language-markdown .token.url > .token.content {
+    color: hsl(221, 87%, 60%);
+}
+
+.code-light .language-markdown .token.url > .token.url,
+.code-light .language-markdown .token.url-reference.url {
+    color: hsl(198, 99%, 37%);
+}
+
+.code-light .language-markdown .token.blockquote.punctuation,
+.code-light .language-markdown .token.hr.punctuation {
+    color: hsl(230, 4%, 64%);
+    font-style: italic;
+}
+
+.code-light .language-markdown .token.code-snippet {
+    color: hsl(119, 34%, 47%);
+}
+
+.code-light .language-markdown .token.bold .token.content {
+    color: hsl(35, 99%, 36%);
+}
+
+.code-light .language-markdown .token.italic .token.content {
+    color: hsl(301, 63%, 40%);
+}
+
+.code-light .language-markdown .token.strike .token.content,
+.code-light .language-markdown .token.strike .token.punctuation,
+.code-light .language-markdown .token.list.punctuation,
+.code-light .language-markdown .token.title.important > .token.punctuation {
+    color: hsl(5, 74%, 59%);
+}
+
+/* General */
+.code-light .token.bold {
+    font-weight: bold;
+}
+
+.code-light .token.comment,
+.code-light .token.italic {
+    font-style: italic;
+}
+
+.code-light .token.entity {
+    cursor: help;
+}
+
+.code-light .token.namespace {
+    opacity: 0.8;
+}
+
+/* Plugin overrides */
+/* Selectors should have higher specificity than those in the plugins' default stylesheets */
+
+/* Show Invisibles plugin overrides */
+.code-light .token.token.tab:not(:empty):before,
+.code-light .token.token.cr:before,
+.code-light .token.token.lf:before,
+.code-light .token.token.space:before {
+    color: hsla(230, 8%, 24%, 0.2);
+}
+
+/* Toolbar plugin overrides */
+/* Space out all buttons and move them away from the right edge of the code block */
+.code-light div.code-toolbar > .toolbar.toolbar > .toolbar-item {
+    margin-right: 0.4em;
+}
+
+/* Styling the buttons */
+.code-light div.code-toolbar > .toolbar.toolbar > .toolbar-item > button,
+.code-light div.code-toolbar > .toolbar.toolbar > .toolbar-item > a,
+.code-light div.code-toolbar > .toolbar.toolbar > .toolbar-item > span {
+    background: hsl(230, 1%, 90%);
+    color: hsl(230, 6%, 44%);
+    padding: 0.1em 0.4em;
+    border-radius: 0.3em;
+}
+
+.code-light div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:hover,
+.code-light div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:focus,
+.code-light div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:hover,
+.code-light div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:focus,
+.code-light div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:hover,
+.code-light div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:focus {
+    background: hsl(230, 1%, 78%); /* custom: darken(--syntax-bg, 20%) */
+    color: hsl(230, 8%, 24%);
+}
+
+/* Line Highlight plugin overrides */
+/* The highlighted line itself */
+.code-light .line-highlight.line-highlight {
+    background: hsla(230, 8%, 24%, 0.05);
+}
+
+/* Default line numbers in Line Highlight plugin */
+.code-light .line-highlight.line-highlight:before,
+.code-light .line-highlight.line-highlight[data-end]:after {
+    background: hsl(230, 1%, 90%);
+    color: hsl(230, 8%, 24%);
+    padding: 0.1em 0.6em;
+    border-radius: 0.3em;
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2); /* same as Toolbar plugin default */
+}
+
+/* Hovering over a linkable line number (in the gutter area) */
+/* Requires Line Numbers plugin as well */
+.code-light pre[id].linkable-line-numbers.linkable-line-numbers span.line-numbers-rows > span:hover:before {
+    background-color: hsla(230, 8%, 24%, 0.05);
+}
+
+/* Line Numbers and Command Line plugins overrides */
+/* Line separating gutter from coding area */
+.code-light .line-numbers.line-numbers .line-numbers-rows,
+.code-light .command-line .command-line-prompt {
+    border-right-color: hsla(230, 8%, 24%, 0.2);
+}
+
+/* Stuff in the gutter */
+.code-light .line-numbers .line-numbers-rows > span:before,
+.code-light .command-line .command-line-prompt > span:before {
+    color: hsl(230, 1%, 62%);
+}
+
+/* Match Braces plugin overrides */
+/* Note: Outline colour is inherited from the braces */
+.code-light .rainbow-braces .token.token.punctuation.brace-level-1,
+.code-light .rainbow-braces .token.token.punctuation.brace-level-5,
+.code-light .rainbow-braces .token.token.punctuation.brace-level-9 {
+    color: hsl(5, 74%, 59%);
+}
+
+.code-light .rainbow-braces .token.token.punctuation.brace-level-2,
+.code-light .rainbow-braces .token.token.punctuation.brace-level-6,
+.code-light .rainbow-braces .token.token.punctuation.brace-level-10 {
+    color: hsl(119, 34%, 47%);
+}
+
+.code-light .rainbow-braces .token.token.punctuation.brace-level-3,
+.code-light .rainbow-braces .token.token.punctuation.brace-level-7,
+.code-light .rainbow-braces .token.token.punctuation.brace-level-11 {
+    color: hsl(221, 87%, 60%);
+}
+
+.code-light .rainbow-braces .token.token.punctuation.brace-level-4,
+.code-light .rainbow-braces .token.token.punctuation.brace-level-8,
+.code-light .rainbow-braces .token.token.punctuation.brace-level-12 {
+    color: hsl(301, 63%, 40%);
+}
+
+/* Diff Highlight plugin overrides */
+/* Taken from https://github.com/atom/github/blob/master/styles/variables.less */
+.code-light pre.diff-highlight > code .token.token.deleted:not(.prefix),
+.code-light pre > code.diff-highlight .token.token.deleted:not(.prefix) {
+    background-color: hsla(353, 100%, 66%, 0.15);
+}
+
+.code-light pre.diff-highlight > code .token.token.deleted:not(.prefix)::-moz-selection,
+.code-light pre.diff-highlight > code .token.token.deleted:not(.prefix) *::-moz-selection,
+.code-light pre > code.diff-highlight .token.token.deleted:not(.prefix)::-moz-selection,
+.code-light pre > code.diff-highlight .token.token.deleted:not(.prefix) *::-moz-selection {
+    background-color: hsla(353, 95%, 66%, 0.25);
+}
+
+.code-light pre.diff-highlight > code .token.token.deleted:not(.prefix)::selection,
+.code-light pre.diff-highlight > code .token.token.deleted:not(.prefix) *::selection,
+.code-light pre > code.diff-highlight .token.token.deleted:not(.prefix)::selection,
+.code-light pre > code.diff-highlight .token.token.deleted:not(.prefix) *::selection {
+    background-color: hsla(353, 95%, 66%, 0.25);
+}
+
+.code-light pre.diff-highlight > code .token.token.inserted:not(.prefix),
+.code-light pre > code.diff-highlight .token.token.inserted:not(.prefix) {
+    background-color: hsla(137, 100%, 55%, 0.15);
+}
+
+.code-light pre.diff-highlight > code .token.token.inserted:not(.prefix)::-moz-selection,
+.code-light pre.diff-highlight > code .token.token.inserted:not(.prefix) *::-moz-selection,
+.code-light pre > code.diff-highlight .token.token.inserted:not(.prefix)::-moz-selection,
+.code-light pre > code.diff-highlight .token.token.inserted:not(.prefix) *::-moz-selection {
+    background-color: hsla(135, 73%, 55%, 0.25);
+}
+
+.code-light pre.diff-highlight > code .token.token.inserted:not(.prefix)::selection,
+.code-light pre.diff-highlight > code .token.token.inserted:not(.prefix) *::selection,
+.code-light pre > code.diff-highlight .token.token.inserted:not(.prefix)::selection,
+.code-light pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
+    background-color: hsla(135, 73%, 55%, 0.25);
+}
+
+/* Previewers plugin overrides */
+/* Based on https://github.com/atom-community/atom-ide-datatip/blob/master/styles/atom-ide-datatips.less and https://github.com/atom/atom/blob/master/packages/one-light-ui */
+/* Border around popup */
+.code-light .prism-previewer.prism-previewer:before,
+.code-light .prism-previewer-gradient.prism-previewer-gradient div {
+    border-color: hsl(0, 0%, 95%);
+}
+
+/* Angle and time should remain as circles and are hence not included */
+.code-light .prism-previewer-color.prism-previewer-color:before,
+.code-light .prism-previewer-gradient.prism-previewer-gradient div,
+.code-light .prism-previewer-easing.prism-previewer-easing:before {
+    border-radius: 0.3em;
+}
+
+/* Triangles pointing to the code */
+.code-light .prism-previewer.prism-previewer:after {
+    border-top-color: hsl(0, 0%, 95%);
+}
+
+.code-light .prism-previewer-flipped.prism-previewer-flipped.after {
+    border-bottom-color: hsl(0, 0%, 95%);
+}
+
+/* Background colour within the popup */
+.code-light .prism-previewer-angle.prism-previewer-angle:before,
+.code-light .prism-previewer-time.prism-previewer-time:before,
+.code-light .prism-previewer-easing.prism-previewer-easing {
+    background: hsl(0, 0%, 100%);
+}
+
+/* For angle, this is the positive area (eg. 90deg will display one quadrant in this colour) */
+/* For time, this is the alternate colour */
+.code-light .prism-previewer-angle.prism-previewer-angle circle,
+.code-light .prism-previewer-time.prism-previewer-time circle {
+    stroke: hsl(230, 8%, 24%);
+    stroke-opacity: 1;
+}
+
+/* Stroke colours of the handle, direction point, and vector itself */
+.code-light .prism-previewer-easing.prism-previewer-easing circle,
+.code-light .prism-previewer-easing.prism-previewer-easing path,
+.code-light .prism-previewer-easing.prism-previewer-easing line {
+    stroke: hsl(230, 8%, 24%);
+}
+
+/* Fill colour of the handle */
+.code-light .prism-previewer-easing.prism-previewer-easing circle {
+    fill: transparent;
+}

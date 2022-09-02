@@ -1,10 +1,10 @@
 @css {
-  .markdown-body {
+  .markdown-dark {
     font-family: 'DejaVu Sans', Emoji, sans-serif;
   }
 }
 
-.markdown-body
+.markdown-dark
   -ms-text-size-adjust 100%
   -webkit-text-size-adjust 100%
   line-height 1.5
@@ -20,11 +20,13 @@
   &::after
     clear both
 
+  /*
   > :first-child
     margin-top 0 !important
 
   > :last-child
     margin-bottom 0 !important
+  */
 
   details
     display block
@@ -138,7 +140,7 @@
     margin-bottom 16px
 
   blockquote
-    padding 0.2em 1em
+    padding 0.2rem 0.5rem
     color #6a737d
     border-left .25em solid #0078d7
     background rgba(40 40 40 1)
@@ -155,10 +157,10 @@
   h4
   h5
   h6
-    margin-top 24px
-    margin-bottom 16px
+    margin-top 2rem
+    margin-bottom 1rem
     font-weight 600
-    line-height 1.25
+    line-height 1.2
 
   h1
     font-size 1.8em
@@ -192,14 +194,30 @@
     color #6a737d
 
   ol
+    padding-left 1.7rem
+
+    li::marker
+      color rgb(140 140 140)
+
   ul
-    //padding-left 2em
-    padding-left 0
-    margin-top 0
-    margin-bottom 0
+    padding-left 1.2rem
+
+    li::marker
+      color rgb(120 120 120)
 
   ul
   ol
+
+    li
+      //word-wrap break-all
+      word-break break-all
+
+      > p
+        margin-top 16px
+
+    li + li
+      margin-top .25em
+
     ol
       list-style-type lower-roman
 
@@ -210,16 +228,6 @@
 
       ol
         list-style-type lower-alpha
-
-  li
-    //word-wrap break-all
-    word-break break-all
-
-    > p
-      margin-top 16px
-
-  li + li
-    margin-top .25em
 
   dl
     padding 0
@@ -311,12 +319,12 @@
     margin-left 2px
     margin-right 2px
     padding 3px 5px
-    font-size 0.7rem
+    font-size 0.8rem
     line-height 10px
     color #f0f0f0
     vertical-align middle
     background-color rgb(70 70 70)
-    border 1px solid #636363
+    border 1px solid #525252
     border-radius 3px
     box-shadow inset 0 -1px 0 #000000
 
@@ -342,15 +350,13 @@
     overflow auto
 
     code
+      background-color inherit
       padding 0
       margin 0
       overflow visible
       line-height inherit
       word-wrap normal
-      background-color rgb(16 16 16)
       border 0
-
-    > code
       font-size 1em
       word-break normal
       white-space pre
@@ -358,12 +364,12 @@
       letter-spacing 0
 
 @css {
-  .markdown-body pre,
-  .markdown-body kbd,
-  .markdown-body code {
+  .markdown-dark pre,
+  .markdown-dark kbd,
+  .markdown-dark code {
     font-family: 'JetBrains Mono', monospace;
   }
-  .markdown-body a {
+  .markdown-dark a {
     color: rgb(var(--v-theme-primary));
   }
 }
