@@ -1,10 +1,10 @@
 @css {
-  .markdown-body {
+  .markdown-dark {
     font-family: 'DejaVu Sans', Emoji, sans-serif;
   }
 }
 
-.markdown-body
+.markdown-dark
   -ms-text-size-adjust 100%
   -webkit-text-size-adjust 100%
   line-height 1.5
@@ -155,10 +155,10 @@
   h4
   h5
   h6
-    margin-top 24px
-    margin-bottom 16px
+    margin-top 2rem
+    margin-bottom 1rem
     font-weight 600
-    line-height 1.25
+    line-height 1.2
 
   h1
     font-size 1.8em
@@ -314,12 +314,12 @@
     margin-left 2px
     margin-right 2px
     padding 3px 5px
-    font-size 0.7rem
+    font-size 0.8rem
     line-height 10px
     color #f0f0f0
     vertical-align middle
     background-color rgb(70 70 70)
-    border 1px solid #636363
+    border 1px solid #525252
     border-radius 3px
     box-shadow inset 0 -1px 0 #000000
 
@@ -345,15 +345,13 @@
     overflow auto
 
     code
+      background-color inherit
       padding 0
       margin 0
       overflow visible
       line-height inherit
       word-wrap normal
-      background-color rgb(16 16 16)
       border 0
-
-    > code
       font-size 1em
       word-break normal
       white-space pre
@@ -361,12 +359,12 @@
       letter-spacing 0
 
 @css {
-  .markdown-body pre,
-  .markdown-body kbd,
-  .markdown-body code {
+  .markdown-dark pre,
+  .markdown-dark kbd,
+  .markdown-dark code {
     font-family: 'JetBrains Mono', monospace;
   }
-  .markdown-body a {
+  .markdown-dark a {
     color: rgb(var(--v-theme-primary));
   }
 }

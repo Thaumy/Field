@@ -3,7 +3,6 @@
 
     <div class="fixed-btn-zone">
       <go-up-btn class="mb-1"/>
-      <theme-toggle-btn/>
     </div>
 
   </div>

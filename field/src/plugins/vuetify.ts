@@ -14,8 +14,8 @@ export default createVuetify(
         components,
         directives,
         theme: {
-            //defaultTheme: 'fieldDark',
-            defaultTheme: 'fieldLight',
+            defaultTheme: 'fieldDark',
+            //defaultTheme: 'fieldLight',
             themes: {
                 fieldDark,
                 fieldLight,

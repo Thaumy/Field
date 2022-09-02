@@ -2,7 +2,7 @@
   <div>
 
     <div
-        class="theme-toggle-btn border-line border-radius-all transition-standard"
+        class="theme-toggle-btn cursor-pointer"
         @click="toggleTheme()"
         v-ripple
     >
@@ -19,7 +19,6 @@
 
 <script lang="ts" setup>
 import {useTheme} from "vuetify"
-import {ref} from "vue"
 
 const theme = useTheme()
 
@@ -43,18 +42,12 @@ function toggleTheme() {
   height 32px
   display flex
   justify-content center
+  border-radius 16px
 
-  cursor pointer
-  backdrop-filter blur(20px)
 
 .btn-icon
   align-self center
   transition all 0.2s ease
   transform rotate(-45deg)
 
-@css {
-  .theme-toggle-btn {
-    background: rgba(var(--v-theme-surface), 0.8)
-  }
-}
 </style>
