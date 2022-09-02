@@ -20,7 +20,13 @@
       </transition>
     </div>
 
-    <Drawer :visibility="drawerVisibility" :tabs="tabs"/>
+    <Drawer
+        :visibility="drawerVisibility"
+        :tabs="tabs"
+        info=
+            "Thaumy's Blog@2016-2023
+             <br>About Site"
+    />
     <Shadow :visibility="drawerVisibility" @click="closeDrawer()"/>
 
   </div>

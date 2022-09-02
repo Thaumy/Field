@@ -67,6 +67,7 @@ function tabClick(tab: Tab, index: number) {
 
 .tab
   font-size 0.8rem
+  padding-top 2px
   padding-left 4px
   padding-right 4px
   margin-left 2px

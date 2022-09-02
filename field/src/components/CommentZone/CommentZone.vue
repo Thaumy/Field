@@ -23,10 +23,11 @@
                 :disable-reply=true
             >
               <template #user-name-right-end-slot>
-                <v-icon icon="mdi-close"
-                        size="x-small"
-                        color="grey"
-                        @click="$refs.replyTargetZone.close()"
+                <v-icon
+                    icon="mdi-close"
+                    size="x-small"
+                    color="grey"
+                    @click="$refs.replyTargetZone.close()"
                 />
               </template>
             </CommentCard>
@@ -40,11 +41,20 @@
 
           <div v-for="(comment,index) in comments" ref="commentList">
             <f-divider ml="48" v-if="index!==0"/>
+
             <CommentCard
+                name="comment-card"
                 :comment='comment'
                 :enable-reply='replyTarget!==comment.id'
                 @reply-click="replyTo(comment);expandReference(index)"
-            />
+            >
+              <template #body-top-slot v-if="comment.replyTo!==postId">
+                <f-text-render
+                    name="comment-card-reply"
+                    :text="genReplyReference(getCommentById(comment.replyTo))"
+                />
+              </template>
+            </CommentCard>
           </div>
 
         </div>
@@ -56,13 +66,15 @@
 </template>
 
 <script setup lang="ts">
-import {PropType, Ref, ref} from "vue"
+import {PropType, ref} from "vue"
 import {Comment} from "@/scripts/type/comment"
 import CommentEditor from './CommentEditor.vue'
 import CommentCard from './CommentCard.vue'
 import FSlider from "@/components/field/f-slider.vue"
 import FCard from "@/components/field/f-card.vue"
 import FDivider from "@/components/field/f-divider.vue"
+import FTextRender from "@/components/field/f-text-render.vue";
+import {formatToDateTime} from "@/scripts/util/time";
 
 const props = defineProps({
   postId: Number,
@@ -78,6 +90,12 @@ function getCommentById(id: Number) {
   return props.comments.filter(x => x.id === id)[0]
 }
 
+const genReplyReference = (comment: Comment) =>
+    '<blockquote style="font-size:0.8rem;margin-bottom:0.2rem">' +
+    comment.user + ` (于${formatToDateTime(comment.createTime)}):<br>` +
+    comment.body +
+    '</blockquote>'
+
 function replyTo(comment: Comment) {
   replyTarget.value = comment.id;
 }
@@ -86,8 +104,14 @@ const replyTargetZone = ref()
 const commentList = ref()
 
 function expandReference(index: number) {
-  const height = commentList.value[index].children[index === 0 ? 0 : 1].offsetHeight
-  replyTargetZone.value.expand(height)
+  //TODO 此实现超级不优雅！！！
+  const card = commentList.value[index].children.namedItem('comment-card')
+  const blockQuote = card.children[0].children[4].children.namedItem('comment-card-reply')
+
+  if (blockQuote !== null)
+    replyTargetZone.value.expand(card.offsetHeight - blockQuote.offsetHeight)
+  else
+    replyTargetZone.value.expand(card.offsetHeight)
 }
 </script>
 

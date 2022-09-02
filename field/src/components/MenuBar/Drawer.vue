@@ -14,10 +14,7 @@
         <f-tabs double-bar vertical :tabs="tabs"/>
       </div>
 
-      <div class="info cursor-pointer" @click="">
-        Thaumy's Blog@2016-2023<br>
-        About Site
-      </div>
+      <div class="info cursor-pointer" v-html="info" @click=""/>
 
     </div>
 
@@ -38,7 +35,8 @@ defineProps({
   visibility: {
     type: Boolean,
     default: false
-  }
+  },
+  info: String
 })
 
 </script>
