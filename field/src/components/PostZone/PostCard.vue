@@ -2,52 +2,56 @@
   <div>
 
     <f-card class="margin-bottom">
+
       <v-img
           :eager=true
           :src="coverUrl"
           v-if="coverUrl&&!post.body"
       />
-      <div :style="genBackground()">
-        <Preview
-            :style="genBackgroundFilter()"
-            :title=post.title
-            :summary=summary
-            v-if=post.title
-        >
-          <template v-slot:title-right-slot>
+      <div :style="genBackground()" class="transition-standard">
+        <div :style="genBackgroundFilter()" class="transition-inherit">
+          <Preview
 
-            <!--TODO body逻辑判断此时不再有效-->
-            <CommentCountChip
-                :comment-count="commentCount"
-                v-if="commentCount!==0&&!post.body"
-            />
-            <ScheduleChip v-if="isSchedule&&post.body"/>
-            <ArchiveChip v-if="isArchive&&post.body"/>
-          </template>
+              :title=post.title
+              :summary=summary
+              v-if=post.title
+          >
+            <template v-slot:title-right-slot>
 
-          <template v-slot:summary-right-slot v-if="!post.body">
-            <ModifyTimeChip
-                style="align-self: end"
-                :modify-time="post.modifyTime"
-                v-if="modifyTimeVisibility()"
-            />
-            <CreateTimeChip
-                style="align-self: end"
-                :create-time="post.createTime"
-                :date-only="true"
-            />
-          </template>
+              <!--TODO body逻辑判断此时不再有效-->
+              <CommentCountChip
+                  :comment-count="commentCount"
+                  v-if="commentCount!==0&&!post.body"
+              />
+              <ScheduleChip v-if="isSchedule&&post.body"/>
+              <ArchiveChip v-if="isArchive&&post.body"/>
+            </template>
 
-          <template v-slot:bottom-slot v-else>
-            <ReadTimeBar :target-text="post.body"/>
-          </template>
-        </Preview>
+            <template v-slot:summary-right-slot v-if="!post.body">
+              <ModifyTimeChip
+                  style="align-self: end"
+                  :modify-time="post.modifyTime"
+                  v-if="modifyTimeVisibility()"
+              />
+              <CreateTimeChip
+                  style="align-self: end"
+                  :create-time="post.createTime"
+                  :date-only="true"
+              />
+            </template>
+
+            <template v-slot:bottom-slot v-else>
+              <ReadTimeBar :target-text="post.body"/>
+            </template>
+          </Preview>
+        </div>
       </div>
 
-      <Body :body="post.body"
-            :create-time="post.createTime"
-            :modify-time="post.modifyTime"
-            v-if="post.body"
+      <Body
+          :body="post.body"
+          :create-time="post.createTime"
+          :modify-time="post.modifyTime"
+          v-if="post.body"
       >
       <template v-slot:bottom-slot>
         <div class="flex" style="flex-wrap: wrap">

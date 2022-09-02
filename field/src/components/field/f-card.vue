@@ -2,7 +2,7 @@
   <div>
 
     <div
-        class="f-card border-line"
+        class="f-card border-line transition-standard"
         :style="{'border-radius': radius+'px'}"
     >
       <slot/>

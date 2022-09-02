@@ -51,7 +51,7 @@
         </v-chip>
         <v-btn
             width="15%"
-            class="commit-btn"
+            class="commit-btn transition-standard"
             :style=
                 "replyMode?
                     {color:'black',background:'orange'}:
@@ -193,5 +193,6 @@ _italic_
 <style>
 .commit-btn > .v-btn__overlay {
   background: rgb(var(--v-theme-background));
+  transition: inherit;
 }
 </style>
