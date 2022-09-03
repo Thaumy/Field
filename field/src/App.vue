@@ -11,14 +11,21 @@
             :posts="menu_posts"
             :style="commonOpacityStyle"
         />
+
+        <router-view v-slot="{ Component }" class="right-part float-right">
+          <transition name="router-view">
+            <component :is="Component"/>
+          </transition>
+        </router-view>
+
         <!--
-        :data-collection="post_data"
-        -->
+            :data-collection="post_data"
         <PostZone
             class="right-part float-right"
             :data-collection="[post_data[4]]"
             :style="commonOpacityStyle"
         />
+        -->
       </div>
 
       <FixedBtnZone :style="commonOpacityStyle"/>
@@ -101,6 +108,7 @@ onMounted(() => {
 </script>
 
 <style lang="stylus" scoped>
+
 .main
   background url("@/assets/pc.jpg")
   background-size cover
@@ -110,6 +118,14 @@ onMounted(() => {
 .content
   margin auto
   max-width 1160px
+
+.router-view-enter-from
+.router-view-leave-to
+  opacity 0
+
+.router-view-enter-active
+.router-view-leave-active
+  transition all 0.2s ease
 
 /* 屏幕宽度 [ 1001  + ) */
 @media (min-width 1001px)

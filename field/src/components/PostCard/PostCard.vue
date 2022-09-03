@@ -1,10 +1,12 @@
 <template>
   <div>
 
-    <f-card class="margin-bottom">
-
-      <v-img
-          :eager=true
+    <f-card
+        class="margin-bottom"
+    >
+      <img
+          alt="_"
+          style="width:100%;display:block"
           :src="coverUrl"
           v-if="coverUrl&&!post.body"
       />
@@ -87,6 +89,7 @@ import FCard from "@/components/field/f-card.vue";
 import {Post} from "@/scripts/type/post";
 import CommentCountChip from "@/components/chip/CommentCountChip.vue";
 import {Topic} from "@/scripts/type/topic";
+import {Comment} from "@/scripts/type/comment";
 
 const props = defineProps({
   post: Object as PropType<Post>,
@@ -112,10 +115,12 @@ const props = defineProps({
   }
 })
 
+//defineEmits<{ (e: 'postClick', post: Post): void }>()
+
 function genBackgroundFilter() {
   if (props.coverUrl)
     return {
-      'backdrop-filter': 'blur(10px)',
+      'backdrop-filter': 'blur(10px) brightness(1.2)',
       'background-color': 'rgba(var(--v-theme-background),0.82)'
     }
   else {

@@ -41,7 +41,7 @@ let props = defineProps({
 <style lang="stylus" scoped>
 
 .preview
-  padding 6px
+  padding 7px
   display grid
   grid-template-columns 100%
   grid-template-rows auto auto auto

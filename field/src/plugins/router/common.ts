@@ -1,15 +1,33 @@
-import VueRouter from 'vue-router'
+import {
+    createWebHashHistory,
+    createWebHistory,
+    createRouter
+} from "vue-router"
 
-const Home = {template: '<div>Home</div>'}
-const About = {template: '<div>About</div>'}
+import PostZone from '@/components/PostZone/PostZone.vue'
+import {post_data} from "@/scripts/data/post";
+import {getPostById} from "@/scripts/data/post";
 
-const routes = [
-    {path: '/', component: Home},
-    {path: '/about', component: About},
-]
-
-export default VueRouter.createRouter({
-    // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
-    history: VueRouter.createWebHashHistory(),
-    routes: routes,
+export default createRouter({
+    scrollBehavior: () => ({top: 0}),
+    history: createWebHistory(),
+    routes: [
+        {
+            path: '/',
+            component: PostZone,
+            props: {dataCollection: post_data.value},
+            //meta: {transition: 'slide-left'},
+        },
+        {
+            path: '/:post_id',
+            component: PostZone,
+            props:
+                route => ({
+                    dataCollection: [
+                        getPostById(Number(route.params.post_id))
+                    ]
+                }),
+            //meta: {transition: 'slide-left'},
+        },
+    ],
 })

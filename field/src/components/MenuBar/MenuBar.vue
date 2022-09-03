@@ -6,9 +6,12 @@
         :style="{'top':`${topPosition}px`}"
         v-show="visibility"
     >
-      <div class="cursor-pointer flex" @click="">
+      <div
+          class="cursor-pointer flex"
+          @click="$router.push('/')"
+      >
         <img class="avatar border-shadow" src="@/assets/pp512.png" alt="avatar"/>
-        <div class=" name">THAUMY的小站</div>
+        <div class="name">THAUMY的小站</div>
       </div>
 
       <transition name="open-drawer-btn">

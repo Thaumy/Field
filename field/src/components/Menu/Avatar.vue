@@ -3,8 +3,10 @@
 
     <div class="avatar-zone">
 
-      <div class="avatar-holder border-shadow cursor-pointer"
-           v-ripple
+      <div
+          class="avatar-holder border-shadow cursor-pointer"
+          v-ripple
+          @click="$router.push('/')"
       >
         <img
             class="avatar"

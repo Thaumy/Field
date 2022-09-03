@@ -1,7 +1,7 @@
 import App from './App.vue'
 import {createApp} from 'vue'
 import vuetify from '@/plugins/vuetify/common'
-import router from "@/plugins/router/common"
+import router from '@/plugins/router/common'
 import {loadFonts} from '@/plugins/webFontLoader/common'
 
 import '@/styles/global/font.styl'
@@ -14,6 +14,6 @@ import '@/styles/vuetify/snackbar.styl'
 loadFonts().then()
 
 createApp(App)
-    //.use(router)
+    .use(router)
     .use(vuetify)
     .mount('#app')
