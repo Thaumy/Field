@@ -19,7 +19,7 @@ import '@/styles/prism/light.css'
 import "@/styles/markdown/dark.styl"
 import "@/styles/markdown/light.styl"
 
-import {typeSetAsync} from "@/scripts/mathjax/render"
+import {queueTypeSet} from "@/scripts/mathjax/render"
 import {useTheme} from "vuetify"
 import Prism from 'prismjs'
 import {onMounted, Ref, ref} from "vue";
@@ -39,10 +39,11 @@ function genClass() {
 }
 
 onMounted(() => {
-  if (textRenderZone.value) {
-    Prism.highlightAllUnder(textRenderZone.value)
-    typeSetAsync()
-  }
+  if (!textRenderZone.value)
+    return
+
+  Prism.highlightAllUnder(textRenderZone.value)
+  queueTypeSet(textRenderZone.value)
 })
 
 </script>

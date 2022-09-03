@@ -12,9 +12,9 @@
         <div class="right-part float-right">
           <PostZone :data-collection="post_data" :style="commonOpacityStyle"/>
 
-          <CommentZone :comments="comments" :post-id="12384"/>
+          <CommentZone class="margin-bottom" :comments="comments" :post-id="12384"/>
 
-          <SwitchZone prev="你不知道的114514个单身技巧" next="构建pilipala应用的最佳实践"/>
+          <SwitchZone class="margin-bottom" prev="你不知道的114514个单身技巧" next="构建pilipala应用的最佳实践"/>
         </div>
       </div>
 
@@ -155,7 +155,7 @@ const post_data = ref([
       createTime: new Date('2022-08-20T08:00:00'),
       modifyTime: new Date('2022-08-20T10:00:01'),
     },
-    coverUrl: "/src/assets/akane.jpg",
+    coverUrl: "/src/assets/akane_cover.png",
     summary: "《知晓天空之蓝的人啊》",
     commentCount: 18,
     topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}],
