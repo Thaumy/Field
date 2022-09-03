@@ -79,6 +79,6 @@ function outlineClick() {
   text-align center
 
   margin auto
-  font-size 0.6rem
+  webFontLoader-size 0.6rem
 */
 </style>
