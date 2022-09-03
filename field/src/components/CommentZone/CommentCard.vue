@@ -60,7 +60,9 @@ import {Comment} from "@/scripts/type/comment"
 import {formatToDateTime} from "@/scripts/util/time"
 import FTextRender from "@/components/field/f-text-render.vue";
 
-defineEmits<{ (e: 'replyClick', comment: Comment): void }>()
+defineEmits<{
+  (e: 'replyClick', comment: Comment): void
+}>()
 
 defineProps({
   comment: Object as PropType<Comment>,

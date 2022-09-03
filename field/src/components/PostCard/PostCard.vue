@@ -8,13 +8,18 @@
           alt="_"
           style="width:100%;display:block"
           :src="coverUrl"
-          v-if="coverUrl&&!post.body"
+          class="cursor-pointer"
+          @click="$router.push('/'+post.id)"
+          v-if="coverUrl&&hideBody"
       />
       <div :style="genBackground()" class="transition-standard">
         <div :style="genBackgroundFilter()" class="transition-inherit">
+          <!--TODO 按需路由-->
           <Preview
               :title=post.title
               :summary=summary
+              :class="{'cursor-pointer':hideBody}"
+              @click="$router.push('/'+post.id)"
               v-if=post.title
           >
             <template v-slot:title-right-slot>

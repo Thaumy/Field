@@ -12,19 +12,19 @@
             :style="commonOpacityStyle"
         />
 
-        <router-view v-slot="{ Component }" class="right-part float-right">
+        <router-view
+            class="right-part float-right"
+            v-slot="{Component,route}"
+        >
           <transition name="router-view">
-            <component :is="Component"/>
+            <keep-alive>
+              <component :is="Component" :key="route.path"/>
+            </keep-alive>
           </transition>
         </router-view>
 
         <!--
-            :data-collection="post_data"
-        <PostZone
-            class="right-part float-right"
-            :data-collection="[post_data[4]]"
             :style="commonOpacityStyle"
-        />
         -->
       </div>
 
@@ -32,20 +32,22 @@
 
     </v-main>
 
-    <PageFoot
-        id="page-foot"
-        body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
-              Thaumy'Blog 2016-2023<br>
-              <a href='http://beian.miit.gov.cn/'
-                 target='_blank'
-                 style='color: rgba(255,255,255,0.6);
-                        font-size: 0.7rem;
-                        text-decoration: none;'
-              >鲁ICP备2021005067</a>"
-        style="margin: 20px;margin-top: 80px"
-        :style="pageFootOpacityStyle"
-    />
-
+    <!--
+        <PageFoot
+            body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
+                  Thaumy'Blog 2016-2023<br>
+                  <a href='http://beian.miit.gov.cn/'
+                     target='_blank'
+                     style='color: rgba(255,255,255,0.6);
+                            font-size: 0.7rem;
+                            text-decoration: none;'
+                  >鲁ICP备2021005067</a>"
+            style="margin: 20px;margin-top:300px"
+            :style="pageFootOpacityStyle"
+            @fully-visible="pageFootFullyVisible()"
+            @fully-invisible="pageFootFullyInvisible()"
+        />
+    -->
   </v-app>
 </template>
 
@@ -77,34 +79,19 @@ const pageFootOpacityStyle = ref({
   transition: 'all 0.2s ease'
 })
 
-/* 滑到底部查看壁纸 */
-/*
-onMounted(() => {
-  const handler = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach(entry => {
-      if (entry.intersectionRatio > 0.9) {
-        commonOpacityStyle.value.opacity = 0
-        commonOpacityStyle.value["pointer-events"] = 'none'
-        pageFootOpacityStyle.value.opacity = 1
-        pageFootOpacityStyle.value["pointer-events"] = 'unset'
-      } else if (entry.intersectionRatio < 0.1) {
-        commonOpacityStyle.value.opacity = 1
-        commonOpacityStyle.value["pointer-events"] = 'unset'
-        pageFootOpacityStyle.value.opacity = 0
-        pageFootOpacityStyle.value["pointer-events"] = 'none'
-      }
-    })
-  }
+function pageFootFullyVisible() {
+  commonOpacityStyle.value.opacity = 0
+  commonOpacityStyle.value["pointer-events"] = 'none'
+  pageFootOpacityStyle.value.opacity = 1
+  pageFootOpacityStyle.value["pointer-events"] = 'unset'
+}
 
-  let target =
-      document.querySelector('#page-foot')
-  if (target)
-    new IntersectionObserver(handler, {
-      root: null,
-      rootMargin: '0px',
-      threshold: [0, 1]
-    }).observe(target)
-})*/
+function pageFootFullyInvisible() {
+  commonOpacityStyle.value.opacity = 1
+  commonOpacityStyle.value["pointer-events"] = 'unset'
+  pageFootOpacityStyle.value.opacity = 0
+  pageFootOpacityStyle.value["pointer-events"] = 'none'
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -125,7 +112,7 @@ onMounted(() => {
 
 .router-view-enter-active
 .router-view-leave-active
-  transition all 0.2s ease
+  transition all 2s ease
 
 /* 屏幕宽度 [ 1001  + ) */
 @media (min-width 1001px)
