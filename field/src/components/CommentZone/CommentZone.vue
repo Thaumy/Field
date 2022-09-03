@@ -9,25 +9,26 @@
 
         <!-- TODO 此实现有缺陷，当收起动画未完成时，回复仍然有效。并且不能适应后期缩放 -->
         <f-slider
-            ref="replyTargetZone"
-            :after-closed="()=>{this.replyTarget=postId}"
+            ref="replyTargetSlider"
+            :after-closed="()=>{this.replyTarget=this.props.postId}"
         >
           <div
               class="reply-target-zone"
               key="reply-target-zone"
           >
             <div class="reference-bar"/>
+
             <CommentCard
                 class="reference-filter"
-                :comment="getCommentById(replyTarget)"
-                :disable-reply=true
+                :comment="getCommentByIdIn(replyTarget,comments)"
+                :disable-reply="true"
             >
               <template #user-name-right-end-slot>
                 <v-icon
                     icon="mdi-close"
                     size="x-small"
                     color="grey"
-                    @click="$refs.replyTargetZone.close()"
+                    @click="$refs.replyTargetSlider.close()"
                 />
               </template>
             </CommentCard>
@@ -46,12 +47,12 @@
                 name="comment-card"
                 :comment='comment'
                 :enable-reply='replyTarget!==comment.id'
-                @reply-click="replyTo(comment);expandReference(index)"
+                @reply-click="replyTarget=comment.id;expandReference(index)"
             >
               <template #body-top-slot v-if="comment.replyTo!==postId">
                 <f-text-render
                     name="comment-card-reply"
-                    :text="genReplyReference(getCommentById(comment.replyTo))"
+                    :text="genReplyReference(getCommentByIdIn(comment.replyTo,comments))"
                 />
               </template>
             </CommentCard>
@@ -65,16 +66,17 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import {PropType, ref} from "vue"
+<script lang="ts" setup>
+import {PropType, Ref, ref} from "vue"
 import {Comment} from "@/scripts/type/comment"
 import CommentEditor from './CommentEditor.vue'
 import CommentCard from './CommentCard.vue'
 import FSlider from "@/components/field/f-slider.vue"
 import FCard from "@/components/field/f-card.vue"
 import FDivider from "@/components/field/f-divider.vue"
-import FTextRender from "@/components/field/f-text-render.vue";
-import {formatToDateTime} from "@/scripts/util/time";
+import FTextRender from "@/components/field/f-text-render.vue"
+import {formatToDateTime} from "@/scripts/util/time"
+import {getCommentByIdIn} from "@/scripts/data/comment"
 
 const props = defineProps({
   postId: Number,
@@ -86,32 +88,24 @@ const props = defineProps({
 
 const replyTarget = ref(props.postId)
 
-function getCommentById(id: Number) {
-  return props.comments.filter(x => x.id === id)[0]
-}
-
 const genReplyReference = (comment: Comment) =>
     '<blockquote style="font-size:0.8rem;margin-bottom:0.2rem">' +
     comment.user + ` (于${formatToDateTime(comment.createTime)}):<br>` +
     comment.body +
     '</blockquote>'
 
-function replyTo(comment: Comment) {
-  replyTarget.value = comment.id;
-}
-
-const replyTargetZone = ref()
+const replyTargetSlider = ref()
 const commentList = ref()
 
 function expandReference(index: number) {
+
   //TODO 此实现超级不优雅！！！
   const card = commentList.value[index].children.namedItem('comment-card')
-  const blockQuote = card.children[0].children[4].children.namedItem('comment-card-reply')
-
+  const blockQuote = card.children[0].children[3].children.namedItem('comment-card-reply')
   if (blockQuote !== null)
-    replyTargetZone.value.expand(card.offsetHeight - blockQuote.offsetHeight)
+    replyTargetSlider.value.expand(card.offsetHeight - blockQuote.offsetHeight)
   else
-    replyTargetZone.value.expand(card.offsetHeight)
+    replyTargetSlider.value.expand(card.offsetHeight)
 }
 </script>
 

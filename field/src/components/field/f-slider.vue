@@ -26,7 +26,7 @@ const props = defineProps({
 })
 
 const render = ref(false)
-const style = ref<{ top: string, height: string, opacity: number }>(null)
+const style = ref<{ top: string, height: string, opacity: number }>()
 const latestHeight = ref(0)
 
 defineExpose({

@@ -13,11 +13,11 @@
           <v-icon icon="mdi-format-bold" @click="body+='**bold**'"/>
           <v-icon icon="mdi-format-italic" @click="body+='_italic_'"/>
           <v-icon icon="mdi-format-strikethrough" @click="body+='~lineThrough~'"/>
-          <v-icon icon="mdi-format-quote-open" @click="body+='> reference'"/>
+          <v-icon icon="mdi-format-quote-open" @click="body+='\n> reference'"/>
           <v-icon icon="mdi-code-tags" @click="body+='`code`'"/>
-          <v-icon icon="mdi-format-list-checks" @click="body+=' [x] todo'"/>
-          <v-icon icon="mdi-format-list-bulleted" @click="body+='- item'"/>
-          <v-icon icon="mdi-format-list-numbered" @click="body+='1. item'"/>
+          <v-icon icon="mdi-format-list-checks" @click="body+='\n [x] todo'"/>
+          <v-icon icon="mdi-format-list-bulleted" @click="body+='\n- item'"/>
+          <v-icon icon="mdi-format-list-numbered" @click="body+='\n1. item'"/>
           <v-icon icon="mdi-link-variant" @click="body+='[description](url)'"/>
         </div>
       </div>
@@ -129,7 +129,6 @@ _italic_
   grid-template-rows auto auto auto
   border-radius 2px
   padding 4px
-  padding-top 2px
 
 .mode-tabs
   margin-left 8px

@@ -5,7 +5,6 @@
          @mouseover="showReplyBtn()"
          @mouseleave="hideReplyBtn()"
     >
-
       <div class="avatar-zone">
         <v-avatar
             class="user-avatar"
@@ -14,7 +13,7 @@
             size="32"
             @click="blankUrl(comment.siteUrl)"
         >
-          <v-img :src="avatar" cover="true"/>
+          <img :src="comment.avatarUrl" alt="_" style="width:100%"/>
         </v-avatar>
         <v-icon
             class="web-icon"
@@ -46,10 +45,6 @@
 
       <div class="create-time">{{ formatToDateTime(comment.createTime) }}</div>
 
-      <div class="body-left-slot">
-        <slot name="body-left-slot"/>
-      </div>
-
       <div class="body">
         <slot name="body-top-slot"/>
         <f-text-render :text="comment.body"/>
@@ -74,8 +69,6 @@ defineProps({
     default: false
   }
 })
-
-const avatar = new URL('../../assets/comment_user_avatars/kurumi.jpg', import.meta.url).href
 
 const replyBtnVisibility = ref(false)
 
