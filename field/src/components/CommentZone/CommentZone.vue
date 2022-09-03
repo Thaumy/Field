@@ -2,7 +2,7 @@
   <div>
 
     <f-card
-        class="margin-bottom border-radius-all border-line"
+        class="border-radius-all border-line"
         style="overflow: hidden"
     >
       <transition-group name="comment-zone">

@@ -122,7 +122,7 @@ function genBackgroundFilter() {
   if (props.coverUrl)
     return {
       'backdrop-filter': 'blur(10px)',
-      'background-color': 'rgba(var(--v-theme-background),var(--v-high-emphasis-opacity))'
+      'background-color': 'rgba(var(--v-theme-background),0.82)'
     }
   else {
     if (props.post?.body)
