@@ -13,6 +13,8 @@
           :isArchive="data.isArchive"
           :isSchedule="data.isSchedule"
           :topics="data.topics"
+          class="cursor-pointer"
+          @click="$router.push('/'+data.post.id)"
       />
     </div>
     <div v-else>

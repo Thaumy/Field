@@ -5,6 +5,10 @@ import {Topic} from "@/scripts/type/topic";
 import {Comment} from "@/scripts/type/comment";
 import {comments} from "@/scripts/data/comment";
 
+export function getPostById(id: number) {
+    return post_data.value.filter(x => x.post.id === id)[0]
+}
+
 //TODO view count chip? impl
 export const post_data = ref([
     <PostFullData>{
