@@ -1,25 +1,25 @@
 <template>
   <div>
 
-    <div class="holder">
-      <div class="prev-btn cursor-pointer">
-        <v-btn
+    <div class="holder border-radius-all">
+      <div class="prev-chip cursor-pointer">
+        <v-chip
             prepend-icon="mdi-chevron-left"
-            color="surface"
-            flat=""
+            color="primary"
+            variant="text"
         >
           {{ prev }}
-        </v-btn>
+        </v-chip>
       </div>
 
-      <div class="next-btn cursor-pointer">
-        <v-btn
+      <div class="next-chip cursor-pointer">
+        <v-chip
             append-icon="mdi-chevron-right"
-            color="surface"
-            flat=""
+            color="primary"
+            variant="text"
         >
           {{ next }}
-        </v-btn>
+        </v-chip>
       </div>
     </div>
 
@@ -30,22 +30,24 @@
 import {defineProps} from "vue";
 
 defineProps({
-  prev: String,
-  next: String
+  prev: {type: String, default: null},
+  next: {type: String, default: null},
 })
 </script>
 
 <style lang="stylus" scoped>
 .holder
+  backdrop-filter blur(20px)
   display flex
   justify-content end
   flex-flow wrap
 
-.prev-btn
+.prev-chip
   margin-right auto
 
-.prev-btn
-.next-btn
-  color rgba(1 153 255 1)
-
+@css {
+  .holder {
+    background-color: rgba(var(--v-theme-background), 0.7)
+  }
+}
 </style>
