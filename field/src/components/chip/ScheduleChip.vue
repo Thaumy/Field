@@ -5,7 +5,7 @@
         class="schedule-chip"
         color="blue"
         size="small"
-        @click="toggleSnackbar()"
+        @click.stop="toggleSnackbar()"
     >
       <v-icon icon="mdi-calendar-check"></v-icon>
     </v-chip>

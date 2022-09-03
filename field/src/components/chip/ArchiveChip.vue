@@ -5,7 +5,7 @@
         class="archive-chip"
         color="orange"
         size="small"
-        @click="toggleSnackbar()"
+        @click.stop="toggleSnackbar()"
     >
       <v-icon icon="mdi-archive"/>
     </v-chip>
