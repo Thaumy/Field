@@ -1,5 +1,5 @@
 <template>
-  <v-app class="main">
+  <v-app>
 
     <v-main>
 
@@ -12,37 +12,40 @@
             :style="commonOpacityStyle"
         />
 
-        <router-view
-            class="right-part float-right"
-            v-slot="{Component,route}"
-            :style="commonOpacityStyle"
-        >
-          <!--TODO keep-alive设计-->
-          <transition name="router-view">
-            <component :is="Component" :key="route.path"/>
-          </transition>
-        </router-view>
+        <!--:style="commonOpacityStyle"-->
+        <div class="right-part">
+          <router-view
+              v-slot="{Component,route}"
+          >
+            <transition name="router-view">
+              <keep-alive>
+                <component :is="Component" :key="route.path"/>
+              </keep-alive>
+            </transition>
+          </router-view>
+        </div>
 
       </div>
 
       <FixedBtnZone :style="commonOpacityStyle"/>
 
     </v-main>
-
-    <PageFoot
-        body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
-                  Thaumy'Blog 2016-2023<br>
-                  <a href='http://beian.miit.gov.cn/'
-                     target='_blank'
-                     style='color: rgba(255,255,255,0.6);
-                            font-size: 0.7rem;
-                            text-decoration: none;'
-                  >鲁ICP备2021005067</a>"
-        style="margin: 20px;margin-top:80vh"
-        :style="pageFootOpacityStyle"
-        @fully-visible="pageFootFullyVisible()"
-        @fully-invisible="pageFootFullyInvisible()"
-    />
+    <!--
+        <PageFoot
+            body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
+                      Thaumy'Blog 2016-2023<br>
+                      <a href='http://beian.miit.gov.cn/'
+                         target='_blank'
+                         style='color: rgba(255,255,255,0.6);
+                                font-size: 0.7rem;
+                                text-decoration: none;'
+                      >鲁ICP备2021005067</a>"
+            style="margin: 20px;margin-top:80vh"
+            :style="pageFootOpacityStyle"
+            @fully-visible="pageFootFullyVisible()"
+            @fully-invisible="pageFootFullyInvisible()"
+        />
+    -->
   </v-app>
 </template>
 
@@ -92,12 +95,6 @@ function pageFootFullyInvisible() {
 
 <style lang="stylus" scoped>
 
-.main
-  background url("@/assets/pc.jpg")
-  background-size cover
-  background-position center
-  background-attachment fixed
-
 .content
   margin auto
   max-width 1200px
@@ -105,12 +102,19 @@ function pageFootFullyInvisible() {
   grid-template-columns 22% 7px auto
 
 .router-view-enter-from
-.router-view-leave-to
-  opacity 0
+  transform translateX(50px) rotate(1deg)
+  transform-origin 0 400vh
 
-.router-view-enter-active
 .router-view-leave-active
-  transition all 2s ease
+.router-view-enter-active
+  transition all 0.3s ease
+
+//transition all 0.5s ease
+
+.router-view-leave-to
+  transform translateX(30px) translateY(30px)
+  height 0
+  opacity 0
 
 /* 屏幕宽度 [ 1001  + ) */
 @media (min-width 1001px)
