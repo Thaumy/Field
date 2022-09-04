@@ -15,26 +15,22 @@
         <router-view
             class="right-part float-right"
             v-slot="{Component,route}"
+            :style="commonOpacityStyle"
         >
+          <!--TODO keep-alive设计-->
           <transition name="router-view">
-            <keep-alive>
-              <component :is="Component" :key="route.path"/>
-            </keep-alive>
+            <component :is="Component" :key="route.path"/>
           </transition>
         </router-view>
 
-        <!--
-            :style="commonOpacityStyle"
-        -->
       </div>
 
       <FixedBtnZone :style="commonOpacityStyle"/>
 
     </v-main>
 
-    <!--
-        <PageFoot
-            body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
+    <PageFoot
+        body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
                   Thaumy'Blog 2016-2023<br>
                   <a href='http://beian.miit.gov.cn/'
                      target='_blank'
@@ -42,30 +38,30 @@
                             font-size: 0.7rem;
                             text-decoration: none;'
                   >鲁ICP备2021005067</a>"
-            style="margin: 20px;margin-top:300px"
-            :style="pageFootOpacityStyle"
-            @fully-visible="pageFootFullyVisible()"
-            @fully-invisible="pageFootFullyInvisible()"
-        />
-    -->
+        style="margin: 20px;margin-top:80vh"
+        :style="pageFootOpacityStyle"
+        @fully-visible="pageFootFullyVisible()"
+        @fully-invisible="pageFootFullyInvisible()"
+    />
   </v-app>
 </template>
 
 <script lang="ts" setup>
-import {onMounted, ref} from 'vue'
-import GoUpBtn from "@/components/btn/GoUpBtn.vue";
-import PageFoot from "@/components/common/PageFoot.vue";
-import {Post} from "@/scripts/type/post";
-import PostZone from "@/components/PostZone/PostZone.vue";
-import Menu from "@/components/Menu/Menu.vue";
-import MenuBar from "@/components/MenuBar/MenuBar.vue";
-import {Comment} from "@/scripts/type/comment";
-import {Topic} from "@/scripts/type/topic";
-import SwitchBtn from "@/components/btn/SwitchZone.vue";
-import FixedBtnZone from "@/components/btn/FixedBtnZone.vue";
-import {post_data} from "@/scripts/data/post"
+import {onBeforeMount, onMounted, ref} from 'vue'
+import PageFoot from "@/components/common/PageFoot.vue"
+import Menu from "@/components/Menu/Menu.vue"
+import MenuBar from "@/components/MenuBar/MenuBar.vue"
+import FixedBtnZone from "@/components/btn/FixedBtnZone.vue"
 import {menu_posts} from "@/scripts/data/menu"
-import {comments} from "@/scripts/data/comment"
+import {useTheme} from "vuetify"
+
+onBeforeMount(() => {
+  const theme = useTheme()
+  const nowHour = new Date().getHours()
+  //7-18点启用light主题
+  theme.global.name.value =
+      nowHour > 7 && nowHour < 18 ? 'fieldLight' : 'fieldDark'
+})
 
 const commonOpacityStyle = ref({
   opacity: 1,
@@ -104,7 +100,9 @@ function pageFootFullyInvisible() {
 
 .content
   margin auto
-  max-width 1160px
+  max-width 1200px
+  display grid
+  grid-template-columns 22% 7px auto
 
 .router-view-enter-from
 .router-view-leave-to
@@ -118,7 +116,7 @@ function pageFootFullyInvisible() {
 @media (min-width 1001px)
   .content
     padding-top 8px
-    width 99%
+    width 100%
 
 /* 屏幕宽度 [ 601  1000 ] */
 @media (min-width 601px) and (max-width 1000px)
@@ -134,20 +132,22 @@ function pageFootFullyInvisible() {
 /* 屏幕宽度 [ 1001 , + ) */
 @media (min-width: 1001px)
   .right-part
-    width 76%
-    max-width 1100px
+    width 100%
+    grid-column-start 3
+    grid-column-end 4
 
 /* 屏幕宽度 ( - , 1000 ] */
 @media (max-width: 1000px)
   .right-part
     width 100%
+    grid-column-start 1
+    grid-column-end 4
 
 /* 屏幕宽度 [ 1001 , + ) */
 @media (min-width: 1001px)
   .left-part
-    width 23%
-    min-width 230px
-    max-width 270px
+    width 22%
+    max-width 264px //1200*0.22
     position fixed
 
 /* 屏幕宽度 ( - , 1000 ] */
