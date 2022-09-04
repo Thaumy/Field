@@ -9,7 +9,10 @@ import {post_data} from "@/scripts/data/post";
 import {getPostById} from "@/scripts/data/post";
 
 export default createRouter({
-    scrollBehavior: () => ({top: 0}),
+    scrollBehavior: () => ({
+        top: 0,
+        behavior: 'smooth'
+    }),
     history: createWebHistory(),
     routes: [
         {
