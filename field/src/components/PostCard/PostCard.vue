@@ -1,19 +1,25 @@
 <template>
   <div>
 
-    <f-card class="margin-bottom">
-
-      <v-img
-          :eager=true
+    <f-card
+        class="margin-bottom"
+    >
+      <img
+          alt="_"
+          style="width:100%;display:block"
           :src="coverUrl"
-          v-if="coverUrl&&!post.body"
+          class="cursor-pointer"
+          @click="$router.push('/'+post.id)"
+          v-if="coverUrl&&hideBody"
       />
       <div :style="genBackground()" class="transition-standard">
         <div :style="genBackgroundFilter()" class="transition-inherit">
+          <!--TODO 按需路由-->
           <Preview
-
               :title=post.title
               :summary=summary
+              :class="{'cursor-pointer':hideBody}"
+              @click="$router.push('/'+post.id)"
               v-if=post.title
           >
             <template v-slot:title-right-slot>
@@ -41,7 +47,7 @@
             </template>
 
             <template v-slot:bottom-slot v-else>
-              <ReadTimeBar :target-text="post.body"/>
+              <ReadTimeBar :target-text="post.body" v-if="post.body&&!hideBody"/>
             </template>
           </Preview>
         </div>
@@ -51,7 +57,7 @@
           :body="post.body"
           :create-time="post.createTime"
           :modify-time="post.modifyTime"
-          v-if="post.body"
+          v-if="post.body&&!hideBody||!post.title"
       >
       <template v-slot:bottom-slot>
         <div class="flex" style="flex-wrap: wrap">
@@ -77,18 +83,18 @@
 import {defineProps, onMounted, PropType} from "vue";
 import {secTimespan} from "@/scripts/util/time";
 import ScheduleChip from "@/components/chip/ScheduleChip.vue";
-import ReadTimeBar from "@/components/PostZone/ReadTimeBar.vue";
+import ReadTimeBar from "@/components/PostCard/ReadTimeBar.vue";
 import ArchiveChip from "@/components/chip/ArchiveChip.vue";
 import TopicChip from "@/components/chip/TopicChip.vue";
 import ModifyTimeChip from "@/components/chip/ModifyTimeChip.vue";
 import CreateTimeChip from "@/components/chip/CreateTimeChip.vue";
 import Preview from "./Preview.vue";
-import Body from "@/components/PostZone/Body.vue";
+import Body from "@/components/PostCard/Body.vue";
 import FCard from "@/components/field/f-card.vue";
 import {Post} from "@/scripts/type/post";
 import CommentCountChip from "@/components/chip/CommentCountChip.vue";
 import {Topic} from "@/scripts/type/topic";
-import {PostCardData} from "@/components/PostZone/type";
+import {Comment} from "@/scripts/type/comment";
 
 const props = defineProps({
   post: Object as PropType<Post>,
@@ -104,30 +110,28 @@ const props = defineProps({
   commentCount: Number,
   isArchive: Boolean,
   isSchedule: Boolean,
-  prevTitle: {
-    type: String,
-    default: null
-  },
-  nextTitle: {
-    type: String,
-    default: null
-  },
   topics: {
     type: Object as PropType<Topic[]>,
     default: <Topic[]>[]
+  },
+  hideBody: {
+    type: Boolean,
+    default: false
   }
 })
+
+//defineEmits<{ (e: 'postClick', post: Post): void }>()
 
 function genBackgroundFilter() {
   if (props.coverUrl)
     return {
-      'backdrop-filter': 'blur(10px)',
+      'backdrop-filter': 'blur(10px) brightness(1.2)',
       'background-color': 'rgba(var(--v-theme-background),0.82)'
     }
   else {
-    if (props.post?.body)
+    if (props.post?.body && !props.hideBody)
       return {
-        'backdrop-filter': 'invert(0.03)'
+        'backdrop-filter': 'invert(0.05)'
       }
     else
       return {}
@@ -136,7 +140,7 @@ function genBackgroundFilter() {
 
 function genBackground() {
   const coverUrl = props.coverUrl
-  const body = props.post?.body
+  const body = props.post?.body && !props.hideBody
 
   if (coverUrl)
     return {

@@ -44,20 +44,19 @@ defineProps({
 <style lang="stylus" scoped>
 
 .drawer
-  z-index 3
-
   width 242px
   height 100%
 
   left 0
+  z-index 3
   position fixed
   grid-template-rows 86% 14%
 
-  backdrop-filter saturate(180%) blur(20px)
+  backdrop-filter saturate(200%) blur(24px)
 
 @css {
   .drawer {
-    background: rgba(var(--v-theme-background), var(--v-medium-emphasis-opacity));
+    background: rgba(var(--v-theme-background), 0.6);
   }
 }
 

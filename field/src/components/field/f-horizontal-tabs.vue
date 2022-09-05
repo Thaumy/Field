@@ -1,20 +1,21 @@
 <template>
   <div>
 
-    <div class="f-horizontal-tabs">
+    <div class="tab-list">
       <transition-group name="bar">
         <div
             class="bar"
-            key="bar"
-            style="grid-row-start: 1"
-            :style="{'grid-column-start':barPosition}"
-            v-if="doubleBar"
+            key=""
+            style="grid-row-start:1"
+            :style="{'grid-column-start':barPosition+1}"
+            v-if="doubleBar&&barPosition>=0"
         />
         <div
             class="bar"
-            key="bar"
-            style="grid-row-start: 3"
-            :style="{'grid-column-start':barPosition}"
+            key=""
+            style="grid-row-start:3"
+            :style="{'grid-column-start':barPosition+1}"
+            v-if="barPosition>=0"
         />
       </transition-group>
 
@@ -22,13 +23,13 @@
         <div
             class="tab"
             v-for="(tab,index) in tabs"
+            :key="tab"
             v-ripple
             v-ripple.stop="!tab.disabled"
-            style="grid-row-start: 2"
             :style="{'grid-column-start':index+1,
                       color:tab.disabled?'grey':'',
                       cursor:tab.disabled?'default':'pointer'}"
-            @click="tabClick(tab,index)"
+            @click="$emit('tabClick',tab,index)"
         >
           {{ tab.title }}
         </div>
@@ -39,28 +40,20 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, defineProps, PropType} from "vue";
-import {Tab} from "@/components/field/type";
 
-const emits = defineEmits<{ (e: 'tabClick', tab: Tab): void }>()
+import {ref, defineProps, PropType, onMounted} from "vue"
+import {Tab} from "@/components/field/type"
+
+const emits = defineEmits<{
+  (e: 'tabClick', tab: Tab, index: number): void
+}>()
 
 const props = defineProps({
   tabs: Object as PropType<Tab[]>,
-  doubleBar: {
-    type: Boolean,
-    default: false
-  }
+  doubleBar: Boolean,
+  barPosition: Number
 })
 
-const barPosition = ref(1)
-
-function tabClick(tab: Tab, index: number) {
-  if (tab.disabled)
-    return
-
-  emits('tabClick', tab)
-  barPosition.value = index + 1//toggleBar
-}
 </script>
 
 <style lang="stylus" scoped>
@@ -72,6 +65,7 @@ function tabClick(tab: Tab, index: number) {
   padding-right 4px
   margin-left 2px
   margin-right 2px
+  grid-row-start 2
 
 @css {
   .tab {
@@ -79,7 +73,7 @@ function tabClick(tab: Tab, index: number) {
   }
 }
 
-.f-horizontal-tabs
+.tab-list
   display grid
 
 .bar
@@ -94,6 +88,14 @@ function tabClick(tab: Tab, index: number) {
   }
 }
 
+.tab-enter-from
+.tab-leave-to
+.bar-leave-to
+  opacity 0
+
+.bar-enter-from
+  transform scaleX(0.5)
+
 .tab-move
 .tab-enter-active
 .tab-leave-active
@@ -101,15 +103,5 @@ function tabClick(tab: Tab, index: number) {
 .bar-enter-active
 .bar-leave-active
   transition all 0.2s ease
-
-.tab-enter-from
-.tab-leave-to
-.bar-enter-from
-.bar-leave-to
-  opacity 0
-
-.bar-enter-from
-.bar-leave-to
-  transform scaleX(0.1)
 
 </style>

@@ -3,16 +3,19 @@
 
     <div class="tab-list">
       <transition-group name="bar">
-        <div class="bar"
-             key="bar"
-             style="grid-column-start:1"
-             :style="{'grid-row-start':barPosition}"
+        <div
+            class="bar"
+            key=""
+            style="grid-column-start:1"
+            :style="{'grid-row-start':barPosition+1}"
+            v-if="barPosition>=0"
         />
-        <div class="bar"
-             key="bar"
-             style="grid-column-start:3"
-             :style="{'grid-row-start':barPosition}"
-             v-if="doubleBar"
+        <div
+            class="bar"
+            key=""
+            style="grid-column-start:3"
+            :style="{'grid-row-start':barPosition+1}"
+            v-if="doubleBar&&barPosition>=0"
         />
       </transition-group>
 
@@ -20,14 +23,13 @@
         <div
             class="tab"
             v-for="(tab,index) in tabs"
-            :style="{'grid-row-start':index+1,
-                      color:tab.disabled?'grey':'',
-                      cursor:tab.disabled?'default':'pointer'}"
-            :title="tab.title"
             :key="tab"
             v-ripple
             v-ripple.stop="!tab.disabled"
-            @click="tabClick(tab,index)"
+            :style="{'grid-row-start':index+1,
+                      color:tab.disabled?'grey':'',
+                      cursor:tab.disabled?'default':'pointer'}"
+            @click="$emit('tabClick',tab,index)"
         >
           <div class="tab-title">{{ tab.title }}</div>
         </div>
@@ -38,28 +40,20 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, defineProps, PropType} from "vue";
-import {Tab} from "@/components/field/type";
 
-const emits = defineEmits<{ (e: 'tabClick', tab: Tab): void }>()
+import {ref, defineProps, PropType, watch} from "vue"
+import {Tab} from "@/components/field/type"
+
+const emits = defineEmits<{
+  (e: 'tabClick', tab: Tab, index: number): void
+}>()
 
 const props = defineProps({
   tabs: Object as PropType<Tab[]>,
-  doubleBar: {
-    type: Boolean,
-    default: false
-  }
+  doubleBar: Boolean,
+  barPosition: Number
 })
 
-const barPosition = ref(1)
-
-function tabClick(tab: Tab, index: number) {
-  if (tab.disabled)
-    return
-
-  emits('tabClick', tab)
-  barPosition.value = index + 1//toggleBar
-}
 </script>
 
 <style lang="stylus" scoped>
@@ -79,6 +73,14 @@ function tabClick(tab: Tab, index: number) {
   }
 }
 
+.tab-enter-from
+.tab-leave-to
+.bar-leave-to
+  opacity 0
+
+.bar-enter-from
+  transform scaleY(0.5)
+
 .tab-move
 .tab-enter-active
 .tab-leave-active
@@ -86,19 +88,6 @@ function tabClick(tab: Tab, index: number) {
 .bar-enter-active
 .bar-leave-active
   transition all 0.2s ease
-
-.tab-enter-from
-.tab-leave-to
-.bar-enter-from
-.bar-leave-to
-  opacity 0
-
-.bar-enter-from
-.bar-leave-to
-  transform scaleY(0.1)
-
-.bar-leave-active
-  position absolute
 
 .tab
   display flex

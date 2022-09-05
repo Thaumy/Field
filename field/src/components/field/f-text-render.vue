@@ -28,7 +28,7 @@ defineProps({
   text: String
 })
 
-const textRenderZone: Ref<HTMLElement | null> = ref(null)
+const textRenderZone = ref()
 const theme = useTheme()
 
 function genClass() {
