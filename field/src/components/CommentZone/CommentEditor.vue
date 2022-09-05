@@ -6,7 +6,8 @@
       <div class="editor-header">
         <f-tabs
             class="mode-tabs"
-            :tabs="genTabs(body)"
+            :tabs="genTabs"
+            :bar-position="currentMode"
             @tab-click="ev=>toggleMode(ev.mode)"
         />
         <div class="tools">
@@ -68,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, ref} from "vue";
+import {defineProps, ref, watch} from "vue";
 import {Tab} from "@/components/field/type";
 import {marked} from "marked"
 import FTabs from "@/components/field/f-tabs.vue";
@@ -84,12 +85,26 @@ defineProps({
 
 enum Mode {Edit = 0, Preview = 1}
 
-const genTabs = (body: string) => [
-  <Tab><unknown>{title: '编辑', mode: Mode.Edit},
-  <Tab><unknown>{title: '预览', disabled: (body === ""), mode: Mode.Preview}
-]
-
 const body = ref("")
+
+const genTabs = ref([
+  <Tab><unknown>{title: '编辑', mode: Mode.Edit},
+  <Tab><unknown>{title: '预览', disabled: true, mode: Mode.Preview}
+])
+watch(body, body => {
+  if (body.length > 0) {
+    genTabs.value = [
+      <Tab><unknown>{title: '编辑', mode: Mode.Edit},
+      <Tab><unknown>{title: '预览', disabled: true, mode: Mode.Preview}
+    ]
+  } else {
+    genTabs.value = [
+      <Tab><unknown>{title: '编辑', mode: Mode.Edit},
+      <Tab><unknown>{title: '预览', disabled: false, mode: Mode.Preview}
+    ]
+  }
+})
+
 const currentMode = ref(Mode.Edit)
 
 const bodyRenderResult = ref('')

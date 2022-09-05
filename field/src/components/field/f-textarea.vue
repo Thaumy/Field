@@ -21,7 +21,7 @@ const props = defineProps({
   modelValue: String
 })
 
-const emit = defineEmits(['update:modelValue'])
+defineEmits(['update:modelValue'])
 
 function genColor() {
   if (useTheme().global.current.value.dark)

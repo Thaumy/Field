@@ -21,7 +21,13 @@
             '又一个码农的家...']"
       />
 
-      <f-tabs vertical double-bar :tabs="tabs"/>
+      <f-tabs
+          vertical
+          double-bar
+          router-binding
+          :tabs="tabs"
+          @tab-click="(_tab)=>$router.push(_tab.route)"
+      />
 
       <About info="Thaumy's Blog©2016-2023<br>About Site" v-ripple/>
 
@@ -31,21 +37,23 @@
 </template>
 
 <script lang="ts" setup>
-import {defineProps, PropType, ref} from "vue";
-import About from "./About.vue";
-import Info from "./Info.vue";
-import Avatar from "./Avatar.vue";
-import {Post} from "@/scripts/type/post";
-import FCard from "@/components/field/f-card.vue";
-import FTabs from "@/components/field/f-tabs.vue";
-import {Tab} from "@/components/field/type";
-import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue";
+
+import {defineProps, PropType, ref} from "vue"
+import About from "./About.vue"
+import Info from "./Info.vue"
+import Avatar from "./Avatar.vue"
+import FCard from "@/components/field/f-card.vue"
+import FTabs from "@/components/field/f-tabs.vue"
+import {Tab} from "@/components/field/type"
+import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
 
 const props = defineProps({
-  posts: Object as PropType<Post[]>
+  tabs: {
+    type: Object as PropType<Tab[]>,
+    default: []
+  }
 })
-const tabs = <Tab[]><unknown[]>props.posts
-//TODO show post by tab
+
 </script>
 
 <style lang="stylus" scoped>

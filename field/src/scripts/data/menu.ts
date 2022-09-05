@@ -1,12 +1,11 @@
-import {ref} from "vue";
-import {Post} from "@/scripts/type/post";
+import {ref} from "vue"
+import {Tab} from "@/components/field/type"
 
-export const menu_posts = ref([
-    <Post>{id: 12345, title: '首页'},
-    <Post>{id: 12346, title: '摸摸鱼'},
-    <Post>{id: 12347, title: '追番'},
-    <Post>{id: 12348, title: '看书'},
-    <Post>{id: 12349, title: '写代码'},
-    <Post>{id: 12350, title: '睡大觉'}
+export const menu_tabs = ref([
+    <Tab><unknown>{title: '首页', route: '\/'},
+    <Tab><unknown>{title: '摸摸鱼', route: '\/12343'},
+    <Tab><unknown>{title: '追番', route: '\/12344'},
+    <Tab><unknown>{title: '看书', route: '\/12345'},
+    <Tab><unknown>{title: '睡大觉', route: '\/12346'},
 ])
 
