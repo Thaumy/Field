@@ -5,7 +5,12 @@
         class="preview"
     >
       <div class="title-flex" v-if="title">
-        <div class="title">{{ title }}</div>
+        <div
+            class="title cursor-pointer"
+            @click="$emit('titleClick')"
+        >
+          {{ title }}
+        </div>
 
         <div class="title-right-slot">
           <slot name="title-right-slot"/>
@@ -13,7 +18,12 @@
       </div>
 
       <div class="summary-flex" v-if="title&&summary">
-        <div class="summary">{{ summary }}</div>
+        <div
+            class="summary cursor-pointer"
+            @click="$emit('summaryClick')"
+        >
+          {{ summary }}
+        </div>
 
         <div class="summary-right-slot">
           <slot name="summary-right-slot"/>
@@ -29,6 +39,7 @@
 
 <script setup lang="ts">
 import {defineProps} from "vue";
+import {Comment} from "@/scripts/type/comment";
 
 let props = defineProps({
   title: String,
@@ -41,7 +52,7 @@ let props = defineProps({
 <style lang="stylus" scoped>
 
 .preview
-  padding 6px
+  padding 7px
   display grid
   grid-template-columns 100%
   grid-template-rows auto auto auto
@@ -50,7 +61,7 @@ let props = defineProps({
   display flex
   padding 2px
   padding-left 6px
-  justify-content space-between
+  justify-content end
 
 .summary-flex
   display flex
@@ -58,13 +69,14 @@ let props = defineProps({
   justify-content end
 
 .summary
-  font-size 0.9rem
   margin-right auto
   margin-bottom 10px
   padding-left 18px
+  font-size 0.9rem
   word-break break-all
 
 .title
+  margin-right auto
   font-size 1.4rem
   word-break break-all
 

@@ -41,7 +41,6 @@ onMounted(() => {
     threshold: [0, 1]
   }).observe(pageFoot.value)
 })
-
 </script>
 
 <style lang="stylus" scoped>
