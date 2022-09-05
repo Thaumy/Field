@@ -4,12 +4,21 @@
     <div class="comment-editor">
 
       <div class="editor-header">
+
         <f-tabs
+            v-slot="{tab}"
             class="mode-tabs"
-            :tabs="genTabs"
+            :tabs="modeTabs()"
             :bar-position="currentMode"
-            @tab-click="ev=>toggleMode(ev.mode)"
-        />
+        >
+          <f-tab
+              class="mode-tab"
+              :title="tab.title"
+              :disabled="tab.disabled"
+              @click="toggleMode(tab.mode)"
+          />
+        </f-tabs>
+
         <div class="tools">
           <v-icon icon="mdi-format-bold" @click="body+='**bold**'"/>
           <v-icon icon="mdi-format-italic" @click="body+='_italic_'"/>
@@ -75,6 +84,7 @@ import {marked} from "marked"
 import FTabs from "@/components/field/f-tabs.vue";
 import FTextarea from "@/components/field/f-textarea.vue";
 import FTextRender from "@/components/field/f-text-render.vue";
+import FTab from "@/components/field/f-tab.vue";
 
 defineProps({
   replyMode: {
@@ -87,23 +97,10 @@ enum Mode {Edit = 0, Preview = 1}
 
 const body = ref("")
 
-const genTabs = ref([
+const modeTabs = () => [
   <Tab><unknown>{title: '编辑', mode: Mode.Edit},
-  <Tab><unknown>{title: '预览', disabled: true, mode: Mode.Preview}
-])
-watch(body, body => {
-  if (body.length > 0) {
-    genTabs.value = [
-      <Tab><unknown>{title: '编辑', mode: Mode.Edit},
-      <Tab><unknown>{title: '预览', disabled: true, mode: Mode.Preview}
-    ]
-  } else {
-    genTabs.value = [
-      <Tab><unknown>{title: '编辑', mode: Mode.Edit},
-      <Tab><unknown>{title: '预览', disabled: false, mode: Mode.Preview}
-    ]
-  }
-})
+  <Tab><unknown>{title: '预览', mode: Mode.Preview, disabled: (body.value === '')}
+]
 
 const currentMode = ref(Mode.Edit)
 
@@ -148,6 +145,11 @@ _italic_
 .mode-tabs
   margin-left 8px
   align-self end
+
+.mode-tab
+  font-size 0.9rem
+  margin-left 4px
+  margin-right 4px
 
 .editor-header
   grid-row-start 1

@@ -25,11 +25,13 @@
 
     <Drawer
         :visibility="drawerVisibility"
-        :tabs="tabs"
+        :items="items"
         info=
             "Thaumy's Blog@2016-2023
              <br>About Site"
+        @tab-click="closeDrawer()"
     />
+
     <Shadow :visibility="drawerVisibility" @click="closeDrawer()"/>
 
   </div>
@@ -39,15 +41,12 @@
 import {onMounted, ref, PropType} from 'vue'
 import {makeDebounce} from "@/scripts/util/debounce";
 import Drawer from "./Drawer.vue";
-import {Post} from "@/scripts/type/post";
 import {Tab} from "@/components/field/type";
 import Shadow from "@/components/MenuBar/Shadow.vue";
 
-const props = defineProps({
-  posts: Object as PropType<Post[]>
-})
-
-const tabs = <Tab[]><unknown[]>props.posts
+const props = defineProps<{
+  items: Tab[]
+}>()
 
 const visibility = ref(true)
 const drawerVisibility = ref(false)
