@@ -25,9 +25,15 @@
           vertical
           double-bar
           router-binding
-          :tabs="tabs"
-          @tab-click="(_tab)=>$router.push(_tab.route)"
-      />
+          v-slot="{tab}"
+          :tabs="items"
+      >
+        <f-tab
+            class="menu-tab"
+            :title="tab.title"
+            @click="$router.push(tab.route)"
+        />
+      </f-tabs>
 
       <About info="Thaumy's Blog©2016-2023<br>About Site" v-ripple/>
 
@@ -46,9 +52,10 @@ import FCard from "@/components/field/f-card.vue"
 import FTabs from "@/components/field/f-tabs.vue"
 import {Tab} from "@/components/field/type"
 import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
+import FTab from "@/components/field/f-tab.vue";
 
 const props = defineProps({
-  tabs: {
+  items: {
     type: Object as PropType<Tab[]>,
     default: []
   }
@@ -57,5 +64,11 @@ const props = defineProps({
 </script>
 
 <style lang="stylus" scoped>
+
+.menu-tab
+  height 6vh
+  max-height 44px
+  min-height 28px
+  letter-spacing 1px
 
 </style>

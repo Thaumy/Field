@@ -3,12 +3,12 @@
 
     <v-main>
 
-      <MenuBar :posts="menu_posts" :style="commonOpacityStyle"/>
+      <MenuBar :items="menu_items" :style="commonOpacityStyle"/>
 
       <div class="content">
         <Menu
             class="left-part"
-            :tabs="menu_tabs"
+            :items="menu_items"
             :style="commonOpacityStyle"
         />
 
@@ -55,7 +55,7 @@ import PageFoot from "@/components/common/PageFoot.vue"
 import Menu from "@/components/Menu/Menu.vue"
 import MenuBar from "@/components/MenuBar/MenuBar.vue"
 import FixedBtnZone from "@/components/btn/FixedBtnZone.vue"
-import {menu_tabs} from "@/scripts/data/menu"
+import {menu_items} from "@/scripts/data/menu"
 import {useTheme} from "vuetify"
 
 onBeforeMount(() => {
