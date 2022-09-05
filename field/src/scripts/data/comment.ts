@@ -1,13 +1,10 @@
 import {Comment} from "@/scripts/type/comment";
 
-export function getCommentById(id: Number) {
-    return comments.filter(x => x.id === id)[0]
-}
-
 export function getCommentByIdIn(id: Number, comments: Comment[]) {
     return comments.filter(x => x.id === id)[0]
 }
 
+/*
 export const comments = [
     <Comment>{
         id: 1000,
@@ -48,4 +45,4 @@ export const comments = [
         avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
         createTime: new Date('2022-08-13T05:15:00')//"22-08-13 | 05:15"
     }]
-
+ */

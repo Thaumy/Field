@@ -8,7 +8,7 @@
       <div class="content">
         <Menu
             class="left-part"
-            :posts="menu_posts"
+            :tabs="menu_tabs"
             :style="commonOpacityStyle"
         />
 
@@ -55,7 +55,7 @@ import PageFoot from "@/components/common/PageFoot.vue"
 import Menu from "@/components/Menu/Menu.vue"
 import MenuBar from "@/components/MenuBar/MenuBar.vue"
 import FixedBtnZone from "@/components/btn/FixedBtnZone.vue"
-import {menu_posts} from "@/scripts/data/menu"
+import {menu_tabs} from "@/scripts/data/menu"
 import {useTheme} from "vuetify"
 
 onBeforeMount(() => {
