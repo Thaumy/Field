@@ -61,7 +61,7 @@ const props = withDefaults(
   height 100%
 
   left 0
-  z-index 3
+  z-index 4
   position fixed
   grid-template-rows 86% 14%
 

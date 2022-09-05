@@ -55,7 +55,7 @@ const topPosition = ref(0)
 function openDrawer() {
   drawerVisibility.value = true
   document.getElementsByTagName('html')[0].style.overflowY = 'hidden'
-  topPosition.value = -50
+  //topPosition.value = -50
 }
 
 function closeDrawer() {
@@ -78,6 +78,8 @@ onMounted(() => {
     let prev = 0
     let next = 0
     window.addEventListener('scroll', makeDebounce(() => {
+      if (drawerVisibility.value)
+        return
       next = window.scrollY
       if (next < 50) {
         topPosition.value = -next
@@ -98,7 +100,7 @@ onMounted(() => {
 
   height 50px
   width 100%
-  z-index 20
+  z-index 2
   position fixed
 
   backdrop-filter saturate(180%) blur(20px)

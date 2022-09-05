@@ -86,12 +86,12 @@ import FTextarea from "@/components/field/f-textarea.vue";
 import FTextRender from "@/components/field/f-text-render.vue";
 import FTab from "@/components/field/f-tab.vue";
 
-defineProps({
-  replyMode: {
-    type: Boolean,
-    default: false
-  }
-})
+const props = withDefaults(
+    defineProps<{
+      replyMode: boolean,
+    }>(), {
+      replyMode: false
+    })
 
 enum Mode {Edit = 0, Preview = 1}
 

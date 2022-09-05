@@ -10,11 +10,12 @@
 </template>
 
 <script lang="ts" setup>
-import {defineProps} from "vue";
 
-const props = defineProps({
-  commentCount: Number
-})
+import {defineProps} from "vue"
+
+const props = defineProps<{
+  commentCount: number
+}>()
 
 </script>
 
@@ -23,11 +24,4 @@ const props = defineProps({
 .count
   margin-left 4px
 
-//color="grey"
-/*
-@css {
-  .count {
-    color: rgba(var(--v-theme-on-surface), var(--v-activated-opacity));
-  }
-}*/
 </style>
