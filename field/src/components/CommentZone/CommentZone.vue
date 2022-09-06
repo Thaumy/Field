@@ -46,7 +46,7 @@
             <CommentCard
                 name="comment-card"
                 :comment='comment'
-                :enable-reply='replyTarget!==comment.id'
+                :disable-reply='replyTarget===comment.id'
                 @reply-click="replyTarget=comment.id;expandReference(index)"
             >
               <template #body-top-slot v-if="comment.replyTo!==postId">
