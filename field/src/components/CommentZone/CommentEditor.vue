@@ -33,6 +33,7 @@
       </div>
 
       <v-window
+          class="body"
           reverse=""
           v-model="currentMode"
           style="grid-row-start: 2"
@@ -40,13 +41,16 @@
         <v-window-item :eager=true>
           <!--TODO auto expand in vertical-->
           <f-textarea
-              class="body-textarea"
+              class="textarea"
               v-model="body"
               label="El Psy Kongroo."
           />
         </v-window-item>
         <v-window-item :eager=true>
-          <f-text-render class="body-preview" :text="bodyRenderResult"/>
+          <f-text-render
+              class="preview"
+              :text="bodyRenderResult"
+          />
         </v-window-item>
       </v-window>
 
@@ -162,6 +166,19 @@ _italic_
     display flex
     justify-content end
 
+  > [class~=body]
+    [class~=preview]
+      min-height 3rem
+      padding 8px
+      font-size 0.7rem
+
+    [class~=textarea]
+      width 100%
+      min-height 3rem
+      max-height 80vh
+      font-size 0.8rem
+
+
 .mode-tabs
   margin-left 8px
   align-self end
@@ -186,17 +203,6 @@ _italic_
     color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
   }
 }
-
-.body-preview
-  min-height 3rem
-  padding 8px
-  font-size 0.7rem
-
-.body-textarea
-  width 100%
-  min-height 3rem
-  max-height 80vh
-  font-size 0.8rem
 
 .commit-btn
   width 15%

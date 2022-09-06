@@ -3,7 +3,7 @@
 
     <v-chip
         size="x-small"
-        color="on-surface"
+        class="topic-chip"
     >
       <v-icon icon="mdi-pound" size="0.8rem"/>
       {{ topic }}
@@ -12,8 +12,9 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import {defineProps} from "vue";
+<script lang="ts" setup>
+
+import {defineProps} from "vue"
 
 const props = defineProps({
   topic: String
@@ -21,6 +22,12 @@ const props = defineProps({
 
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+
+@css {
+  .topic-chip {
+    color: rgb(var(--v-theme-on-surface), 0.9);
+  }
+}
 
 </style>
