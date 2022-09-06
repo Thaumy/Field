@@ -1,15 +1,11 @@
-import {ref} from "vue";
-import {Post} from "@/scripts/type/post";
-import {PostFullData} from "@/components/PostCard/type";
-import {Topic} from "@/scripts/type/topic";
-import {Comment} from "@/scripts/type/comment";
-
-export function getPostById(id: number) {
-    return post_data.value.filter(x => x.post.id === id)[0]
-}
+import {ref} from "vue"
+import {Post} from "@/scripts/type/post"
+import {PostFullData} from "@/components/PostCard/type"
+import {Topic} from "@/scripts/type/topic"
+import {Comment} from "@/scripts/type/comment"
 
 //TODO view count chip? impl
-export const post_data = ref([
+export const post_items = ref([
     <PostFullData>{
         post: <Post>{
             id: 12343,

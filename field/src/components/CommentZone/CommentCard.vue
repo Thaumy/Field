@@ -13,7 +13,7 @@
             size="32"
             @click="blankUrl(comment.siteUrl)"
         >
-          <img :src="comment.avatarUrl" alt="_" style="width:100%"/>
+          <img :src="comment.avatarUrl" alt="" style="width:100%"/>
         </v-avatar>
         <v-icon
             class="web-icon"
@@ -25,17 +25,17 @@
 
       <div class="user-name-zone">
         <div class="flex align-self-end">
-          <div class="user-name">
-            {{ comment.user }}
-          </div>
+          <div class="user-name" v-text="comment.user"/>
 
-          <transition name="reply-btn" v-if="!disableReply">
-            <v-icon class="reply-btn ml-1"
-                    color="orange"
-                    icon="mdi-reply"
-                    size="1.1rem"
-                    v-show="replyBtnVisibility"
-                    @click="$emit('replyClick',comment)"
+          <transition name="reply-btn">
+            <v-icon
+                v-if="!disableReply"
+                class="reply-btn ml-1"
+                color="orange"
+                icon="mdi-reply"
+                size="1.1rem"
+                v-show="replyBtnAlwaysOn||replyBtnVisibility"
+                @click="$emit('replyClick')"
             />
           </transition>
         </div>
@@ -43,7 +43,10 @@
         <slot name="user-name-right-end-slot"/>
       </div>
 
-      <div class="create-time">{{ formatToDateTime(comment.createTime) }}</div>
+      <div
+          class="create-time"
+          v-text="formatToDateTime(comment.createTime)"
+      />
 
       <div class="body">
         <slot name="body-top-slot"/>
@@ -61,17 +64,20 @@ import {formatToDateTime} from "@/scripts/util/time"
 import FTextRender from "@/components/field/f-text-render.vue";
 
 defineEmits<{
-  (e: 'replyClick', comment: Comment): void
+  (e: 'replyClick'): void
 }>()
 
-defineProps({
-  comment: Object as PropType<Comment>,
-  disableReply: {
-    type: Boolean,
-    default: false
-  }
+withDefaults(defineProps<{
+  comment: Comment,
+  replyBtnAlwaysOn: boolean,
+  disableReply: boolean
+}>(), {
+  disableReply: false,
+  replyBtnAlwaysOn: false
 })
 
+const replyBtnAlwaysOn = //when using mobile devices
+    !/Windows|Mac|Linux/.test(navigator.userAgent)
 const replyBtnVisibility = ref(false)
 
 function blankUrl(url: string) {

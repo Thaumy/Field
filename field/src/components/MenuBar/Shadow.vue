@@ -23,7 +23,7 @@ withDefaults(
 .shadow
   width calc(100% - 240px) /*多出来的像素用来弥补可能的渲染误差导致的空隙*/
   height 100%
-  z-index 2
+  z-index 3
 
   position fixed
   padding-top 50px

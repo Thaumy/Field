@@ -1,65 +1,82 @@
 <template>
   <div>
 
-    <f-vertical-tabs
-        :tabs="tabs"
-        :double-bar="doubleBar"
-        :bar-position="_barPosition"
-        @tab-click="tabClickHandler"
-        v-if="vertical"
-    />
+    <div
+        class="f-tabs"
+        :class="{'f-tabs-vertical':vertical,
+                 'f-tabs-horizontal':!vertical}"
+    >
 
-    <f-horizontal-tabs
-        :tabs="tabs"
-        :double-bar="doubleBar"
-        :bar-position="_barPosition"
-        @tab-click="tabClickHandler"
-        v-else
-    />
+      <transition-group name="bars" v-if="vertical">
+        <div
+            class="bar"
+            key=""
+            style="grid-column-start:1"
+            :style="{'grid-row-start':_barPosition+1}"
+            v-if="_barPosition>=0"
+        />
+        <div
+            class="bar"
+            key=""
+            style="grid-column-start:3"
+            :style="{'grid-row-start':_barPosition+1}"
+            v-if="doubleBar&&_barPosition>=0"
+        />
+      </transition-group>
+      <transition-group name="bars" v-else>
+        <div
+            class="bar"
+            key=""
+            style="grid-row-start:1"
+            :style="{'grid-column-start':_barPosition+1}"
+            v-if="doubleBar&&_barPosition>=0"
+        />
+        <div
+            class="bar"
+            key=""
+            style="grid-row-start:3"
+            :style="{'grid-column-start':_barPosition+1}"
+            v-if="_barPosition>=0"
+        />
+      </transition-group>
+
+      <div
+          :style="vertical?{'grid-column-start':2}:{'grid-row-start':2}"
+          v-for="(tab,index) in tabs"
+          @click="tab.disabled?()=>{}:moveBar(index)"
+      >
+        <slot :tab="tab"/>
+      </div>
+    </div>
 
   </div>
 </template>
 
 <script lang="ts" setup>
 
-import {computed, onBeforeMount, onMounted, PropType, Ref, ref, watch} from "vue"
+import {ref, defineProps, PropType, watch} from "vue"
 import {Tab} from "@/components/field/type"
-import FHorizontalTabs from "@/components/field/f-horizontal-tabs.vue"
-import FVerticalTabs from "@/components/field/f-vertical-tabs.vue"
-import {useRoute} from 'vue-router'
+import {useRoute} from "vue-router";
 
-const emits = defineEmits<{
-  (e: 'tabClick', tab: Tab): void
-}>()
-
-const props = defineProps({
-  tabs: {
-    type: Object as PropType<Tab[]>,
-    default: []
-  },
-  routerBinding: {
-    type: Boolean,
-    default: false
-  },
-  doubleBar: {
-    type: Boolean,
-    default: false
-  },
-  vertical: {
-    type: Boolean,
-    default: false
-  },
-  barPosition: {
-    type: Number,
-    default: -1
-  }
-})
+const props = withDefaults(
+    defineProps<{
+      tabs: Tab[],
+      vertical: boolean,
+      doubleBar: boolean,
+      barPosition: number,
+      routerBinding: boolean
+    }>(), {
+      vertical: false,
+      doubleBar: false,
+      barPosition: -1,
+      routerBinding: false
+    })
 
 const _barPosition = ref(props.barPosition)
 
 if (props.routerBinding) {
   let map: { [k: string]: number } = {}
-  props.tabs?.forEach((tab, index) => map[tab.route] = index)
+  props.tabs.forEach((tab, index) => map[tab.route] = index)
 
   function updateBarPosition(routePath: string) {
     const v = map[routePath]
@@ -75,16 +92,38 @@ if (props.routerBinding) {
   watch(route, r => updateBarPosition(r.path))
 }
 
-function tabClickHandler(tab: Tab, index: number) {
-  if (!tab.disabled) {
-    emits('tabClick', tab)
-    if (!props.routerBinding)
-      _barPosition.value = index
-  }
+function moveBar(to: number) {
+  _barPosition.value = to
 }
 
 </script>
 
 <style lang="stylus" scoped>
+
+.f-tabs-vertical
+  grid-template-columns 1% 98% 1%
+
+.f-tabs-horizontal
+  grid-template-rows 2px auto 2px
+
+.f-tabs
+  display grid
+
+@css {
+  .f-tabs .bar {
+    background: rgb(var(--v-theme-primary));
+  }
+}
+
+.bars-leave-to
+  opacity 0
+
+.bars-enter-from
+  transform scaleY(0.5)
+
+.bars-move
+.bars-enter-active
+.bars-leave-active
+  transition all 0.2s ease
 
 </style>

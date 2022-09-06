@@ -1,7 +1,7 @@
 import {ref} from "vue"
 import {Tab} from "@/components/field/type"
 
-export const menu_tabs = ref([
+export const menu_items = ref([
     <Tab><unknown>{title: '首页', route: '\/'},
     <Tab><unknown>{title: '友情链接', route: '\/12383'},
     /*
