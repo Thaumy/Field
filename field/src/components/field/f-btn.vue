@@ -5,10 +5,10 @@
         class="f-btn border-radius-all transition-standard"
         :class="{'disabled':disabled,
                  'warning':warning,
-                 'reject':reject,
                  'light':!theme.global.current.value.dark,
                  'dark':theme.global.current.value.dark}"
-        @click="disabled?disableCLick():$emit('click')"
+        @click="disabled?()=>{}:$emit('click')"
+        :disabled="disabled"
         type="submit"
         v-ripple
         v-ripple.stop="!disabled"
@@ -19,15 +19,19 @@
 </template>
 
 <script lang="ts" setup>
-
-import {defineEmits, ref} from "vue"
+/*
+  :style=
+      "replyMode?
+              {color:'black',background:'orange'}:
+              {color:'rgb(var(--v-theme-on-secondary))',background:'rgb(var(--v-theme-secondary))'}"
+*/
+import {defineEmits} from "vue"
 import {useTheme} from "vuetify"
 
 const theme = useTheme()
 
-const emits = defineEmits<{
-  (e: 'click'): void,
-  (e: 'disableClick'): void
+defineEmits<{
+  (e: 'click'): void
 }>()
 
 withDefaults(
@@ -40,16 +44,6 @@ withDefaults(
       warning: false
     })
 
-const reject = ref(false)
-
-function disableCLick() {
-  emits('disableClick')
-  reject.value = true
-  setTimeout(() => {
-    reject.value = false
-  }, 200)
-}
-
 </script>
 
 <style lang="stylus" scoped>
@@ -57,12 +51,9 @@ function disableCLick() {
 .f-btn
   font-size 0.8rem
   line-height 0.8rem
-
+  padding 8px
   width 100%
   height 100%
-  padding 8px
-  position relative
-
   border-style solid
   border-width 1px
   cursor pointer
@@ -70,9 +61,9 @@ function disableCLick() {
   &:hover
     filter brightness(1.1)
 
-  &[class~=disabled]
+  &[disabled]
     cursor not-allowed
-    filter saturate(0.2)
+    filter saturate(0.5)
 
   &[class~=light]
     color #ffffff
@@ -91,22 +82,5 @@ function disableCLick() {
     background-color orange
     box-shadow 0 0 transparent, 0 0 transparent
     border-color rgba(27 31 36 0.15)
-
-  &[class~=reject]
-    animation: finger infinite 0.2s
-
-@keyframes finger
-  0%
-    transform translateX(0px)
-  20%
-    transform translateX(2px)
-  40%
-    transform translateX(-2px)
-  60%
-    transform translateX(2px)
-  80%
-    transform translateX(-2px)
-  100%
-    transform translateX(0px)
 
 </style>

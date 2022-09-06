@@ -1,4 +1,4 @@
-import {Comment} from "@/scripts/type/comment"
+import {Comment} from "@/scripts/type/comment";
 
 export type Post = {
     id: number,
@@ -6,19 +6,7 @@ export type Post = {
     body: string,
     createTime: Date,
     modifyTime: Date,
-    user: string
-}
-
-export function parsePost(responseJson: any): Post {
-    const r = responseJson
-
-    return <Post>{
-        id: r['Id'],
-        title: r['Title'],
-        body: r['Body'],
-        createTime: new Date(r['CreateTime']),
-        modifyTime: new Date(r['ModifyTime'])
-    }
+    user: string,
 }
 
 export function isPost(post: any): post is Comment {

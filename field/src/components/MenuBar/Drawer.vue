@@ -10,9 +10,20 @@
         />
       </div>
 
-      <div class="tab-list">
-        <f-tabs double-bar vertical :tabs="tabs"/>
-      </div>
+      <f-tabs
+          class="menu-tabs"
+          vertical
+          double-bar
+          router-binding
+          :tabs="items"
+          v-slot="{tab}"
+      >
+        <f-tab
+            class="menu-tab"
+            :title="tab.title"
+            @click="$emit('tabClick');$router.push(tab.route)"
+        />
+      </f-tabs>
 
       <div class="info cursor-pointer" v-html="info" @click=""/>
 
@@ -22,22 +33,24 @@
 </template>
 
 <script lang="ts" setup>
-import {defineProps, PropType} from "vue";
+import {defineEmits, defineProps, PropType} from "vue";
 import {Tab} from "@/components/field/type";
 import FTabs from "@/components/field/f-tabs.vue";
 import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue";
+import FTab from "@/components/field/f-tab.vue";
 
-defineProps({
-  tabs: {
-    type: Object as PropType<Tab[]>,
-    default: []
-  },
-  visibility: {
-    type: Boolean,
-    default: false
-  },
-  info: String
-})
+const emits = defineEmits<{
+  (e: 'tabClick'): void
+}>()
+
+const props = withDefaults(
+    defineProps<{
+      items: Tab[],
+      visibility: boolean
+      info: string
+    }>(), {
+      visibility: false
+    })
 
 </script>
 
@@ -48,7 +61,7 @@ defineProps({
   height 100%
 
   left 0
-  z-index 3
+  z-index 4
   position fixed
   grid-template-rows 86% 14%
 
@@ -60,10 +73,15 @@ defineProps({
   }
 }
 
-.tab-list
+.menu-tabs
   padding-top 60px
   grid-row-start 1
-  display grid
+
+.menu-tab
+  height 6vh
+  max-height 44px
+  min-height 28px
+  letter-spacing 1px
 
 .info
   grid-row-start 2

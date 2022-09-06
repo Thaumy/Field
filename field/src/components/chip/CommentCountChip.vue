@@ -1,13 +1,9 @@
 <template>
   <div>
 
-    <v-chip
-        color="grey"
-        size="x-small"
-        variant="text"
-    >
-      <v-icon icon="mdi-message-reply-outline" size="0.8rem"/>
-      <div class="count" v-text="count"/>
+    <v-chip color="grey" size="x-small">
+      <v-icon icon="mdi-message-reply-outline" size="12"/>
+      <div class="count">{{ commentCount }}</div>
     </v-chip>
 
   </div>
@@ -15,10 +11,11 @@
 
 <script lang="ts" setup>
 
-const props =
-    defineProps<{
-      count: number
-    }>()
+import {defineProps} from "vue"
+
+const props = defineProps<{
+  commentCount: number
+}>()
 
 </script>
 
