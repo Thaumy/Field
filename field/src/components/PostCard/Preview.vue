@@ -6,11 +6,9 @@
     >
       <div class="title-flex" v-if="title">
         <div
-            class="title cursor-pointer"
-            @click="$emit('titleClick')"
-        >
-          {{ title }}
-        </div>
+            class="title"
+            v-text="title"
+        />
 
         <div class="title-right-slot">
           <slot name="title-right-slot"/>
@@ -19,11 +17,9 @@
 
       <div class="summary-flex" v-if="title&&summary">
         <div
-            class="summary cursor-pointer"
-            @click="$emit('summaryClick')"
-        >
-          {{ summary }}
-        </div>
+            class="summary"
+            v-text="summary"
+        />
 
         <div class="summary-right-slot">
           <slot name="summary-right-slot"/>
@@ -83,6 +79,9 @@ let props = defineProps({
 @css {
   .title {
     color: rgb(var(--v-theme-on-surface));
+  }
+  .summary {
+    color: rgba(var(--v-theme-on-surface), 0.8);
   }
 }
 

@@ -20,7 +20,7 @@
 
             <CommentCard
                 class="reference-filter"
-                :comment="getCommentByIdIn(replyTarget,comments)"
+                :comment="getCommentIn(comments,replyTarget)"
                 :disable-reply="true"
             >
               <template #user-name-right-end-slot>
@@ -52,7 +52,7 @@
               <template #body-top-slot v-if="comment.replyTo!==postId">
                 <f-text-render
                     name="comment-card-reply"
-                    :text="genReplyReference(getCommentByIdIn(comment.replyTo,comments))"
+                    :text="genReplyReference(getCommentIn(comments,comment.replyTo))"
                 />
               </template>
             </CommentCard>
@@ -68,7 +68,7 @@
 
 <script lang="ts" setup>
 import {PropType, Ref, ref} from "vue"
-import {Comment} from "@/scripts/type/comment"
+import {Comment, getCommentIn} from "@/scripts/type/comment"
 import CommentEditor from './CommentEditor.vue'
 import CommentCard from './CommentCard.vue'
 import FSlider from "@/components/field/f-slider.vue"
@@ -76,15 +76,11 @@ import FCard from "@/components/field/f-card.vue"
 import FDivider from "@/components/field/f-divider.vue"
 import FTextRender from "@/components/field/f-text-render.vue"
 import {formatToDateTime} from "@/scripts/util/time"
-import {getCommentByIdIn} from "@/scripts/data/comment"
 
-const props = defineProps({
-  postId: Number,
-  comments: {
-    type: Object as PropType<Comment[]>,
-    default: <Comment[]>[]
-  }
-})
+const props = defineProps<{
+  postId: number,
+  comments: Comment[]
+}>()
 
 const replyTarget = ref(props.postId)
 

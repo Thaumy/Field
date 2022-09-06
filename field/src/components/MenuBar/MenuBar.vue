@@ -78,7 +78,7 @@ onMounted(() => {
     let prev = 0
     let next = 0
     window.addEventListener('scroll', makeDebounce(() => {
-      if (drawerVisibility.value)
+      if (drawerVisibility.value)//当出现drawer时，不处理滚动事件，以防止频繁收放drawer
         return
       next = window.scrollY
       if (next < 50) {

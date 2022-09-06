@@ -5,8 +5,8 @@ import {
 } from "vue-router"
 
 import PostZone from '@/components/PostZone/PostZone.vue'
-import {post_data} from "@/scripts/data/post";
-import {getPostById} from "@/scripts/data/post";
+import {post_items} from "@/scripts/data/post"
+import {getPostIn} from "@/scripts/type/post";
 
 export default createRouter({
     scrollBehavior: () => ({
@@ -18,19 +18,21 @@ export default createRouter({
         {
             path: '/',
             component: PostZone,
-            props: {dataCollection: post_data.value},
-            //meta: {transition: 'slide-left'},
+            props: {dataCollection: post_items.value},
         },
         {
-            path: '/:post_id',
+            path: '/:post_id([0-9]*)',
             component: PostZone,
             props:
                 route => ({
                     dataCollection: [
-                        getPostById(Number(route.params.post_id))
+                        post_items.value.filter(x => x.post.id === Number(route.params.post_id))[0]
                     ]
                 }),
-            //meta: {transition: 'slide-left'},
+        },
+        {
+            path: '/:unknown(.*)',
+            redirect: '/'
         },
     ],
 })

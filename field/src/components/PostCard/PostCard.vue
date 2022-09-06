@@ -8,8 +8,6 @@
           alt="_"
           style="width:100%;display:block"
           :src="coverUrl"
-          class="cursor-pointer"
-          @click="$router.push('/'+post.id)"
           v-if="coverUrl&&hideBody"
       />
       <div :style="genBackground()" class="transition-standard">
@@ -18,8 +16,6 @@
           <Preview
               :title=post.title
               :summary=summary
-              :class="{'cursor-pointer':hideBody}"
-              @click="$router.push('/'+post.id)"
               v-if=post.title
           >
             <template v-slot:title-right-slot>

@@ -3,7 +3,7 @@
 
     <div class="comment-editor">
 
-      <div class="editor-header">
+      <div class="header">
 
         <f-tabs
             v-slot="{tab}"
@@ -50,27 +50,35 @@
         </v-window-item>
       </v-window>
 
-      <div class="editor-footer">
+      <div class="footer">
         <v-chip
             color="grey"
             size="small"
             variant="text"
+            style="margin-right:auto"
             prepend-icon="mdi-language-markdown"
         >
           支持使用Markdown
         </v-chip>
-        <v-btn
-            width="15%"
+        <f-btn
+            width="100%"
             class="commit-btn transition-standard"
-            :style=
-                "replyMode?
-                    {color:'black',background:'orange'}:
-                    {color:'rgb(var(--v-theme-on-secondary))',background:'rgb(var(--v-theme-secondary))'}"
-            size="small"
             :disabled="!body"
-        >
-          {{ replyMode ? '回复' : '提交' }}
-        </v-btn>
+            :warning="replyMode"
+            :text="replyMode ? '回复' : '提交'"
+        />
+        <!--
+                <v-btn
+                    width="15%"
+                    class="commit-btn transition-standard"
+                    :style=
+                        "replyMode?
+                            {color:'black',background:'orange'}:
+                            {color:'rgb(var(--v-theme-on-secondary))',background:'rgb(var(--v-theme-secondary))'}"
+                    :disabled="!body"
+                    v-text="replyMode ? '回复' : '提交'"
+                />
+             -->
       </div>
     </div>
 
@@ -78,13 +86,15 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, ref, watch} from "vue";
-import {Tab} from "@/components/field/type";
+
+import {defineProps, ref, watch} from "vue"
+import {Tab} from "@/components/field/type"
 import {marked} from "marked"
-import FTabs from "@/components/field/f-tabs.vue";
-import FTextarea from "@/components/field/f-textarea.vue";
-import FTextRender from "@/components/field/f-text-render.vue";
-import FTab from "@/components/field/f-tab.vue";
+import FTabs from "@/components/field/f-tabs.vue"
+import FTextarea from "@/components/field/f-textarea.vue"
+import FTextRender from "@/components/field/f-text-render.vue"
+import FTab from "@/components/field/f-tab.vue"
+import FBtn from "@/components/field/f-btn.vue"
 
 const props = withDefaults(
     defineProps<{
@@ -142,6 +152,16 @@ _italic_
   border-radius 2px
   padding 4px
 
+  > [class~=header]
+    grid-row-start 1
+    display flex
+    justify-content space-between
+
+  > [class~=footer]
+    grid-row-start 3
+    display flex
+    justify-content end
+
 .mode-tabs
   margin-left 8px
   align-self end
@@ -150,16 +170,6 @@ _italic_
   font-size 0.9rem
   margin-left 4px
   margin-right 4px
-
-.editor-header
-  grid-row-start 1
-  display flex
-  justify-content space-between
-
-.editor-footer
-  grid-row-start 3
-  display flex
-  justify-content space-between
 
 .tools
   margin-right 2px
@@ -189,6 +199,7 @@ _italic_
   font-size 0.8rem
 
 .commit-btn
+  width 15%
   margin 4px
   grid-row-start 3
 
