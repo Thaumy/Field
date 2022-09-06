@@ -1,9 +1,9 @@
 <template>
   <div>
 
-    <div class="f-slider">
+    <div class="f-slider" ref="slider">
       <div
-          class="holder"
+          class="slot"
           :style="style"
           v-if="render"
       >
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {ref} from "vue"
 
 const props = defineProps({
   afterClosed: {
@@ -28,6 +28,7 @@ const props = defineProps({
 const render = ref(false)
 const style = ref<{ top: string, height: string, opacity: number }>()
 const latestHeight = ref(0)
+const slider = ref()
 
 defineExpose({
   expand(height: number) {
@@ -61,13 +62,13 @@ defineExpose({
 
 </script>
 
-<style scoped>
-.f-slider {
-  overflow: hidden;
-}
+<style lang="stylus" scoped>
 
-.holder {
-  position: relative;
-  transition: all 0.2s ease
-}
+.f-slider
+  overflow hidden
+
+.slot
+  position relative
+  transition all 0.2s ease
+
 </style>
