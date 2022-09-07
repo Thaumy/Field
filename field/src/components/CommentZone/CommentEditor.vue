@@ -54,6 +54,17 @@
         </v-window-item>
       </v-window>
 
+      <v-snackbar
+          content-class="snackbar"
+          v-model="snackbarVisibility"
+          :timeout="3000"
+          color="red"
+          location=""
+          @click="snackbarVisibility=false"
+      >
+        <div class="snackbar-text" v-text="'填写评论内容是必要的。'"/>
+      </v-snackbar>
+
       <div class="footer">
         <v-chip
             color="grey"
@@ -71,6 +82,7 @@
             :warning="replyMode"
             :text="replyMode ? '回复' : '提交'"
             @click="$emit('createComment')"
+            @disable-click="snackbarVisibility=true"
         />
       </div>
     </div>
@@ -99,6 +111,8 @@ const props = withDefaults(
     }>(), {
       replyMode: false
     })
+
+const snackbarVisibility = ref(false)
 
 enum Mode {Edit = 0, Preview = 1}
 
@@ -142,6 +156,11 @@ _italic_
 </script>
 
 <style lang="stylus" scoped>
+
+.snackbar-text
+  width fit-content
+  margin auto
+  color white
 
 .comment-editor
   display grid
