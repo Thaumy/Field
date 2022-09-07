@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {defineProps, PropType, toRefs} from "vue";
 import {formatToDate, formatToDateTime} from "@/scripts/util/time"
 
@@ -31,7 +31,7 @@ function genTimeColor() {
 
   if (createTimespan < 604800000)
       //if create within a week, show blue time
-    return 'rgb(0 196 255 / 80%)'
+    return 'rgb(var(--v-theme-primary))'
   else
     return 'grey'
 }
@@ -57,6 +57,6 @@ function genTimeText() {
 
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
 
 </style>
