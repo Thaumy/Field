@@ -6,7 +6,7 @@
         size="x-small"
         variant="text"
     >
-      <v-icon icon="mdi-message-reply-outline" size="0.8rem"/>
+      <v-icon icon="mdi-account-multiple"/>
       <div class="count" v-text="count"/>
     </v-chip>
 

@@ -70,19 +70,8 @@
             :disabled="!body"
             :warning="replyMode"
             :text="replyMode ? '回复' : '提交'"
+            @click="$emit('createComment')"
         />
-        <!--
-                <v-btn
-                    width="15%"
-                    class="commit-btn transition-standard"
-                    :style=
-                        "replyMode?
-                            {color:'black',background:'orange'}:
-                            {color:'rgb(var(--v-theme-on-secondary))',background:'rgb(var(--v-theme-secondary))'}"
-                    :disabled="!body"
-                    v-text="replyMode ? '回复' : '提交'"
-                />
-             -->
       </div>
     </div>
 
@@ -99,6 +88,10 @@ import FTextarea from "@/components/field/f-textarea.vue"
 import FTextRender from "@/components/field/f-text-render.vue"
 import FTab from "@/components/field/f-tab.vue"
 import FBtn from "@/components/field/f-btn.vue"
+
+defineEmits<{
+  (e: 'createComment'): void
+}>()
 
 const props = withDefaults(
     defineProps<{
