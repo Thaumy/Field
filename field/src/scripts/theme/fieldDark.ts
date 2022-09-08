@@ -20,7 +20,6 @@ export const fieldDark: ThemeDefinition = {
         'on-secondary': "#F0F0F0",
 
 
-
         success: "#000000",
         'on-success': "#000000",
         warning: "#000000",

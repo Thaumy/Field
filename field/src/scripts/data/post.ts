@@ -1,6 +1,6 @@
 import {ref} from "vue"
 import {Post} from "@/scripts/type/post"
-import {PostFullData} from "@/components/PostCard/type"
+import {PostFullData} from "@/scripts/type/post"
 import {Topic} from "@/scripts/type/topic"
 import {Comment} from "@/scripts/type/comment"
 
@@ -47,17 +47,8 @@ export let dataCollection = [
         coverUrl: null,
         summary: null,
         viewCount: 1,
-        comments: [
-            <Comment>{
-                id: 1000,
-                user: '小品',
-                body: '这是一条评论！',
-                replyTo: 12343,
-                siteUrl: 'https://www.thaumy.cn',
-                avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
-                createTime: new Date('2022-08-11T01:34:00')
-            },
-        ],//8
+        comments: <Comment[]>[],//8
+        disableComment: true,
         isSchedule: false,
         isArchive: false,
         topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}],
@@ -66,7 +57,7 @@ export let dataCollection = [
         post: <Post>{
             id: 12344,
             title: '氛',
-            body: '(追番)',
+            body: '(追番)(disableComment)',
             createTime: new Date('2022-08-12T08:24:00'),
             modifyTime: new Date('2022-08-14T08:24:00')
         },
@@ -112,6 +103,7 @@ export let dataCollection = [
                 avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
                 createTime: new Date('2022-08-13T05:15:00')//"22-08-13 | 05:15"
             }],//8
+        disableComment: true,
         topics: <Topic[]>[],
         isSchedule: false,
         isArchive: false,
@@ -127,46 +119,8 @@ export let dataCollection = [
         coverUrl: null,
         summary: "Make a simple, intuitive UI.",
         viewCount: 0,
-        comments: [
-            <Comment>{
-                id: 1000,
-                user: '小品',
-                body: '这是一条评论！',
-                replyTo: 12345,
-                siteUrl: 'https://www.thaumy.cn',
-                avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
-                createTime: new Date('2022-08-11T01:34:00')
-            },
-            <Comment>{
-                id: 1001,
-                user: 'Thaumy',
-                body:
-                    '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
-                    '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
-                    '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴',
-                replyTo: 1000,
-                siteUrl: 'https://www.thaumy.cn',
-                avatarUrl: '/src/assets/comment_user_avatars/thaumy.png',
-                createTime: new Date('2022-08-12T02:12:00')//"22-08-12 | 02:12"
-            },
-            <Comment>{
-                id: 1002,
-                user: '小品',
-                body: '不许贴贴！',
-                replyTo: 1001,
-                siteUrl: 'https://www.thaumy.cn',
-                avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
-                createTime: new Date('2022-08-13T03:51:00')//"22-08-13 | 03:51"
-            },
-            <Comment>{
-                id: 1003,
-                user: 'Mai',
-                body: 'moemoemoemoemoemoemoemoemoemoemoemoe',
-                replyTo: 12345,
-                siteUrl: null,
-                avatarUrl: '/src/assets/comment_user_avatars/mai.jpg',
-                createTime: new Date('2022-08-13T05:15:00')//"22-08-13 | 05:15"
-            }],//8
+        comments: <Comment[]>[],//8
+        disableComment: false,
         topics: <Topic[]>[],
         isSchedule: true,
         isArchive: true,
@@ -202,37 +156,9 @@ export let dataCollection = [
                 siteUrl: 'https://www.thaumy.cn',
                 avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
                 createTime: new Date('2022-08-11T01:34:00')
-            },
-            <Comment>{
-                id: 1001,
-                user: 'Thaumy',
-                body:
-                    '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
-                    '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
-                    '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴',
-                replyTo: 1000,
-                siteUrl: 'https://www.thaumy.cn',
-                avatarUrl: '/src/assets/comment_user_avatars/thaumy.png',
-                createTime: new Date('2022-08-12T02:12:00')//"22-08-12 | 02:12"
-            },
-            <Comment>{
-                id: 1002,
-                user: '小品',
-                body: '不许贴贴！',
-                replyTo: 1001,
-                siteUrl: 'https://www.thaumy.cn',
-                avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
-                createTime: new Date('2022-08-13T03:51:00')//"22-08-13 | 03:51"
-            },
-            <Comment>{
-                id: 1003,
-                user: 'Fubuki',
-                body: 'moemoemoemoemoemoemoemoemoemoemoemoe',
-                replyTo: 12346,
-                siteUrl: null,
-                avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
-                createTime: new Date('2022-08-13T05:15:00')//"22-08-13 | 05:15"
-            }],//18
+            }
+        ],//18
+        disableComment: false,
         topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}],
         isSchedule: true,
         isArchive: true,
@@ -265,10 +191,11 @@ export let dataCollection = [
                 user: 'Thaumy',
                 body:
                     '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
+                    '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴' +
                     '贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴贴',
                 replyTo: 1000,
                 siteUrl: 'https://www.thaumy.cn',
-                avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
+                avatarUrl: '/src/assets/comment_user_avatars/thaumy.png',
                 createTime: new Date('2022-08-12T02:12:00')//"22-08-12 | 02:12"
             },
             <Comment>{
@@ -282,13 +209,15 @@ export let dataCollection = [
             },
             <Comment>{
                 id: 1003,
-                user: 'Megumi',
+                user: 'Fubuki',
                 body: 'moemoemoemoemoemoemoemoemoemoemoemoe',
                 replyTo: 12347,
                 siteUrl: null,
-                avatarUrl: '/src/assets/comment_user_avatars/megumi.jpg',
+                avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
                 createTime: new Date('2022-08-13T05:15:00')//"22-08-13 | 05:15"
-            }],//18
+            },
+        ],//18
+        disableComment: false,
         isSchedule: true,
         isArchive: true,
         topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}]
