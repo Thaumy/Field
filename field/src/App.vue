@@ -32,15 +32,16 @@
       <FixedBtnZone :style="commonOpacityStyle"/>
 
     </v-main>
+    <f-snackbar ref="globalSnackbar"/>
     <PageFoot
         body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
-                      Thaumy'Blog 2016-2023<br>
-                      <a href='http://beian.miit.gov.cn/'
-                         target='_blank'
-                         style='color: rgba(255,255,255,0.6);
-                                font-size: 0.7rem;
-                                text-decoration: none;'
-                      >鲁ICP备2021005067</a>"
+              Thaumy'Blog 2016-2023<br>
+              <a href='http://beian.miit.gov.cn/'
+                 target='_blank'
+                 style='color: rgba(255,255,255,0.6);
+                        font-size: 0.7rem;
+                        text-decoration: none;'
+              >鲁ICP备2021005067</a>"
         style="margin: 20px;margin-top:100vh"
         :style="pageFootOpacityStyle"
         @fully-visible="pageFootFullyVisible()"
@@ -50,11 +51,13 @@
 </template>
 
 <script lang="ts" setup>
-import {onBeforeMount, onMounted, ref} from 'vue'
+
+import {onBeforeMount, onMounted, provide, ref} from 'vue'
 import PageFoot from "@/components/common/PageFoot.vue"
 import Menu from "@/components/Menu/Menu.vue"
 import MenuBar from "@/components/MenuBar/MenuBar.vue"
 import FixedBtnZone from "@/components/btn/FixedBtnZone.vue"
+import FSnackbar from "@/components/field/f-snackbar.vue"
 import {menu_items} from "@/scripts/data/menu"
 import {useTheme} from "vuetify"
 
@@ -64,6 +67,11 @@ onBeforeMount(() => {
   //7-18点启用light主题
   theme.global.name.value =
       nowHour > 7 && nowHour < 18 ? 'fieldLight' : 'fieldDark'
+})
+
+const globalSnackbar = ref()
+onMounted(() => {
+  provide('showGlobalSnackbar', globalSnackbar.value.show)
 })
 
 const commonOpacityStyle = ref({

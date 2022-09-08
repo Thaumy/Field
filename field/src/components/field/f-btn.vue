@@ -19,12 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-/*
-  :style=
-      "replyMode?
-              {color:'black',background:'orange'}:
-              {color:'rgb(var(--v-theme-on-secondary))',background:'rgb(var(--v-theme-secondary))'}"
-*/
+
 import {defineEmits, ref} from "vue"
 import {useTheme} from "vuetify"
 
@@ -76,7 +71,7 @@ function disableCLick() {
 
   &[class~=disabled]
     cursor not-allowed
-    filter saturate(0.5)
+    filter saturate(0.2)
 
   &[class~=light]
     color #ffffff

@@ -4,8 +4,39 @@ import {PostFullData} from "@/components/PostCard/type"
 import {Topic} from "@/scripts/type/topic"
 import {Comment} from "@/scripts/type/comment"
 
+//const ws = new WebSocket("ws://localhost:8080")
+
+export function fetchAllPostFullData(): PostFullData[] {
+    return dataCollection
+}
+
+export function fetchPostFullDataById(id: number): PostFullData | null {
+    const v = dataCollection.filter(x => x.post.id === id)[0]
+
+    if (v === null || v === undefined)
+        return null
+    else
+        return v
+}
+
+export function fetchPostFullDataByTitle(title: string): PostFullData | null {
+    const v = dataCollection.filter(x => x.post.title === title)[0]
+
+    if (v === null || v === undefined)
+        return null
+    else
+        return v
+}
+
+export function fetchPostFullDataByIdOrTitle(idOrTitle: number | string): PostFullData | null {
+    if (typeof idOrTitle === 'number')
+        return fetchPostFullDataById(idOrTitle)
+    else
+        return fetchPostFullDataByTitle(idOrTitle)
+}
+
 //TODO view count chip? impl
-export const post_items = ref([
+export let dataCollection = [
     <PostFullData>{
         post: <Post>{
             id: 12343,
@@ -262,4 +293,4 @@ export const post_items = ref([
         isArchive: true,
         topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}]
     },
-]);
+]

@@ -54,23 +54,13 @@
         </v-window-item>
       </v-window>
 
-      <v-snackbar
-          content-class="snackbar"
-          v-model="snackbarVisibility"
-          :timeout="3000"
-          color="red"
-          location=""
-          @click="snackbarVisibility=false"
-      >
-        <div class="snackbar-text" v-text="'填写评论内容是必要的。'"/>
-      </v-snackbar>
-
       <div class="footer">
         <v-chip
+            v-bind="props"
             color="grey"
             size="small"
             variant="text"
-            style="margin-right:auto"
+            style="margin-right:auto;align-self:center"
             prepend-icon="mdi-language-markdown"
         >
           支持使用Markdown
@@ -82,7 +72,7 @@
             :warning="replyMode"
             :text="replyMode ? '回复' : '提交'"
             @click="$emit('createComment')"
-            @disable-click="snackbarVisibility=true"
+            @disable-click="showGlobalSnackbar('mdi-tooltip-edit','填写评论内容是必要的','red')"
         />
       </div>
     </div>
@@ -92,7 +82,7 @@
 
 <script setup lang="ts">
 
-import {defineProps, ref, watch} from "vue"
+import {defineProps, inject, ref, watch} from "vue"
 import {Tab} from "@/components/field/type"
 import {marked} from "marked"
 import FTabs from "@/components/field/f-tabs.vue"
@@ -105,14 +95,14 @@ defineEmits<{
   (e: 'createComment'): void
 }>()
 
+const showGlobalSnackbar = inject('showGlobalSnackbar')
+
 const props = withDefaults(
     defineProps<{
       replyMode: boolean,
     }>(), {
       replyMode: false
     })
-
-const snackbarVisibility = ref(false)
 
 enum Mode {Edit = 0, Preview = 1}
 
@@ -157,16 +147,12 @@ _italic_
 
 <style lang="stylus" scoped>
 
-.snackbar-text
-  width fit-content
-  margin auto
-  color white
-
 .comment-editor
   display grid
   grid-template-rows auto auto auto
   border-radius 2px
   padding 4px
+  padding-bottom 0
 
   > [class~=header]
     grid-row-start 1
@@ -189,7 +175,6 @@ _italic_
       min-height 3rem
       max-height 80vh
       font-size 0.8rem
-
 
 .mode-tabs
   margin-left 8px
