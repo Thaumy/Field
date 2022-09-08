@@ -12,8 +12,10 @@
             :style="commonOpacityStyle"
         />
 
-        <!--:style="commonOpacityStyle"-->
-        <div class="right-part">
+        <div
+            class="right-part"
+            :style="commonOpacityStyle"
+        >
           <router-view
               v-slot="{Component,route}"
           >
@@ -30,31 +32,32 @@
       <FixedBtnZone :style="commonOpacityStyle"/>
 
     </v-main>
-    <!--
-        <PageFoot
-            body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
-                      Thaumy'Blog 2016-2023<br>
-                      <a href='http://beian.miit.gov.cn/'
-                         target='_blank'
-                         style='color: rgba(255,255,255,0.6);
-                                font-size: 0.7rem;
-                                text-decoration: none;'
-                      >鲁ICP备2021005067</a>"
-            style="margin: 20px;margin-top:80vh"
-            :style="pageFootOpacityStyle"
-            @fully-visible="pageFootFullyVisible()"
-            @fully-invisible="pageFootFullyInvisible()"
-        />
-    -->
+    <f-snackbar ref="globalSnackbar"/>
+    <PageFoot
+        body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
+              Thaumy'Blog 2016-2023<br>
+              <a href='http://beian.miit.gov.cn/'
+                 target='_blank'
+                 style='color: rgba(255,255,255,0.6);
+                        font-size: 0.7rem;
+                        text-decoration: none;'
+              >鲁ICP备2021005067</a>"
+        style="margin: 20px;margin-top:100vh"
+        :style="pageFootOpacityStyle"
+        @fully-visible="pageFootFullyVisible()"
+        @fully-invisible="pageFootFullyInvisible()"
+    />
   </v-app>
 </template>
 
 <script lang="ts" setup>
-import {onBeforeMount, onMounted, ref} from 'vue'
+
+import {onBeforeMount, onMounted, provide, ref} from 'vue'
 import PageFoot from "@/components/common/PageFoot.vue"
 import Menu from "@/components/Menu/Menu.vue"
 import MenuBar from "@/components/MenuBar/MenuBar.vue"
 import FixedBtnZone from "@/components/btn/FixedBtnZone.vue"
+import FSnackbar from "@/components/field/f-snackbar.vue"
 import {menu_items} from "@/scripts/data/menu"
 import {useTheme} from "vuetify"
 
@@ -64,6 +67,11 @@ onBeforeMount(() => {
   //7-18点启用light主题
   theme.global.name.value =
       nowHour > 7 && nowHour < 18 ? 'fieldLight' : 'fieldDark'
+})
+
+const globalSnackbar = ref()
+onMounted(() => {
+  provide('showGlobalSnackbar', globalSnackbar.value.show)
 })
 
 const commonOpacityStyle = ref({
@@ -101,18 +109,17 @@ function pageFootFullyInvisible() {
   display grid
   grid-template-columns 22% 7px auto
 
-.router-view-enter-from
-  transform translateX(50px) rotate(1deg)
-  transform-origin 0 400vh
-
 .router-view-leave-active
 .router-view-enter-active
-  transition all 0.3s ease
+  transition all 0.4s ease
 
-//transition all 0.5s ease
+.router-view-enter-from
+  transform translateX(50px) rotate(0.5deg)
+  transform-origin 0 200vh
 
 .router-view-leave-to
-  transform translateX(30px) translateY(30px)
+  transform scale(0.9)
+  filter blur(100px)
   height 0
   opacity 0
 

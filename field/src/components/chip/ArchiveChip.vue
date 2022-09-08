@@ -5,36 +5,21 @@
         class="archive-chip"
         color="orange"
         size="small"
-        @click.stop="toggleSnackbar()"
+        @click.stop="showGlobalSnackbar('mdi-archive','当前文章已归档 / 不受维护的内容','orange')"
     >
       <v-icon icon="mdi-archive"/>
     </v-chip>
-
-    <v-snackbar
-        content-class="snackbar"
-        v-model="snackbarVisibility"
-        :timeout="2000"
-        color="orange"
-        location=""
-        @click="toggleSnackbar()"
-    >
-      <div class="snackbar-text">
-        当前文章已归档 / 不受维护的内容
-      </div>
-    </v-snackbar>
 
   </div>
 </template>
 
 
 <script setup lang="ts">
-import {ref} from "vue";
 
-const snackbarVisibility = ref(false)
+import {inject, ref} from "vue";
 
-function toggleSnackbar() {
-  snackbarVisibility.value = !snackbarVisibility.value
-}
+const showGlobalSnackbar = inject('showGlobalSnackbar')
+
 </script>
 
 <style lang="stylus" scoped>
@@ -42,10 +27,5 @@ function toggleSnackbar() {
 .archive-chip
   margin-left 2px
   margin-right 2px
-
-.snackbar-text
-  width fit-content
-  margin auto
-  color white
 
 </style>

@@ -2,17 +2,10 @@
   html {
     font-family: "DejaVu Sans", Emoji, sans-serif;
   }
-  body {
-  }
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: rgba(80, 80, 80, 0.8);
-  }
 }
 
 body
+  overflow hidden //防止文章卡进入时导致溢出
   background url("src/assets/pc.jpg")
   background-size cover
   background-position center

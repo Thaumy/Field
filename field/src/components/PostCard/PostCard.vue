@@ -19,24 +19,22 @@
               v-if=post.title
           >
             <template v-slot:title-right-slot>
-
-              <!--TODO body逻辑判断此时不再有效-->
+              <ScheduleChip v-if="isSchedule&&!hideBody"/>
+              <ArchiveChip v-if="isArchive&&!hideBody"/>
               <CommentCountChip
-                  :comment-count="commentCount"
-                  v-if="commentCount!==0&&!post.body"
+                  :count="commentCount"
+                  v-if="commentCount!==0&&hideBody"
               />
-              <ScheduleChip v-if="isSchedule&&post.body"/>
-              <ArchiveChip v-if="isArchive&&post.body"/>
             </template>
 
             <template v-slot:summary-right-slot v-if="!post.body">
               <ModifyTimeChip
-                  style="align-self: end"
+                  style="align-self:end"
                   :modify-time="post.modifyTime"
                   v-if="modifyTimeVisibility()"
               />
               <CreateTimeChip
-                  style="align-self: end"
+                  style="align-self:end"
                   :create-time="post.createTime"
                   :date-only="true"
               />
@@ -56,10 +54,18 @@
           v-if="post.body&&!hideBody||!post.title"
       >
       <template v-slot:bottom-slot>
-        <div class="flex" style="flex-wrap: wrap">
+        <div class="flex flex-wrap justify-start">
           <TopicChip class="mr-1" v-for="topic in topics" :topic="topic.name"/>
         </div>
-        <div class="flex" style="flex-wrap: wrap">
+        <div class="flex flex-wrap justify-end">
+          <CommentCountChip
+              :count="commentCount"
+              v-if="commentCount!==0"
+          />
+          <ViewCountChip
+              :count="viewCount"
+              v-if="viewCount!==0"
+          />
           <ModifyTimeChip
               :modify-time="post.modifyTime"
               :active="modifyTimeVisibility()"
@@ -90,31 +96,26 @@ import FCard from "@/components/field/f-card.vue";
 import {Post} from "@/scripts/type/post";
 import CommentCountChip from "@/components/chip/CommentCountChip.vue";
 import {Topic} from "@/scripts/type/topic";
-import {Comment} from "@/scripts/type/comment";
+import ViewCountChip from "@/components/chip/ViewCountChip.vue";
 
-const props = defineProps({
-  post: Object as PropType<Post>,
-  coverUrl: {
-    type: String,
-    default: null
-  },
-  summary: {
-    type: String,
-    default: null
-  },
-  viewCount: Number,
-  commentCount: Number,
-  isArchive: Boolean,
-  isSchedule: Boolean,
-  topics: {
-    type: Object as PropType<Topic[]>,
-    default: <Topic[]>[]
-  },
-  hideBody: {
-    type: Boolean,
-    default: false
-  }
-})
+const props = withDefaults(
+    defineProps<{
+      post: Post,
+      coverUrl: string | null,
+      summary: string | null,
+      viewCount: number,
+      commentCount: number,
+      isArchive: boolean,
+      isSchedule: boolean,
+      topics: Topic[],
+      hideBody: boolean,
+    }>(), {
+      coverUrl: null,
+      summary: null,
+      topics: () => [],
+      hideBody: false
+    }
+)
 
 //defineEmits<{ (e: 'postClick', post: Post): void }>()
 

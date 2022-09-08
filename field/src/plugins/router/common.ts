@@ -5,8 +5,11 @@ import {
 } from "vue-router"
 
 import PostZone from '@/components/PostZone/PostZone.vue'
-import {post_items} from "@/scripts/data/post"
-import {getPostIn} from "@/scripts/type/post";
+import {
+    fetchAllPostFullData,
+    fetchPostFullDataById,
+    fetchPostFullDataByTitle
+} from "@/scripts/data/post"
 
 export default createRouter({
     scrollBehavior: () => ({
@@ -18,21 +21,28 @@ export default createRouter({
         {
             path: '/',
             component: PostZone,
-            props: {dataCollection: post_items.value},
+            props: {
+                dataCollection: fetchAllPostFullData(),
+            },
         },
         {
-            path: '/:post_id([0-9]*)',
+            path: '/:post_id_or_title',
             component: PostZone,
-            props:
-                route => ({
-                    dataCollection: [
-                        post_items.value.filter(x => x.post.id === Number(route.params.post_id))[0]
-                    ]
-                }),
-        },
-        {
-            path: '/:unknown(.*)',
-            redirect: '/'
-        },
+            props: r => {
+                {
+                    const post_id = Number(r.params.post_id_or_title)
+                    const v = fetchPostFullDataById(post_id)
+                    if (v !== null)
+                        return {dataCollection: [v]}
+                }
+                {
+                    const post_title = String(r.params.post_id_or_title)
+                    const v = fetchPostFullDataByTitle(post_title)
+                    if (v !== null)
+                        return {dataCollection: [v]}
+                }
+                return {dataCollection: []}
+            },
+        }
     ],
 })
