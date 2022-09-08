@@ -1,4 +1,5 @@
 import {Comment} from "@/scripts/type/comment";
+import {Topic} from "@/scripts/type/topic";
 
 export type Post = {
     id: number,
@@ -7,6 +8,20 @@ export type Post = {
     createTime: Date,
     modifyTime: Date,
     user: string,
+}
+
+export type PostFullData = {
+    post: Post,
+    coverUrl: string | null,
+    summary: string | null,
+    viewCount: number,
+    comments: Comment[],
+    disableComment: boolean,
+    isArchive: boolean,
+    isSchedule: boolean,
+    prevTitle: string | null,
+    nextTitle: string | null,
+    topics: Topic[]
 }
 
 export function isPost(post: any): post is Comment {

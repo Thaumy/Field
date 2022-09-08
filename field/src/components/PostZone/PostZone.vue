@@ -32,6 +32,7 @@
           class="margin-bottom"
           :post-id="dataCollection[0].post.id"
           :comments="dataCollection[0].comments"
+          :disable-comment="dataCollection[0].disableComment"
       />
       <SwitchZone
           class="margin-bottom"
@@ -49,7 +50,7 @@ import {inject} from "vue"
 import CommentZone from "@/components/CommentZone/CommentZone.vue"
 import SwitchZone from "@/components/btn/SwitchZone.vue"
 import PostCard from "../PostCard/PostCard.vue"
-import {PostFullData} from "@/components/PostCard/type"
+import {PostFullData} from "@/scripts/type/post"
 import {useRouter} from "vue-router"
 
 const props =

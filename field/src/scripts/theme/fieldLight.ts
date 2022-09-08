@@ -17,8 +17,7 @@ export const fieldLight: ThemeDefinition = {
         'on-primary': "#000000",
 
         secondary: "#2da44e",
-        'on-secondary': "#ffffff",
-
+        'on-secondary': "#000000",
 
 
         success: "#000000",

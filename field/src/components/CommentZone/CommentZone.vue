@@ -34,9 +34,11 @@
         </div>
       </f-slider>
 
+      <DisableCommentHolder v-if="disableComment"/>
       <CommentEditor
+          v-else
           :reply-mode="replyTarget!==postId"
-          @create-comment="_comments.push(comments[0])"
+          @create-comment="_comments.push(commentExample)"
       />
 
       <f-divider/>
@@ -45,7 +47,7 @@
           name="comment-list"
           tag="div"
       >
-
+        <NoCommentHolder key="" v-if="_comments.length===0&&!disableComment"/>
         <div
             v-for="(comment,index) in _comments"
             ref="commentList"
@@ -85,11 +87,24 @@ import FCard from "@/components/field/f-card.vue"
 import FDivider from "@/components/field/f-divider.vue"
 import FTextRender from "@/components/field/f-text-render.vue"
 import {formatToDateTime} from "@/scripts/util/time"
+import NoCommentHolder from "@/components/CommentZone/NoCommentHolder.vue";
+import DisableCommentHolder from "@/components/CommentZone/DisableCommentHolder.vue";
 
 const props = defineProps<{
   postId: number,
-  comments: Comment[]
+  comments: Comment[],
+  disableComment: boolean
 }>()
+
+const commentExample = <Comment>{
+  id: 1000,
+  user: '小品',
+  body: '这是一条很长很长很长很长很长很长很长很长很长的评论！',
+  replyTo: props.postId,
+  siteUrl: 'https://www.thaumy.cn',
+  avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
+  createTime: new Date('2022-08-11T01:34:00')
+}
 
 const _comments = ref(props.comments)
 const replyTarget = ref(props.postId)
@@ -128,7 +143,9 @@ function expandReference(index: number) {
 
 .comment-list-leave-to
 .comment-list-enter-from
-  transform translateX(10px)
+  height 0
+  opacity 0
+  transform translateX(20px)
 
 .comment-list-enter-to
   height 100%
