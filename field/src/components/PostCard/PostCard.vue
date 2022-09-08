@@ -29,12 +29,12 @@
 
             <template v-slot:summary-right-slot v-if="!post.body">
               <ModifyTimeChip
-                  style="align-self: end"
+                  style="align-self:end"
                   :modify-time="post.modifyTime"
                   v-if="modifyTimeVisibility()"
               />
               <CreateTimeChip
-                  style="align-self: end"
+                  style="align-self:end"
                   :create-time="post.createTime"
                   :date-only="true"
               />
