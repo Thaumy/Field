@@ -50,19 +50,16 @@
 
 <script lang="ts" setup>
 
-import PostCard from "@/components/PostCard/PostCard.vue"
 import {defineAsyncComponent, inject} from "vue"
 import {PostFullData} from "@/scripts/type/post"
 import {useRouter} from "vue-router"
+import PostCard from "@/components/PostCard/PostCard.vue"
+//import CommentZone from "@/components/CommentZone/CommentZone.vue"
 
-const CommentZone = defineAsyncComponent({
-  loader: () => import("@/components/CommentZone/CommentZone.vue"),
-  delay: 100
-})
-const SwitchZone = defineAsyncComponent({
-  loader: () => import("@/components/btn/SwitchZone.vue"),
-  delay: 100
-})
+const CommentZone = defineAsyncComponent(
+    () => import("@/components/CommentZone/CommentZone.vue"))
+const SwitchZone = defineAsyncComponent(
+    () => import("@/components/btn/SwitchZone.vue"))
 
 const props =
     defineProps<{

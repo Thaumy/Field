@@ -34,22 +34,13 @@
 </template>
 
 <script lang="ts" setup>
-import {ref, defineProps} from "vue";
 
-const props = defineProps({
-  avatarUrl: String,
-})
-/*
-const outlineStyle = ref({
-  'border-color': 'transparent'
-})
+import {ref, defineProps} from "vue"
 
-function showOutline() {
-  outlineStyle.value = {
-    'border-color': 'rgba(1, 153, 255, 1)'
-  }
-  setTimeout(() => outlineStyle.value = {'border-color': 'transparent'}, 200)
-}*/
+const props = defineProps<{
+  avatarUrl: string,
+}>()
+
 </script>
 
 <style lang="stylus" scoped>

@@ -10,7 +10,7 @@
         color="grey"
     />
     -->
-    <div class="holder border-radius-all">
+    <div class="holder border-radius-all transition-standard">
       <div class="prev-chip">
         <v-chip
             prepend-icon="mdi-chevron-left"

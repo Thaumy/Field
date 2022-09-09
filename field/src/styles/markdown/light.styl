@@ -1,14 +1,7 @@
-@css {
-  .markdown-light {
-    font-family: 'DejaVu Sans', Emoji, sans-serif;
-  }
-}
-
-.markdown-light
+.v-theme--fieldLight .markdown-zone
   -ms-text-size-adjust 100%
   -webkit-text-size-adjust 100%
   line-height 1.5
-  color #24292e
   font-size 1rem
   word-wrap break-word
 
@@ -19,14 +12,6 @@
 
   &::after
     clear both
-
-  /*
-  > :first-child
-    margin-top 0 !important
-
-  > :last-child
-    margin-bottom 0 !important
-  */
 
   details
     display block
@@ -49,7 +34,6 @@
       text-decoration underline
 
   strong
-    /*webFontLoader-weight inherit*/
     font-weight bolder
 
   img
@@ -209,7 +193,6 @@
   ol
 
     li
-      //word-wrap break-all
       word-break break-all
 
       > p
@@ -362,14 +345,3 @@
       white-space pre
       text-align left
       letter-spacing 0
-
-@css {
-  .markdown-light pre,
-  .markdown-light kbd,
-  .markdown-light code {
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .markdown-light a {
-    color: rgb(var(--v-theme-primary));
-  }
-}

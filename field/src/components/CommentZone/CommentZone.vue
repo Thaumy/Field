@@ -49,15 +49,15 @@
       >
         <NoCommentHolder key="" v-if="_comments.length===0&&!disableComment"/>
         <div
-            v-for="(comment,index) in _comments"
-            ref="commentList"
             key=""
+            ref="commentList"
+            v-for="(comment,index) in _comments"
         >
           <f-divider ml="48" v-if="index!==0"/>
 
           <CommentCard
-              name="comment-card"
               :comment='comment'
+              name="comment-card"
               :disable-reply='replyTarget===comment.id'
               @reply-click="replyTarget=comment.id;expandReference(index)"
           >
@@ -80,12 +80,12 @@
 <script lang="ts" setup>
 
 import {PropType, Ref, ref} from "vue"
-import {Comment, getCommentIn} from "@/scripts/type/comment"
-import CommentEditor from './CommentEditor.vue'
-import CommentCard from './CommentCard.vue'
 import {formatToDateTime} from "@/scripts/util/time"
-import NoCommentHolder from "@/components/CommentZone/NoCommentHolder.vue";
-import DisableCommentHolder from "@/components/CommentZone/DisableCommentHolder.vue";
+import {Comment, getCommentIn} from "@/scripts/type/comment"
+import CommentCard from "./CommentCard.vue"
+import CommentEditor from "./CommentEditor.vue"
+import NoCommentHolder from "./NoCommentHolder.vue"
+import DisableCommentHolder from "./DisableCommentHolder.vue"
 
 const props = defineProps<{
   postId: number,
@@ -107,7 +107,7 @@ const _comments = ref(props.comments)
 const replyTarget = ref(props.postId)
 
 const genReplyReference = (comment: Comment) =>
-    '<blockquote style="font-size:0.8rem;margin-bottom:0.2rem">' +
+    '<blockquote style="font-size:0.8rem;margin-bottom:0.2rem;">' +
     comment.user + ` (于${formatToDateTime(comment.createTime)}):<br>` +
     comment.body +
     '</blockquote>'

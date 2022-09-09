@@ -6,13 +6,13 @@
 
       <div class="content">
         <Menu
-            class="left-part"
+            class="left-part transition-standard"
             :items="menu_items"
             :style="commonOpacityStyle"
         />
 
         <div
-            class="right-part"
+            class="right-part transition-standard"
             :style="commonOpacityStyle"
         >
           <router-view
@@ -40,7 +40,7 @@
                         font-size: 0.7rem;
                         text-decoration: none;'
               >鲁ICP备2021005067</a>"
-          style="margin:20px;margin-top:100px"
+          style="margin:20px;margin-top:100px;"
           :style="pageFootOpacityStyle"
           @fully-visible="pageFootFullyVisible()"
           @fully-invisible="pageFootFullyInvisible()"
@@ -69,20 +69,20 @@ onBeforeMount(() => {
 })
 
 const globalSnackbar = ref()
+
+provide('isDarkTheme', useTheme().global.current.value.dark)
 onMounted(() => {
   provide('showGlobalSnackbar', globalSnackbar.value.show)
 })
 
 const commonOpacityStyle = ref({
   opacity: 1,
-  'pointer-events': 'unset',
-  transition: 'all 0.2s ease'
+  'pointer-events': 'unset'
 })
 
 const pageFootOpacityStyle = ref({
   opacity: 1,
-  'pointer-events': 'none',
-  transition: 'all 0.2s ease'
+  'pointer-events': 'none'
 })
 
 function pageFootFullyVisible() {

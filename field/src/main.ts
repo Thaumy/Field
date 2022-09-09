@@ -11,12 +11,22 @@ import '@/styles/global/util/common.styl'
 import '@/styles/global/util/layout.styl'
 import '@/styles/vuetify/snackbar.styl'
 
+//highlight theme
+import '@/styles/prism/dark.css'
+import '@/styles/prism/light.css'
+//markdown theme
+import "@/styles/markdown/dark.styl"
+import "@/styles/markdown/light.styl"
+import "@/styles/markdown/common.styl"
+
 import FTab from '@/components/field/f-tab.vue'
+import FBtn from "@/components/field/f-btn.vue"
 import FTabs from "@/components/field/f-tabs.vue"
 import FCard from "@/components/field/f-card.vue"
 import FSlider from "@/components/field/f-slider.vue"
 import FDivider from "@/components/field/f-divider.vue"
 import FSnackbar from "@/components/field/f-snackbar.vue"
+import FTextarea from "@/components/field/f-textarea.vue"
 import FTextRender from "@/components/field/f-text-render.vue"
 
 loadFonts().then()
@@ -25,10 +35,12 @@ createApp(App)
     .use(router)
     .use(vuetify)
     .component('f-tab', FTab)
+    .component('f-btn', FBtn)
     .component('f-tabs', FTabs)
     .component('f-card', FCard)
     .component('f-slider', FSlider)
     .component('f-divider', FDivider)
     .component('f-snackbar', FSnackbar)
+    .component('f-textarea', FTextarea)
     .component('f-text-render', FTextRender)
     .mount('#app')
