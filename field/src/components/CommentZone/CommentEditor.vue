@@ -34,6 +34,7 @@
 
       <v-window
           class="body"
+          theme=""
           reverse=""
           v-model="currentMode"
           style="grid-row-start: 2"
@@ -85,11 +86,6 @@
 import {defineProps, inject, ref, watch} from "vue"
 import {Tab} from "@/components/field/type"
 import {marked} from "marked"
-import FTabs from "@/components/field/f-tabs.vue"
-import FTextarea from "@/components/field/f-textarea.vue"
-import FTextRender from "@/components/field/f-text-render.vue"
-import FTab from "@/components/field/f-tab.vue"
-import FBtn from "@/components/field/f-btn.vue"
 
 defineEmits<{
   (e: 'createComment'): void

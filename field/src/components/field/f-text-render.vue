@@ -2,41 +2,27 @@
   <div>
 
     <div
-        v-html="text"
-        class="text-render-zone"
-        :class="genClass()"
+        class="text-render-zone markdown-zone code-zone transition-standard"
         ref="textRenderZone"
+        v-html="text"
     />
 
   </div>
 </template>
 
 <script lang="ts" setup>
-//highlight theme
-import '@/styles/prism/dark.css'
-import '@/styles/prism/light.css'
-//markdown theme
-import "@/styles/markdown/dark.styl"
-import "@/styles/markdown/light.styl"
 
 import {queueTypeSet} from "@/scripts/mathjax/render"
+import {onMounted, Ref, ref, watch} from "vue"
 import {useTheme} from "vuetify"
 import Prism from 'prismjs'
-import {onMounted, Ref, ref} from "vue";
 
-defineProps({
-  text: String
-})
+defineProps<{
+  text: string
+}>()
 
 const textRenderZone = ref()
 const theme = useTheme()
-
-function genClass() {
-  if (theme.global.current.value.dark)
-    return "markdown-dark code-dark"
-  else
-    return "markdown-light code-light"
-}
 
 onMounted(() => {
   if (!textRenderZone.value)
@@ -53,11 +39,5 @@ onMounted(() => {
 .text-render-zone
   letter-spacing 0.5px
   word-break break-word
-
-@css {
-  .text-render-zone {
-    color: rgb(var(--v-theme-on-surface));
-  }
-}
 
 </style>
