@@ -17,6 +17,7 @@
           @click="$router.push('/'+data.post.id)"
       />
     </div>
+
     <div v-else-if="dataCollection.length===1">
       <PostCard
           :post="dataCollection[0].post"
@@ -28,17 +29,20 @@
           :isSchedule="dataCollection[0].isSchedule"
           :topics="dataCollection[0].topics"
       />
-      <CommentZone
-          class="margin-bottom"
-          :post-id="dataCollection[0].post.id"
-          :comments="dataCollection[0].comments"
-          :disable-comment="dataCollection[0].disableComment"
-      />
-      <SwitchZone
-          class="margin-bottom"
-          :prev="dataCollection[0].prevTitle"
-          :next="dataCollection[0].nextTitle"
-      />
+      <transition-group>
+        <CommentZone
+            key=""
+            class="margin-bottom"
+            :post-id="dataCollection[0].post.id"
+            :comments="dataCollection[0].comments"
+            :disable-comment="dataCollection[0].disableComment"
+        />
+        <SwitchZone
+            key=""
+            class="margin-bottom"
+            :post-id="dataCollection[0].post.id"
+        />
+      </transition-group>
     </div>
 
   </div>
@@ -46,12 +50,19 @@
 
 <script lang="ts" setup>
 
-import {inject} from "vue"
-import CommentZone from "@/components/CommentZone/CommentZone.vue"
-import SwitchZone from "@/components/btn/SwitchZone.vue"
-import PostCard from "../PostCard/PostCard.vue"
+import PostCard from "@/components/PostCard/PostCard.vue"
+import {defineAsyncComponent, inject} from "vue"
 import {PostFullData} from "@/scripts/type/post"
 import {useRouter} from "vue-router"
+
+const CommentZone = defineAsyncComponent({
+  loader: () => import("@/components/CommentZone/CommentZone.vue"),
+  delay: 100
+})
+const SwitchZone = defineAsyncComponent({
+  loader: () => import("@/components/btn/SwitchZone.vue"),
+  delay: 100
+})
 
 const props =
     defineProps<{
@@ -61,7 +72,7 @@ const props =
 const showGlobalSnackbar: any = inject('showGlobalSnackbar')
 
 if (props.dataCollection.length === 0) {
-  showGlobalSnackbar('mdi-alert-rhombus', '404 NOT FOUND / 已重定向至首页。', 'red', 5000)
+  showGlobalSnackbar('mdi-alert-rhombus', '404 NOT FOUND / 已重定向至首页', 'red', 5000)
   useRouter().push('/')
 }
 
@@ -69,9 +80,11 @@ if (props.dataCollection.length === 0) {
 
 <style lang="stylus" scoped>
 
-.snackbar-text
-  width fit-content
-  margin auto
-  color white
+.v-enter-active
+  transition all 0.2s ease
+
+.v-enter-from
+  transform translateY(20px)
+  opacity 0
 
 </style>

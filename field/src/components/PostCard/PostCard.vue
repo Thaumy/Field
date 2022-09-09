@@ -1,9 +1,7 @@
 <template>
   <div>
 
-    <f-card
-        class="margin-bottom"
-    >
+    <f-card class="margin-bottom">
       <img
           alt="_"
           style="width:100%;display:block"
@@ -12,7 +10,6 @@
       />
       <div :style="genBackground()" class="transition-standard">
         <div :style="genBackgroundFilter()" class="transition-inherit">
-          <!--TODO 按需路由-->
           <Preview
               :title=post.title
               :summary=summary
@@ -82,21 +79,20 @@
 
 <script lang="ts" setup>
 
-import {defineProps, onMounted, PropType} from "vue";
-import {secTimespan} from "@/scripts/util/time";
-import ScheduleChip from "@/components/chip/ScheduleChip.vue";
-import ReadTimeBar from "@/components/PostCard/ReadTimeBar.vue";
-import ArchiveChip from "@/components/chip/ArchiveChip.vue";
-import TopicChip from "@/components/chip/TopicChip.vue";
-import ModifyTimeChip from "@/components/chip/ModifyTimeChip.vue";
-import CreateTimeChip from "@/components/chip/CreateTimeChip.vue";
-import Preview from "./Preview.vue";
-import Body from "@/components/PostCard/Body.vue";
-import FCard from "@/components/field/f-card.vue";
-import {Post} from "@/scripts/type/post";
-import CommentCountChip from "@/components/chip/CommentCountChip.vue";
-import {Topic} from "@/scripts/type/topic";
-import ViewCountChip from "@/components/chip/ViewCountChip.vue";
+import {defineProps, onMounted, PropType} from "vue"
+import {secTimespan} from "@/scripts/util/time"
+import {Post} from "@/scripts/type/post"
+import {Topic} from "@/scripts/type/topic"
+import TopicChip from "@/components/chip/TopicChip.vue"
+import ArchiveChip from "@/components/chip/ArchiveChip.vue"
+import ScheduleChip from "@/components/chip/ScheduleChip.vue"
+import ViewCountChip from "@/components/chip/ViewCountChip.vue"
+import CreateTimeChip from "@/components/chip/CreateTimeChip.vue"
+import ModifyTimeChip from "@/components/chip/ModifyTimeChip.vue"
+import CommentCountChip from "@/components/chip/CommentCountChip.vue"
+import Body from "./Body.vue"
+import Preview from "./Preview.vue"
+import ReadTimeBar from "./ReadTimeBar.vue"
 
 const props = withDefaults(
     defineProps<{
@@ -116,8 +112,6 @@ const props = withDefaults(
       hideBody: false
     }
 )
-
-//defineEmits<{ (e: 'postClick', post: Post): void }>()
 
 function genBackgroundFilter() {
   if (props.coverUrl)

@@ -20,9 +20,11 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import {defineProps, ref} from "vue";
-import {useTheme} from "vuetify";
+<script lang="ts" setup>
+
+import {defineProps, ref} from "vue"
+import {useTheme} from "vuetify"
+import {removePunctuation} from "@/scripts/util/text"
 
 const props = defineProps({
   targetText: {
@@ -35,13 +37,7 @@ function genText(): string {
   if (props.targetText?.length < 120)
     return "几秒读完"
   else {
-    const pureText = props.targetText//TODO 未经优化的正则
-        .replace(/[，,。.《》（(）)！!“”‘’？?/\s\n]/g, '')//空白和常用标点去除
-        .replace(/<script[^>]*>(.|\n)*?<\/script>/g, '')//脚本标签
-        .replace(/<style>(.|\n)*<\/style>/g, '')//样式标签
-        .replace(/<([^>]|\n)+>/g, '')//其他标签
-        .replace(/&#*\w+;/g, '')//去除转义
-
+    const pureText = removePunctuation(props.targetText)
     const words = Math.round(pureText.length / 100) * 100//精确到百字
     const sec = pureText.length / 10
 

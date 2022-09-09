@@ -11,9 +11,24 @@ import '@/styles/global/util/common.styl'
 import '@/styles/global/util/layout.styl'
 import '@/styles/vuetify/snackbar.styl'
 
+import FTab from '@/components/field/f-tab.vue'
+import FTabs from "@/components/field/f-tabs.vue"
+import FCard from "@/components/field/f-card.vue"
+import FSlider from "@/components/field/f-slider.vue"
+import FDivider from "@/components/field/f-divider.vue"
+import FSnackbar from "@/components/field/f-snackbar.vue"
+import FTextRender from "@/components/field/f-text-render.vue"
+
 loadFonts().then()
 
 createApp(App)
     .use(router)
     .use(vuetify)
+    .component('f-tab', FTab)
+    .component('f-tabs', FTabs)
+    .component('f-card', FCard)
+    .component('f-slider', FSlider)
+    .component('f-divider', FDivider)
+    .component('f-snackbar', FSnackbar)
+    .component('f-text-render', FTextRender)
     .mount('#app')

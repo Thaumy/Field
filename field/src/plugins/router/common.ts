@@ -1,5 +1,4 @@
 import {
-    createWebHashHistory,
     createWebHistory,
     createRouter
 } from "vue-router"

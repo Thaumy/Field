@@ -18,8 +18,8 @@
 </template>
 
 <script setup lang="ts">
+
 import {onMounted, defineProps, PropType, toRefs} from "vue"
-import FTextRender from "@/components/field/f-text-render.vue";
 
 const props = defineProps({
   body: String,

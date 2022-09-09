@@ -61,7 +61,6 @@
 import {defineProps, PropType, ref} from "vue"
 import {Comment} from "@/scripts/type/comment"
 import {formatToDateTime} from "@/scripts/util/time"
-import FTextRender from "@/components/field/f-text-render.vue";
 
 defineEmits<{
   (e: 'replyClick'): void

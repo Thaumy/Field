@@ -1,6 +1,5 @@
 <template>
   <v-app>
-
     <v-main>
 
       <MenuBar :items="menu_items" :style="commonOpacityStyle"/>
@@ -26,15 +25,14 @@
             </transition>
           </router-view>
         </div>
-
       </div>
 
       <FixedBtnZone :style="commonOpacityStyle"/>
 
-    </v-main>
-    <f-snackbar ref="globalSnackbar"/>
-    <PageFoot
-        body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
+      <f-snackbar ref="globalSnackbar"/>
+
+      <PageFoot
+          body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
               Thaumy'Blog 2016-2023<br>
               <a href='http://beian.miit.gov.cn/'
                  target='_blank'
@@ -42,11 +40,13 @@
                         font-size: 0.7rem;
                         text-decoration: none;'
               >鲁ICP备2021005067</a>"
-        style="margin: 20px;margin-top:100vh"
-        :style="pageFootOpacityStyle"
-        @fully-visible="pageFootFullyVisible()"
-        @fully-invisible="pageFootFullyInvisible()"
-    />
+          style="margin:20px;margin-top:100px"
+          :style="pageFootOpacityStyle"
+          @fully-visible="pageFootFullyVisible()"
+          @fully-invisible="pageFootFullyInvisible()"
+      />
+
+    </v-main>
   </v-app>
 </template>
 
@@ -57,7 +57,6 @@ import PageFoot from "@/components/common/PageFoot.vue"
 import Menu from "@/components/Menu/Menu.vue"
 import MenuBar from "@/components/MenuBar/MenuBar.vue"
 import FixedBtnZone from "@/components/btn/FixedBtnZone.vue"
-import FSnackbar from "@/components/field/f-snackbar.vue"
 import {menu_items} from "@/scripts/data/menu"
 import {useTheme} from "vuetify"
 
@@ -106,6 +105,7 @@ function pageFootFullyInvisible() {
 .content
   margin auto
   max-width 1200px
+  min-height 100vh
   display grid
   grid-template-columns 22% 7px auto
 

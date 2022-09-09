@@ -1,24 +1,53 @@
 <template>
   <div>
 
+    <!--
+    <v-icon
+        v-else
+        class="cancel-icon"
+        size="small"
+        icon="mdi-cancel"
+        color="grey"
+    />
+    -->
     <div class="holder border-radius-all">
-      <div class="prev-chip cursor-pointer">
+      <div class="prev-chip">
         <v-chip
             prepend-icon="mdi-chevron-left"
             color="primary"
             variant="text"
+            @click="$router.push('/'+prev.post.id)"
+            v-if="prev!==null"
         >
-          {{ prev }}
+          {{ genTitle(prev.post) }}
+        </v-chip>
+        <v-chip
+            color="grey"
+            style="opacity:0.6"
+            variant="text"
+            v-else
+        >
+          没有更多了
         </v-chip>
       </div>
 
-      <div class="next-chip cursor-pointer">
+      <div class="next-chip">
         <v-chip
             append-icon="mdi-chevron-right"
             color="primary"
             variant="text"
+            @click="$router.push('/'+next.post.id)"
+            v-if="next!==null"
         >
-          {{ next }}
+          {{ genTitle(next.post) }}
+        </v-chip>
+        <v-chip
+            color="grey"
+            style="opacity:0.6"
+            variant="text"
+            v-else
+        >
+          没有更多了
         </v-chip>
       </div>
     </div>
@@ -27,17 +56,40 @@
 </template>
 
 <script lang="ts" setup>
-import {defineProps} from "vue";
 
-defineProps({
-  prev: {type: String, default: null},
-  next: {type: String, default: null},
-})
+import {defineProps, ref} from "vue"
+import {
+  fetchPrevPostFullDataById,
+  fetchNextPostFullDataById
+} from "@/scripts/data/post"
+import {Post} from "@/scripts/type/post"
+import {removeHtmlTags} from "@/scripts/util/text"
+
+const props = defineProps<{
+  postId: number
+}>()
+
+const prev = fetchPrevPostFullDataById(props.postId)
+const next = fetchNextPostFullDataById(props.postId)
+
+function genTitle(post: Post) {
+  const title = post.title
+  if (title === '') {
+    //取前80个字符生成标题
+    //在HTML标记奇多的时候这样做会有问题，但一般不会遇到这种文章。
+    const prefix = post.body.substring(0, 80)
+    return removeHtmlTags(prefix).substring(0, 12) + '...'
+  } else
+    return title
+}
+
 </script>
 
 <style lang="stylus" scoped>
+
 .holder
   backdrop-filter blur(20px)
+  padding-top 1px
   display flex
   justify-content end
   flex-flow wrap
@@ -50,4 +102,13 @@ defineProps({
     background-color: rgba(var(--v-theme-background), 0.7)
   }
 }
+
+/*
+.cancel-icon
+height 100%
+opacity 0.2
+padding-top 1px
+margin-left 6px
+margin-right 6px
+*/
 </style>

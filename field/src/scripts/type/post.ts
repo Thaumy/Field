@@ -1,5 +1,5 @@
-import {Comment} from "@/scripts/type/comment";
-import {Topic} from "@/scripts/type/topic";
+import {Comment} from "@/scripts/type/comment"
+import {Topic} from "@/scripts/type/topic"
 
 export type Post = {
     id: number,
@@ -7,7 +7,7 @@ export type Post = {
     body: string,
     createTime: Date,
     modifyTime: Date,
-    user: string,
+    user: string
 }
 
 export type PostFullData = {
@@ -19,8 +19,6 @@ export type PostFullData = {
     disableComment: boolean,
     isArchive: boolean,
     isSchedule: boolean,
-    prevTitle: string | null,
-    nextTitle: string | null,
     topics: Topic[]
 }
 

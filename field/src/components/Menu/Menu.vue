@@ -7,7 +7,7 @@
           style="opacity: 0.4"
       />
 
-      <Avatar avatarUrl="src/assets/pp512.png"/>
+      <Avatar :avatarUrl="avatar"/>
 
       <Info
           class="mb-4"
@@ -48,11 +48,9 @@ import {defineProps, PropType, ref} from "vue"
 import About from "./About.vue"
 import Info from "./Info.vue"
 import Avatar from "./Avatar.vue"
-import FCard from "@/components/field/f-card.vue"
-import FTabs from "@/components/field/f-tabs.vue"
 import {Tab} from "@/components/field/type"
 import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
-import FTab from "@/components/field/f-tab.vue";
+import avatar from "@/public/avatar.png"
 
 const props = defineProps({
   items: {

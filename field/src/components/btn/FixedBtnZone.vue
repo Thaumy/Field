@@ -9,8 +9,9 @@
 </template>
 
 <script lang="ts" setup>
-import GoUpBtn from "@/components/btn/GoUpBtn.vue";
-import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue";
+
+import GoUpBtn from "@/components/btn/GoUpBtn.vue"
+
 </script>
 
 <style lang="stylus" scoped>

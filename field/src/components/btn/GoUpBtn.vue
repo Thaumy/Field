@@ -21,6 +21,7 @@
 </template>
 
 <script lang="ts" setup>
+
 import {onMounted, ref} from "vue";
 import {makeThrottle} from "@/scripts/util/throttle"
 
@@ -33,6 +34,7 @@ onMounted(() => {
     visibility.value = window.scrollY >= 1000
   }, 300))
 })
+
 </script>
 
 <style lang="stylus" scoped>
