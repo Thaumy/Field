@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts" setup>
+
 import {defineProps, onMounted, PropType} from "vue"
 import Typed from "typed.js"
 

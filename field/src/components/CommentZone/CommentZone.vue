@@ -78,14 +78,11 @@
 </template>
 
 <script lang="ts" setup>
+
 import {PropType, Ref, ref} from "vue"
 import {Comment, getCommentIn} from "@/scripts/type/comment"
 import CommentEditor from './CommentEditor.vue'
 import CommentCard from './CommentCard.vue'
-import FSlider from "@/components/field/f-slider.vue"
-import FCard from "@/components/field/f-card.vue"
-import FDivider from "@/components/field/f-divider.vue"
-import FTextRender from "@/components/field/f-text-render.vue"
 import {formatToDateTime} from "@/scripts/util/time"
 import NoCommentHolder from "@/components/CommentZone/NoCommentHolder.vue";
 import DisableCommentHolder from "@/components/CommentZone/DisableCommentHolder.vue";

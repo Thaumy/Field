@@ -10,7 +10,7 @@
           class="cursor-pointer flex"
           @click="$router.push('/')"
       >
-        <img class="avatar border-shadow" src="@/assets/pp512.png" alt="avatar"/>
+        <img class="avatar border-shadow" :src="avatar" alt="avatar"/>
         <div class="name">THAUMY的小站</div>
       </div>
 
@@ -39,10 +39,11 @@
 
 <script lang="ts" setup>
 import {onMounted, ref, PropType} from 'vue'
-import {makeDebounce} from "@/scripts/util/debounce";
-import Drawer from "./Drawer.vue";
-import {Tab} from "@/components/field/type";
-import Shadow from "@/components/MenuBar/Shadow.vue";
+import {makeDebounce} from "@/scripts/util/debounce"
+import Drawer from "./Drawer.vue"
+import {Tab} from "@/components/field/type"
+import Shadow from "@/components/MenuBar/Shadow.vue"
+import avatar from "@/public/avatar.png"
 
 const props = defineProps<{
   items: Tab[]

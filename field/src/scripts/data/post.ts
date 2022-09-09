@@ -28,11 +28,18 @@ export function fetchPostFullDataByTitle(title: string): PostFullData | null {
         return v
 }
 
-export function fetchPostFullDataByIdOrTitle(idOrTitle: number | string): PostFullData | null {
-    if (typeof idOrTitle === 'number')
-        return fetchPostFullDataById(idOrTitle)
-    else
-        return fetchPostFullDataByTitle(idOrTitle)
+export function fetchPrevPostFullDataById(id: number): PostFullData | null {
+    const index = dataCollection.findIndex(x => x.post.id === id)
+    if (index === -1 || index - 1 < 0)
+        return null
+    return dataCollection[index - 1]
+}
+
+export function fetchNextPostFullDataById(id: number): PostFullData | null {
+    const index = dataCollection.findIndex(x => x.post.id === id)
+    if (index === -1 || index + 1 > dataCollection.length - 1)
+        return null
+    return dataCollection[index + 1]
 }
 
 //TODO view count chip? impl
@@ -40,6 +47,7 @@ export let dataCollection = [
     <PostFullData>{
         post: <Post>{
             id: 12343,
+            title: '',
             body: "这是一条笔记，适合短文本发布。(摸摸鱼)",
             createTime: new Date('2022-09-01T08:24:00'),
             modifyTime: new Date('2022-09-91T08:34:00')
@@ -162,8 +170,6 @@ export let dataCollection = [
         topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}],
         isSchedule: true,
         isArchive: true,
-        prevTitle: "你不知道的114514个单身技巧",
-        nextTitle: "构建pilipala应用的最佳实践"
     },
     <PostFullData>{
         post: <Post>{
