@@ -3,7 +3,7 @@ import {
     createRouter
 } from "vue-router"
 
-import PostZone from '@/components/PostZone/PostZone.vue'
+import PostZone from '@/components/common/PostZone.vue'
 import {
     fetchAllPostFullData,
     fetchPostFullDataById,
