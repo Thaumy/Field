@@ -1,53 +1,129 @@
-standard-transition-time = 0.2s
-standard-transition = all standard-transition-time ease
-
-@css {
-  .markdown-zone {
-    color: rgb(var(--v-theme-on-surface));
-    font-family: 'DejaVu Sans', Emoji, sans-serif;
-  }
-  .markdown-zone code,
-  .markdown-zone table th,
-  .markdown-zone table td {
-    color: rgb(var(--v-theme-on-surface));
-  }
-  .markdown-zone pre,
-  .markdown-zone kbd,
-  .markdown-zone code {
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .markdown-zone a {
-    color: rgb(var(--v-theme-primary));
-  }
-}
+@import "dark.styl"
+@import "light.styl"
+@import "character.styl"
+@import "transition.styl"
 
 .markdown-zone
-  h1
-  h2
-    transition border standard-transition-time
+  img
+    max-width 100%
 
-  pre
-    transition standard-transition
+    &[align=right]
+      padding-left 20px
 
-    code
-      transition color standard-transition-time
+    &[align=left]
+      padding-right 20px
 
   a
-  kbd
-    transition standard-transition
+    text-decoration none
+    font-weight 500
+    margin-left 4px
+    margin-right 4px
+    background-color initial
 
+    &:active
+    &:hover
+      outline-width 0
+
+    &:hover
+      text-decoration underline
+
+    &:not([href])
+      color inherit
+      text-decoration none
+
+  p
+  dl
+  ol
+  ul
+  pre
   table
-    thead
-    tbody
-      tr
-        transition standard-transition
-
-        th
-        td
-          transition standard-transition
-
+  details
   blockquote
-    transition standard-transition
+    margin-top 0
+    margin-bottom 0.2rem
 
-  code
-    transition standard-transition
+  ul
+  ol
+
+    li
+      word-break break-all
+
+      > p
+        margin-top 16px
+
+    li + li
+      margin-top .25em
+
+    ol
+      list-style-type lower-roman
+
+    ol
+    ul
+      margin-top 0
+      margin-bottom 0
+
+      ol
+        list-style-type lower-alpha
+
+  dl
+    padding 0
+
+    dt
+      padding 0
+      margin-top 16px
+      font-size 1em
+      font-style italic
+      font-weight 600
+
+    dd
+      padding 0 16px
+      margin-bottom 16px
+
+  details
+    summary
+      cursor pointer
+
+  p
+    margin-top 0
+    margin-bottom 10px
+
+  dd
+    margin-left 0
+
+  input::-webkit-inner-spin-button
+  input::-webkit-outer-spin-button
+    margin 0
+    -webkit-appearance none
+    appearance none
+
+  h1
+  h2
+  h3
+  h4
+  h5
+  h6
+    margin-top 2rem
+    margin-bottom 1rem
+    font-weight 600
+    line-height 1.2
+
+  h1
+    font-size 1.8em
+
+  h2
+    font-size 1.3em
+
+  h3
+  h4
+  h5
+  h6
+    font-weight 600
+
+  h3
+    font-size 1.25em
+
+  h4
+    font-size 1em
+
+  h5
+    font-size .875em

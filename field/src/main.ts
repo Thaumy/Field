@@ -11,12 +11,7 @@ import '@/styles/global/util/common.styl'
 import '@/styles/global/util/layout.styl'
 import '@/styles/vuetify/snackbar.styl'
 
-//highlight theme
-import '@/styles/prism/dark.css'
-import '@/styles/prism/light.css'
-//markdown theme
-import "@/styles/markdown/dark.styl"
-import "@/styles/markdown/light.styl"
+import '@/styles/prism/common.styl'
 import "@/styles/markdown/common.styl"
 
 import FTab from '@/components/field/f-tab.vue'
