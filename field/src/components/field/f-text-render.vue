@@ -2,7 +2,7 @@
   <div>
 
     <div
-        class="text-render-zone markdown-zone code-zone transition-standard"
+        class="markdown-zone code-zone transition-standard"
         ref="textRenderZone"
         v-html="text"
     />
@@ -35,9 +35,5 @@ onMounted(() => {
 </script>
 
 <style lang="stylus" scoped>
-
-.text-render-zone
-  letter-spacing 0.5px
-  word-break break-word
 
 </style>

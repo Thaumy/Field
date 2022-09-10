@@ -2,34 +2,34 @@
   <v-app>
     <v-main>
 
-      <MenuBar :items="menu_items" :style="commonOpacityStyle"/>
+      <div class="transition-standard" :class="{hidden:!contentVisibility}">
+        <MenuBar :items="menu_items"/>
 
-      <div class="content">
-        <Menu
-            class="left-part transition-standard"
-            :items="menu_items"
-            :style="commonOpacityStyle"
-        />
+        <div class="content">
+          <Menu
+              class="left-part transition-standard"
+              :items="menu_items"
+          />
 
-        <div
-            class="right-part transition-standard"
-            :style="commonOpacityStyle"
-        >
-          <router-view
-              v-slot="{Component,route}"
+          <div
+              class="right-part transition-standard"
           >
-            <transition name="router-view">
-              <keep-alive>
-                <component :is="Component" :key="route.path"/>
-              </keep-alive>
-            </transition>
-          </router-view>
+            <router-view
+                v-slot="{Component,route}"
+            >
+              <transition name="router-view">
+                <keep-alive>
+                  <component :is="Component" :key="route.path"/>
+                </keep-alive>
+              </transition>
+            </router-view>
+          </div>
         </div>
+
+        <FixedBtnZone/>
+
+        <f-snackbar ref="globalSnackbar"/>
       </div>
-
-      <FixedBtnZone :style="commonOpacityStyle"/>
-
-      <f-snackbar ref="globalSnackbar"/>
 
       <PageFoot
           body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
@@ -41,9 +41,8 @@
                         text-decoration: none;'
               >鲁ICP备2021005067</a>"
           style="margin:20px;margin-top:100px;"
-          :style="pageFootOpacityStyle"
-          @fully-visible="pageFootFullyVisible()"
-          @fully-invisible="pageFootFullyInvisible()"
+          @fully-visible="contentVisibility=false"
+          @fully-invisible="contentVisibility=true"
       />
 
     </v-main>
@@ -75,32 +74,15 @@ onMounted(() => {
   provide('showGlobalSnackbar', globalSnackbar.value.show)
 })
 
-const commonOpacityStyle = ref({
-  opacity: 1,
-  'pointer-events': 'unset'
-})
+const contentVisibility = ref(true)
 
-const pageFootOpacityStyle = ref({
-  opacity: 1,
-  'pointer-events': 'none'
-})
-
-function pageFootFullyVisible() {
-  commonOpacityStyle.value.opacity = 0
-  commonOpacityStyle.value["pointer-events"] = 'none'
-  pageFootOpacityStyle.value.opacity = 1
-  pageFootOpacityStyle.value["pointer-events"] = 'unset'
-}
-
-function pageFootFullyInvisible() {
-  commonOpacityStyle.value.opacity = 1
-  commonOpacityStyle.value["pointer-events"] = 'unset'
-  pageFootOpacityStyle.value.opacity = 0
-  pageFootOpacityStyle.value["pointer-events"] = 'none'
-}
 </script>
 
 <style lang="stylus" scoped>
+
+.hidden
+  opacity 0
+  pointer-events unset
 
 .content
   margin auto

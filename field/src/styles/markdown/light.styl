@@ -1,9 +1,4 @@
 .v-theme--fieldLight .markdown-zone
-  -ms-text-size-adjust 100%
-  -webkit-text-size-adjust 100%
-  line-height 1.5
-  font-size 1rem
-  word-wrap break-word
 
   &::after
   &::before
@@ -18,20 +13,6 @@
 
   summary
     display list-item
-
-  a
-    text-decoration none
-    font-weight 500
-    margin-left 4px
-    margin-right 4px
-    background-color initial
-
-    &:active
-    &:hover
-      outline-width 0
-
-    &:hover
-      text-decoration underline
 
   strong
     font-weight bolder
@@ -82,46 +63,10 @@
     &:after
       clear both
 
-  details
-    summary
-      cursor pointer
-
-  p
-    margin-top 0
-    margin-bottom 10px
-
-  blockquote
-    margin 0
-
-  dd
-    margin-left 0
-
-  input::-webkit-inner-spin-button
-  input::-webkit-outer-spin-button
-    margin 0
-    -webkit-appearance none
-    appearance none
-
   :checked + .radio-label
     position relative
     z-index 1
     border-color #0366d6
-
-  a
-    &:not([href])
-      color inherit
-      text-decoration none
-
-  blockquote
-  details
-  dl
-  ol
-  p
-  pre
-  table
-  ul
-    margin-top 0
-    margin-bottom 16px
 
   blockquote
     padding 0.2rem 0.5rem
@@ -137,41 +82,9 @@
 
   h1
   h2
-  h3
-  h4
-  h5
-  h6
-    margin-top 2rem
-    margin-bottom 1rem
-    font-weight 600
-    line-height 1.2
-
-  h1
-    font-size 1.8em
-
-  h1
-  h2
     font-weight 600
     padding-bottom .3em
     border-bottom 1px solid #dcdcdc
-
-  h2
-    font-size 1.3em
-
-  h3
-  h4
-  h5
-  h6
-    font-weight 600
-
-  h3
-    font-size 1.25em
-
-  h4
-    font-size 1em
-
-  h5
-    font-size .875em
 
   h6
     font-size .85em
@@ -188,43 +101,6 @@
 
     li::marker
       color rgb(160 160 160)
-
-  ul
-  ol
-
-    li
-      word-break break-all
-
-      > p
-        margin-top 16px
-
-    li + li
-      margin-top .25em
-
-    ol
-      list-style-type lower-roman
-
-    ol
-    ul
-      margin-top 0
-      margin-bottom 0
-
-      ol
-        list-style-type lower-alpha
-
-  dl
-    padding 0
-
-    dt
-      padding 0
-      margin-top 16px
-      font-size 1em
-      font-style italic
-      font-weight 600
-
-    dd
-      padding 0 16px
-      margin-bottom 16px
 
   table
     border-spacing 0
@@ -287,15 +163,6 @@
 
             &:last-child
               border-bottom-right-radius 4px
-
-  img
-    max-width 100%
-
-    &[align=right]
-      padding-left 20px
-
-    &[align=left]
-      padding-right 20px
 
   kbd
     display inline-block

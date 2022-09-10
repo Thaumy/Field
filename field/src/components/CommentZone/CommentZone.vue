@@ -107,7 +107,7 @@ const _comments = ref(props.comments)
 const replyTarget = ref(props.postId)
 
 const genReplyReference = (comment: Comment) =>
-    '<blockquote style="font-size:0.8rem;margin-bottom:0.2rem;">' +
+    '<blockquote style="font-size:0.8rem;">' +
     comment.user + ` (于${formatToDateTime(comment.createTime)}):<br>` +
     comment.body +
     '</blockquote>'
