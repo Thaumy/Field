@@ -4,19 +4,74 @@ import {PostFullData} from "@/scripts/type/post"
 import {Topic} from "@/scripts/type/topic"
 import {Comment} from "@/scripts/type/comment"
 
-//const ws = new WebSocket("ws://localhost:8080")
-
 export function fetchAllPostFullData(): PostFullData[] {
     return dataCollection
 }
 
-export function fetchPostFullDataById(id: number): PostFullData | null {
+export function isPostFullDataExist(idOrTitle: number | string) {
+    const hasId = () => dataCollection.some(x => x.post.id === idOrTitle)
+    const hasTitle = () => dataCollection.some(x => x.post.title === idOrTitle)
+    return hasId() || hasTitle()
+}
+
+export async function fetchPostFullDataFromServer(id: number) {
+    const ws = new WebSocket("ws://localhost:8080/app")
+
+    const data: Promise<PostFullData | null> =
+        new Promise<string>
+        ((resolve) => {
+                ws.addEventListener("message", e => {
+                    resolve(e.data)
+                })
+            }
+        ).then(s => {
+            if (s === '')
+                return null
+            const json = JSON.parse(s)
+            return <PostFullData>{
+                post: {
+                    id: json['Id'],
+                    title: json['Title'],
+                    body: json['Body'],
+                    createTime: new Date('2022-09-01T08:24:00'),
+                    modifyTime: new Date('2022-09-91T08:34:00')
+                    /*
+                    createTime: json['CreateTime'],
+                    modifyTime: json['ModifyTime']
+                    */
+                },
+                coverUrl: json['CoverUrl'],
+                summary: json['Summary'],
+                viewCount: json['ViewCount'],
+                comments: json['Comments'],
+                disableComment: !json['CanComment'],
+                isArchive: json['IsArchive'],
+                isSchedule: json['IsSchedule'],
+                topics: json['Topics'],
+            }
+        })
+
+    //TODO event remove
+    ws.addEventListener('open', () => ws.send(id.toString()))
+
+    let result = await data
+
+    if (result === null)
+        return null
+
+    dataCollection.push(result)
+
+    ws.close()
+    return result
+}
+
+export function fetchPostFullDataById(id: number) {
     const v = dataCollection.filter(x => x.post.id === id)[0]
 
-    if (v === null || v === undefined)
-        return null
-    else
+    if (v !== null && v !== undefined)
         return v
+
+    return null
 }
 
 export function fetchPostFullDataByTitle(title: string): PostFullData | null {
@@ -25,7 +80,7 @@ export function fetchPostFullDataByTitle(title: string): PostFullData | null {
     if (v === null || v === undefined)
         return null
     else
-        return v
+        return v//TODO fetch from server by title
 }
 
 export function fetchPrevPostFullDataById(id: number): PostFullData | null {
@@ -45,7 +100,7 @@ export function fetchNextPostFullDataById(id: number): PostFullData | null {
 //TODO view count chip? impl
 export let dataCollection = [
     <PostFullData>{
-        post: <Post>{
+        post: {
             id: 12343,
             title: '',
             body: "这是一条笔记，适合短文本发布。(摸摸鱼)",
@@ -175,7 +230,7 @@ export let dataCollection = [
         post: <Post>{
             id: 12347,
             title: '空の青さを知る人よ',
-            body: 'no body!!',
+            body: 'no body!!(ws test)',
             createTime: new Date('2022-08-20T08:00:00'),
             modifyTime: new Date('2022-08-20T10:00:01'),
         },
