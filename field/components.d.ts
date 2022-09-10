@@ -33,7 +33,7 @@ declare module '@vue/runtime-core' {
     PageList: typeof import('./src/components/Menu/PageList.vue')['default']
     PageListCard: typeof import('./src/components/Menu/PageListCard.vue')['default']
     PostCard: typeof import('./src/components/card/PostCard.vue')['default']
-    PostColumn: typeof import('./src/components/PostZone/PostZone.vue')['default']
+    PostColumn: typeof import('./src/components/common/PostZone.vue')['default']
     PostPreviewCard: typeof import('./src/components/card/PostPreviewCard.vue')['default']
     Preview: typeof import('./src/components/PostCard/Preview.vue')['default']
     PreviewCard: typeof import('./src/components/PostCard/PreviewCard.vue')['default']

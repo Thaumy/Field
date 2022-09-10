@@ -7,13 +7,11 @@
 
         <div class="content">
           <Menu
-              class="left-part transition-standard"
+              class="left-part"
               :items="menu_items"
           />
 
-          <div
-              class="right-part transition-standard"
-          >
+          <div class="right-part">
             <router-view
                 v-slot="{Component,route}"
             >
@@ -32,6 +30,7 @@
       </div>
 
       <PageFoot
+          class="page-foot"
           body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
               Thaumy'Blog 2016-2023<br>
               <a href='http://beian.miit.gov.cn/'
@@ -40,7 +39,7 @@
                         font-size: 0.7rem;
                         text-decoration: none;'
               >鲁ICP备2021005067</a>"
-          style="margin:20px;margin-top:100px;"
+          v-if="pageFootVisibility"
           @fully-visible="contentVisibility=false"
           @fully-invisible="contentVisibility=true"
       />
@@ -58,6 +57,7 @@ import MenuBar from "@/components/MenuBar/MenuBar.vue"
 import FixedBtnZone from "@/components/btn/FixedBtnZone.vue"
 import {menu_items} from "@/scripts/data/menu"
 import {useTheme} from "vuetify"
+import {useRouter} from "vue-router"
 
 onBeforeMount(() => {
   const theme = useTheme()
@@ -76,18 +76,34 @@ onMounted(() => {
 
 const contentVisibility = ref(true)
 
+const pageFootVisibility = ref(true)
+const router = useRouter()
+router.beforeEach(() => {
+  pageFootVisibility.value = false
+})
+router.afterEach(() => {
+  setTimeout(() => {
+    pageFootVisibility.value = true
+  }, 500)
+})
+
+
 </script>
 
 <style lang="stylus" scoped>
 
+.page-foot
+  margin 20px
+  margin-top 100px
+
 .hidden
   opacity 0
-  pointer-events unset
+  pointer-events none
 
 .content
   margin auto
   max-width 1200px
-  min-height 100vh
+  min-height 110vh
   display grid
   grid-template-columns 22% 7px auto
 

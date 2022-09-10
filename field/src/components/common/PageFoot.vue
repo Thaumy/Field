@@ -4,7 +4,7 @@
     <!--Banishment<br>
     PixivID:75993030<br>-->
 
-    <div class="page-foot" v-html="body" ref="pageFoot"/>
+    <div class="holder" v-html="body" ref="pageFoot"/>
 
   </div>
 </template>
@@ -27,9 +27,9 @@ const pageFoot = ref()
 onMounted(() => {
   const handler = (entries: IntersectionObserverEntry[]) => {
     entries.forEach(entry => {
-      if (entry.intersectionRatio > 0.9)
+      if (entry.intersectionRatio > 0.98)
         emits('fullyVisible')
-      else if (entry.intersectionRatio < 0.1)
+      else if (entry.intersectionRatio < 0.02)
         emits('fullyInvisible')
     })
   }
@@ -45,7 +45,7 @@ onMounted(() => {
 
 <style lang="stylus" scoped>
 
-.page-foot
+.holder
   color white
   text-align center
   letter-spacing 1px
