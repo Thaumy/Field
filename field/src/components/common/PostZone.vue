@@ -50,11 +50,25 @@
 
 <script lang="ts" setup>
 
-import {defineAsyncComponent, inject} from "vue"
+import {defineAsyncComponent, inject, provide} from "vue"
 import {PostFullData} from "@/scripts/type/post"
 import {useRouter} from "vue-router"
 import PostCard from "@/components/PostCard/PostCard.vue"
-//import CommentZone from "@/components/CommentZone/CommentZone.vue"
+import {onBeforeRouteUpdate} from "vue-router"
+import {
+  isPostFullDataExist,
+  fetchPostFullDataFromServer
+} from "@/scripts/data/post"
+
+onBeforeRouteUpdate(async (to, from, next) => {
+  const id = Number(to.params.post_id_or_title)
+
+  //如果数据不存在，从服务器获取
+  if (!isPostFullDataExist(id))
+    await fetchPostFullDataFromServer(id)//TODO title
+
+  next()
+})
 
 const CommentZone = defineAsyncComponent(
     () => import("@/components/CommentZone/CommentZone.vue"))
