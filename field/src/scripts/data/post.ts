@@ -5,6 +5,7 @@ import {Topic} from "@/scripts/type/topic"
 import {Comment} from "@/scripts/type/comment"
 
 export function fetchAllPostFullData(): PostFullData[] {
+    fetchAllPostFullDataFromServer()
     return dataCollection
 }
 
@@ -12,6 +13,63 @@ export function isPostFullDataExist(idOrTitle: number | string) {
     const hasId = () => dataCollection.some(x => x.post.id === idOrTitle)
     const hasTitle = () => dataCollection.some(x => x.post.title === idOrTitle)
     return hasId() || hasTitle()
+}
+
+
+export async function fetchAllPostFullDataFromServer() {
+    const ws = new WebSocket("ws://localhost:8080/get_all_post")
+
+    const data: Promise<PostFullData[] | null> =
+        new Promise<string>
+        ((resolve) => {
+                ws.addEventListener("message", e => {
+                    resolve(e.data)
+                })
+            }
+        ).then(s => {
+                if (s === '')
+                    return null
+                const json = JSON.parse(s)
+                for (let index in json) {
+                    let it = json[index]
+
+                    dataCollection.push(
+                        <PostFullData>{
+                            post: {
+                                id: it['Id'],
+                                title: it['Title'],
+                                body: it['Body'],
+                                createTime: new Date('2022-09-01T08:24:00'),
+                                modifyTime: new Date('2022-09-91T08:34:00')
+                                //createTime: json['CreateTime'],
+                                //modifyTime: json['ModifyTime']
+                            },
+                            coverUrl: it['CoverUrl'],
+                            summary: it['Summary'],
+                            viewCount: it['ViewCount'],
+                            comments: it['Comments'],
+                            disableComment: !it['CanComment'],
+                            isArchive: it['IsArchive'],
+                            isSchedule: it['IsSchedule'],
+                            topics: it['Topics'],
+                        })
+                }
+                return <PostFullData[]>[]
+            }
+        )
+
+    //TODO event remove
+    ws.addEventListener('open', () => ws.send(''))
+
+    let result = await data
+
+    if (result === null)
+        return null
+
+    dataCollection = dataCollection.concat(result)
+
+    ws.close()
+    return result
 }
 
 export async function fetchPostFullDataFromServer(id: number) {
