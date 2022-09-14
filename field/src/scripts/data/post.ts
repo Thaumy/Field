@@ -15,7 +15,7 @@ export function isPostFullDataExist(idOrTitle: number | string) {
 }
 
 export async function fetchPostFullDataFromServer(id: number) {
-    const ws = new WebSocket("ws://localhost:8080/app")
+    const ws = new WebSocket("ws://localhost:8080/get_post")
 
     const data: Promise<PostFullData | null> =
         new Promise<string>
