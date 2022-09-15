@@ -18,6 +18,7 @@
       <div class="summary-flex" v-if="title&&summary">
         <div
             class="summary"
+            :class="{'generated':isGeneratedSummary}"
             v-text="summary"
         />
 
@@ -34,14 +35,14 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps} from "vue";
-import {Comment} from "@/scripts/type/comment";
 
-let props = defineProps({
-  title: String,
-  summary: String,
-  blurBg: Boolean
-})
+import {defineProps} from "vue";
+
+let props = defineProps<{
+  title: string,
+  summary: string,
+  isGeneratedSummary: boolean,
+}>()
 
 </script>
 
@@ -63,13 +64,18 @@ let props = defineProps({
   display flex
   flex-wrap wrap
   justify-content end
+  overflow hidden
 
 .summary
   margin-right auto
   margin-bottom 10px
   padding-left 18px
+  padding-right 18px
   font-size 0.9rem
   word-break break-all
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
 
 .title
   margin-right auto
@@ -82,6 +88,9 @@ let props = defineProps({
   }
   .summary {
     color: rgba(var(--v-theme-on-surface), 0.8);
+  }
+  .summary[class~=generated] {
+    color: rgba(var(--v-theme-on-surface), 0.4);
   }
 }
 

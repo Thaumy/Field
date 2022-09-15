@@ -60,6 +60,7 @@ export async function fetchAllPostFullDataFromServer() {
                             },
                             coverUrl: it['CoverUrl'],
                             summary: it['Summary'],
+                            isGeneratedSummary: it['IsGeneratedSummary'],
                             viewCount: it['ViewCount'],
                             comments: comments,
                             disableComment: !it['CanComment'],
