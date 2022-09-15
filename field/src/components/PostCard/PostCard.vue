@@ -13,6 +13,7 @@
           <Preview
               :title=post.title
               :summary=summary
+              :is-generated-summary="isGeneratedSummary"
               v-if=post.title
           >
             <template v-slot:title-right-slot>
@@ -99,6 +100,7 @@ const props = withDefaults(
       post: Post,
       coverUrl: string | null,
       summary: string | null,
+      isGeneratedSummary: boolean,
       viewCount: number,
       commentCount: number,
       isArchive: boolean,
@@ -108,6 +110,7 @@ const props = withDefaults(
     }>(), {
       coverUrl: null,
       summary: null,
+      isGeneratedSummary: false,
       topics: () => [],
       hideBody: false
     }

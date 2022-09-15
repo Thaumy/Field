@@ -29,6 +29,7 @@
         <f-snackbar ref="globalSnackbar"/>
       </div>
 
+<!--
       <PageFoot
           class="page-foot"
           body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
@@ -43,7 +44,7 @@
           @fully-visible="contentVisibility=false"
           @fully-invisible="contentVisibility=true"
       />
-
+-->
     </v-main>
   </v-app>
 </template>
