@@ -33,21 +33,35 @@ export async function fetchAllPostFullDataFromServer() {
                 for (let index in json) {
                     let it = json[index]
 
+                    let comments: Comment[] = []
+                    for (let comment_index in it['Comments']) {
+                        let comment_it = it['Comments'][comment_index]
+                        comments.push(
+                            {
+                                id: comment_it["Id"],
+                                user: comment_it["User"],
+                                body: comment_it["Body"],
+                                replyTo: comment_it["ReplyTo"],
+                                siteUrl: comment_it["SiteUrl"],
+                                avatarUrl: comment_it["AvatarUrl"],
+                                createTime: new Date(comment_it["CreateTime"])
+                            }
+                        )
+                    }
+
                     dataCollection.push(
                         <PostFullData>{
                             post: {
                                 id: it['Id'],
                                 title: it['Title'],
                                 body: it['Body'],
-                                createTime: new Date('2022-09-01T08:24:00'),
-                                modifyTime: new Date('2022-09-91T08:34:00')
-                                //createTime: json['CreateTime'],
-                                //modifyTime: json['ModifyTime']
+                                createTime: new Date(it['CreateTime']),
+                                modifyTime: new Date(it['ModifyTime'])
                             },
                             coverUrl: it['CoverUrl'],
                             summary: it['Summary'],
                             viewCount: it['ViewCount'],
-                            comments: it['Comments'],
+                            comments: comments,
                             disableComment: !it['CanComment'],
                             isArchive: it['IsArchive'],
                             isSchedule: it['IsSchedule'],
@@ -91,12 +105,8 @@ export async function fetchPostFullDataFromServer(id: number) {
                     id: json['Id'],
                     title: json['Title'],
                     body: json['Body'],
-                    createTime: new Date('2022-09-01T08:24:00'),
-                    modifyTime: new Date('2022-09-91T08:34:00')
-                    /*
-                    createTime: json['CreateTime'],
-                    modifyTime: json['ModifyTime']
-                    */
+                    createTime: new Date(json['CreateTime']),
+                    modifyTime: new Date(json['ModifyTime'])
                 },
                 coverUrl: json['CoverUrl'],
                 summary: json['Summary'],
