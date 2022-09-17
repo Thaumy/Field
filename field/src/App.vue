@@ -1,40 +1,38 @@
 <template>
   <v-app>
-
     <v-main>
 
-      <MenuBar :items="menu_items" :style="commonOpacityStyle"/>
+      <div class="transition-standard" :class="{hidden:!contentVisibility}">
+        <MenuBar :items="menu_items"/>
 
-      <div class="content">
-        <Menu
-            class="left-part"
-            :items="menu_items"
-            :style="commonOpacityStyle"
-        />
+        <div class="content">
+          <Menu
+              class="left-part"
+              :items="menu_items"
+          />
 
-        <div
-            class="right-part"
-            :style="commonOpacityStyle"
-        >
-          <router-view
-              v-slot="{Component,route}"
-          >
-            <transition name="router-view">
-              <keep-alive>
-                <component :is="Component" :key="route.path"/>
-              </keep-alive>
-            </transition>
-          </router-view>
+          <div class="right-part">
+            <router-view
+                v-slot="{Component,route}"
+            >
+              <transition name="router-view">
+                <keep-alive>
+                  <component :is="Component" :key="route.path"/>
+                </keep-alive>
+              </transition>
+            </router-view>
+          </div>
         </div>
 
+        <FixedBtnZone/>
+
+        <f-snackbar ref="globalSnackbar"/>
       </div>
 
-      <FixedBtnZone :style="commonOpacityStyle"/>
-
-    </v-main>
-    <f-snackbar ref="globalSnackbar"/>
-    <PageFoot
-        body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
+<!--
+      <PageFoot
+          class="page-foot"
+          body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
               Thaumy'Blog 2016-2023<br>
               <a href='http://beian.miit.gov.cn/'
                  target='_blank'
@@ -42,11 +40,12 @@
                         font-size: 0.7rem;
                         text-decoration: none;'
               >鲁ICP备2021005067</a>"
-        style="margin: 20px;margin-top:100vh"
-        :style="pageFootOpacityStyle"
-        @fully-visible="pageFootFullyVisible()"
-        @fully-invisible="pageFootFullyInvisible()"
-    />
+          v-if="pageFootVisibility"
+          @fully-visible="contentVisibility=false"
+          @fully-invisible="contentVisibility=true"
+      />
+-->
+    </v-main>
   </v-app>
 </template>
 
@@ -57,9 +56,9 @@ import PageFoot from "@/components/common/PageFoot.vue"
 import Menu from "@/components/Menu/Menu.vue"
 import MenuBar from "@/components/MenuBar/MenuBar.vue"
 import FixedBtnZone from "@/components/btn/FixedBtnZone.vue"
-import FSnackbar from "@/components/field/f-snackbar.vue"
 import {menu_items} from "@/scripts/data/menu"
 import {useTheme} from "vuetify"
+import {useRouter} from "vue-router"
 
 onBeforeMount(() => {
   const theme = useTheme()
@@ -70,42 +69,41 @@ onBeforeMount(() => {
 })
 
 const globalSnackbar = ref()
+
+provide('isDarkTheme', useTheme().global.current.value.dark)
 onMounted(() => {
   provide('showGlobalSnackbar', globalSnackbar.value.show)
 })
 
-const commonOpacityStyle = ref({
-  opacity: 1,
-  'pointer-events': 'unset',
-  transition: 'all 0.2s ease'
+const contentVisibility = ref(true)
+
+const pageFootVisibility = ref(true)
+const router = useRouter()
+router.beforeEach(() => {
+  pageFootVisibility.value = false
+})
+router.afterEach(() => {
+  setTimeout(() => {
+    pageFootVisibility.value = true
+  }, 500)
 })
 
-const pageFootOpacityStyle = ref({
-  opacity: 1,
-  'pointer-events': 'none',
-  transition: 'all 0.2s ease'
-})
-
-function pageFootFullyVisible() {
-  commonOpacityStyle.value.opacity = 0
-  commonOpacityStyle.value["pointer-events"] = 'none'
-  pageFootOpacityStyle.value.opacity = 1
-  pageFootOpacityStyle.value["pointer-events"] = 'unset'
-}
-
-function pageFootFullyInvisible() {
-  commonOpacityStyle.value.opacity = 1
-  commonOpacityStyle.value["pointer-events"] = 'unset'
-  pageFootOpacityStyle.value.opacity = 0
-  pageFootOpacityStyle.value["pointer-events"] = 'none'
-}
 </script>
 
 <style lang="stylus" scoped>
 
+.page-foot
+  margin 20px
+  margin-top 100px
+
+.hidden
+  opacity 0
+  pointer-events none
+
 .content
   margin auto
   max-width 1200px
+  min-height 110vh
   display grid
   grid-template-columns 22% 7px auto
 
