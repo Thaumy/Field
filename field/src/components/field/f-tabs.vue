@@ -54,9 +54,9 @@
 
 <script lang="ts" setup>
 
-import {ref, defineProps, PropType, watch} from "vue"
+import {ref, watch} from "vue"
 import {Tab} from "@/components/field/type"
-import {useRoute} from "vue-router";
+import {useRoute} from "vue-router"
 
 const props = withDefaults(
     defineProps<{

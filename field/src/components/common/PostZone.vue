@@ -6,14 +6,14 @@
           hide-body
           v-for="data in dataCollection"
           :post="data.post"
-          :coverUrl="data.coverUrl"
-          :summary="data.summary"
-          :is-generated-summary="data.isGeneratedSummary"
-          :viewCount="data.viewCount"
+          :coverUrl="data.additional.coverUrl"
+          :summary="data.additional.summary"
+          :is-generated-summary="data.additional.isGeneratedSummary"
+          :viewCount="data.additional.viewCount"
           :commentCount="data.comments.length"
-          :isArchive="data.isArchive"
-          :isSchedule="data.isSchedule"
-          :topics="data.topics"
+          :isArchive="data.additional.isArchive"
+          :isSchedule="data.additional.isSchedule"
+          :topics="data.additional.topics"
           class="cursor-pointer"
           @click="$router.push('/'+data.post.id)"
       />
@@ -22,14 +22,14 @@
     <div v-else-if="dataCollection.length===1">
       <PostCard
           :post="dataCollection[0].post"
-          :coverUrl="dataCollection[0].coverUrl"
-          :summary="dataCollection[0].summary"
-          :is-generated-summary="dataCollection[0].isGeneratedSummary"
-          :viewCount="dataCollection[0].viewCount"
+          :coverUrl="dataCollection[0].additional.coverUrl"
+          :summary="dataCollection[0].additional.summary"
+          :is-generated-summary="dataCollection[0].additional.isGeneratedSummary"
+          :viewCount="dataCollection[0].additional.viewCount"
           :commentCount="dataCollection[0].comments.length"
-          :isArchive="dataCollection[0].isArchive"
-          :isSchedule="dataCollection[0].isSchedule"
-          :topics="dataCollection[0].topics"
+          :isArchive="dataCollection[0].additional.isArchive"
+          :isSchedule="dataCollection[0].additional.isSchedule"
+          :topics="dataCollection[0].additional.topics"
       />
       <transition-group>
         <CommentZone
@@ -37,7 +37,7 @@
             class="margin-bottom"
             :post-id="dataCollection[0].post.id"
             :comments="dataCollection[0].comments"
-            :disable-comment="dataCollection[0].disableComment"
+            :disable-comment="dataCollection[0].additional.disableComment"
         />
         <SwitchZone
             key=""
@@ -52,22 +52,20 @@
 
 <script lang="ts" setup>
 
-import {defineAsyncComponent, inject, provide} from "vue"
+import {defineAsyncComponent, inject} from "vue"
 import {PostFullData} from "@/scripts/type/post"
 import {useRouter} from "vue-router"
 import PostCard from "@/components/PostCard/PostCard.vue"
 import {onBeforeRouteUpdate} from "vue-router"
-import {
-  isPostFullDataExist,
-  fetchPostFullDataFromServer
-} from "@/scripts/data/post"
+import {getPost, isCached} from "@/scripts/data/post"
 
 onBeforeRouteUpdate(async (to, from, next) => {
-  const id = Number(to.params.post_id_or_title)
+  const post_id = Number(to.params.post_id)
 
   //如果数据不存在，从服务器获取
-  if (!isPostFullDataExist(id))
-    await fetchPostFullDataFromServer(id)//TODO title
+//TODO title
+  if (!isCached(post_id))
+    await getPost(post_id)
 
   next()
 })

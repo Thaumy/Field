@@ -1,8 +1,8 @@
 import App from './App.vue'
 import {createApp} from 'vue'
-import vuetify from '@/plugins/vuetify/common'
-import router from '@/plugins/router/common'
-import {loadFonts} from '@/plugins/webFontLoader/common'
+import vuetify from '@/plugins/vuetify'
+import router from '@/plugins/router'
+import {loadFonts} from '@/plugins/webfontloader'
 
 import '@/styles/global/font.styl'
 import '@/styles/global/tag.styl'

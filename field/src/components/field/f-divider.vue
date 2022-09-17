@@ -13,18 +13,14 @@
 
 <script lang="ts" setup>
 
-import {defineProps} from "vue";
-
-defineProps({
-  ml: {
-    type: Number,
-    default: 8
-  },
-  mr: {
-    type: Number,
-    default: 8
-  },
-})
+withDefaults(
+    defineProps<{
+      ml: number,
+      mr: number
+    }>(), {
+      ml: 8,
+      mr: 8
+    })
 
 </script>
 

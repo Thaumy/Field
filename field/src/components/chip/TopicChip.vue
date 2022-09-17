@@ -14,11 +14,10 @@
 
 <script lang="ts" setup>
 
-import {defineProps} from "vue"
-
-const props = defineProps({
-  topic: String
-})
+const props =
+    defineProps<{
+      topic: string
+    }>()
 
 </script>
 

@@ -57,20 +57,17 @@
 
 <script lang="ts" setup>
 
-import {defineProps, ref} from "vue"
-import {
-  fetchPrevPostFullDataById,
-  fetchNextPostFullDataById
-} from "@/scripts/data/post"
 import {Post} from "@/scripts/type/post"
 import {removeHtmlTags} from "@/scripts/util/text"
+import {getNextPost, getPrevPost} from "@/scripts/data/post"
 
-const props = defineProps<{
-  postId: number
-}>()
+const props =
+    defineProps<{
+      postId: number
+    }>()
 
-const prev = fetchPrevPostFullDataById(props.postId)
-const next = fetchNextPostFullDataById(props.postId)
+const prev = getPrevPost(props.postId)
+const next = getNextPost(props.postId)
 
 function genTitle(post: Post) {
   const title = post.title
@@ -103,12 +100,4 @@ function genTitle(post: Post) {
   }
 }
 
-/*
-.cancel-icon
-height 100%
-opacity 0.2
-padding-top 1px
-margin-left 6px
-margin-right 6px
-*/
 </style>

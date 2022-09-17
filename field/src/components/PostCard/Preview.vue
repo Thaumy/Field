@@ -36,13 +36,12 @@
 
 <script setup lang="ts">
 
-import {defineProps} from "vue";
-
-let props = defineProps<{
-  title: string,
-  summary: string,
-  isGeneratedSummary: boolean,
-}>()
+let props =
+    defineProps<{
+      title: string,
+      summary: string,
+      isGeneratedSummary: boolean,
+    }>()
 
 </script>
 

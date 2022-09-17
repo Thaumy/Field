@@ -22,16 +22,15 @@
 
 <script lang="ts" setup>
 
-import {defineProps, ref} from "vue"
 import {useTheme} from "vuetify"
 import {removePunctuation} from "@/scripts/util/text"
 
-const props = defineProps({
-  targetText: {
-    type: String,
-    default: ''
-  },
-})
+const props = withDefaults(
+    defineProps<{
+      targetText: string
+    }>(), {
+      targetText: ''
+    })
 
 function genText(): string {
   if (props.targetText?.length < 120)

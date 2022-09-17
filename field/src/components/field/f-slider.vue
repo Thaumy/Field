@@ -17,13 +17,13 @@
 <script setup lang="ts">
 import {ref} from "vue"
 
-const props = defineProps({
-  afterClosed: {
-    type: Function,
-    default: () => {
-    }
-  }
-})
+const props = withDefaults(
+    defineProps<{
+      afterClosed: () => void
+    }>(), {
+      afterClosed: () => {
+      }
+    })
 
 const render = ref(false)
 const style = ref<{ top: string, height: string, opacity: number }>()

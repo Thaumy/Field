@@ -1,4 +1,4 @@
-import {isPost} from "@/scripts/type/post";
+import {foldl} from "@/scripts/util/fold"
 
 export type Comment = {
     id: number,
@@ -8,6 +8,28 @@ export type Comment = {
     siteUrl: string | null,
     avatarUrl: string | null,
     createTime: Date,
+}
+
+export function parseComment(responseJson: any): Comment {
+    const r = responseJson
+
+    return <Comment>{
+        id: r["Id"],
+        user: r["User"],
+        body: r["Body"],
+        replyTo: r["ReplyTo"],
+        siteUrl: r["SiteUrl"],
+        avatarUrl: r["AvatarUrl"],
+        createTime: new Date(r["CreateTime"])
+    }
+}
+
+export function parseComments(responseJson: any): Comment[] {
+    return foldl(responseJson['Comments'],
+        (acc: Comment[], x: any) => {
+            acc.push(parseComment(x))
+            return acc
+        }, [])
 }
 
 export function isComment(comment: any): comment is Comment {

@@ -12,12 +12,14 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
-  radius: {
-    type: Number,
-    default: 4
-  }
-})
+
+withDefaults(
+    defineProps<{
+      radius: number
+    }>(), {
+      radius: 4
+    })
+
 </script>
 
 <style lang="stylus" scoped>

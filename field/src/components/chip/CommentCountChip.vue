@@ -15,11 +15,10 @@
 
 <script lang="ts" setup>
 
-import {defineProps} from "vue"
-
-const props = defineProps<{
-  count: number
-}>()
+const props =
+    defineProps<{
+      count: number
+    }>()
 
 </script>
 

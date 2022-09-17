@@ -83,7 +83,7 @@
 
 <script setup lang="ts">
 
-import {defineProps, inject, ref, watch} from "vue"
+import {inject, ref} from "vue"
 import {Tab} from "@/components/field/type"
 import {marked} from "marked"
 

@@ -11,16 +11,17 @@
 
 <script lang="ts" setup>
 
-import {defineProps, ref, onMounted} from "vue"
+import {ref, onMounted} from "vue"
 
 const emits = defineEmits<{
   (e: 'fullyVisible'): void,
   (e: 'fullyInvisible'): void,
 }>()
 
-const props = defineProps({
-  body: String
-})
+const props =
+    defineProps<{
+      body: string
+    }>()
 
 const pageFoot = ref()
 
