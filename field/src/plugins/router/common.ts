@@ -1,14 +1,12 @@
-import {
-    createWebHashHistory,
-    createWebHistory,
-    createRouter
-} from "vue-router"
+import {createRouter, createWebHistory} from "vue-router"
 
-import PostZone from '@/components/PostZone/PostZone.vue'
+import PostZone from '@/components/common/PostZone.vue'
 import {
+    isPostFullDataExist,
     fetchAllPostFullData,
     fetchPostFullDataById,
-    fetchPostFullDataByTitle
+    fetchPostFullDataByTitle,
+    fetchPostFullDataFromServer, fetchAllPostFullDataFromServer,
 } from "@/scripts/data/post"
 
 export default createRouter({
@@ -20,6 +18,10 @@ export default createRouter({
     routes: [
         {
             path: '/',
+            beforeEnter: async (to, from, next) => {
+                await fetchAllPostFullDataFromServer()
+                next()
+            },
             component: PostZone,
             props: {
                 dataCollection: fetchAllPostFullData(),
@@ -27,6 +29,15 @@ export default createRouter({
         },
         {
             path: '/:post_id_or_title',
+            beforeEnter: async (to, from, next) => {
+                const id = Number(to.params.post_id_or_title)
+
+                //如果数据不存在，从服务器获取
+                if (!isPostFullDataExist(id))
+                    await fetchPostFullDataFromServer(id)//TODO title
+
+                next()
+            },
             component: PostZone,
             props: r => {
                 {

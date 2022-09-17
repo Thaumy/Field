@@ -14,6 +14,7 @@ export type PostFullData = {
     post: Post,
     coverUrl: string | null,
     summary: string | null,
+    isGeneratedSummary: boolean,
     viewCount: number,
     comments: Comment[],
     disableComment: boolean,

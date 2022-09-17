@@ -4,19 +4,144 @@ import {PostFullData} from "@/scripts/type/post"
 import {Topic} from "@/scripts/type/topic"
 import {Comment} from "@/scripts/type/comment"
 
-//const ws = new WebSocket("ws://localhost:8080")
-
 export function fetchAllPostFullData(): PostFullData[] {
     return dataCollection
 }
 
-export function fetchPostFullDataById(id: number): PostFullData | null {
+export function isPostFullDataExist(idOrTitle: number | string) {
+    const hasId = () => dataCollection.some(x => x.post.id === idOrTitle)
+    const hasTitle = () => dataCollection.some(x => x.post.title === idOrTitle)
+    return hasId() || hasTitle()
+}
+
+
+export async function fetchAllPostFullDataFromServer() {
+    const ws = new WebSocket("ws://localhost:8080/get_all_post")
+
+    const data: Promise<PostFullData[] | null> =
+        new Promise<string>
+        ((resolve) => {
+                ws.addEventListener("message", e => {
+                    resolve(e.data)
+                })
+            }
+        ).then(s => {
+                if (s === '')
+                    return null
+                const json = JSON.parse(s)
+                for (let index in json) {
+                    let it = json[index]
+
+                    let comments: Comment[] = []
+                    for (let comment_index in it['Comments']) {
+                        let comment_it = it['Comments'][comment_index]
+                        comments.push(
+                            {
+                                id: comment_it["Id"],
+                                user: comment_it["User"],
+                                body: comment_it["Body"],
+                                replyTo: comment_it["ReplyTo"],
+                                siteUrl: comment_it["SiteUrl"],
+                                avatarUrl: comment_it["AvatarUrl"],
+                                createTime: new Date(comment_it["CreateTime"])
+                            }
+                        )
+                    }
+
+                    let post =
+                        <PostFullData>{
+                            post: {
+                                id: it['Id'],
+                                title: it['Title'],
+                                body: it['Body'],
+                                createTime: new Date(it['CreateTime']),
+                                modifyTime: new Date(it['ModifyTime'])
+                            },
+                            coverUrl: it['CoverUrl'],
+                            summary: it['Summary'],
+                            isGeneratedSummary: it['IsGeneratedSummary'],
+                            viewCount: it['ViewCount'],
+                            comments: comments,
+                            disableComment: !it['CanComment'],
+                            isArchive: it['IsArchive'],
+                            isSchedule: it['IsSchedule'],
+                            topics: it['Topics'],
+                        }
+                    dataCollection.push(post)
+                    console.log(it['Topics'])
+                }
+                return <PostFullData[]>[]
+            }
+        )
+
+    //TODO event remove
+    ws.addEventListener('open', () => ws.send(''))
+
+    let result = await data
+
+    if (result === null)
+        return null
+
+    dataCollection = dataCollection.concat(result)
+
+    ws.close()
+    return result
+}
+
+export async function fetchPostFullDataFromServer(id: number) {
+    const ws = new WebSocket("ws://localhost:8080/get_post")
+
+    const data: Promise<PostFullData | null> =
+        new Promise<string>
+        ((resolve) => {
+                ws.addEventListener("message", e => {
+                    resolve(e.data)
+                })
+            }
+        ).then(s => {
+            if (s === '')
+                return null
+            const json = JSON.parse(s)
+            return <PostFullData>{
+                post: {
+                    id: json['Id'],
+                    title: json['Title'],
+                    body: json['Body'],
+                    createTime: new Date(json['CreateTime']),
+                    modifyTime: new Date(json['ModifyTime'])
+                },
+                coverUrl: json['CoverUrl'],
+                summary: json['Summary'],
+                viewCount: json['ViewCount'],
+                comments: json['Comments'],
+                disableComment: !json['CanComment'],
+                isArchive: json['IsArchive'],
+                isSchedule: json['IsSchedule'],
+                topics: json['Topics'],
+            }
+        })
+
+    //TODO event remove
+    ws.addEventListener('open', () => ws.send(id.toString()))
+
+    let result = await data
+
+    if (result === null)
+        return null
+
+    dataCollection.push(result)
+
+    ws.close()
+    return result
+}
+
+export function fetchPostFullDataById(id: number) {
     const v = dataCollection.filter(x => x.post.id === id)[0]
 
-    if (v === null || v === undefined)
-        return null
-    else
+    if (v !== null && v !== undefined)
         return v
+
+    return null
 }
 
 export function fetchPostFullDataByTitle(title: string): PostFullData | null {
@@ -25,7 +150,7 @@ export function fetchPostFullDataByTitle(title: string): PostFullData | null {
     if (v === null || v === undefined)
         return null
     else
-        return v
+        return v//TODO fetch from server by title
 }
 
 export function fetchPostFullDataByIdOrTitle(idOrTitle: number | string): PostFullData | null {
@@ -38,7 +163,7 @@ export function fetchPostFullDataByIdOrTitle(idOrTitle: number | string): PostFu
 //TODO view count chip? impl
 export let dataCollection = [
     <PostFullData>{
-        post: <Post>{
+        post: {
             id: 12343,
             body: "这是一条笔记，适合短文本发布。(摸摸鱼)",
             createTime: new Date('2022-09-01T08:24:00'),
@@ -46,12 +171,13 @@ export let dataCollection = [
         },
         coverUrl: null,
         summary: null,
+        isGeneratedSummary: false,
         viewCount: 1,
         comments: <Comment[]>[],//8
         disableComment: true,
         isSchedule: false,
         isArchive: false,
-        topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}],
+        topics: ['花花', '草草', '云云'],
     },
     <PostFullData>{
         post: <Post>{
@@ -63,6 +189,7 @@ export let dataCollection = [
         },
         coverUrl: null,
         summary: "Make a simple, intuitive UI.",
+        isGeneratedSummary: false,
         viewCount: 10,
         comments: [
             <Comment>{
@@ -104,7 +231,7 @@ export let dataCollection = [
                 createTime: new Date('2022-08-13T05:15:00')//"22-08-13 | 05:15"
             }],//8
         disableComment: true,
-        topics: <Topic[]>[],
+        topics: [],
         isSchedule: false,
         isArchive: false,
     },
@@ -118,10 +245,11 @@ export let dataCollection = [
         },
         coverUrl: null,
         summary: "Make a simple, intuitive UI.",
+        isGeneratedSummary: false,
         viewCount: 0,
         comments: <Comment[]>[],//8
         disableComment: false,
-        topics: <Topic[]>[],
+        topics: [],
         isSchedule: true,
         isArchive: true,
     },
@@ -146,6 +274,7 @@ export let dataCollection = [
         },
         coverUrl: "/src/assets/akane_cover.png",
         summary: "《知晓天空之蓝的人啊》",
+        isGeneratedSummary: false,
         viewCount: 114514,
         comments: [
             <Comment>{
@@ -159,7 +288,7 @@ export let dataCollection = [
             }
         ],//18
         disableComment: false,
-        topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}],
+        topics: ['花花', '草草', '云云'],
         isSchedule: true,
         isArchive: true,
         prevTitle: "你不知道的114514个单身技巧",
@@ -169,12 +298,13 @@ export let dataCollection = [
         post: <Post>{
             id: 12347,
             title: '空の青さを知る人よ',
-            body: 'no body!!',
+            body: 'no body!!(ws test)',
             createTime: new Date('2022-08-20T08:00:00'),
             modifyTime: new Date('2022-08-20T10:00:01'),
         },
         //coverUrl: "/src/assets/akane_cover.png",
         summary: "《知晓天空之蓝的人啊》",
+        isGeneratedSummary: false,
         viewCount: 114514,
         comments: [
             <Comment>{
@@ -220,6 +350,6 @@ export let dataCollection = [
         disableComment: false,
         isSchedule: true,
         isArchive: true,
-        topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}]
+        topics: ['花花', '草草', '云云'],
     },
 ]
