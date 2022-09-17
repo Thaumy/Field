@@ -19,13 +19,14 @@
 
 <script setup lang="ts">
 
-import {onMounted, defineProps, PropType, toRefs} from "vue"
+import {onMounted, toRefs} from "vue"
 
-const props = defineProps({
-  body: String,
-  createTime: Object as PropType<Date>,
-  modifyTime: Object as PropType<Date>
-})
+const props =
+    defineProps<{
+      body: string,
+      createTime: Date,
+      modifyTime: Date
+    }>()
 
 </script>
 

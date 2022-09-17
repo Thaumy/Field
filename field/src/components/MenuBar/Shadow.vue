@@ -8,12 +8,13 @@
 
 <script lang="ts" setup>
 
-defineProps({
-  visibility: {
-    type: Boolean,
-    default: false
-  }
-})
+withDefaults(
+    defineProps<{
+      visibility: boolean,
+      type: boolean
+    }>(), {
+      visibility: false
+    })
 
 </script>
 

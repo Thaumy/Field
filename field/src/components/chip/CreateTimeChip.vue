@@ -13,13 +13,15 @@
 </template>
 
 <script lang="ts" setup>
-import {defineProps, PropType, toRefs} from "vue";
+
+import {toRefs} from "vue"
 import {formatToDate, formatToDateTime} from "@/scripts/util/time"
 
-const props = defineProps({
-  createTime: Object as PropType<Date>,
-  dateOnly: Boolean
-})
+const props =
+    defineProps<{
+      createTime: Date,
+      dateOnly: boolean
+    }>()
 
 const createTime = toRefs(props).createTime?.value
 

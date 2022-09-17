@@ -80,7 +80,6 @@
 
 <script lang="ts" setup>
 
-import {defineProps, onMounted, PropType} from "vue"
 import {secTimespan} from "@/scripts/util/time"
 import {Post} from "@/scripts/type/post"
 import TopicChip from "@/components/chip/TopicChip.vue"

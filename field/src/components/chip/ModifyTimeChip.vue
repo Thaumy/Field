@@ -13,16 +13,17 @@
 </template>
 
 <script lang="ts" setup>
-import {defineProps, PropType, toRefs} from "vue";
+
+import {toRefs} from "vue"
 import {formatToDate, formatToDateTime} from "@/scripts/util/time"
 
-const props = defineProps({
-  modifyTime: Object as PropType<Date>,
-  active: {
-    type: Boolean,
-    default: true
-  }
-})
+const props = withDefaults(
+    defineProps<{
+      modifyTime: Date,
+      active: boolean
+    }>(), {
+      active: true
+    })
 
 function genTimeColor() {
   const modifyTime = toRefs(props).modifyTime?.value

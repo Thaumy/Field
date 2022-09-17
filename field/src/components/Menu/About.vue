@@ -19,9 +19,10 @@
 </template>
 
 <script lang="ts" setup>
-import {defineProps, ref} from "vue";
 
-defineProps({info: String})
+defineProps<{
+  info: string
+}>()
 
 /*
 const outlineStyle = ref({

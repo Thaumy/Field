@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, PropType, ref} from "vue"
+import {ref} from "vue"
 import {Comment} from "@/scripts/type/comment"
 import {formatToDateTime} from "@/scripts/util/time"
 
@@ -66,14 +66,15 @@ defineEmits<{
   (e: 'replyClick'): void
 }>()
 
-withDefaults(defineProps<{
-  comment: Comment,
-  replyBtnAlwaysOn: boolean,
-  disableReply: boolean
-}>(), {
-  disableReply: false,
-  replyBtnAlwaysOn: false
-})
+withDefaults(
+    defineProps<{
+      comment: Comment,
+      replyBtnAlwaysOn: boolean,
+      disableReply: boolean
+    }>(), {
+      disableReply: false,
+      replyBtnAlwaysOn: false
+    })
 
 const replyBtnAlwaysOn = //when using mobile devices
     !/Windows|Mac|Linux/.test(navigator.userAgent)

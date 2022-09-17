@@ -1,5 +1,5 @@
 import {Comment} from "@/scripts/type/comment"
-import {Topic} from "@/scripts/type/topic"
+import {Additional} from "@/scripts/util/additional"
 
 export type Post = {
     id: number,
@@ -12,15 +12,20 @@ export type Post = {
 
 export type PostFullData = {
     post: Post,
-    coverUrl: string | null,
-    summary: string | null,
-    isGeneratedSummary: boolean,
-    viewCount: number,
     comments: Comment[],
-    disableComment: boolean,
-    isArchive: boolean,
-    isSchedule: boolean,
-    topics: Topic[]
+    additional: Additional
+}
+
+export function parsePost(responseJson: any): Post {
+    const r = responseJson
+
+    return <Post>{
+        id: r['Id'],
+        title: r['Title'],
+        body: r['Body'],
+        createTime: new Date(r['CreateTime']),
+        modifyTime: new Date(r['ModifyTime'])
+    }
 }
 
 export function isPost(post: any): post is Comment {

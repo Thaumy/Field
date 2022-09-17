@@ -44,7 +44,6 @@
 
 <script lang="ts" setup>
 
-import {defineProps, PropType, ref} from "vue"
 import About from "./About.vue"
 import Info from "./Info.vue"
 import Avatar from "./Avatar.vue"
@@ -52,12 +51,12 @@ import {Tab} from "@/components/field/type"
 import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
 import avatar from "@/public/avatar.png"
 
-const props = defineProps({
-  items: {
-    type: Object as PropType<Tab[]>,
-    default: []
-  }
-})
+const props = withDefaults(
+    defineProps<{
+      items: Tab[]
+    }>(), {
+      items: () => []
+    })
 
 </script>
 

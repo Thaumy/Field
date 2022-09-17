@@ -35,11 +35,10 @@
 
 <script lang="ts" setup>
 
-import {ref, defineProps} from "vue"
-
-const props = defineProps<{
-  avatarUrl: string,
-}>()
+const props =
+    defineProps<{
+      avatarUrl: string,
+    }>()
 
 </script>
 

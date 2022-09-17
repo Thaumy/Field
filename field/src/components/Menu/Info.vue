@@ -18,13 +18,14 @@
 
 <script lang="ts" setup>
 
-import {defineProps, onMounted, PropType} from "vue"
+import {onMounted} from "vue"
 import Typed from "typed.js"
 
-const props = defineProps({
-  title: String,
-  typing: Object as PropType<string[]>
-})
+const props =
+    defineProps<{
+      title: string,
+      typing: string[]
+    }>()
 
 onMounted(() => {
   const options = {

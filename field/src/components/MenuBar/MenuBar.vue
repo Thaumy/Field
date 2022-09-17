@@ -45,9 +45,10 @@ import {Tab} from "@/components/field/type"
 import Shadow from "@/components/MenuBar/Shadow.vue"
 import avatar from "@/public/avatar.png"
 
-const props = defineProps<{
-  items: Tab[]
-}>()
+const props =
+    defineProps<{
+      items: Tab[]
+    }>()
 
 const visibility = ref(true)
 const drawerVisibility = ref(false)

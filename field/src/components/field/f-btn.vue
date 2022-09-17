@@ -30,14 +30,15 @@ const emits = defineEmits<{
   (e: 'disableClick'): void
 }>()
 
-withDefaults(defineProps<{
-  text: string,
-  disabled: boolean
-  warning: boolean
-}>(), {
-  disabled: false,
-  warning: false
-})
+withDefaults(
+    defineProps<{
+      text: string,
+      disabled: boolean
+      warning: boolean
+    }>(), {
+      disabled: false,
+      warning: false
+    })
 
 const reject = ref(false)
 

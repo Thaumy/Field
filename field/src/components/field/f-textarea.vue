@@ -13,12 +13,12 @@
 </template>
 
 <script lang="ts" setup>
-import {useTheme} from 'vuetify'
 
-const props = defineProps({
-  label: String,
-  modelValue: String
-})
+const props =
+    defineProps<{
+      label: string,
+      modelValue: string
+    }>()
 
 defineEmits(['update:modelValue'])
 

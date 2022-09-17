@@ -87,11 +87,12 @@ import CommentEditor from "./CommentEditor.vue"
 import NoCommentHolder from "./NoCommentHolder.vue"
 import DisableCommentHolder from "./DisableCommentHolder.vue"
 
-const props = defineProps<{
-  postId: number,
-  comments: Comment[],
-  disableComment: boolean
-}>()
+const props =
+    defineProps<{
+      postId: number,
+      comments: Comment[],
+      disableComment: boolean
+    }>()
 
 const commentExample = <Comment>{
   id: 1000,

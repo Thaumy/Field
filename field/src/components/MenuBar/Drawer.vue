@@ -33,11 +33,11 @@
 </template>
 
 <script lang="ts" setup>
-import {defineEmits, defineProps, PropType} from "vue";
-import {Tab} from "@/components/field/type";
-import FTabs from "@/components/field/f-tabs.vue";
-import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue";
-import FTab from "@/components/field/f-tab.vue";
+
+import {Tab} from "@/components/field/type"
+import FTabs from "@/components/field/f-tabs.vue"
+import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
+import FTab from "@/components/field/f-tab.vue"
 
 const emits = defineEmits<{
   (e: 'tabClick'): void
