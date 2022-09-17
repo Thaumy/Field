@@ -53,7 +53,7 @@
       >
       <template v-slot:bottom-slot>
         <div class="flex flex-wrap justify-start">
-          <TopicChip class="mr-1" v-for="topic in topics" :topic="topic.name"/>
+          <TopicChip class="mr-1" v-for="topic in topics" :topic="topic"/>
         </div>
         <div class="flex flex-wrap justify-end">
           <CommentCountChip
@@ -83,7 +83,6 @@
 import {defineProps, onMounted, PropType} from "vue"
 import {secTimespan} from "@/scripts/util/time"
 import {Post} from "@/scripts/type/post"
-import {Topic} from "@/scripts/type/topic"
 import TopicChip from "@/components/chip/TopicChip.vue"
 import ArchiveChip from "@/components/chip/ArchiveChip.vue"
 import ScheduleChip from "@/components/chip/ScheduleChip.vue"
@@ -94,6 +93,7 @@ import CommentCountChip from "@/components/chip/CommentCountChip.vue"
 import Body from "./Body.vue"
 import Preview from "./Preview.vue"
 import ReadTimeBar from "./ReadTimeBar.vue"
+import {Topic} from "@/scripts/type/topic"
 
 const props = withDefaults(
     defineProps<{

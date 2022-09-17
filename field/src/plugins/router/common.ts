@@ -6,7 +6,7 @@ import {
     fetchAllPostFullData,
     fetchPostFullDataById,
     fetchPostFullDataByTitle,
-    fetchPostFullDataFromServer,
+    fetchPostFullDataFromServer, fetchAllPostFullDataFromServer,
 } from "@/scripts/data/post"
 
 export default createRouter({
@@ -18,6 +18,10 @@ export default createRouter({
     routes: [
         {
             path: '/',
+            beforeEnter: async (to, from, next) => {
+                await fetchAllPostFullDataFromServer()
+                next()
+            },
             component: PostZone,
             props: {
                 dataCollection: fetchAllPostFullData(),
