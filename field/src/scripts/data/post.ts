@@ -5,7 +5,6 @@ import {Topic} from "@/scripts/type/topic"
 import {Comment} from "@/scripts/type/comment"
 
 export function fetchAllPostFullData(): PostFullData[] {
-    fetchAllPostFullDataFromServer()
     return dataCollection
 }
 
@@ -49,7 +48,7 @@ export async function fetchAllPostFullDataFromServer() {
                         )
                     }
 
-                    dataCollection.push(
+                    let post =
                         <PostFullData>{
                             post: {
                                 id: it['Id'],
@@ -67,7 +66,9 @@ export async function fetchAllPostFullDataFromServer() {
                             isArchive: it['IsArchive'],
                             isSchedule: it['IsSchedule'],
                             topics: it['Topics'],
-                        })
+                        }
+                    dataCollection.push(post)
+                    console.log(it['Topics'])
                 }
                 return <PostFullData[]>[]
             }
@@ -178,12 +179,13 @@ export let dataCollection = [
         },
         coverUrl: null,
         summary: null,
+        isGeneratedSummary: false,
         viewCount: 1,
         comments: <Comment[]>[],//8
         disableComment: true,
         isSchedule: false,
         isArchive: false,
-        topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}],
+        topics: ['花花', '草草', '云云'],
     },
     <PostFullData>{
         post: <Post>{
@@ -195,6 +197,7 @@ export let dataCollection = [
         },
         coverUrl: null,
         summary: "Make a simple, intuitive UI.",
+        isGeneratedSummary: false,
         viewCount: 10,
         comments: [
             <Comment>{
@@ -236,7 +239,7 @@ export let dataCollection = [
                 createTime: new Date('2022-08-13T05:15:00')//"22-08-13 | 05:15"
             }],//8
         disableComment: true,
-        topics: <Topic[]>[],
+        topics: [],
         isSchedule: false,
         isArchive: false,
     },
@@ -250,10 +253,11 @@ export let dataCollection = [
         },
         coverUrl: null,
         summary: "Make a simple, intuitive UI.",
+        isGeneratedSummary: false,
         viewCount: 0,
         comments: <Comment[]>[],//8
         disableComment: false,
-        topics: <Topic[]>[],
+        topics: [],
         isSchedule: true,
         isArchive: true,
     },
@@ -278,6 +282,7 @@ export let dataCollection = [
         },
         coverUrl: "/src/assets/akane_cover.png",
         summary: "《知晓天空之蓝的人啊》",
+        isGeneratedSummary: false,
         viewCount: 114514,
         comments: [
             <Comment>{
@@ -291,7 +296,7 @@ export let dataCollection = [
             }
         ],//18
         disableComment: false,
-        topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}],
+        topics: ['花花', '草草', '云云'],
         isSchedule: true,
         isArchive: true,
     },
@@ -305,6 +310,7 @@ export let dataCollection = [
         },
         //coverUrl: "/src/assets/akane_cover.png",
         summary: "《知晓天空之蓝的人啊》",
+        isGeneratedSummary: false,
         viewCount: 114514,
         comments: [
             <Comment>{
@@ -350,6 +356,6 @@ export let dataCollection = [
         disableComment: false,
         isSchedule: true,
         isArchive: true,
-        topics: [{name: '花花'}, {name: '草草'}, {name: '云云'}]
+        topics: ['花花', '草草', '云云'],
     },
 ]

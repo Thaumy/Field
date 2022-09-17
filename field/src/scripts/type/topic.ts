@@ -1,1 +1,1 @@
-export type Topic = { name: string }
+export type Topic = string
