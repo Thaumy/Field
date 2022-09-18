@@ -6,13 +6,13 @@
           hide-body
           v-for="data in dataCollection"
           :post="data.post"
-          :coverUrl="data.additional.coverUrl"
+          :cover-url="data.additional.coverUrl"
           :summary="data.additional.summary"
           :is-generated-summary="data.additional.isGeneratedSummary"
-          :viewCount="data.additional.viewCount"
-          :commentCount="data.comments.length"
-          :isArchive="data.additional.isArchive"
-          :isSchedule="data.additional.isSchedule"
+          :view-count="data.additional.viewCount"
+          :comment-count="data.comments.length"
+          :is-archived="data.additional.isArchived"
+          :is-scheduled="data.additional.isScheduled"
           :topics="data.additional.topics"
           class="cursor-pointer"
           @click="$router.push('/'+data.post.id)"
@@ -22,13 +22,14 @@
     <div v-else-if="dataCollection.length===1">
       <PostCard
           :post="dataCollection[0].post"
-          :coverUrl="dataCollection[0].additional.coverUrl"
+          :cover-url="dataCollection[0].additional.coverUrl"
           :summary="dataCollection[0].additional.summary"
           :is-generated-summary="dataCollection[0].additional.isGeneratedSummary"
-          :viewCount="dataCollection[0].additional.viewCount"
-          :commentCount="dataCollection[0].comments.length"
-          :isArchive="dataCollection[0].additional.isArchive"
-          :isSchedule="dataCollection[0].additional.isSchedule"
+          :view-count="dataCollection[0].additional.viewCount"
+          :comment-count="dataCollection[0].comments.length"
+          :is-archived="dataCollection[0].additional.isArchived"
+          :is-scheduled
+              ="dataCollection[0].additional.isScheduled"
           :topics="dataCollection[0].additional.topics"
       />
       <transition-group>
