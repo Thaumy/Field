@@ -2,10 +2,10 @@
   <div>
 
     <v-chip
-        size="x-small"
+        size="small"
         class="topic-chip"
     >
-      <v-icon icon="mdi-pound" size="0.8rem"/>
+      <v-icon class="mr-1" icon="mdi-pound" size="0.8rem"/>
       {{ topic }}
     </v-chip>
 
@@ -25,7 +25,7 @@ const props =
 
 @css {
   .topic-chip {
-    color: rgb(var(--v-theme-on-surface), 0.9);
+    color: rgb(var(--v-theme-on-surface), 0.6);
   }
 }
 
