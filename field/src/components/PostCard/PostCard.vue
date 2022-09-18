@@ -17,8 +17,8 @@
               v-if=post.title
           >
             <template v-slot:title-right-slot>
-              <ScheduleChip v-if="isSchedule&&!hideBody"/>
-              <ArchiveChip v-if="isArchive&&!hideBody"/>
+              <ScheduleChip v-if="isScheduled&&!hideBody"/>
+              <ArchiveChip v-if="isArchived&&!hideBody"/>
               <CommentCountChip
                   :count="commentCount"
                   v-if="commentCount!==0&&hideBody"
@@ -102,8 +102,8 @@ const props = withDefaults(
       isGeneratedSummary: boolean,
       viewCount: number,
       commentCount: number,
-      isArchive: boolean,
-      isSchedule: boolean,
+      isArchived: boolean,
+      isScheduled: boolean,
       topics: Topic[],
       hideBody: boolean,
     }>(), {

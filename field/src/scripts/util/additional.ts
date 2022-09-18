@@ -6,8 +6,8 @@ export type Additional = {
     isGeneratedSummary: boolean,
     viewCount: number,
     disableComment: boolean,
-    isArchive: boolean,
-    isSchedule: boolean,
+    isArchived: boolean,
+    isScheduled: boolean,
     topics: Topic[]
 }
 
@@ -20,8 +20,8 @@ export function parseAdditional(responseJson: any) {
         isGeneratedSummary: r['IsGeneratedSummary'],
         viewCount: r['ViewCount'],
         disableComment: !r['CanComment'],
-        isArchive: r['IsArchive'],
-        isSchedule: r['IsSchedule'],
+        isArchived: r['IsArchived'],
+        isScheduled: r['IsScheduled'],
         topics: r['Topics'],
     }
 }
