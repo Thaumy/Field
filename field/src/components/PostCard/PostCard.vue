@@ -25,7 +25,7 @@
               />
             </template>
 
-            <template v-slot:summary-right-slot v-if="!post.body">
+            <template v-slot:summary-right-slot v-if="hideBody">
               <ModifyTimeChip
                   style="align-self:end"
                   :modify-time="post.modifyTime"
