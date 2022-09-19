@@ -6,7 +6,7 @@
         variant="text"
         :style="'color:'+genTimeColor()"
     >
-      创建于{{ genTimeText() }}
+      创建于 {{ genTimeText() }}
     </v-chip>
 
   </div>
