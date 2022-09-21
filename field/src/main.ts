@@ -18,6 +18,7 @@ import FTab from '@/components/field/f-tab.vue'
 import FBtn from "@/components/field/f-btn.vue"
 import FTabs from "@/components/field/f-tabs.vue"
 import FCard from "@/components/field/f-card.vue"
+import FLazy from "@/components/field/f-lazy.vue"
 import FSlider from "@/components/field/f-slider.vue"
 import FDivider from "@/components/field/f-divider.vue"
 import FSnackbar from "@/components/field/f-snackbar.vue"
@@ -33,6 +34,7 @@ createApp(App)
     .component('f-btn', FBtn)
     .component('f-tabs', FTabs)
     .component('f-card', FCard)
+    .component('f-lazy', FLazy)
     .component('f-slider', FSlider)
     .component('f-divider', FDivider)
     .component('f-snackbar', FSnackbar)

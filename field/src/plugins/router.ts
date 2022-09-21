@@ -1,9 +1,10 @@
 import {createRouter, createWebHistory} from "vue-router"
 import PostZone from '@/components/common/PostZone.vue'
 import {
+    preparePost,
+    prepareAllPostId,
     getPost,
-    isCached,
-    getAllPost, getAllPostFromCache, getPostFromCache
+    getAllPostId,
 }
     from "@/scripts/data/post"
 
@@ -17,35 +18,26 @@ export default createRouter({
         {
             path: '/',
             beforeEnter: async (to, from, next) => {
-                await getAllPost()
+                await prepareAllPostId()
                 next()
             },
             component: PostZone,
             props: _ => {
-                return {dataCollection: getAllPostFromCache()}
+                return {post_ids: getAllPostId()}
             },
         },
         {
             path: '/:post_id',
             beforeEnter: async (to, from, next) => {
+                //TODO title route support
                 const post_id = Number(to.params.post_id)
-
-                //如果数据不存在，从服务器获取
-                //TODO title
-                if (!isCached(post_id))
-                    await getPost(post_id)
-
+                await preparePost(post_id)
                 next()
             },
             component: PostZone,
             props: r => {
                 const post_id = Number(r.params.post_id)
-                const v = getPostFromCache(post_id)
-
-                if (v !== null)
-                    return {dataCollection: [v]}
-                else
-                    return {dataCollection: []}
+                return {post_ids: [post_id]}
             },
         }
     ],

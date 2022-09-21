@@ -1,5 +1,4 @@
 import {Comment} from "@/scripts/type/comment"
-import {Additional} from "@/scripts/util/additional"
 
 export type Post = {
     id: number,
@@ -8,12 +7,6 @@ export type Post = {
     createTime: Date,
     modifyTime: Date,
     user: string
-}
-
-export type PostFullData = {
-    post: Post,
-    comments: Comment[],
-    additional: Additional
 }
 
 export function parsePost(responseJson: any): Post {

@@ -1,42 +1,54 @@
 import {foldl} from "@/scripts/util/fold"
 import {parsePost} from "@/scripts/type/post"
 import {parseComments} from "@/scripts/type/comment"
-import {PostFullData} from "@/scripts/type/post"
-import {wsRequestAllPost, wsRequestPost} from "@/scripts/data/ws"
+import {CachedMixin} from "@/scripts/type/mixin"
+import {
+    wsRequestAllPostId,
+    wsRequestAllPost,
+    wsRequestPost
+} from "@/scripts/data/ws"
 import {parseAdditional} from "@/scripts/util/additional"
 import {notNullOrUndefined} from "@/scripts/util/nullable"
 
-export let cached: PostFullData[] = []
+export {
+    uncached_post_id,
+    cached,
 
-export function isCached(post_id: number) {
-    return cached.some(x => x.post.id === post_id)
+    prepareAllPostId,
+    preparePost,
+    preparePrevPost,
+    prepareNextPost,
+
+    getAllPostId,
+    getPost,
+    getPrevPost,
+    getNextPost,
 }
 
-export async function requestAllPost() {
-    const response = await wsRequestAllPost()
+let uncached_post_id: number[] = []
+let cached: CachedMixin[] = []
+
+async function requestAllPostId() {
+    const response = await wsRequestAllPostId()
     const responseJson = JSON.parse(response)
 
     return foldl(responseJson,
-        (acc: PostFullData[], x: any) => {
+        (acc: number[], x: any) => {
 
-            acc.push({
-                post: parsePost(x),
-                comments: parseComments(x),
-                additional: parseAdditional(x)
-            })
+            acc.push(x)
             return acc
 
         }, [])
 }
 
-export async function requestPost(id: number) {
+async function requestPost(id: number) {
     const response = await wsRequestPost(id)
     if (response === '')
         return null
     else {
         const responseJson = JSON.parse(response)
 
-        return <PostFullData>{
+        return <CachedMixin>{
             post: parsePost(responseJson),
             comments: parseComments(responseJson),
             additional: parseAdditional(responseJson)
@@ -44,11 +56,27 @@ export async function requestPost(id: number) {
     }
 }
 
-export function getAllPostFromCache() {
-    return cached
+async function prepareAllPostId() {
+    if (uncached_post_id.length === 0) {
+        const result = await requestAllPostId()
+        uncached_post_id = uncached_post_id.concat(result)
+    }
 }
 
-export function getPostFromCache(id: number) {
+async function preparePost(id: number) {
+    const isExist = notNullOrUndefined(cached.filter(x => x.post.id === id)[0])
+    if (!isExist) {
+        const result = await requestPost(id)
+        if (result !== null)
+            cached.push(result)
+    }
+}
+
+function getAllPostId() {//need to prepare before call
+    return uncached_post_id
+}
+
+function getPost(id: number) {//need to prepare before call
     const v = cached.filter(x => x.post.id === id)[0]
 
     if (notNullOrUndefined(v))
@@ -57,42 +85,31 @@ export function getPostFromCache(id: number) {
         return null
 }
 
-export async function getAllPost() {
-    //TODO
-    if (cached.length !== 0)
-        return cached
-    else {
-        const result = await requestAllPost()
-        cached = cached.concat(result)
-        return result
-    }
+async function preparePrevPost(current_post_id: number) {
+    const index = cached.findIndex(x => x.post.id === current_post_id)
+    if (index === -1 || index - 1 < 0)
+        return
+    else
+        await preparePost(index - 1)
 }
 
-export async function getPost(id: number) {
-    const v = cached.filter(x => x.post.id === id)[0]
-
-    if (notNullOrUndefined(v))
-        return v
-    else {
-        const result = await requestPost(id)
-
-        if (result === null)
-            return null
-        else {
-            cached.push(result)
-            return result
-        }
-    }
+async function prepareNextPost(current_post_id: number) {
+    const index = cached.findIndex(x => x.post.id === current_post_id)
+    if (index === -1 || index + 1 > cached.length - 1)
+        return
+    else
+        await preparePost(index + 1)
 }
 
-export function getPrevPost(current_post_id: number): PostFullData | null {
+function getPrevPost(current_post_id: number): CachedMixin | null {
+    const isExist=uncached_post_id.find(x=>x.post.id===current_post_id)
     const index = cached.findIndex(x => x.post.id === current_post_id)
     if (index === -1 || index - 1 < 0)
         return null
     return cached[index - 1]
 }
 
-export function getNextPost(current_post_id: number): PostFullData | null {
+function getNextPost(current_post_id: number): CachedMixin | null {
     const index = cached.findIndex(x => x.post.id === current_post_id)
     if (index === -1 || index + 1 > cached.length - 1)
         return null
