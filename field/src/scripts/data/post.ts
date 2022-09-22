@@ -4,8 +4,9 @@ import {parseComments} from "@/scripts/type/comment"
 import {CachedMixin} from "@/scripts/type/mixin"
 import {
     wsRequestAllPostId,
-    wsRequestAllPost,
-    wsRequestPost
+    wsRequestPost,
+    wsRequestPrevPost,
+    wsRequestNextPost
 } from "@/scripts/data/ws"
 import {parseAdditional} from "@/scripts/util/additional"
 import {notNullOrUndefined} from "@/scripts/util/nullable"
@@ -56,6 +57,36 @@ async function requestPost(id: number) {
     }
 }
 
+async function requestPrevPost(current_post_id: number) {
+    const response = await wsRequestPrevPost(current_post_id)
+    if (response === '')
+        return null
+    else {
+        const responseJson = JSON.parse(response)
+
+        return <CachedMixin>{
+            post: parsePost(responseJson),
+            comments: parseComments(responseJson),
+            additional: parseAdditional(responseJson)
+        }
+    }
+}
+
+async function requestNextPost(current_post_id: number) {
+    const response = await wsRequestNextPost(current_post_id)
+    if (response === '')
+        return null
+    else {
+        const responseJson = JSON.parse(response)
+
+        return <CachedMixin>{
+            post: parsePost(responseJson),
+            comments: parseComments(responseJson),
+            additional: parseAdditional(responseJson)
+        }
+    }
+}
+
 async function prepareAllPostId() {
     if (uncached_post_id.length === 0) {
         const result = await requestAllPostId()
@@ -89,20 +120,27 @@ async function preparePrevPost(current_post_id: number) {
     const index = cached.findIndex(x => x.post.id === current_post_id)
     if (index === -1 || index - 1 < 0)
         return
-    else
-        await preparePost(index - 1)
+    else {
+        const result = await requestPrevPost(current_post_id)
+        if (result !== null)
+            cached.push(result)
+    }
 }
 
 async function prepareNextPost(current_post_id: number) {
     const index = cached.findIndex(x => x.post.id === current_post_id)
     if (index === -1 || index + 1 > cached.length - 1)
         return
-    else
-        await preparePost(index + 1)
+    else {
+        const result = await requestNextPost(current_post_id)
+        if (result !== null)
+            cached.push(result)
+    }
 }
 
+//TODO 此处实现有问题，若当前post没进cached，会获取不到prev/next
+
 function getPrevPost(current_post_id: number): CachedMixin | null {
-    const isExist=uncached_post_id.find(x=>x.post.id===current_post_id)
     const index = cached.findIndex(x => x.post.id === current_post_id)
     if (index === -1 || index - 1 < 0)
         return null
