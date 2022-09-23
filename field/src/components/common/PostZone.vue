@@ -1,98 +1,90 @@
 <template>
   <div>
 
-    <f-lazy
-        v-if="post_ids.length>1"
-        v-for="post_id in post_ids"
-        v-slot="data"
-        :initializer="async ()=>{
-            await preparePost(post_id)
-            return getPost(post_id)
-          }"
-    >
-      <PostCard
-          hide-body
-          :post="data.post"
-          :cover-url="data.additional.coverUrl"
-          :summary="data.additional.summary"
-          :is-generated-summary="data.additional.isGeneratedSummary"
-          :view-count="data.additional.viewCount"
-          :comment-count="data.comments.length"
-          :is-archived="data.additional.isArchived"
-          :is-scheduled="data.additional.isScheduled"
-          :topics="data.additional.topics"
-          class="cursor-pointer"
-          @click="$router.push('/'+data.post.id)"
-      />
-    </f-lazy>
+    <div v-if="post_ids.length>1">
+      <transition-group>
+        <f-lazy
+            v-for="post_id in post_ids"
+            :key="post_id"
+            :initializer="()=> preparePost(post_id)"
+        >
+          <f-data :provider="async ()=> getPost(post_id)" v-slot="data" key="">
+            <PostCard
+                key=""
+                class="cursor-pointer"
+                hide-body
+                :post="data.post"
+                :cover-url="data.additional.coverUrl"
+                :summary="data.additional.summary"
+                :is-generated-summary="data.additional.isGeneratedSummary"
+                :view-count="data.additional.viewCount"
+                :comment-count="data.comments.length"
+                :is-archived="data.additional.isArchived"
+                :is-scheduled="data.additional.isScheduled"
+                :topics="data.additional.topics"
+                @click="$router.push('/'+data.post.id)"
+            />
+          </f-data>
+        </f-lazy>
+      </transition-group>
+    </div>
 
-    <f-lazy
-        v-else-if="post_ids.length===1"
-        v-slot="data"
-        :initializer="async ()=>getPost(post_ids[0])"
-    >
-      <PostCard
-          :post="data.post"
-          :cover-url="data.additional.coverUrl"
-          :summary="data.additional.summary"
-          :is-generated-summary="data.additional.isGeneratedSummary"
-          :view-count="data.additional.viewCount"
-          :comment-count="data.comments.length"
-          :is-archived="data.additional.isArchived"
-          :is-scheduled="data.additional.isScheduled"
-          :topics="data.additional.topics"
-      />
-      <CommentZone
-          key=""
-          class="margin-bottom"
-          :post-id="data.post.id"
-          :comments="data.comments"
-          :disable-comment="data.additional.disableComment"
-      />
-      <SwitchZone
-          key=""
-          class="margin-bottom"
-          :post-id="data.post.id"
-      />
-    </f-lazy>
+    <div v-else-if="post_ids.length===1">
+      <f-data :provider="async ()=> getPost(post_ids[0])" v-slot="data">
+        <PostCard
+            :post="data.post"
+            :cover-url="data.additional.coverUrl"
+            :summary="data.additional.summary"
+            :is-generated-summary="data.additional.isGeneratedSummary"
+            :view-count="data.additional.viewCount"
+            :comment-count="data.comments.length"
+            :is-archived="data.additional.isArchived"
+            :is-scheduled="data.additional.isScheduled"
+            :topics="data.additional.topics"
+        />
+        <transition-group>
+          <f-lazy key="">
+            <CommentZone
+                key=""
+                class="margin-bottom"
+                :post-id="data.post.id"
+                :comments="data.comments"
+                :disable-comment="data.additional.disableComment"
+            />
+          </f-lazy>
+          <f-lazy
+              key=""
+              :initializer="
+              async () => {
+              if (props.post_ids.length === 1) {
+                await prepareNextPost(props.post_ids[0])
+                await preparePrevPost(props.post_ids[0])
+              }}"
+          >
+            <SwitchZone
+                key=""
+                class="margin-bottom"
+                :post-id="data.post.id"
+            />
+          </f-lazy>
+        </transition-group>
+      </f-data>
+    </div>
 
   </div>
 </template>
 
 <script lang="ts" setup>
 
-import {defineAsyncComponent, inject} from "vue"
-import {CachedMixin} from "@/scripts/type/mixin"
+import {inject} from "vue"
 import {useRouter} from "vue-router"
 import PostCard from "@/components/PostCard/PostCard.vue"
-import {onBeforeRouteUpdate} from "vue-router"
+import CommentZone from "@/components/CommentZone/CommentZone.vue"
+import SwitchZone from "@/components/btn/SwitchZone.vue"
 import {getPost, prepareNextPost, preparePrevPost} from "@/scripts/data/post"
 import {preparePost} from "@/scripts/data/post"
 import FLazy from "@/components/field/f-lazy.vue"
-
-/*
-onBeforeRouteUpdate(async (to, from, next) => {
-  const post_id = Number(to.params.post_id)
-
-  //如果数据不存在，从服务器获取
-//TODO title
-  if (!isCached(post_id))
-    await getPost(post_id)
-
-  next()
-})
-*/
-
-const CommentZone = defineAsyncComponent(
-    () => import("@/components/CommentZone/CommentZone.vue"))
-const SwitchZone = defineAsyncComponent(
-    async () => {
-      if (props.post_ids.length === 1) {
-        await prepareNextPost(props.post_ids[0])
-        await preparePrevPost(props.post_ids[0])
-      }
-      return import("@/components/btn/SwitchZone.vue")
-    })
+import FData from "@/components/field/f-data.vue"
 
 const props =
     defineProps<{
@@ -110,29 +102,12 @@ if (props.post_ids.length === 0) {
 
 <style lang="stylus" scoped>
 
-/*
-.v-enter-active
-  transition all 0.2s ease
-
-.v-enter-from
-  transform translateY(20px)
-  opacity 0
-
-.initialized-enter-active
-  transition all 0.4s ease
-
-.initialized-enter-from
-  transform translateX(50px) rotate(0.5deg)
-  opacity 0
-*/
-
 .v-leave-active
 .v-enter-active
   transition all 0.4s ease
 
 .v-enter-from
-  transform translateX(50px) rotate(0.5deg)
-  transform-origin 0 200vh
+  transform translateX(50px) skewX(-1deg)
 
 .v-leave-to
   transform scale(0.9)

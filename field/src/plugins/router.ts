@@ -17,7 +17,7 @@ export default createRouter({
     scrollBehavior: (to, from, sp) => {
         if (sp)
             return sp
-        if (to.path === '/')
+        if (to.path === '/' && from.path !== '/')
             return {
                 top: frontPagePosition,
                 behavior: 'smooth'
@@ -43,7 +43,6 @@ export default createRouter({
         {
             path: '/:post_id',
             beforeEnter: async (to, from, next) => {
-
                 if (from.path === '/')//保存滚动位置
                     frontPagePosition = document.documentElement.scrollTop
 
