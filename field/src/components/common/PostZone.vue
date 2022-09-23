@@ -1,64 +1,60 @@
 <template>
   <div>
 
-    <div v-if="post_ids.length>1">
-      <f-lazy
-          v-for="post_id in post_ids"
-          v-slot="data"
-          :initializer="async ()=>{
+    <f-lazy
+        v-if="post_ids.length>1"
+        v-for="post_id in post_ids"
+        v-slot="data"
+        :initializer="async ()=>{
             await preparePost(post_id)
             return getPost(post_id)
           }"
-      >
-        <PostCard
-            hide-body
-            :post="data.post"
-            :cover-url="data.additional.coverUrl"
-            :summary="data.additional.summary"
-            :is-generated-summary="data.additional.isGeneratedSummary"
-            :view-count="data.additional.viewCount"
-            :comment-count="data.comments.length"
-            :is-archived="data.additional.isArchived"
-            :is-scheduled="data.additional.isScheduled"
-            :topics="data.additional.topics"
-            class="cursor-pointer"
-            @click="$router.push('/'+data.post.id)"
-        />
-      </f-lazy>
-    </div>
+    >
+      <PostCard
+          hide-body
+          :post="data.post"
+          :cover-url="data.additional.coverUrl"
+          :summary="data.additional.summary"
+          :is-generated-summary="data.additional.isGeneratedSummary"
+          :view-count="data.additional.viewCount"
+          :comment-count="data.comments.length"
+          :is-archived="data.additional.isArchived"
+          :is-scheduled="data.additional.isScheduled"
+          :topics="data.additional.topics"
+          class="cursor-pointer"
+          @click="$router.push('/'+data.post.id)"
+      />
+    </f-lazy>
 
-    <div v-else-if="post_ids.length===1">
-      <f-lazy
-          v-slot="data"
-          :initializer="async ()=>getPost(post_ids[0])"
-      >
-        <PostCard
-            :post="data.post"
-            :cover-url="data.additional.coverUrl"
-            :summary="data.additional.summary"
-            :is-generated-summary="data.additional.isGeneratedSummary"
-            :view-count="data.additional.viewCount"
-            :comment-count="data.comments.length"
-            :is-archived="data.additional.isArchived"
-            :is-scheduled="data.additional.isScheduled"
-            :topics="data.additional.topics"
-        />
-        <transition-group>
-          <CommentZone
-              key=""
-              class="margin-bottom"
-              :post-id="data.post.id"
-              :comments="data.comments"
-              :disable-comment="data.additional.disableComment"
-          />
-          <SwitchZone
-              key=""
-              class="margin-bottom"
-              :post-id="data.post.id"
-          />
-        </transition-group>
-      </f-lazy>
-    </div>
+    <f-lazy
+        v-else-if="post_ids.length===1"
+        v-slot="data"
+        :initializer="async ()=>getPost(post_ids[0])"
+    >
+      <PostCard
+          :post="data.post"
+          :cover-url="data.additional.coverUrl"
+          :summary="data.additional.summary"
+          :is-generated-summary="data.additional.isGeneratedSummary"
+          :view-count="data.additional.viewCount"
+          :comment-count="data.comments.length"
+          :is-archived="data.additional.isArchived"
+          :is-scheduled="data.additional.isScheduled"
+          :topics="data.additional.topics"
+      />
+      <CommentZone
+          key=""
+          class="margin-bottom"
+          :post-id="data.post.id"
+          :comments="data.comments"
+          :disable-comment="data.additional.disableComment"
+      />
+      <SwitchZone
+          key=""
+          class="margin-bottom"
+          :post-id="data.post.id"
+      />
+    </f-lazy>
 
   </div>
 </template>
@@ -91,11 +87,9 @@ const CommentZone = defineAsyncComponent(
     () => import("@/components/CommentZone/CommentZone.vue"))
 const SwitchZone = defineAsyncComponent(
     async () => {
-      console.log('done1')
       if (props.post_ids.length === 1) {
         await prepareNextPost(props.post_ids[0])
         await preparePrevPost(props.post_ids[0])
-        console.log('done')
       }
       return import("@/components/btn/SwitchZone.vue")
     })
@@ -116,6 +110,7 @@ if (props.post_ids.length === 0) {
 
 <style lang="stylus" scoped>
 
+/*
 .v-enter-active
   transition all 0.2s ease
 
@@ -128,6 +123,21 @@ if (props.post_ids.length === 0) {
 
 .initialized-enter-from
   transform translateX(50px) rotate(0.5deg)
+  opacity 0
+*/
+
+.v-leave-active
+.v-enter-active
+  transition all 0.4s ease
+
+.v-enter-from
+  transform translateX(50px) rotate(0.5deg)
+  transform-origin 0 200vh
+
+.v-leave-to
+  transform scale(0.9)
+  filter blur(100px)
+  height 0
   opacity 0
 
 </style>

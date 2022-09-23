@@ -2,12 +2,10 @@
   <div>
 
     <div ref="target">
-      <transition-group name="initialized">
-        <div v-if="visibility">
-          <slot v-bind="data"/>
-        </div>
-        <div v-else style="height:50vh"/>
-      </transition-group>
+      <div v-if="visibility">
+        <slot v-bind="data"/>
+      </div>
+      <div v-else style="height:50vh"/>
     </div>
 
   </div>
@@ -52,12 +50,5 @@ onMounted(() => {
 </script>
 
 <style lang="stylus" scoped>
-
-.initialized-enter-active
-  transition all 0.4s ease
-
-.initialized-enter-from
-  transform translateX(50px) rotate(0.5deg)
-  opacity 0
 
 </style>
