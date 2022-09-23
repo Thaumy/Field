@@ -31,7 +31,7 @@
         <f-tab
             class="menu-tab"
             :title="tab.title"
-            @click="$router.push(tab.route)"
+            @click="routerPush(tab.route)"
         />
       </f-tabs>
 
@@ -50,6 +50,7 @@ import Avatar from "./Avatar.vue"
 import {Tab} from "@/components/field/type"
 import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
 import avatar from "@/public/avatar.png"
+import {useRouter, useRoute} from "vue-router"
 
 const props = withDefaults(
     defineProps<{
@@ -57,6 +58,14 @@ const props = withDefaults(
     }>(), {
       items: () => []
     })
+
+const router = useRouter()
+const route = useRoute()
+
+function routerPush(to: string) {
+  if (route.path !== to)
+    router.push(to)
+}
 
 </script>
 

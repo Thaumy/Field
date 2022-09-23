@@ -1,14 +1,14 @@
 <template>
-  <div>
 
-    <div ref="target">
-      <div v-if="visibility">
-        <slot v-bind="data"/>
-      </div>
-      <div v-else style="height:50vh"/>
-    </div>
-
+  <div v-if="visibility">
+    <slot/>
   </div>
+  <div
+      v-else
+      ref="holder"
+      style="height:50vh"
+  />
+
 </template>
 
 <script lang="ts" setup>
@@ -22,30 +22,29 @@ const props = withDefaults(
       initializer: () => Promise<any>
     }>(), {
       margin: 200,
-      initializer: async () => null
+      initializer: () => Promise.resolve()
     })
 
-const data = ref<any>(null)
-const target = ref()
+const holder = ref()
 const visibility = ref(false)
 
-onMounted(() => {
-  const handler = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach(async entry => {//entry
-          if (entry.intersectionRatio > 0) {
-            data.value = await props.initializer()
-            visibility.value = true
-          }
+function handler(entries: IntersectionObserverEntry[]) {
+  entries.forEach(async entry => {//entry
+        if (entry.intersectionRatio > 0) {
+          await props.initializer()
+          visibility.value = true
         }
-    )
-  }
+      }
+  )
+}
 
-  new IntersectionObserver(handler, {
-    root: null,
-    rootMargin: props.margin + 'px',
-    threshold: [0, 1]
-  }).observe(target.value)
-})
+onMounted(() =>
+    new IntersectionObserver(handler, {
+      root: null,
+      rootMargin: props.margin + 'px',
+      threshold: [0, 1]
+    }).observe(holder.value)
+)
 
 </script>
 

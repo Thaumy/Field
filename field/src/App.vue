@@ -12,14 +12,13 @@
           />
 
           <div class="right-part">
-            <router-view
-                v-slot="{Component,route}"
-            >
+            <router-view v-slot="{Component,route}">
               <keep-alive>
                 <component :is="Component" :key="route.path"/>
               </keep-alive>
-              <!--<transition name="router-view">
-              </transition>-->
+              <!--
+                            <transition name="router-view">
+                            </transition>-->
             </router-view>
           </div>
         </div>
@@ -29,6 +28,7 @@
         <f-snackbar ref="globalSnackbar"/>
       </div>
 
+      <!--
       <PageFoot
           class="page-foot"
           body="基于pilipala构建 - Field Theme Designed By Thaumy<br>
@@ -43,7 +43,6 @@
           @fully-visible="contentVisibility=false"
           @fully-invisible="contentVisibility=true"
       />
-      <!--
       -->
     </v-main>
   </v-app>
@@ -105,21 +104,8 @@ router.afterEach(() => {
   max-width 1200px
   min-height 110vh
   display grid
-  grid-template-columns 22% 7px auto
-
-.router-view-leave-active
-.router-view-enter-active
-  transition all 0.4s ease
-
-.router-view-enter-from
-  transform translateX(50px) rotate(0.5deg)
-  transform-origin 0 200vh
-
-.router-view-leave-to
-  transform scale(0.9)
-  filter blur(100px)
-  height 0
-  opacity 0
+  //TODO 以这种方式实现的中间间隔并不优雅
+  grid-template-columns 22% 0.7% 77.3%
 
 /* 屏幕宽度 [ 1001  + ) */
 @media (min-width 1001px)
