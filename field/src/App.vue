@@ -15,11 +15,11 @@
             <router-view
                 v-slot="{Component,route}"
             >
-              <transition name="router-view">
-                <keep-alive>
-                  <component :is="Component" :key="route.path"/>
-                </keep-alive>
-              </transition>
+              <keep-alive>
+                <component :is="Component" :key="route.path"/>
+              </keep-alive>
+              <!--<transition name="router-view">
+              </transition>-->
             </router-view>
           </div>
         </div>

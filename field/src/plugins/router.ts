@@ -1,5 +1,7 @@
-import {createRouter, createWebHistory} from "vue-router"
-import PostZone from '@/components/common/PostZone.vue'
+import {
+    createRouter,
+    createWebHistory
+} from "vue-router"
 import {
     preparePost,
     prepareAllPostId,
@@ -7,12 +9,24 @@ import {
     getAllPostId,
 }
     from "@/scripts/data/post"
+import PostZone from '@/components/common/PostZone.vue'
+
+let frontPagePosition = 0
 
 export default createRouter({
-    scrollBehavior: () => ({
-        top: 0,
-        behavior: 'smooth'
-    }),
+    scrollBehavior: (to, from, sp) => {
+        if (sp)
+            return sp
+        if (to.path === '/')
+            return {
+                top: frontPagePosition,
+                behavior: 'smooth'
+            }
+        return {
+            top: 0,
+            behavior: 'smooth'
+        }
+    },
     history: createWebHistory(),
     routes: [
         {
@@ -29,6 +43,10 @@ export default createRouter({
         {
             path: '/:post_id',
             beforeEnter: async (to, from, next) => {
+
+                if (from.path === '/')//保存滚动位置
+                    frontPagePosition = document.documentElement.scrollTop
+
                 //TODO title route support
                 const post_id = Number(to.params.post_id)
                 await preparePost(post_id)
