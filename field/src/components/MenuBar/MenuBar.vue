@@ -8,9 +8,9 @@
     >
       <div
           class="cursor-pointer flex"
-          @click="$router.push('/')"
+          @click="$router.push('/'+about_me)"
       >
-        <img class="avatar border-shadow" :src="avatar" alt="avatar"/>
+        <img class="avatar border-shadow" :src="avatarUrl" alt="avatar"/>
         <div class="name">THAUMY的小站</div>
       </div>
 
@@ -43,7 +43,8 @@ import {makeDebounce} from "@/scripts/util/debounce"
 import Drawer from "./Drawer.vue"
 import {Tab} from "@/components/field/type"
 import Shadow from "@/components/MenuBar/Shadow.vue"
-import avatar from "@/public/avatar.png"
+import avatarUrl from "@/public/avatar.png"
+import {about_me, about_site} from "@/scripts/data/menu"
 
 const props =
     defineProps<{

@@ -7,7 +7,7 @@
           style="opacity: 0.4"
       />
 
-      <Avatar :avatarUrl="avatar"/>
+      <Avatar :avatarUrl="avatarUrl"/>
 
       <Info
           class="mb-4"
@@ -49,7 +49,7 @@ import Info from "./Info.vue"
 import Avatar from "./Avatar.vue"
 import {Tab} from "@/components/field/type"
 import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
-import avatar from "@/public/avatar.png"
+import avatarUrl from "@/public/avatar.png"
 import {useRouter, useRoute} from "vue-router"
 
 const props = withDefaults(
