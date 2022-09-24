@@ -8,7 +8,9 @@ export type Additional = {
     disableComment: boolean,
     isArchived: boolean,
     isScheduled: boolean,
-    topics: Topic[]
+    topics: Topic[],
+    prevId: number | null,
+    nextId: number | null
 }
 
 export function parseAdditional(responseJson: any) {
@@ -23,5 +25,7 @@ export function parseAdditional(responseJson: any) {
         isArchived: r['IsArchived'],
         isScheduled: r['IsScheduled'],
         topics: r['Topics'],
+        prevId: r['PrevId'],
+        nextId: r['NextId']
     }
 }

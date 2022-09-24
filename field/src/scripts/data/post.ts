@@ -17,8 +17,6 @@ export {
 
     prepareAllPostId,
     preparePost,
-    preparePrevPost,
-    prepareNextPost,
 
     getAllPostId,
     getPost,
@@ -115,30 +113,6 @@ function getPost(id: number) {//need to prepare before call
     else
         return null
 }
-
-async function preparePrevPost(current_post_id: number) {
-    const index = cached.findIndex(x => x.post.id === current_post_id)
-    if (index === -1 || index - 1 < 0)
-        return
-    else {
-        const result = await requestPrevPost(current_post_id)
-        if (result !== null)
-            cached.push(result)
-    }
-}
-
-async function prepareNextPost(current_post_id: number) {
-    const index = cached.findIndex(x => x.post.id === current_post_id)
-    if (index === -1 || index + 1 > cached.length - 1)
-        return
-    else {
-        const result = await requestNextPost(current_post_id)
-        if (result !== null)
-            cached.push(result)
-    }
-}
-
-//TODO 此处实现有问题，若当前post没进cached，会获取不到prev/next
 
 function getPrevPost(current_post_id: number): CachedMixin | null {
     const index = cached.findIndex(x => x.post.id === current_post_id)
