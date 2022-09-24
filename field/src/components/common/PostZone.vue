@@ -8,7 +8,7 @@
             :key="post_id"
             :initializer="()=> preparePost(post_id)"
         >
-          <f-data :provider="async ()=> getPost(post_id)" v-slot="data" key="">
+          <f-data :provider="async ()=> getPost(post_id)" v-slot="data">
             <PostCard
                 key=""
                 class="cursor-pointer"
@@ -22,7 +22,7 @@
                 :is-archived="data.additional.isArchived"
                 :is-scheduled="data.additional.isScheduled"
                 :topics="data.additional.topics"
-                @click="$router.push('/'+data.post.id)"
+                @click="router.push('/'+data.post.id)"
             />
           </f-data>
         </f-lazy>
@@ -30,7 +30,12 @@
     </div>
 
     <div v-else-if="post_ids.length===1">
-      <f-data :provider="async ()=> getPost(post_ids[0])" v-slot="data">
+      <f-data
+          :provider="async ()=>{
+            await preparePost(post_ids[0])
+            return getPost(post_ids[0])
+          }"
+          v-slot="data">
         <PostCard
             :post="data.post"
             :cover-url="data.additional.coverUrl"
@@ -77,7 +82,7 @@
 
 <script lang="ts" setup>
 
-import {inject} from "vue"
+import {ref, inject, onMounted} from "vue"
 import {useRouter} from "vue-router"
 import PostCard from "@/components/PostCard/PostCard.vue"
 import CommentZone from "@/components/CommentZone/CommentZone.vue"
@@ -94,9 +99,11 @@ const props =
 
 const showGlobalSnackbar: any = inject('showGlobalSnackbar')
 
+const router = useRouter()
+
 if (props.post_ids.length === 0) {
   showGlobalSnackbar('mdi-alert-rhombus', '404 NOT FOUND / 已重定向至首页', 'red', 5000)
-  useRouter().push('/')
+  router.push('/')
 }
 
 </script>

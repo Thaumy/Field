@@ -46,9 +46,13 @@ export default createRouter({
                 if (from.path === '/')//保存滚动位置
                     frontPagePosition = document.documentElement.scrollTop
 
+                //在此处异步获取数据不甚优雅，因为还需要在组件里设置beforeUpdate
+                //但是在组件的f-data里异步获取数据同样不优雅，因为这样会造成透明
+                //可通过设计占位盒来优化用户体验
+
                 //TODO title route support
-                const post_id = Number(to.params.post_id)
-                await preparePost(post_id)
+                //const post_id = Number(to.params.post_id)
+                //await preparePost(post_id)
                 next()
             },
             component: PostZone,
