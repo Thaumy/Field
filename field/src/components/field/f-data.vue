@@ -12,7 +12,7 @@ const props = withDefaults(
     defineProps<{
       provider: () => Promise<any>
     }>(), {
-      provider: () => Promise.resolve()
+      provider: () => Promise.resolve(null)
     })
 
 const dataReady = ref(false)

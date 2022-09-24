@@ -1,46 +1,59 @@
 <template>
   <div>
 
-    <div class="holder border-radius-all transition-standard">
-      <div class="prev-chip">
-        <v-chip
-            prepend-icon="mdi-chevron-left"
-            color="primary"
-            variant="text"
-            @click="$router.push('/'+prev.post.id)"
-            v-if="prev!==null"
-        >
-          {{ genTitle(prev.post) }}
-        </v-chip>
-        <v-chip
-            color="grey"
-            style="opacity:0.6"
-            variant="text"
-            v-else
-        >
-          没有更多了
-        </v-chip>
-      </div>
-
-      <div class="next-chip">
-        <v-chip
-            append-icon="mdi-chevron-right"
-            color="primary"
-            variant="text"
-            @click="$router.push('/'+next.post.id)"
-            v-if="next!==null"
-        >
-          {{ genTitle(next.post) }}
-        </v-chip>
-        <v-chip
-            color="grey"
-            style="opacity:0.6"
-            variant="text"
-            v-else
-        >
-          没有更多了
-        </v-chip>
-      </div>
+    <div
+        v-if="current!==null"
+        class="holder border-radius-all transition-standard"
+    >
+      <!--TODO 此实现不优雅-->
+      <f-data
+          :provider="async ()=> getPost(current.additional.prevId)"
+          v-slot="{post}"
+      >
+        <div class="prev-chip">
+          <v-chip
+              v-if="notNullOrUndefined(post)"
+              prepend-icon="mdi-chevron-left"
+              color="primary"
+              variant="text"
+              @click="$router.push('/'+post.id)"
+          >
+            {{ genTitle(post) }}
+          </v-chip>
+          <v-chip
+              v-else
+              color="grey"
+              style="opacity:0.6"
+              variant="text"
+          >
+            没有更多了
+          </v-chip>
+        </div>
+      </f-data>
+      <f-data
+          :provider="async ()=> getPost(current.additional.nextId)"
+          v-slot="{post}"
+      >
+        <div class="next-chip">
+          <v-chip
+              v-if="notNullOrUndefined(post)"
+              append-icon="mdi-chevron-right"
+              color="primary"
+              variant="text"
+              @click="$router.push('/'+post.id)"
+          >
+            {{ genTitle(post) }}
+          </v-chip>
+          <v-chip
+              v-else
+              color="grey"
+              style="opacity:0.6"
+              variant="text"
+          >
+            没有更多了
+          </v-chip>
+        </div>
+      </f-data>
     </div>
 
   </div>
@@ -50,15 +63,16 @@
 
 import {Post} from "@/scripts/type/post"
 import {removeHtmlTags} from "@/scripts/util/text"
-import {getNextPost, getPrevPost} from "@/scripts/data/post"
+import {getNextPost, getPost, getPrevPost} from "@/scripts/data/post"
+import FData from "@/components/field/f-data.vue";
+import {notNullOrUndefined} from "@/scripts/util/nullable"
 
 const props =
     defineProps<{
       postId: number
     }>()
 
-const prev = getPrevPost(props.postId)
-const next = getNextPost(props.postId)
+const current = getPost(props.postId)
 
 function genTitle(post: Post) {
   const title = post.title

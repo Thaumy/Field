@@ -56,10 +56,11 @@
               key=""
               :initializer="
               async () => {
-              if (props.post_ids.length === 1) {
-                await prepareNextPost(props.post_ids[0])
-                await preparePrevPost(props.post_ids[0])
-              }}"
+                if(data.additional.prevId!==null)
+                  await preparePost(data.additional.prevId)
+                if(data.additional.nextId!==null)
+                  await preparePost(data.additional.nextId)
+              }"
           >
             <SwitchZone
                 key=""
@@ -81,7 +82,7 @@ import {useRouter} from "vue-router"
 import PostCard from "@/components/PostCard/PostCard.vue"
 import CommentZone from "@/components/CommentZone/CommentZone.vue"
 import SwitchZone from "@/components/btn/SwitchZone.vue"
-import {getPost, prepareNextPost, preparePrevPost} from "@/scripts/data/post"
+import {getPost} from "@/scripts/data/post"
 import {preparePost} from "@/scripts/data/post"
 import FLazy from "@/components/field/f-lazy.vue"
 import FData from "@/components/field/f-data.vue"
