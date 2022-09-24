@@ -6,7 +6,7 @@
       <div
           class="avatar-holder border-shadow cursor-pointer"
           v-ripple
-          @click="$router.push('/')"
+          @click="$router.push('/'+about_me)"
       >
         <img
             class="avatar"
@@ -14,26 +14,14 @@
             alt="avatar"
         />
       </div>
-      <!--
-            <div
-
-                v-ripple
-                class="avatar-outline"
-                :style="outlineStyle"
-                @click="showOutline()"
-            >
-              <img
-                  alt="avatar"
-                  :src="avatarUrl"
-                  class="avatar border-shadow cursor-pointer"
-              />
-            </div>    -->
     </div>
 
   </div>
 </template>
 
 <script lang="ts" setup>
+
+import {about_me} from "@/scripts/data/menu"
 
 const props =
     defineProps<{
@@ -68,31 +56,4 @@ const props =
   max-height 100px
   border-radius 100px
 
-/*
-.avatar-outline
-  margin auto
-  display flex
-
-  width 11vw
-  height 11vw
-  max-width 108px
-  max-height 108px
-
-  border-width 2.6px
-  border-style solid
-  border-radius 100px
-
-  transition all 0.2s ease
-
-.avatar
-  align-self center
-
-  width 10vw
-  height 10vw
-  max-width 100px
-  max-height 100px
-
-  margin auto
-  border-radius 100px
-*/
 </style>
