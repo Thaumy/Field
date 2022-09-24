@@ -8,7 +8,7 @@ import {
     wsRequestPrevPost,
     wsRequestNextPost
 } from "@/scripts/data/ws"
-import {parseAdditional} from "@/scripts/util/additional"
+import {parseAdditional} from "@/scripts/type/additional"
 import {notNullOrUndefined} from "@/scripts/util/nullable"
 
 export {

@@ -13,12 +13,13 @@
 
           <div class="right-part">
             <router-view v-slot="{Component,route}">
-              <keep-alive>
-                <component :is="Component" :key="route.path"/>
-              </keep-alive>
-              <!--
-                            <transition name="router-view">
-                            </transition>-->
+
+              <transition name="router-view">
+                <keep-alive>
+                  <component :is="Component" :key="route.path"/>
+                </keep-alive>
+              </transition>
+
             </router-view>
           </div>
         </div>
@@ -106,6 +107,18 @@ router.afterEach(() => {
   display grid
   //TODO 以这种方式实现的中间间隔并不优雅
   grid-template-columns 22% 0.7% 77.3%
+
+.router-view-leave-active
+.router-view-enter-active
+  transition all 0.4s ease
+
+.router-view-enter-from
+  height 0
+  transform scale(0.9)
+
+.router-view-leave-to
+  height 0
+  opacity 0
 
 /* 屏幕宽度 [ 1001  + ) */
 @media (min-width 1001px)
