@@ -25,7 +25,7 @@ export function parseAdditional(responseJson: any) {
         isArchived: r['IsArchived'],
         isScheduled: r['IsScheduled'],
         topics: r['Topics'],
-        prevId: r['PrevId'],
-        nextId: r['NextId']
+        prevId: r['PrevId'] < 0 ? null : r['PrevId'],
+        nextId: r['NextId'] < 0 ? null : r['NextId']
     }
 }
