@@ -32,8 +32,12 @@
     <div v-else-if="post_ids.length===1">
       <f-data
           :provider="async ()=>{
-            await preparePost(post_ids[0])
-            return getPost(post_ids[0])
+            if (await preparePost(post_ids[0]))
+              return getPost(post_ids[0])
+            else {
+              showGlobalSnackbar('mdi-alert-rhombus', '404 NOT FOUND / 已重定向至首页', 'red', 5000)
+              await router.push('/')
+            }
           }"
           v-slot="data">
         <PostCard

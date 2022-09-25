@@ -10,6 +10,7 @@ import {
 }
     from "@/scripts/data/post"
 import PostZone from '@/components/common/PostZone.vue'
+import {notNullOrUndefined} from "@/scripts/util/nullable";
 
 let frontPagePosition = 0
 
@@ -57,8 +58,12 @@ export default createRouter({
             },
             component: PostZone,
             props: r => {
+                //目前通过路由匹配检测+组件内请求成功与否判断404的方式并不优雅
                 const post_id = Number(r.params.post_id)
-                return {post_ids: [post_id]}
+                if (!isNaN(post_id))
+                    return {post_ids: [post_id]}
+                else
+                    return {post_ids: []}
             },
         }
     ],
