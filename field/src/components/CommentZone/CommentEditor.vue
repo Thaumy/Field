@@ -70,9 +70,9 @@
             width="100%"
             class="commit-btn transition-standard"
             :disabled="!body"
-            :warning="replyMode"
-            :text="replyMode ? '回复' : '提交'"
-            @click="$emit('createComment')"
+            :warning="isReply"
+            :text="isReply ? '回复' : '提交'"
+            @click="$emit('createComment',body)"
             @disable-click="showGlobalSnackbar('mdi-tooltip-edit','填写评论内容是必要的','red')"
         />
       </div>
@@ -87,31 +87,35 @@ import {inject, ref} from "vue"
 import {Tab} from "@/components/field/type"
 import {marked} from "marked"
 
+enum Mode {Edit = 0, Preview = 1}
+
+const props =
+    defineProps<{
+      isReply: boolean,
+    }>()
+
 defineEmits<{
   (e: 'createComment'): void
 }>()
 
-const showGlobalSnackbar = inject('showGlobalSnackbar')
-
-const props = withDefaults(
-    defineProps<{
-      replyMode: boolean,
-    }>(), {
-      replyMode: false
-    })
-
-enum Mode {Edit = 0, Preview = 1}
-
 const body = ref("")
+const currentMode = ref(Mode.Edit)
+const bodyRenderResult = ref("")
+
+defineExpose({
+  reset() {
+    body.value = ""
+    currentMode.value = Mode.Edit
+    bodyRenderResult.value = ""
+  }
+})
+
+const showGlobalSnackbar = inject('showGlobalSnackbar')
 
 const modeTabs = () => [
   <Tab><unknown>{title: '编辑', mode: Mode.Edit},
   <Tab><unknown>{title: '预览', mode: Mode.Preview, disabled: (body.value === '')}
 ]
-
-const currentMode = ref(Mode.Edit)
-
-const bodyRenderResult = ref('')
 
 function toggleMode(mode: Mode) {
   if (mode === Mode.Preview)
@@ -120,25 +124,6 @@ function toggleMode(mode: Mode) {
   currentMode.value = mode
 }
 
-/*
-### h3
-
-**bold**
-_italic_
-~~midline~~
-`code`
-
-> quote
-
-- [x] ok
-
-- item
-
-1. item
-2. item
-
-[blog](https://www.thaumy.cn)
-*/
 </script>
 
 <style lang="stylus" scoped>

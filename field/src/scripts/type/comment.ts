@@ -4,7 +4,8 @@ export type Comment = {
     id: number,
     user: string,
     body: string,
-    replyTo: number,
+    binding: number,
+    isReply: boolean,
     siteUrl: string | null,
     avatarUrl: string | null,
     createTime: Date,
@@ -17,7 +18,8 @@ export function parseComment(responseJson: any): Comment {
         id: r["Id"],
         user: r["User"],
         body: r["Body"],
-        replyTo: r["ReplyTo"],
+        binding: r["Binding"],
+        isReply: r["IsReply"],
         siteUrl: r["SiteUrl"],
         avatarUrl: r["AvatarUrl"],
         createTime: new Date(r["CreateTime"])
@@ -35,7 +37,7 @@ export function parseComments(responseJson: any): Comment[] {
 export function isComment(comment: any): comment is Comment {
     if (comment === null || comment === undefined)
         return false
-    return typeof comment.replyTo === 'number'
+    return typeof comment.binding === 'number'
 }
 
 export function getCommentIn(comments: Comment[], id: number): Comment | null {
