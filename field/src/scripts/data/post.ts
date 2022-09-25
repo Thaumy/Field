@@ -90,6 +90,7 @@ async function prepareAllPostId() {
         const result = await requestAllPostId()
         uncached_post_id = uncached_post_id.concat(result)
     }
+    return true
 }
 
 async function preparePost(id: number) {
@@ -98,7 +99,10 @@ async function preparePost(id: number) {
         const result = await requestPost(id)
         if (result !== null)
             cached.push(result)
+        else
+            return false
     }
+    return true
 }
 
 function getAllPostId() {//need to prepare before call
