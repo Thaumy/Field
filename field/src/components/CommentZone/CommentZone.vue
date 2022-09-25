@@ -9,7 +9,10 @@
       <!-- TODO 此实现有缺陷，当收起动画未完成时，回复仍然有效。并且不能适应后期缩放 -->
       <f-slider
           ref="replyTargetSlider"
-          :after-closed="()=>{this.replyTarget=this.props.postId}"
+          :after-closed="()=>{
+            this._binding=this.props.postId
+            this._isReply=false
+          }"
       >
         <div
             class="reply-target-zone"
@@ -19,7 +22,7 @@
 
           <CommentCard
               class="reference-filter"
-              :comment="getCommentIn(_comments,replyTarget)"
+              :comment="getCommentIn(_comments,_binding)"
               :disable-reply="true"
           >
             <template #user-name-right-end-slot>
@@ -36,9 +39,10 @@
 
       <DisableCommentHolder v-if="disableComment"/>
       <CommentEditor
+          ref="commentEditor"
           v-else
-          :reply-mode="replyTarget!==postId"
-          @create-comment="_comments.push(commentExample)"
+          :is-reply="_isReply"
+          @create-comment="createCommentHandler"
       />
 
       <f-divider/>
@@ -58,13 +62,17 @@
           <CommentCard
               :comment='comment'
               name="comment-card"
-              :disable-reply='replyTarget===comment.id'
-              @reply-click="replyTarget=comment.id;expandReference(index)"
+              :disable-reply='_binding===comment.id&&_isReply'
+              @reply-click="()=>{
+                this._binding=comment.id
+                this._isReply=true
+                expandReference(index)
+              }"
           >
-            <template #body-top-slot v-if="comment.replyTo!==postId">
+            <template #body-top-slot v-if="comment.isReply">
               <f-text-render
                   name="comment-card-reply"
-                  :text="genReplyReference(getCommentIn(_comments,comment.replyTo))"
+                  :text="genReplyReference(getCommentIn(_comments,comment.binding))"
               />
             </template>
           </CommentCard>
@@ -82,6 +90,7 @@
 import {PropType, Ref, ref} from "vue"
 import {formatToDateTime} from "@/scripts/util/time"
 import {Comment, getCommentIn} from "@/scripts/type/comment"
+import {createComment} from "@/scripts/data/comment"
 import CommentCard from "./CommentCard.vue"
 import CommentEditor from "./CommentEditor.vue"
 import NoCommentHolder from "./NoCommentHolder.vue"
@@ -94,24 +103,38 @@ const props =
       disableComment: boolean
     }>()
 
-const commentExample = <Comment>{
-  id: 1000,
-  user: '小品',
-  body: '这是一条很长很长很长很长很长很长很长很长很长的评论！',
-  replyTo: props.postId,
-  siteUrl: 'https://www.thaumy.cn',
-  avatarUrl: '/src/assets/comment_user_avatars/kurumi.jpg',
-  createTime: new Date('2022-08-11T01:34:00')
+const _comments = ref(props.comments)
+const _binding = ref(props.postId)
+const _isReply = ref(false)
+
+const commentEditor = ref()
+
+async function createCommentHandler(body: string) {
+  const comment = <Comment>{
+    id: 0,
+    user: "",
+    body: body,
+    binding: _binding.value,
+    isReply: _isReply.value,
+    siteUrl: "",
+    avatarUrl: "",
+    createTime: new Date(),
+  }
+  const response = await createComment(comment)
+  if (response !== null) {
+    _comments.value.push(response)
+  }
+  //恢复编辑器状态
+  replyTargetSlider.value.close()
+  commentEditor.value.reset()
 }
 
-const _comments = ref(props.comments)
-const replyTarget = ref(props.postId)
-
-const genReplyReference = (comment: Comment) =>
-    '<blockquote style="font-size:0.8rem;">' +
-    comment.user + ` (于${formatToDateTime(comment.createTime)}):<br>` +
-    comment.body +
-    '</blockquote>'
+function genReplyReference(comment: Comment) {
+  return '<blockquote style="font-size:0.8rem;">' +
+      comment.user + ` (于${formatToDateTime(comment.createTime)}):<br>` +
+      comment.body +
+      '</blockquote>'
+}
 
 const replyTargetSlider = ref()
 const commentList = ref()
@@ -125,6 +148,7 @@ function expandReference(index: number) {
   else
     replyTargetSlider.value.expand(card.offsetHeight)
 }
+
 </script>
 
 <style lang="stylus" scoped>

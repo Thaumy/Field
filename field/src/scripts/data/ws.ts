@@ -1,8 +1,28 @@
+import {Comment} from "@/scripts/type/comment";
+
 export {
     wsRequestAllPostId,
     wsRequestPost,
     wsRequestPrevPost,
-    wsRequestNextPost
+    wsRequestNextPost,
+    wsCreateComment
+}
+
+async function wsCreateComment(comment: Comment) {
+    const ws = new WebSocket("ws://localhost:8080/create_comment")
+
+    //TODO event remove
+    ws.addEventListener('open', () => ws.send(JSON.stringify(comment)))
+
+    const task = new Promise<string>
+    (resolve =>
+        ws.addEventListener("message", ev => resolve(ev.data))
+    )
+
+    const responseJson = await task
+    ws.close()
+
+    return responseJson
 }
 
 async function wsRequestAllPostId() {
