@@ -1,5 +1,3 @@
-// @ts-nocheck
-// @ts-ignore
 window.MathJax =
     {
         loader: {load: ['ui/lazy']},

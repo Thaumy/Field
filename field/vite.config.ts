@@ -17,6 +17,7 @@ export default defineConfig({
             '@': path.resolve(__dirname, './src'),
         },
     },
+    publicDir: './src/public',
     base: './',
     plugins: [
         vue(),
