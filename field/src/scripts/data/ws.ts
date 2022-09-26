@@ -1,4 +1,4 @@
-import {Comment} from "@/scripts/type/comment";
+import {Comment} from "@/scripts/type/comment"
 
 export {
     wsRequestAllPostId,
@@ -8,8 +8,10 @@ export {
     wsCreateComment
 }
 
+const wsRoot = `ws://next.thaumy.cn:8080`
+
 async function wsCreateComment(comment: Comment) {
-    const ws = new WebSocket("ws://localhost:8080/create_comment")
+    const ws = new WebSocket(`${wsRoot}/create_comment`)
 
     //TODO event remove
     ws.addEventListener('open', () => ws.send(JSON.stringify(comment)))
@@ -26,7 +28,7 @@ async function wsCreateComment(comment: Comment) {
 }
 
 async function wsRequestAllPostId() {
-    const ws = new WebSocket("ws://localhost:8080/get_all_post_id")
+    const ws = new WebSocket(`${wsRoot}/get_all_post_id`)
 
     //TODO event remove
     ws.addEventListener('open', () => ws.send(''))
@@ -43,7 +45,7 @@ async function wsRequestAllPostId() {
 }
 
 async function wsRequestPost(id: number) {
-    const ws = new WebSocket("ws://localhost:8080/get_post")
+    const ws = new WebSocket(`${wsRoot}/get_post`)
 
     //TODO event remove
     ws.addEventListener('open', () => ws.send(id.toString()))
@@ -60,7 +62,7 @@ async function wsRequestPost(id: number) {
 }
 
 async function wsRequestPrevPost(current_post_id: number) {
-    const ws = new WebSocket("ws://localhost:8080/get_prev_post")
+    const ws = new WebSocket(`${wsRoot}/get_prev_post`)
 
     //TODO event remove
     ws.addEventListener('open', () => ws.send(current_post_id.toString()))
@@ -77,7 +79,7 @@ async function wsRequestPrevPost(current_post_id: number) {
 }
 
 async function wsRequestNextPost(current_post_id: number) {
-    const ws = new WebSocket("ws://localhost:8080/get_next_post")
+    const ws = new WebSocket(`${wsRoot}/get_next_post`)
 
     //TODO event remove
     ws.addEventListener('open', () => ws.send(current_post_id.toString()))
