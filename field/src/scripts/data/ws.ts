@@ -8,7 +8,8 @@ export {
     wsCreateComment
 }
 
-const wsRoot = `ws://next.thaumy.cn:8080`
+//const wsRoot = `wss://localhost:8080`
+const wsRoot = `wss://next.thaumy.cn:8080`
 
 async function wsCreateComment(comment: Comment) {
     const ws = new WebSocket(`${wsRoot}/create_comment`)
