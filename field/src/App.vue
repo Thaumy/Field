@@ -110,7 +110,7 @@ router.afterEach(() => {
 
 .router-view-leave-active
 .router-view-enter-active
-  transition all 0.4s ease
+  transition all 0.2s ease
 
 .router-view-enter-from
   height 0

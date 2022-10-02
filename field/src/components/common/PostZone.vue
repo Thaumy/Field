@@ -8,7 +8,7 @@
             :key="post_id"
             :initializer="()=> preparePost(post_id)"
         >
-          <f-data :provider="async ()=> getPost(post_id)" v-slot="data">
+          <f-data :provider="()=> getPost(post_id)" v-slot="data">
             <PostCard
                 key=""
                 class="cursor-pointer"
@@ -39,7 +39,8 @@
               await router.push('/')
             }
           }"
-          v-slot="data">
+          v-slot="data"
+      >
         <PostCard
             :post="data.post"
             :cover-url="data.additional.coverUrl"
@@ -87,7 +88,7 @@
 <script lang="ts" setup>
 
 import {ref, inject, onMounted} from "vue"
-import {useRouter} from "vue-router"
+import {onBeforeRouteUpdate,useRouter} from "vue-router"
 import PostCard from "@/components/PostCard/PostCard.vue"
 import CommentZone from "@/components/CommentZone/CommentZone.vue"
 import SwitchZone from "@/components/btn/SwitchZone.vue"
@@ -95,6 +96,8 @@ import {getPost} from "@/scripts/data/post"
 import {preparePost} from "@/scripts/data/post"
 import FLazy from "@/components/field/f-lazy.vue"
 import FData from "@/components/field/f-data.vue"
+
+//onBeforeRouteUpdate(())
 
 const props =
     defineProps<{
@@ -116,7 +119,7 @@ if (props.post_ids.length === 0) {
 
 .v-leave-active
 .v-enter-active
-  transition all 0.4s ease
+  transition all 0.2s ease
 
 .v-enter-from
   transform translateX(50px) skewX(-1deg)

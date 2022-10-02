@@ -20,6 +20,7 @@
             class="summary"
             :class="{'generated':isGeneratedSummary}"
             v-text="summary"
+            v-if="showSummary"
         />
 
         <div class="summary-right-slot">
@@ -40,6 +41,7 @@ let props =
     defineProps<{
       title: string,
       summary: string,
+      showSummary: boolean,
       isGeneratedSummary: boolean,
     }>()
 
