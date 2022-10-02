@@ -13,6 +13,7 @@
           <Preview
               :title=post.title
               :summary=summary
+              :show-summary="hideBody||(!hideBody&&!isGeneratedSummary)"
               :is-generated-summary="isGeneratedSummary"
               v-if=post.title
           >
@@ -39,7 +40,12 @@
             </template>
 
             <template v-slot:bottom-slot v-else>
-              <ReadTimeBar :target-text="post.body" v-if="post.body&&!hideBody"/>
+              <!--此间隔在没有概要时渲染以改善视觉效果-->
+              <div class="mt-1" v-if="!(hideBody||(!hideBody&&!isGeneratedSummary))"/>
+              <ReadTimeBar
+                  :target-text="post.body"
+                  v-if="post.body&&!hideBody"
+              />
             </template>
           </Preview>
         </div>
