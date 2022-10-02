@@ -63,8 +63,8 @@
 
 import {Post} from "@/scripts/type/post"
 import {removeHtmlTags} from "@/scripts/util/text"
-import {getNextPost, getPost, getPrevPost} from "@/scripts/data/post"
-import FData from "@/components/field/f-data.vue";
+import {getPost} from "@/scripts/data/post"
+import FData from "@/components/field/f-data.vue"
 import {notNullOrUndefined} from "@/scripts/util/nullable"
 
 const props =

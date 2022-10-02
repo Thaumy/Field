@@ -1,13 +1,14 @@
 <template>
 
-  <slot v-if="dataReady" v-bind="data"/>
+  <slot v-if="data!==null" v-bind="data"/>
 
 </template>
 
 <script lang="ts" setup>
 
-import {onMounted, ref} from "vue"
+import {onBeforeMount, onMounted, ref} from "vue"
 
+/*
 const props = withDefaults(
     defineProps<{
       provider: () => Promise<any>
@@ -15,12 +16,21 @@ const props = withDefaults(
       provider: () => Promise.resolve(null)
     })
 
-const dataReady = ref(false)
-const data = ref<any>(null)
+const data = ref(null)
 
 props.provider().then(v => {
   data.value = v
-  dataReady.value = true
+})*/
+
+const props = withDefaults(
+    defineProps<{
+      provider: () => Promise<any>
+    }>(), {
+      provider: () => Promise.resolve(null)
+    })
+const data = ref(null)
+onBeforeMount(async () => {
+  data.value = await props.provider()
 })
 
 </script>

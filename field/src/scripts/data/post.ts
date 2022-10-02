@@ -5,27 +5,23 @@ import {CachedMixin} from "@/scripts/type/mixin"
 import {
     wsRequestAllPostId,
     wsRequestPost,
+    /*
     wsRequestPrevPost,
     wsRequestNextPost
+     */
 } from "@/scripts/data/ws"
 import {parseAdditional} from "@/scripts/type/additional"
 import {notNullOrUndefined} from "@/scripts/util/nullable"
 
 export {
-    uncached_post_id,
-    cached,
-
     prepareAllPostId,
     preparePost,
 
     getAllPostId,
     getPost,
-    getPrevPost,
-    getNextPost,
 }
 
-let uncached_post_id: number[] = []
-let cached: CachedMixin[] = []
+let cacheMap = new Map<number, CachedMixin | null>()
 
 async function requestAllPostId() {
     const response = await wsRequestAllPostId()
@@ -55,6 +51,7 @@ async function requestPost(id: number) {
     }
 }
 
+/*
 async function requestPrevPost(current_post_id: number) {
     const response = await wsRequestPrevPost(current_post_id)
     if (response === '')
@@ -83,41 +80,49 @@ async function requestNextPost(current_post_id: number) {
             additional: parseAdditional(responseJson)
         }
     }
-}
+}*/
 
 async function prepareAllPostId() {
-    if (uncached_post_id.length === 0) {
-        const result = await requestAllPostId()
-        uncached_post_id = uncached_post_id.concat(result)
+    if (cacheMap.size === 0) {
+        const post_ids = await requestAllPostId()
+        post_ids.forEach(id => cacheMap.set(id, null))
     }
-    return true
 }
 
 async function preparePost(id: number) {
-    const isExist = notNullOrUndefined(cached.filter(x => x.post.id === id)[0])
-    if (!isExist) {
+    const post = cacheMap.get(id)
+    if (notNullOrUndefined(post)) {
+        return true
+    } else {
         const result = await requestPost(id)
-        if (result !== null)
-            cached.push(result)
-        else
+        if (result !== null) {
+            cacheMap.set(id, result)
+            return true
+        } else
             return false
     }
-    return true
 }
 
 function getAllPostId() {//need to prepare before call
-    return uncached_post_id
+    //TODO cachedMap有待优化，目前的实现和用例相当低效
+    let arr: number[] = []
+
+    for (const x of cacheMap.keys())
+        arr.push(x)
+
+    return arr
 }
 
 function getPost(id: number) {//need to prepare before call
-    const v = cached.filter(x => x.post.id === id)[0]
+    const post = cacheMap.get(id)
 
-    if (notNullOrUndefined(v))
-        return v
-    else
+    if (notNullOrUndefined(post)) {
+        return post
+    } else
         return null
 }
 
+/*
 function getPrevPost(current_post_id: number): CachedMixin | null {
     const index = cached.findIndex(x => x.post.id === current_post_id)
     if (index === -1 || index - 1 < 0)
@@ -131,3 +136,4 @@ function getNextPost(current_post_id: number): CachedMixin | null {
         return null
     return cached[index + 1]
 }
+*/

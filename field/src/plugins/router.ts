@@ -52,8 +52,9 @@ export default createRouter({
                 //可通过设计占位盒来优化用户体验
 
                 //TODO title route support
-                //const post_id = Number(to.params.post_id)
-                //await preparePost(post_id)
+                /*
+                const post_id = Number(to.params.post_id)
+                await preparePost(post_id)*/
                 next()
             },
             component: PostZone,

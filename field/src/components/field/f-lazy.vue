@@ -5,8 +5,8 @@
   </div>
   <div
       v-else
+      class="holder"
       ref="holder"
-      style="height:50vh"
   />
 
 </template>
@@ -28,9 +28,13 @@ const props = withDefaults(
 const holder = ref()
 const visibility = ref(false)
 
-function handler(entries: IntersectionObserverEntry[]) {
+function handler(
+    entries: IntersectionObserverEntry[],
+    observer: IntersectionObserver
+) {
   entries.forEach(async entry => {//entry
         if (entry.intersectionRatio > 0) {
+          observer.unobserve(holder.value)
           await props.initializer()
           visibility.value = true
         }
@@ -49,5 +53,8 @@ onMounted(() =>
 </script>
 
 <style lang="stylus" scoped>
+
+.holder
+  height: 100px
 
 </style>
