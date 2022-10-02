@@ -20,6 +20,7 @@
             class="summary"
             :class="{'generated':isGeneratedSummary}"
             v-text="summary"
+            v-if="showSummary"
         />
 
         <div class="summary-right-slot">
@@ -36,13 +37,13 @@
 
 <script setup lang="ts">
 
-import {defineProps} from "vue";
-
-let props = defineProps<{
-  title: string,
-  summary: string,
-  isGeneratedSummary: boolean,
-}>()
+let props =
+    defineProps<{
+      title: string,
+      summary: string,
+      showSummary: boolean,
+      isGeneratedSummary: boolean,
+    }>()
 
 </script>
 

@@ -109,7 +109,7 @@ router.afterEach(() => {
 
 .router-view-leave-active
 .router-view-enter-active
-  transition all 0.4s ease
+  transition all 0.2s ease
 
 .router-view-enter-from
   transform translateX(50px) rotate(0.5deg)

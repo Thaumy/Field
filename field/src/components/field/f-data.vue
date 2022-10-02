@@ -6,7 +6,21 @@
 
 <script lang="ts" setup>
 
-import {onBeforeMount, ref} from "vue"
+import {onBeforeMount, onMounted, ref} from "vue"
+
+/*
+const props = withDefaults(
+    defineProps<{
+      provider: () => Promise<any>
+    }>(), {
+      provider: () => Promise.resolve(null)
+    })
+
+const data = ref(null)
+
+props.provider().then(v => {
+  data.value = v
+})*/
 
 const props = withDefaults(
     defineProps<{
