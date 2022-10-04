@@ -25,8 +25,8 @@ const wsRoot = `ws://localhost:8080`
 const ws_create_comment = new WebSocket(`${wsRoot}/create_comment`)
 const ws_get_all_post_id = new WebSocket(`${wsRoot}/get_all_post_id`)
 const ws_get_post = new WebSocket(`${wsRoot}/get_post`)
-const ws_get_prev_post = new WebSocket(`${wsRoot}/get_prev_post`)
-const ws_get_next_post = new WebSocket(`${wsRoot}/get_next_post`)
+//const ws_get_prev_post = new WebSocket(`${wsRoot}/get_prev_post`)
+//const ws_get_next_post = new WebSocket(`${wsRoot}/get_next_post`)
 
 async function wsCreateComment(comment: Comment) {
     sendWhenOpen(ws_create_comment, JSON.stringify(comment))

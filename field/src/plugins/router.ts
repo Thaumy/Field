@@ -9,8 +9,8 @@ import {
     getAllPostId,
 }
     from "@/scripts/data/post"
+
 import PostZone from '@/components/common/PostZone.vue'
-import {notNullOrUndefined} from "@/scripts/util/nullable";
 
 let frontPagePosition = 0
 
