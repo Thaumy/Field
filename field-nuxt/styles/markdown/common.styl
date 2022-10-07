@@ -1,0 +1,129 @@
+@import "dark.styl"
+@import "light.styl"
+@import "character.styl"
+@import "transition.styl"
+
+.markdown-zone
+  img
+    max-width 100%
+
+    &[align=right]
+      padding-left 20px
+
+    &[align=left]
+      padding-right 20px
+
+  a
+    text-decoration none
+    font-weight 500
+    margin-left 4px
+    margin-right 4px
+    background-color initial
+
+    &:active
+    &:hover
+      outline-width 0
+
+    &:hover
+      text-decoration underline
+
+    &:not([href])
+      color inherit
+      text-decoration none
+
+  p
+  dl
+  ol
+  ul
+  pre
+  table
+  details
+  blockquote
+    margin-top 0
+    margin-bottom 0.2rem
+
+  ul
+  ol
+
+    li
+      word-break break-all
+
+      > p
+        margin-top 16px
+
+    li + li
+      margin-top .25em
+
+    ol
+      list-style-type lower-roman
+
+    ol
+    ul
+      margin-top 0
+      margin-bottom 0
+
+      ol
+        list-style-type lower-alpha
+
+  dl
+    padding 0
+
+    dt
+      padding 0
+      margin-top 16px
+      font-size 1em
+      font-style italic
+      font-weight 600
+
+    dd
+      padding 0 16px
+      margin-bottom 16px
+
+  details
+    summary
+      cursor pointer
+
+  p
+    margin-top 0
+    margin-bottom 10px
+
+  dd
+    margin-left 0
+
+  input::-webkit-inner-spin-button
+  input::-webkit-outer-spin-button
+    margin 0
+    -webkit-appearance none
+    appearance none
+
+  h1
+  h2
+  h3
+  h4
+  h5
+  h6
+    margin-top 2rem
+    margin-bottom 1rem
+    font-weight 600
+    line-height 1.2
+
+  h1
+    font-size 1.8em
+
+  h2
+    font-size 1.3em
+
+  h3
+  h4
+  h5
+  h6
+    font-weight 600
+
+  h3
+    font-size 1.25em
+
+  h4
+    font-size 1em
+
+  h5
+    font-size .875em
