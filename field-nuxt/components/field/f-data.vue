@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 
-import {onBeforeMount, ref} from "vue"
+import {onBeforeMount, onMounted, ref} from "vue"
 
 const props = withDefaults(
     defineProps<{
