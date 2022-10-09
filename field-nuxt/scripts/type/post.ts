@@ -16,7 +16,7 @@ type Post = {
 
 function stringifyPost(post: Post) {
 
-    function replacer(key, value) {
+    function replacer(key: string, value: any) {
         if (key === "id")
             return value.toString()
         else

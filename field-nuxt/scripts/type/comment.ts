@@ -18,7 +18,7 @@ type Comment = {
 
 function stringifyComment(comment: Comment) {
 
-    function replacer(key, value) {
+    function replacer(key: string, value: any) {
         if (key === "id" || key === "binding")
             return value.toString()
         else

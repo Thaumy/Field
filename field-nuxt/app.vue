@@ -4,7 +4,6 @@
 
       <div class="transition-standard" :class="{hidden:!contentVisibility}">
         <MenuBar :items="menu_items"/>
-
         <div class="content">
           <Menu
               class="left-part"
@@ -13,15 +12,15 @@
           <div class="right-part">
             <NuxtPage/>
             <!--
-                        <router-view v-slot="{Component,route}">
+                  <router-view v-slot="{Component,route}">
 
-                          <transition name="router-view">
-                            <keep-alive>
-                              <component :is="Component" :key="route.path"/>
-                            </keep-alive>
-                          </transition>
+                    <transition name="router-view">
+                      <keep-alive>
+                        <component :is="Component" :key="route.path"/>
+                      </keep-alive>
+                    </transition>
 
-                        </router-view>
+                  </router-view>
             -->
           </div>
         </div>
@@ -29,9 +28,9 @@
         <FixedBtnZone/>
         <f-snackbar ref="globalSnackbar"/>
       </div>
-
     </v-main>
   </v-app>
+
 </template>
 
 <script lang="ts" setup>
@@ -44,12 +43,10 @@ import PageFoot from "@/components/common/PageFoot.vue"
 import FixedBtnZone from "@/components/common/FixedBtnZone.vue"
 import {menu_items} from "@/scripts/data/menu"
 import {useTheme} from "vuetify"
-import {addRouteMiddleware, useNuxtApp, useRoute, useRouter} from "#app"
-import {prepareAllPostId} from "~/scripts/data/post"
+import {addRouteMiddleware, useAsyncData, useNuxtApp, useRoute, useRouter} from "#app"
 
 const route = useRoute()
 const router = useRouter()
-const nuxtApp = useNuxtApp()
 const homePagePosition = ref(0)
 
 addRouteMiddleware(async (to, from) => {
@@ -62,8 +59,6 @@ addRouteMiddleware(async (to, from) => {
   else
     window.scrollTo({top: 0, behavior: 'smooth'})
   */
-  //TODO
-  await prepareAllPostId()
   if (process.client)
     window.scrollTo({top: 0, behavior: 'smooth'})
   return true

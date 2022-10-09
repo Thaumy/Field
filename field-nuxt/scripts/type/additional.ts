@@ -21,7 +21,7 @@ type Additional = {
 
 function stringifyAdditional(additional: Additional) {
 
-    function replacer(key, value) {
+    function replacer(key: string, value: any) {
         if (key === "prevId" || key === "nextId")
             return value.toString()
         else

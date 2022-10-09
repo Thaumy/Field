@@ -6,8 +6,8 @@ import 'vuetify/styles'
 import {createVuetify, useTheme} from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-import {fieldDarkClient} from "@/scripts/theme/fieldDark.client"
-import {fieldLightClient} from "@/scripts/theme/fieldLight.client"
+import {fieldDark} from "@/scripts/theme/fieldDark"
+import {fieldLight} from "@/scripts/theme/fieldLight"
 
 export default defineNuxtPlugin(nuxtApp => {
     const nowHour = new Date().getHours()
@@ -19,8 +19,8 @@ export default defineNuxtPlugin(nuxtApp => {
                 //7-18点启用light主题
                 defaultTheme: nowHour > 7 && nowHour < 18 ? 'fieldLight' : 'fieldDark',
                 themes: {
-                    fieldDark: fieldDarkClient,
-                    fieldLight: fieldLightClient,
+                    fieldDark: fieldDark,
+                    fieldLight: fieldLight,
                 }
             },
         }
