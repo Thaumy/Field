@@ -1,23 +1,23 @@
 import {ThemeDefinition} from "vuetify/dist/vuetify";
 
-export const fieldLightClient: ThemeDefinition = {
-    dark: false,
+export const fieldDark: ThemeDefinition = {
+    dark: true,
     variables: {
         'medium-emphasis-opacity': 0.6,
         'high-emphasis-opacity': 0.9,
     },
     colors: {
-        background: "#ffffff",
-        'on-background': "#000000",//0
+        background: "#000000",
+        'on-background': "#F0F0F0",//240
 
-        surface: "#f6f6f6",//246
-        'on-surface': "#000000",//0
+        surface: "#1E1E1E",//30
+        'on-surface': "#F0F0F0",//240
 
-        primary: "#0078d7",//#0199ff
+        primary: "#0199ff",
         'on-primary': "#000000",
 
-        secondary: "#2da44e",
-        'on-secondary': "#000000",
+        secondary: "#238636",
+        'on-secondary': "#F0F0F0",
 
 
         success: "#000000",

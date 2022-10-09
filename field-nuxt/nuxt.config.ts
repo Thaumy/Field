@@ -16,7 +16,7 @@ export default defineNuxtConfig({
             }
         }
     },
-    app: {
+    japp: {
         head: {
             title: 'THAUMY的博客',
             link: [
@@ -33,7 +33,9 @@ export default defineNuxtConfig({
             ]
         }
     },
+
     css: [
+        'vuetify/styles',
         '@/styles/global/util/border.styl',
         '@/styles/global/util/common.styl',
         '@/styles/global/util/layout.styl',
@@ -55,6 +57,12 @@ export default defineNuxtConfig({
         },
         ssr: {
             noExternal: ['vuetify'],
-        },
+        }
     },
+    /*
+    modules: [
+        async (options, nuxt) => {
+            nuxt.hooks.hook('vite:extendConfig', config => config.plugins.push(vuetify()))
+        }
+    ]*/
 })

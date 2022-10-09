@@ -1,5 +1,5 @@
 import {Comment, parseComment} from "@/scripts/type/comment"
-import {wsCreateComment} from "@/scripts/data/ws"
+import {wsCreateComment} from "@/scripts/data/client/ws"
 
 export {createComment}
 
