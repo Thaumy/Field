@@ -2,19 +2,23 @@
   <div>
     <transition-group>
       <PostCard
-          v-for="it in its"
+          v-for="post in posts"
           class="cursor-pointer"
           hide-body
-          :post="it.post"
-          :cover-url="it.additional.coverUrl"
-          :summary="it.additional.summary"
-          :is-generated-summary="it.additional.isGeneratedSummary"
-          :view-count="it.additional.viewCount"
-          :comment-count="it.comments.length"
-          :is-archived="it.additional.isArchived"
-          :is-scheduled="it.additional.isScheduled"
-          :topics="it.additional.topics"
-          @click="router.push('/'+it.post.id)"
+
+          :title="post.Title"
+          :body="post.Body"
+          :createTime="post.CreateTime"
+          :modifyTime="post.ModifyTime"
+          :cover-url="post.CoverUrl"
+          :summary="post.Summary"
+          :is-generated-summary="post.IsGeneratedSummary"
+          :view-count="post.ViewCount"
+          :comment-count="post.Comments.length"
+          :is-archived="post.IsArchived"
+          :is-scheduled="post.IsScheduled"
+          :topics="post.Topics"
+          @click="router.push('/'+post.Id)"
       />
       <f-lazy
           v-for="id in ids.slice(9)"
@@ -22,25 +26,30 @@
       >
         <f-data
             :provider="async () => {
-                        await preparePost(BigInt(id))
-                        return getPost(BigInt(id))
-                      }"
-            v-slot="it"
+                return await getPost({
+                  PostId:BigInt(id)
+                })
+            }"
+            v-slot="post:Rsp"
         >
           <PostCard
               :key="id"
               class="cursor-pointer"
               hide-body
-              :post="it.post"
-              :cover-url="it.additional.coverUrl"
-              :summary="it.additional.summary"
-              :is-generated-summary="it.additional.isGeneratedSummary"
-              :view-count="it.additional.viewCount"
-              :comment-count="it.comments.length"
-              :is-archived="it.additional.isArchived"
-              :is-scheduled="it.additional.isScheduled"
-              :topics="it.additional.topics"
-              @click="router.push('/'+it.post.id)"
+
+              :title="post.Title"
+              :body="post.Body"
+              :createTime="post.CreateTime"
+              :modifyTime="post.ModifyTime"
+              :cover-url="post.CoverUrl"
+              :summary="post.Summary"
+              :is-generated-summary="post.IsGeneratedSummary"
+              :view-count="post.ViewCount"
+              :comment-count="post.Comments.length"
+              :is-archived="post.IsArchived"
+              :is-scheduled="post.IsScheduled"
+              :topics="post.Topics"
+              @click="router.push('/'+post.Id)"
           />
         </f-data>
       </f-lazy>
@@ -50,34 +59,37 @@
 
 <script lang="ts" setup>
 
-import {CachedMixin} from "@/scripts/type/mixin"
 import FData from "@/components/field/f-data.vue"
 import FLazy from "@/components/field/f-lazy.vue"
 import PostCard from "@/components/PostCard/PostCard.vue"
 import {useAsyncData, useRouter} from "#app"
-import {
-  getPost,
-  preparePost,
-} from "~/scripts/data/client/post"
+import {handler as getPost} from "@/scripts/data/client/api/post/get/handler"
+import {Rsp} from "~/scripts/data/client/api/post/get/rsp"
 
 const router = useRouter()
 
-const {data: ids} = await useAsyncData(async () => {
-  const {requestAllPostIdSSR} = await import("@/scripts/data/server/post")
-  console.log('invoked requestAllPostIdSSR')
-  let arr: bigint[] = []
-  for (const id of await requestAllPostIdSSR())
-    arr.push(BigInt(id))
-
-  return arr
+const {data: post_ids} = await useAsyncData(async () => {
+  const {handler: getAllPostId} =
+      await import("@/scripts/data/server/api/post/get_all_id/handler")
+  const ids = await getAllPostId({})
+  if (ids.Ok) {
+    return ids.Data.PostIds
+  } else {
+    //TODO
+  }
 })
 
-const {data: its} = await useAsyncData(async () => {
-  const {requestBatchPostSSR} = await import("@/scripts/data/server/post")
-  console.log('invoked requestBatchPostSSR')
-
-  if (ids.value !== null)
-    return await requestBatchPostSSR(ids.value.slice(0, 8))
+const {data: posts} = await useAsyncData(async () => {
+  const {handler: getPostBatch} =
+      await import("@/scripts/data/server/api/post/get_batch/handler")
+  if (post_ids.value) {
+    const posts = await getPostBatch({PostIds: post_ids.value})
+    if (posts.Ok) {
+      return posts.Data.Collection
+    } else {
+      //TODO
+    }
+  }
 })
 
 </script>

@@ -71,9 +71,7 @@
 
 <script lang="ts" setup>
 
-import {Post} from "@/scripts/type/post"
 import {removeHtmlTags} from "@/scripts/util/text"
-import {getPost, preparePost} from "@/scripts/data/client/post"
 import FData from "@/components/field/f-data.vue"
 import {notNullOrUndefined} from "@/scripts/util/nullable"
 import {useRoute, useRouter} from "#app"

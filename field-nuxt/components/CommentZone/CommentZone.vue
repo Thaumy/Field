@@ -89,8 +89,6 @@
 
 import {ref} from "vue"
 import {formatToDateTime} from "@/scripts/util/time"
-import {Comment, getCommentIn} from "@/scripts/type/comment"
-import {createComment} from "@/scripts/data/comment"
 import CommentCard from "./CommentCard.vue"
 import CommentEditor from "./CommentEditor.vue"
 import NoCommentHolder from "./NoCommentHolder.vue"

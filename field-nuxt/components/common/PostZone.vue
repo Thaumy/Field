@@ -19,10 +19,10 @@ import CommentZone from "@/components/CommentZone/CommentZone.vue"
 import SwitchZone from "@/components/common/SwitchZone.vue"
 import FLazy from "@/components/field/f-lazy.vue"
 import FData from "@/components/field/f-data.vue"
-import {CachedMixin} from "~/scripts/type/mixin"
 
 //onBeforeRouteUpdate(())
 
+/*
 const props =
     defineProps<{
       data: CachedMixin[]
@@ -37,6 +37,6 @@ onBeforeMount(() => {
     showGlobalSnackbar('mdi-alert-rhombus', '404 NOT FOUND / 已重定向至首页', 'red', 5000)
     router.push('/')
   }
-})
+})*/
 
 </script>

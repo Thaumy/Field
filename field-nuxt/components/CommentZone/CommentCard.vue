@@ -8,24 +8,24 @@
       <div class="avatar-zone">
         <v-avatar
             class="user-avatar"
-            :class="comment.siteUrl?'cursor-pointer':''"
+            :class="userSiteUrl?'cursor-pointer':''"
             rounded="true"
             size="32"
-            @click="blankUrl(comment.siteUrl)"
+            @click="blankUrl(userSiteUrl)"
         >
-          <img :src="comment.avatarUrl" alt="" style="width:100%"/>
+          <img :src="userAvatarUrl" alt="" style="width:100%"/>
         </v-avatar>
         <v-icon
             class="web-icon"
             icon="mdi-web"
             size="10"
-            v-if="comment.siteUrl"
+            v-if="userSiteUrl"
         />
       </div>
 
       <div class="user-name-zone">
         <div class="flex align-self-end">
-          <div class="user-name" v-text="comment.user"/>
+          <div class="user-name" v-text="userName"/>
 
           <transition name="reply-btn">
             <v-icon
@@ -45,12 +45,12 @@
 
       <div
           class="create-time"
-          v-text="formatToDateTime(comment.createTime)"
+          v-text="formatToDateTime(createTime)"
       />
 
       <div class="body">
         <slot name="body-top-slot"/>
-        <f-text-render :text="comment.body"/>
+        <f-text-render :text="body"/>
       </div>
     </div>
 
@@ -60,7 +60,6 @@
 <script setup lang="ts">
 
 import {ref} from "vue"
-import {Comment} from "@/scripts/type/comment"
 import {formatToDateTime} from "@/scripts/util/time"
 import FTextRender from "@/components/field/f-text-render.vue"
 
@@ -70,10 +69,15 @@ defineEmits<{
 
 withDefaults(
     defineProps<{
-      comment: Comment,
-      replyBtnAlwaysOn: boolean,
+      body: string,
+      userName: string
+      userSiteUrl: string | null,
+      userAvatarUrl: string,
+      createTime: Date,
       disableReply: boolean
+      replyBtnAlwaysOn: boolean,
     }>(), {
+      userSiteUrl: null,
       disableReply: false,
       replyBtnAlwaysOn: false
     })
