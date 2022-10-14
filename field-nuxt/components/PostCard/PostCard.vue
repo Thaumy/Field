@@ -11,11 +11,11 @@
       <div :style="genBackground()" class="transition-standard">
         <div :style="genBackgroundFilter()" class="transition-inherit">
           <Preview
-              :title=post.title
+              :title="title"
               :summary=summary
               :show-summary="hideBody||(!hideBody&&!isGeneratedSummary)"
               :is-generated-summary="isGeneratedSummary"
-              v-if=post.title
+              v-if="title"
           >
             <template v-slot:title-right-slot>
               <ScheduleChip v-if="isScheduled&&!hideBody"/>
@@ -29,12 +29,12 @@
             <template v-slot:summary-right-slot v-if="hideBody">
               <ModifyTimeChip
                   style="align-self:end"
-                  :modify-time="post.modifyTime"
+                  :modify-time="modifyTime"
                   v-if="modifyTimeVisibility()"
               />
               <CreateTimeChip
                   style="align-self:end"
-                  :create-time="post.createTime"
+                  :create-time="createTime"
                   :date-only="true"
               />
             </template>
@@ -43,8 +43,8 @@
               <!--此间隔在没有概要时渲染以改善视觉效果-->
               <div class="mt-1" v-if="!(hideBody||(!hideBody&&!isGeneratedSummary))"/>
               <ReadTimeBar
-                  :target-text="post.body"
-                  v-if="post.body&&!hideBody"
+                  :target-text="body"
+                  v-if="body&&!hideBody"
               />
             </template>
           </Preview>
@@ -52,10 +52,10 @@
       </div>
 
       <Body
-          :body="post.body"
-          :create-time="post.createTime"
-          :modify-time="post.modifyTime"
-          v-if="post.body&&!hideBody||!post.title"
+          :body="body"
+          :create-time="createTime"
+          :modify-time="modifyTime"
+          v-if="body&&!hideBody||!post.title"
       >
       <template v-slot:bottom-slot>
         <div class="flex flex-wrap justify-start">
@@ -71,11 +71,11 @@
               v-if="viewCount!==0"
           />
           <ModifyTimeChip
-              :modify-time="post.modifyTime"
+              :modify-time="modifyTime"
               :active="modifyTimeVisibility()"
-              v-if="secTimespan(post.modifyTime,post.createTime)>7200"
+              v-if="secTimespan(modifyTime,createTime)>7200"
           />
-          <CreateTimeChip :create-time="post.createTime"/>
+          <CreateTimeChip :create-time="createTime"/>
         </div>
       </template>
       </Body>
@@ -87,7 +87,6 @@
 <script lang="ts" setup>
 
 import {secTimespan} from "@/scripts/util/time"
-import {Post} from "@/scripts/type/post"
 import TopicChip from "@/components/chip/TopicChip.vue"
 import ArchiveChip from "@/components/chip/ArchiveChip.vue"
 import ScheduleChip from "@/components/chip/ScheduleChip.vue"
@@ -99,11 +98,13 @@ import FCard from "@/components/field/f-card.vue"
 import Body from "./Body.vue"
 import Preview from "./Preview.vue"
 import ReadTimeBar from "./ReadTimeBar.vue"
-import {Topic} from "@/scripts/type/topic"
 
 const props = withDefaults(
     defineProps<{
-      post: Post,
+      title: string | null,
+      body: string,
+      createTime: Date,
+      modifyTime: Date,
       coverUrl: string | null,
       summary: string | null,
       isGeneratedSummary: boolean,
@@ -111,9 +112,10 @@ const props = withDefaults(
       commentCount: number,
       isArchived: boolean,
       isScheduled: boolean,
-      topics: Topic[],
+      topics: string[],
       hideBody: boolean,
     }>(), {
+      title: null,
       coverUrl: null,
       summary: null,
       isGeneratedSummary: false,
@@ -129,7 +131,7 @@ function genBackgroundFilter() {
       'background-color': 'rgba(var(--v-theme-background),0.82)'
     }
   else {
-    if (props.post?.body && !props.hideBody)
+    if (props.body && !props.hideBody)
       return {
         'backdrop-filter': 'invert(0.05)'
       }
@@ -140,13 +142,13 @@ function genBackgroundFilter() {
 
 function genBackground() {
   const coverUrl = props.coverUrl
-  const body = props.post?.body && !props.hideBody
+  const body = props.body && !props.hideBody
 
   if (coverUrl)
     return {
       'background-image': `url(${coverUrl})`,
       'background-position': body ? 'center' : 'bottom',
-      'background-size': 'cover',
+      'background-size': 'cover'
     }
   else
     return {
@@ -155,8 +157,8 @@ function genBackground() {
 }
 
 function modifyTimeVisibility() {
-  const createTime = props.post?.createTime
-  const modifyTime = props.post?.modifyTime
+  const createTime = props.createTime
+  const modifyTime = props.modifyTime
 
   if (!createTime || !modifyTime)
     return
