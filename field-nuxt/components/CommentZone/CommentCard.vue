@@ -75,11 +75,9 @@ withDefaults(
       userAvatarUrl: string,
       createTime: Date,
       disableReply: boolean
-      replyBtnAlwaysOn: boolean,
     }>(), {
       userSiteUrl: null,
       disableReply: false,
-      replyBtnAlwaysOn: false
     })
 
 const replyBtnAlwaysOn = //when using mobile devices

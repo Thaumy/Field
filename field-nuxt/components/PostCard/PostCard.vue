@@ -55,7 +55,7 @@
           :body="body"
           :create-time="createTime"
           :modify-time="modifyTime"
-          v-if="body&&!hideBody||!post.title"
+          v-if="body&&!hideBody||!title"
       >
       <template v-slot:bottom-slot>
         <div class="flex flex-wrap justify-start">

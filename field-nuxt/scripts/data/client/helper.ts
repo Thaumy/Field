@@ -1,28 +1,45 @@
+import {reqStringify, rspParse} from "~/scripts/data/helper"
+import {ApiRequest, ApiResponse} from "~/scripts/data/helper"
+
 export {
     wsRoot,
-    sendMsg,
-    recvMsg
+    request
 }
 
 const wsRoot = 'ws://localhost:8080'
 
-async function sendMsg(loggingHead: string, ws: WebSocket, msg: string) {
+async function request<REQ, RSP>
+(loggingHead: string, ws: WebSocket, req: REQ) {
+    const api_req = {Seq: Date.now(), Data: req}
+    const api_rsp = recvApiRsp<RSP>(loggingHead, ws, api_req.Seq)
+    sendApiReq(loggingHead, ws, api_req).then()
+    return await api_rsp
+}
+
+async function sendApiReq<T>
+(loggingHead: string, ws: WebSocket, api_req: ApiRequest<T>) {
     if (ws.readyState === WebSocket.OPEN) {
+        const msg = reqStringify(api_req)
         ws.send(msg)
-        console.log(`${loggingHead}\n${msg}`)
+        console.log(`send ${loggingHead} req:\n${msg}`)
     } else
         setTimeout(() => {
-            sendMsg(loggingHead, ws, msg)
+            sendApiReq(loggingHead, ws, api_req)
         }, 8)
 }
 
-async function recvMsg(loggingHead: string, ws: WebSocket) {
-    const task = new Promise<string>(resolve => {
+async function recvApiRsp<T>
+(loggingHead: string, ws: WebSocket, seq: number) {
+    const task = new Promise<ApiResponse<T>>(resolve => {
         let handler = (ev: MessageEvent) => {
-            ws
-                .removeEventListener("message", handler)
-            resolve(ev.data)
-            console.log(`${loggingHead}\n${ev.data}`)
+            const msg = ev.data
+            const api_rsp = rspParse<T>(msg)
+            if (api_rsp.Seq === seq) {
+                ws
+                    .removeEventListener("message", handler)
+                resolve(api_rsp)
+                console.log(`recv ${loggingHead} rsp:\n${msg}`)
+            }
         }
         ws
             .addEventListener("message", handler)
