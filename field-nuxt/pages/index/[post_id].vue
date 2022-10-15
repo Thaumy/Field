@@ -59,7 +59,7 @@ const {data: post} = await useAsyncData(async () => {
   const {handler: getPost} =
       await import("@/scripts/data/server/api/post/get/handler")
   const post_id = BigInt(route.params.post_id.toString())
-  const post = await getPost({PostId: post_id})
+  const post = await getPost({Id: post_id})
   if (post.Ok) {
     return post.Data
   } else {

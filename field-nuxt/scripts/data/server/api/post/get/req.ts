@@ -1,3 +1,3 @@
 export type Req = {
-    PostId: bigint
+    Id: bigint
 }

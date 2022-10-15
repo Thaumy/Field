@@ -21,14 +21,21 @@
           @click="router.push('/'+post.Id)"
       />
       <f-lazy
-          v-for="id in ids.slice(9)"
+          v-for="id in post_ids.slice(9,-1)"
           :key="id"
       >
         <f-data
             :provider="async () => {
-                return await getPost({
-                  PostId:BigInt(id)
+                const {handler:getPost} =
+                  await import('@/scripts/data/client/api/post/get/handler')
+                const r = await getPost({
+                  Id:BigInt(id)
                 })
+                if(r.Ok){
+                  return r.Data
+                }else{
+                  return null
+                }
             }"
             v-slot="post:Rsp"
         >
@@ -39,13 +46,13 @@
 
               :title="post.Title"
               :body="post.Body"
-              :createTime="post.CreateTime"
-              :modifyTime="post.ModifyTime"
+              :create-time="post.CreateTime"
+              :modify-time="post.ModifyTime"
               :cover-url="post.CoverUrl"
               :summary="post.Summary"
               :is-generated-summary="post.IsGeneratedSummary"
               :view-count="post.ViewCount"
-              :comment-count="post.Comments.length"
+              :comment-count="0"
               :is-archived="post.IsArchived"
               :is-scheduled="post.IsScheduled"
               :topics="post.Topics"
@@ -63,7 +70,6 @@ import FData from "@/components/field/f-data.vue"
 import FLazy from "@/components/field/f-lazy.vue"
 import PostCard from "@/components/PostCard/PostCard.vue"
 import {useAsyncData, useRouter} from "#app"
-import {handler as getPost} from "@/scripts/data/client/api/post/get/handler"
 import {Rsp} from "~/scripts/data/client/api/post/get/rsp"
 
 const router = useRouter()
@@ -76,6 +82,7 @@ const {data: post_ids} = await useAsyncData(async () => {
     return ids.Data.PostIds
   } else {
     //TODO
+    return []
   }
 })
 
@@ -83,11 +90,12 @@ const {data: posts} = await useAsyncData(async () => {
   const {handler: getPostBatch} =
       await import("@/scripts/data/server/api/post/get_batch/handler")
   if (post_ids.value) {
-    const posts = await getPostBatch({PostIds: post_ids.value})
+    const posts = await getPostBatch({Ids: post_ids.value.slice(0, 9)})
     if (posts.Ok) {
       return posts.Data.Collection
     } else {
       //TODO
+      return []
     }
   }
 })

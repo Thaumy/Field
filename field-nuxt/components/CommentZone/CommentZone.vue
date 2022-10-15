@@ -20,20 +20,31 @@
         >
           <div class="reference-bar"/>
 
-          <CommentCard
-              class="reference-filter"
-              :comment="getCommentIn(_comments,_binding)"
-              :disable-reply="true"
+          <f-data
+              :provider="async () => findComment(_binding)"
+              v-slot="comment"
           >
-            <template #user-name-right-end-slot>
-              <v-icon
-                  icon="mdi-close"
-                  size="x-small"
-                  color="grey"
-                  @click="$refs.replyTargetSlider.close()"
-              />
-            </template>
-          </CommentCard>
+            <CommentCard
+                class="reference-filter"
+
+                :body="comment.Body"
+                :userName="comment.UserName"
+                :userSiteUrl="comment.UserSiteUrl"
+                :userAvatarUrl="comment.UserAvatarUrl"
+                :createTime="comment.CreateTime"
+
+                :disable-reply="true"
+            >
+              <template #user-name-right-end-slot>
+                <v-icon
+                    icon="mdi-close"
+                    size="x-small"
+                    color="grey"
+                    @click="$refs.replyTargetSlider.close()"
+                />
+              </template>
+            </CommentCard>
+          </f-data>
         </div>
       </f-slider>
 
@@ -42,7 +53,7 @@
           ref="commentEditor"
           v-else
           :is-reply="_isReply"
-          @create-comment="createCommentHandler"
+          @create-comment="body=>create(body)"
       />
 
       <f-divider/>
@@ -60,19 +71,25 @@
           <f-divider ml="48" v-if="index!==0"/>
 
           <CommentCard
-              :comment='comment'
               name="comment-card"
-              :disable-reply='_binding===comment.id&&_isReply'
+
+              :body="comment.Body"
+              :userName="comment.UserName"
+              :userSiteUrl="comment.UserSiteUrl"
+              :userAvatarUrl="comment.UserAvatarUrl"
+              :createTime="comment.CreateTime"
+
+              :disable-reply='_binding===comment.Id&&_isReply'
               @reply-click="()=>{
-                this._binding=comment.id
+                this._binding=comment.Id
                 this._isReply=true
                 expandReference(index)
               }"
           >
-            <template #body-top-slot v-if="comment.isReply">
+            <template #body-top-slot v-if="comment.IsReply">
               <f-text-render
                   name="comment-card-reply"
-                  :text="genReplyReference(getCommentIn(_comments,comment.binding))"
+                  :text="genReplyReference(findComment(comment.Binding))"
               />
             </template>
           </CommentCard>
@@ -97,6 +114,9 @@ import FCard from "@/components/field/f-card.vue"
 import FSlider from "@/components/field/f-slider.vue"
 import FDivider from "@/components/field/f-divider.vue"
 import FTextRender from "@/components/field/f-text-render.vue"
+import {Rsp as Comment} from "~/scripts/data/client/api/comment/create/rsp"
+import {handler as createComment} from "~/scripts/data/client/api/comment/create/handler"
+import FData from "~/components/field/f-data.vue"
 
 const props =
     defineProps<{
@@ -111,30 +131,28 @@ const _isReply = ref(false)
 
 const commentEditor = ref()
 
-async function createCommentHandler(body: string) {
-  const comment = <Comment>{
-    id: 0n,
-    user: "",
-    body: body,
-    binding: _binding.value,
-    isReply: _isReply.value,
-    siteUrl: "",
-    avatarUrl: "",
-    createTime: new Date(),
-  }
-  const response = await createComment(comment)
-  if (response !== null) {
-    _comments.value.push(response)
+async function create(body: string) {
+  const comment = await createComment({
+    Binding: _binding.value,
+    IsReply: _isReply.value,
+    Body: body
+  })
+  if (comment.Ok) {
+    _comments.value.push(comment.Data)
   }
   //恢复编辑器状态
   replyTargetSlider.value.close()
   commentEditor.value.reset()
 }
 
+function findComment(id: bigint) {
+  return _comments.value.filter(x => x.Id === id)[0]
+}
+
 function genReplyReference(comment: Comment) {
   return '<blockquote style="font-size:0.8rem;">' +
-      comment.user + ` (于${formatToDateTime(comment.createTime)}):<br>` +
-      comment.body +
+      comment.UserName + ` (于${formatToDateTime(comment.CreateTime)}):<br>` +
+      comment.Body +
       '</blockquote>'
 }
 

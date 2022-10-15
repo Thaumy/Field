@@ -1,10 +1,10 @@
 export type Rsp = {
     Id: bigint
-    User: string
+    UserName: string
+    UserSiteUrl: string
+    UserAvatarUrl: string
     Body: string
     Binding: bigint
     IsReply: boolean
-    SiteUrl: string
-    AvatarUrl: string
     CreateTime: Date
 }
