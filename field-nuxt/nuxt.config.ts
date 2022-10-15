@@ -16,7 +16,7 @@ export default defineNuxtConfig({
             }
         }
     },
-    japp: {
+    app: {
         head: {
             title: 'THAUMY的博客',
             link: [
@@ -33,7 +33,6 @@ export default defineNuxtConfig({
             ]
         }
     },
-
     css: [
         'vuetify/styles',
         '@/styles/global/util/border.styl',
@@ -49,16 +48,16 @@ export default defineNuxtConfig({
         '@/styles/prism/common.styl',
         '@/styles/prism/dark.styl',
         '@/styles/prism/light.styl',
-        '@/styles/vuetify/snackbar.styl',
+        '@/styles/vuetify/snackbar.styl'
     ],
     vite: {
         build: {
             target: "ES2022"
         },
         ssr: {
-            noExternal: ['vuetify'],
+            noExternal: ['vuetify']
         }
-    },
+    }
     /*
     modules: [
         async (options, nuxt) => {

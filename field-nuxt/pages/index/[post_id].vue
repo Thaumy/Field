@@ -2,7 +2,11 @@
   <div>
 
     <PostCard
-        :post="it.post"
+        :title="post.Title"
+        :body="post.Body"
+        :createTime="post.CreateTime"
+        :modifyTime="post.ModifyTime"
+
         :cover-url="post.CoverUrl"
         :summary="post.Summary"
         :is-generated-summary="post.IsGeneratedSummary"
@@ -12,60 +16,65 @@
         :is-scheduled="post.IsScheduled"
         :topics="post.Topics"
     />
-    <!--
-        <transition-group>
-          <f-lazy key="">
-            <CommentZone
-                key=""
-                class="margin-bottom"
-                :post-id="post.Id"
-                :comments="post.Comments"
-                :disable-comment="post.CanComment"
-            />
-          </f-lazy>
-          <f-lazy
-              :initializer="async () => {
-                if(it.additional.prevId!==null)
-                  await preparePost(it.additional.prevId)
-                if(it.additional.nextId!==null)
-                  await preparePost(it.additional.nextId)
-              }"
-              key=""
-          >
-            <SwitchZone
-                key=""
-                class="margin-bottom"
-                :post-id="it.post.id"
-            />
-          </f-lazy>
-        </transition-group>
-    -->
+    <transition-group>
+      <f-lazy>
+        <CommentZone
+            key=""
+            class="margin-bottom"
+            :post-id="post.Id"
+            :comments="post.Comments"
+            :disable-comment="!post.CanComment"
+        />
+        <SwitchZone
+            key=""
+            class="margin-bottom"
+            :current-post-id="post.Id"
+        />
+      </f-lazy>
+    </transition-group>
   </div>
 </template>
 
 <script lang="ts" setup>
 
-import PostCard from "@/components/PostCard/PostCard.vue"
+import {refreshNuxtData, useAsyncData, useRoute, useRouter} from "#app"
 import CommentZone from "@/components/CommentZone/CommentZone.vue"
 import SwitchZone from "@/components/common/SwitchZone.vue"
+import {Rsp} from "~/scripts/data/client/api/post/get/rsp"
+import PostCard from "@/components/PostCard/PostCard.vue"
 import FLazy from "@/components/field/f-lazy.vue"
-import {useAsyncData, useRoute, useRouter} from "#app"
-import {Rsp} from "~/scripts/data/server/api/post/get/rsp"
+import {onBeforeMount, watch} from "vue"
 
 const route = useRoute()
 const router = useRouter()
 
-const {data: post} = await useAsyncData(async () => {
-  const {handler: getPost} =
-      await import("@/scripts/data/server/api/post/get/handler")
-  const post_id = BigInt(route.params.post_id.toString())
+const refresh = () => refreshNuxtData('/post/get')
+
+const cache = new Map<bigint, Rsp>()
+const post_id = BigInt(route.params.post_id.toString())
+console.log(post_id)
+
+const post = await /*await useAsyncData('/post/get',*/ (async () => {
+  const {handler: getPost} = await (async () => {
+    if (process.server)
+      return import("@/scripts/data/server/api/post/get/handler")
+    else
+      return import("@/scripts/data/client/api/post/get/handler")
+  })()
   const post = await getPost({Id: post_id})
   if (post.Ok) {
+    cache.set(post_id, post.Data)
     return post.Data
   } else {
     //TODO 404redirect
-    await router.push('/')
+    //await router.push('/')
+    return null
   }
+})()//)
+
+watch(route, () => {
+  if (post && post.Id !== post_id)
+    refresh()
 })
 
 </script>
