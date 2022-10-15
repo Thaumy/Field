@@ -74,27 +74,33 @@ import {Rsp} from "~/scripts/data/client/api/post/get/rsp"
 
 const router = useRouter()
 
-const {data: post_ids} = await useAsyncData(async () => {
-  const {handler: getAllPostId} =
-      await import("@/scripts/data/server/api/post/get_all_id/handler")
+const {data: post_ids} = await useAsyncData('/post/get_all_id', async () => {
+  const {handler: getAllPostId} = await (async () => {
+    if (process.server)
+      return import("@/scripts/data/server/api/post/get_all_id/handler")
+    else
+      return import("@/scripts/data/client/api/post/get_all_id/handler")
+  })()
   const ids = await getAllPostId({})
   if (ids.Ok) {
     return ids.Data.PostIds
   } else {
-    //TODO
     return []
   }
 })
 
-const {data: posts} = await useAsyncData(async () => {
-  const {handler: getPostBatch} =
-      await import("@/scripts/data/server/api/post/get_batch/handler")
+const {data: posts} = await useAsyncData('/post/get_batch', async () => {
+  const {handler: getPostBatch} = await (async () => {
+    if (process.server)
+      return import("@/scripts/data/server/api/post/get_batch/handler")
+    else
+      return import("@/scripts/data/client/api/post/get_batch/handler")
+  })()
   if (post_ids.value) {
     const posts = await getPostBatch({Ids: post_ids.value.slice(0, 9)})
     if (posts.Ok) {
       return posts.Data.Collection
     } else {
-      //TODO
       return []
     }
   }

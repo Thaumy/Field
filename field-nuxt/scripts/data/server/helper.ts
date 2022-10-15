@@ -1,5 +1,5 @@
 import WebSocketSSR from "ws"
-import {reqStringify, rspParse} from "~/scripts/data/helper"
+import {randomId, reqStringify, rspParse} from "~/scripts/data/helper"
 import {ApiRequest, ApiResponse} from "~/scripts/data/helper"
 
 export {
@@ -11,7 +11,7 @@ const wsRoot = 'ws://localhost:8080'
 
 async function request<REQ, RSP>
 (loggingHead: string, ws: WebSocketSSR, req: REQ) {
-    const api_req = {Seq: Date.now(), Data: req}
+    const api_req = {Seq: randomId(), Data: req}
     const api_rsp = recvApiRsp<RSP>(loggingHead, ws, api_req.Seq)
     sendApiReq(loggingHead, ws, api_req).then()
     return await api_rsp

@@ -1,7 +1,6 @@
-import WebSocketSSR from "ws"
-
 export {
     rspParse,
+    randomId,
     EmptyReq,
     ApiRequest,
     ApiResponse,
@@ -22,12 +21,18 @@ type ApiResponse<T> = {
     Data: T
 }
 
+function randomId() {
+    //TODO 考虑到palaflake会带来同步开销，此处仅提供随机Id生成，足以满足API调用确认号需要。
+    return Math.floor(performance.now() * 100 + Math.random() * 100)
+}
+
 function isDateKey(key: string) {
     return key.search("Time") !== -1
 }
 
 function isBigIntKey(key: string) {
     return key.search("Id") !== -1
+        || key === "Binding"
 }
 
 function isBigIntKeys(key: string) {

@@ -115,7 +115,6 @@ import FSlider from "@/components/field/f-slider.vue"
 import FDivider from "@/components/field/f-divider.vue"
 import FTextRender from "@/components/field/f-text-render.vue"
 import {Rsp as Comment} from "~/scripts/data/client/api/comment/create/rsp"
-import {handler as createComment} from "~/scripts/data/client/api/comment/create/handler"
 import FData from "~/components/field/f-data.vue"
 
 const props =
@@ -132,6 +131,8 @@ const _isReply = ref(false)
 const commentEditor = ref()
 
 async function create(body: string) {
+  const {handler: createComment} =
+      await import("@/scripts/data/client/api/comment/create/handler")
   const comment = await createComment({
     Binding: _binding.value,
     IsReply: _isReply.value,
