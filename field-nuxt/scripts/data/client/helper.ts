@@ -6,7 +6,7 @@ export {
     request
 }
 
-const wsRoot = 'ws://localhost:8080'
+const wsRoot = 'wss://next.thaumy.cn:8081'
 
 async function request<REQ, RSP>
 (loggingHead: string, ws: WebSocket, req: REQ) {
