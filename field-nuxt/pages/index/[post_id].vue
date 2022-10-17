@@ -17,21 +17,22 @@
         :topics="post.Topics"
     />
     <transition-group>
-      <f-lazy>
+      <f-lazy key="">
         <CommentZone
-            key=""
             class="margin-bottom"
             :post-id="post.Id"
             :comments="post.Comments"
             :disable-comment="!post.CanComment"
         />
+      </f-lazy>
+      <f-lazy key="">
         <SwitchZone
-            key=""
             class="margin-bottom"
             :current-post-id="post.Id"
         />
       </f-lazy>
     </transition-group>
+
   </div>
 </template>
 
@@ -52,7 +53,6 @@ const refresh = () => refreshNuxtData('/post/get')
 
 const cache = new Map<bigint, Rsp>()
 const post_id = BigInt(route.params.post_id.toString())
-console.log(post_id)
 
 const post = await /*await useAsyncData('/post/get',*/ (async () => {
   const {handler: getPost} = await (async () => {
@@ -83,15 +83,10 @@ watch(route, () => {
 
 .v-leave-active
 .v-enter-active
-  transition all 0.2s ease
+  transition all 0.3s ease
 
 .v-enter-from
-  transform translateX(50px) skewX(-1deg)
-
-.v-leave-to
-  transform scale(0.9)
-  filter blur(100px)
-  height 0
   opacity 0
+  transform translateX(50px)
 
 </style>

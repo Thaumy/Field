@@ -20,7 +20,7 @@ export default defineNuxtConfig({
         head: {
             title: 'THAUMY的博客',
             link: [
-                {rel: 'icon', href: './icon.png'}
+                {rel: 'icon', href: 'https://cdn.thaumy.cn/ui/icon.png'}
             ],
             script: [
                 {src: './config/mathjax.js'},
@@ -35,6 +35,7 @@ export default defineNuxtConfig({
     },
     css: [
         'vuetify/styles',
+        '@/styles/global/routing.styl',
         '@/styles/global/util/border.styl',
         '@/styles/global/util/common.styl',
         '@/styles/global/util/layout.styl',
@@ -52,7 +53,13 @@ export default defineNuxtConfig({
     ],
     vite: {
         build: {
-            target: "ES2022"
+            target: "ES2022",
+            rollupOptions: {
+                //TODO
+                external: [
+                    //'@mdi/font'
+                ]
+            }
         },
         ssr: {
             noExternal: ['vuetify']

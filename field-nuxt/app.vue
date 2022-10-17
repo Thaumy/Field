@@ -11,17 +11,6 @@
           />
           <div class="right-part">
             <NuxtPage/>
-            <!--
-                  <router-view v-slot="{Component,route}">
-
-                    <transition name="router-view">
-                      <keep-alive>
-                        <component :is="Component" :key="route.path"/>
-                      </keep-alive>
-                    </transition>
-
-                  </router-view>
-            -->
           </div>
         </div>
 
@@ -89,7 +78,6 @@ router.afterEach(() => {
 
 </script>
 
-
 <style lang="stylus" scoped>
 
 .page-foot
@@ -150,4 +138,5 @@ router.afterEach(() => {
 @media (max-width: 1000px)
   .left-part
     display none
+
 </style>
