@@ -3,11 +3,8 @@ import {randomId, reqStringify, rspParse} from "~/scripts/data/helper"
 import {ApiRequest, ApiResponse} from "~/scripts/data/helper"
 
 export {
-    wsRoot,
     request
 }
-
-const wsRoot = 'ws://127.0.0.1:8080'
 
 async function request<REQ, RSP>
 (loggingHead: string, ws: WebSocketSSR, req: REQ) {
@@ -20,7 +17,7 @@ async function request<REQ, RSP>
 async function sendApiReq<T>
 (loggingHead: string, ws: WebSocketSSR, api_req: ApiRequest<T>) {
     if (ws.readyState === WebSocketSSR.OPEN) {
-        const msg = reqStringify(api_req)
+        const msg = reqStringify<T>(api_req)
         ws.send(msg)
         console.log(`send ${loggingHead} req:\n${msg}`)
     } else
