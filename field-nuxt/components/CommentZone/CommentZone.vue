@@ -151,6 +151,7 @@ function findComment(id: bigint) {
 }
 
 function genReplyReference(comment: Comment) {
+  //TODO use TSX
   return '<blockquote style="font-size:0.8rem;">' +
       comment.UserName + ` (于${formatToDateTime(comment.CreateTime)}):<br>` +
       comment.Body +

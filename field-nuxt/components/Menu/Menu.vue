@@ -6,7 +6,7 @@
           class="position-absolute ma-1"
           style="opacity: 0.4"
       />
-      <Avatar :avatarUrl="avatarUrl"/>
+      <Avatar :avatar-url="avatar_img_url"/>
       <Info
           class="mb-4"
           title="THAUMY的小站"
@@ -50,8 +50,7 @@ import FTab from "@/components/field/f-tab.vue"
 import FTabs from "@/components/field/f-tabs.vue"
 import FCard from "@/components/field/f-card.vue"
 import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
-//@ts-ignore
-import avatarUrl from "@/public/avatar.png"
+import {avatar_img_url} from "public/config/site"
 import {useRouter, useRoute} from "#app"
 
 const props = withDefaults(

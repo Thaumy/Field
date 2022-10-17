@@ -1,25 +1,27 @@
 <template>
   <div>
-    <transition-group>
-      <PostCard
-          v-for="post in posts"
-          class="cursor-pointer"
-          hide-body
 
-          :title="post.Title"
-          :body="post.Body"
-          :createTime="post.CreateTime"
-          :modifyTime="post.ModifyTime"
-          :cover-url="post.CoverUrl"
-          :summary="post.Summary"
-          :is-generated-summary="post.IsGeneratedSummary"
-          :view-count="post.ViewCount"
-          :comment-count="post.Comments.length"
-          :is-archived="post.IsArchived"
-          :is-scheduled="post.IsScheduled"
-          :topics="post.Topics"
-          @click="router.push('/'+post.Id)"
-      />
+    <PostCard
+        v-for="post in posts"
+        class="cursor-pointer"
+        hide-body
+
+        :title="post.Title"
+        :body="post.Body"
+        :createTime="post.CreateTime"
+        :modifyTime="post.ModifyTime"
+        :cover-url="post.CoverUrl"
+        :summary="post.Summary"
+        :is-generated-summary="post.IsGeneratedSummary"
+        :view-count="post.ViewCount"
+        :comment-count="post.Comments.length"
+        :is-archived="post.IsArchived"
+        :is-scheduled="post.IsScheduled"
+        :topics="post.Topics"
+        @click="router.push('/'+post.Id)"
+    />
+
+    <transition-group>
       <f-lazy
           v-for="id in post_ids.slice(9,-1)"
           :key="id"
@@ -61,6 +63,7 @@
         </f-data>
       </f-lazy>
     </transition-group>
+
   </div>
 </template>
 
@@ -117,10 +120,11 @@ const {data: posts} = await useAsyncData('/post/get_batch', async () => {
 .v-enter-from
   transform translateX(50px) skewX(-1deg)
 
+/*
 .v-leave-to
   transform scale(0.9)
   filter blur(100px)
   height 0
-  opacity 0
+  opacity 0*/
 
 </style>

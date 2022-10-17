@@ -7,7 +7,7 @@ export {
     request
 }
 
-const wsRoot = 'ws://localhost:8080'
+const wsRoot = 'ws://127.0.0.1:8080'
 
 async function request<REQ, RSP>
 (loggingHead: string, ws: WebSocketSSR, req: REQ) {

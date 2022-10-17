@@ -9,7 +9,7 @@
       <div class="cursor-pointer flex">
         <img
             class="avatar border-shadow"
-            :src="avatarUrl" alt="avatar"
+            :src="avatar_img_url" alt="avatar"
             @click="router.push('/'+about_me)"
         />
         <div
@@ -50,8 +50,7 @@ import {makeDebounce} from "@/scripts/util/debounce"
 import Drawer from "./Drawer.vue"
 import {Tab} from "@/components/field/type"
 import Shadow from "@/components/MenuBar/Shadow.vue"
-//@ts-ignore
-import avatarUrl from "@/public/avatar.png"
+import {avatar_img_url} from "public/config/site"
 import {about_me, about_site} from "@/scripts/data/menu"
 import {useRouter} from "#app"
 
