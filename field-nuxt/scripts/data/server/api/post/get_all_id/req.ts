@@ -1,3 +1,3 @@
-import {EmptyReq} from "~/scripts/data/server/helper"
+import {EmptyReq} from "@/scripts/data/helper"
 
 export type Req = EmptyReq
