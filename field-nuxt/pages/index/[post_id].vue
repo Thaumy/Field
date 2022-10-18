@@ -72,6 +72,16 @@ const post = await /*await useAsyncData('/post/get',*/ (async () => {
   }
 })()//)
 
+/*
+const showGlobalSnackbar: any = inject('showGlobalSnackbar')
+
+onBeforeMount(() => {
+  if (props.data.length === 0) {
+    showGlobalSnackbar('mdi-alert-rhombus', '404 NOT FOUND / 已重定向至首页', 'red', 5000)
+    router.push('/')
+  }
+})*/
+
 watch(route, () => {
   if (post && post.Id !== post_id)
     refresh()
