@@ -164,7 +164,11 @@ const commentList = ref()
 function expandReference(index: number) {
   //TODO 此实现超级不优雅！！！
   const card = commentList.value[index].children.namedItem('comment-card')
-  const blockQuote = card.children[0].children[3].children.namedItem('comment-card-reply')
+  const blockQuote = card
+      .children[0]
+      .children[3]
+      .children
+      .namedItem('comment-card-reply')
   if (blockQuote !== null)
     replyTargetSlider.value.expand(card.offsetHeight - blockQuote.offsetHeight)
   else
