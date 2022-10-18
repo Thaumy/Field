@@ -103,7 +103,7 @@ function genTitle(body: string) {
   backdrop-filter blur(20px)
   padding-top 1px
   display flex
-  justify-content end
+  justify-content flex-end
   flex-flow wrap
 
 .prev-chip

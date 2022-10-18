@@ -148,7 +148,7 @@ function toggleMode(mode: Mode) {
   > [class~=footer]
     grid-row-start 3
     display flex
-    justify-content end
+    justify-content flex-end
 
   > [class~=body]
     [class~=preview]

@@ -22,21 +22,5 @@ import FData from "@/components/field/f-data.vue"
 
 //onBeforeRouteUpdate(())
 
-/*
-const props =
-    defineProps<{
-      data: CachedMixin[]
-    }>()
-
-const showGlobalSnackbar: any = inject('showGlobalSnackbar')
-
-const router = useRouter()
-
-onBeforeMount(() => {
-  if (props.data.length === 0) {
-    showGlobalSnackbar('mdi-alert-rhombus', '404 NOT FOUND / 已重定向至首页', 'red', 5000)
-    router.push('/')
-  }
-})*/
 
 </script>
