@@ -17,9 +17,10 @@ import {onMounted, Ref, ref, watch} from "vue"
 import {useTheme} from "vuetify"
 import Prism from 'prismjs'
 
-defineProps<{
-  text: string
-}>()
+const props =
+    defineProps<{
+      text: string
+    }>()
 
 const textRenderZone = ref()
 const theme = useTheme()
