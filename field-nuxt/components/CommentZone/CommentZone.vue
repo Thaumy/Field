@@ -9,10 +9,7 @@
       <!-- TODO 此实现有缺陷，当收起动画未完成时，回复仍然有效。并且不能适应后期缩放 -->
       <f-slider
           ref="replyTargetSlider"
-          :after-closed="()=>{
-            this._binding=this.props.postId
-            this._isReply=false
-          }"
+          :after-closed="afterSliderClosed"
       >
         <div
             class="reply-target-zone"
@@ -40,7 +37,7 @@
                     icon="mdi-close"
                     size="x-small"
                     color="grey"
-                    @click="$refs.replyTargetSlider.close()"
+                    @click="replyTargetSlider.close()"
                 />
               </template>
             </CommentCard>
@@ -124,7 +121,9 @@ const _comments = ref(props.comments)
 const _binding = ref(props.postId)
 const _isReply = ref(false)
 
+const commentList = ref()
 const commentEditor = ref()
+const replyTargetSlider = ref()
 
 async function create(body: string) {
   const {handler: createComment} =
@@ -154,9 +153,6 @@ function genReplyReference(comment: Comment) {
       '</blockquote>'
 }
 
-const replyTargetSlider = ref()
-const commentList = ref()
-
 function expandReference(index: number) {
   //TODO 此实现超级不优雅！！！
   const card = commentList.value[index].children.namedItem('comment-card')
@@ -178,6 +174,10 @@ function onReplyBtnClick(comment_id: bigint, index: number) {
   expandReference(index)
 }
 
+function afterSliderClosed() {
+  _binding.value = props.postId
+  _isReply.value = false
+}
 
 </script>
 
