@@ -21,7 +21,7 @@ export default defineNuxtConfig({
         }
     },
     app: {
-        cdnURL: 'https://cdn.thaumy.cn',
+        //cdnURL: 'https://cdn.thaumy.cn',
         head: {
             title: 'THAUMY的博客',
             link: [
