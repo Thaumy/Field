@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
 
-import {defineEmits, ref} from "vue"
+import {ref} from "vue"
 import {useTheme} from "vuetify"
 
 const theme = useTheme()

@@ -3,7 +3,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 
 // Vuetify
-import {createVuetify, useTheme} from 'vuetify'
+import {createVuetify} from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import {fieldDark} from "@/scripts/theme/fieldDark"
@@ -20,9 +20,9 @@ export default defineNuxtPlugin(nuxtApp => {
                 defaultTheme: nowHour > 7 && nowHour < 18 ? 'fieldLight' : 'fieldDark',
                 themes: {
                     fieldDark: fieldDark,
-                    fieldLight: fieldLight,
+                    fieldLight: fieldLight
                 }
-            },
+            }
         }
     )
 

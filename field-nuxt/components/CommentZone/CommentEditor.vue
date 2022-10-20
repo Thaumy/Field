@@ -84,13 +84,13 @@
 <script setup lang="ts">
 
 import {inject, ref} from "vue"
-import {Tab} from "@/components/field/type"
 import {marked} from "marked"
+import {Tab} from "@/components/field/type"
 import FBtn from "@/components/field/f-btn.vue"
 import FTab from "@/components/field/f-tab.vue"
 import FTabs from "@/components/field/f-tabs.vue"
-import FTextRender from "@/components/field/f-divider.vue"
 import FTextarea from "@/components/field/f-textarea.vue"
+import FTextRender from "@/components/field/f-text-render.vue"
 
 enum Mode {Edit = 0, Preview = 1}
 
@@ -123,9 +123,9 @@ const modeTabs = () => [
 ]
 
 function toggleMode(mode: Mode) {
-  if (mode === Mode.Preview)
+  if (mode === Mode.Preview) {
     bodyRenderResult.value = marked(body.value)
-
+  }
   currentMode.value = mode
 }
 
@@ -148,7 +148,7 @@ function toggleMode(mode: Mode) {
   > [class~=footer]
     grid-row-start 3
     display flex
-    justify-content end
+    justify-content flex-end
 
   > [class~=body]
     [class~=preview]

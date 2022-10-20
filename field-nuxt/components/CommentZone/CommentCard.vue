@@ -103,7 +103,7 @@ function hideReplyBtn() {
 
 .user-name-right-end-slot
   display flex
-  justify-content end
+  justify-content flex-end
   grid-row-start 1
   grid-column-start 4
 

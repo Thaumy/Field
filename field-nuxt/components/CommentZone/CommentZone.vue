@@ -9,10 +9,7 @@
       <!-- TODO 此实现有缺陷，当收起动画未完成时，回复仍然有效。并且不能适应后期缩放 -->
       <f-slider
           ref="replyTargetSlider"
-          :after-closed="()=>{
-            this._binding=this.props.postId
-            this._isReply=false
-          }"
+          :after-closed="afterSliderClosed"
       >
         <div
             class="reply-target-zone"
@@ -40,7 +37,7 @@
                     icon="mdi-close"
                     size="x-small"
                     color="grey"
-                    @click="$refs.replyTargetSlider.close()"
+                    @click="replyTargetSlider.close()"
                 />
               </template>
             </CommentCard>
@@ -80,11 +77,7 @@
               :createTime="comment.CreateTime"
 
               :disable-reply='_binding===comment.Id&&_isReply'
-              @reply-click="()=>{
-                this._binding=comment.Id
-                this._isReply=true
-                expandReference(index)
-              }"
+              @reply-click="onReplyBtnClick(comment.Id,index)"
           >
             <template #body-top-slot v-if="comment.IsReply">
               <f-text-render
@@ -128,7 +121,9 @@ const _comments = ref(props.comments)
 const _binding = ref(props.postId)
 const _isReply = ref(false)
 
+const commentList = ref()
 const commentEditor = ref()
+const replyTargetSlider = ref()
 
 async function create(body: string) {
   const {handler: createComment} =
@@ -158,17 +153,30 @@ function genReplyReference(comment: Comment) {
       '</blockquote>'
 }
 
-const replyTargetSlider = ref()
-const commentList = ref()
-
 function expandReference(index: number) {
   //TODO 此实现超级不优雅！！！
   const card = commentList.value[index].children.namedItem('comment-card')
-  const blockQuote = card.children[0].children[3].children.namedItem('comment-card-reply')
+  const blockQuote = card
+      .children[0]
+      .children[3]
+      .children
+      .namedItem('comment-card-reply')
   if (blockQuote !== null)
     replyTargetSlider.value.expand(card.offsetHeight - blockQuote.offsetHeight)
   else
     replyTargetSlider.value.expand(card.offsetHeight)
+}
+
+//TODO 不优雅
+function onReplyBtnClick(comment_id: bigint, index: number) {
+  _binding.value = comment_id
+  _isReply.value = true
+  expandReference(index)
+}
+
+function afterSliderClosed() {
+  _binding.value = props.postId
+  _isReply.value = false
 }
 
 </script>
