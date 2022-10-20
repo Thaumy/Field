@@ -1,7 +1,10 @@
 import vuetify from "vite-plugin-vuetify"
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
 
 export default defineNuxtConfig({
+    /*
+    build: {
+        publicPath: 'test'
+    },*/
     typescript: {
         strict: true,
         tsConfig: {
@@ -17,6 +20,7 @@ export default defineNuxtConfig({
         }
     },
     app: {
+        cdnURL: 'https://cdn.thaumy.cn',
         head: {
             title: 'THAUMY的博客',
             link: [
@@ -53,13 +57,14 @@ export default defineNuxtConfig({
     ],
     vite: {
         build: {
-            target: "ES2022",
+            target: "ES2022"
+            //TODO
+            /*
             rollupOptions: {
-                //TODO
                 external: [
                     //'@mdi/font'
                 ]
-            }
+            }*/
         },
         ssr: {
             noExternal: ['vuetify']

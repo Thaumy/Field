@@ -39,7 +39,7 @@ function isBigIntKeys(key: string) {
     return key.search("Ids") !== -1
 }
 
-function reqStringify(req: any) {
+function reqStringify<T>(req: ApiRequest<T>) {
     function replacer(key: string, value: any) {
         if (isBigIntKeys(key))
             return value.map((id: any) => id.toString())
@@ -47,7 +47,6 @@ function reqStringify(req: any) {
             return value.toString()
         if (isDateKey(key))
             return new Date(value).toISOString()
-
         return value
     }
 

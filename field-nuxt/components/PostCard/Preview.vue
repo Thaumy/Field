@@ -59,12 +59,12 @@ let props =
   display flex
   padding 2px
   padding-left 6px
-  justify-content end
+  justify-content flex-end
 
 .summary-flex
   display flex
   flex-wrap wrap
-  justify-content end
+  justify-content flex-end
   overflow hidden
 
 .summary

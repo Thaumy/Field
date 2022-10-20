@@ -37,6 +37,7 @@ import {addRouteMiddleware, useAsyncData, useNuxtApp, useRoute, useRouter} from 
 const route = useRoute()
 const router = useRouter()
 const homePagePosition = ref(0)
+const nuxtApp = useNuxtApp()
 
 addRouteMiddleware(async (to, from) => {
   /*
@@ -60,7 +61,9 @@ onBeforeMount(() => {
 const globalSnackbar = ref()
 
 onMounted(() => {
-  provide('showGlobalSnackbar', globalSnackbar.value.show)
+  provide('showGlobalSnackbar',
+      (icon: string, msg: string, color: string, time: number) =>
+          globalSnackbar.value.show(icon, msg, color, time))
 })
 
 const contentVisibility = ref(true)

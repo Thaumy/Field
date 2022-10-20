@@ -50,7 +50,7 @@ import FTab from "@/components/field/f-tab.vue"
 import FTabs from "@/components/field/f-tabs.vue"
 import FCard from "@/components/field/f-card.vue"
 import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
-import {avatar_img_url} from "public/config/site"
+import {avatar_img_url} from "@/public/config/site"
 import {useRouter, useRoute} from "#app"
 
 const props = withDefaults(
