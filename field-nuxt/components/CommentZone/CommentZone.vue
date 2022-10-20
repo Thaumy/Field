@@ -80,11 +80,7 @@
               :createTime="comment.CreateTime"
 
               :disable-reply='_binding===comment.Id&&_isReply'
-              @reply-click="()=>{
-                this._binding=comment.Id
-                this._isReply=true
-                expandReference(index)
-              }"
+              @reply-click="onReplyBtnClick(comment.Id,index)"
           >
             <template #body-top-slot v-if="comment.IsReply">
               <f-text-render
@@ -174,6 +170,14 @@ function expandReference(index: number) {
   else
     replyTargetSlider.value.expand(card.offsetHeight)
 }
+
+//TODO 不优雅
+function onReplyBtnClick(comment_id: bigint, index: number) {
+  _binding.value = comment_id
+  _isReply.value = true
+  expandReference(index)
+}
+
 
 </script>
 
