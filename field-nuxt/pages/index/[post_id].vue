@@ -56,8 +56,8 @@ const refresh = () => refreshNuxtData('/post/get')
 const cache = new Map<bigint, Rsp>()
 const post_id = (() => {
   try {
-    BigInt(route.params.post_id.toString())
-  } catch (e) {
+    return BigInt(route.params.post_id.toString())
+  } catch (_) {
     return null
   }
 })()
