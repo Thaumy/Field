@@ -40,8 +40,10 @@ dist
 
 # editor
 .gradle
+.output
 .vscode
 .idea
+.nuxt
 .vs
 
 # local env
