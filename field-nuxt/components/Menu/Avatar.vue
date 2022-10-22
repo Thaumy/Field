@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 
-import {about_me} from "@/scripts/data/menu"
+import {about_me} from "@/scripts/menu"
 import {useRouter} from "#app"
 
 const props =

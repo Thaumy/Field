@@ -10,11 +10,13 @@ import {onBeforeMount, onMounted, ref} from "vue"
 
 const props = withDefaults(
     defineProps<{
-      provider: () => Promise<any>
+      provider: <T>() => Promise<T>
     }>(), {
-      provider: () => Promise.resolve(null)
+      provider: <T>() => <T>Promise.resolve(null)
     })
+
 const data = ref(null)
+
 onBeforeMount(async () => {
   data.value = await props.provider()
 })
