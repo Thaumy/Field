@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 
-import {about_site} from "@/scripts/data/menu"
+import {about_site} from "@/scripts/menu"
 import {useRouter} from "#app"
 
 defineProps<{

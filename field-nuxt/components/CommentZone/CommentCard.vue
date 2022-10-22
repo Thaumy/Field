@@ -59,7 +59,7 @@
 
 <script setup lang="ts">
 
-import {ref} from "vue"
+import {onMounted, ref} from "vue"
 import {formatToDateTime} from "@/scripts/util/time"
 import FTextRender from "@/components/field/f-text-render.vue"
 
@@ -77,11 +77,17 @@ withDefaults(
       disableReply: boolean
     }>(), {
       userSiteUrl: null,
-      disableReply: false,
+      disableReply: false
     })
 
 const replyBtnAlwaysOn = //when using mobile devices
-    !/Windows|Mac|Linux/.test(navigator.userAgent)
+    ref(false)
+
+onMounted(() => {
+  if (!/Windows|Mac|Linux/.test(navigator.userAgent))
+    replyBtnAlwaysOn.value = true
+})
+
 const replyBtnVisibility = ref(false)
 
 function blankUrl(url: string) {
