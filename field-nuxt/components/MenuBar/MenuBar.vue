@@ -51,7 +51,7 @@ import Drawer from "./Drawer.vue"
 import {Tab} from "@/components/field/type"
 import Shadow from "@/components/MenuBar/Shadow.vue"
 import {avatar_img_url} from "@/public/config/site"
-import {about_me, about_site} from "@/scripts/data/menu"
+import {about_me, about_site} from "@/scripts/menu"
 import {useRouter} from "#app"
 
 const router = useRouter()

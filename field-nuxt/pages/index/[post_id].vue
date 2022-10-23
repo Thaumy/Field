@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div v-if="post">
       <PostCard
           :title="post.Title"
@@ -25,11 +24,10 @@
               :comments="post.Comments"
               :disable-comment="!post.CanComment"
           />
-        </f-lazy>
-        <f-lazy key="">
           <SwitchZone
               class="margin-bottom"
-              :current-post-id="post.Id"
+              :prev-post-id="post.PrevId"
+              :next-post-id="post.NextId"
           />
         </f-lazy>
       </transition-group>
@@ -40,20 +38,19 @@
 
 <script lang="ts" setup>
 
-import {refreshNuxtData, useAsyncData, useRoute, useRouter} from "#app"
+import {refreshNuxtData, useRoute, useRouter, useState} from "#app"
 import CommentZone from "@/components/CommentZone/CommentZone.vue"
 import SwitchZone from "@/components/common/SwitchZone.vue"
-import {Rsp} from "~/scripts/data/client/api/post/get/rsp"
 import PostCard from "@/components/PostCard/PostCard.vue"
 import FLazy from "@/components/field/f-lazy.vue"
-import {onBeforeMount, onMounted, watch} from "vue"
+import {onMounted, watch} from "vue"
+import {Rsp} from "@/ws/client/api/post/get/rsp"
 
 const route = useRoute()
 const router = useRouter()
 
 const refresh = () => refreshNuxtData('/post/get')
 
-const cache = new Map<bigint, Rsp>()
 const post_id = (() => {
   try {
     return BigInt(route.params.post_id.toString())
@@ -71,23 +68,30 @@ onMounted(async () => {
   }
 })
 
-const post = await /*await useAsyncData('/post/get',*/ (async () => {
+const post = await (async () => {
   if (!post_id)
     return null
-  const {handler: getPost} = await (async () => {
-    if (process.server)
-      return import("@/scripts/data/server/api/post/get/handler")
-    else
-      return import("@/scripts/data/client/api/post/get/handler")
-  })()
-  const post = await getPost({Id: post_id})
-  if (post.Ok) {
-    cache.set(post_id, post.Data)
-    return post.Data
-  } else {
-    return null
+  else {
+    const cache = useState<Rsp | null>(`post:${post_id}`, () => null)
+    if (cache.value) {
+      return cache.value
+    } else {
+      const {handler: getPost} = await (async () => {
+        if (process.server)
+          return import("@/ws/server/api/post/get/handler")
+        else
+          return import("@/ws/client/api/post/get/handler")
+      })()
+      const post = await getPost({Id: post_id})
+      if (post.Ok) {
+        cache.value = post.Data
+      } else {
+        cache.value = null
+      }
+      return cache.value
+    }
   }
-})()//)
+})()
 
 watch(route, () => {
   if (post && post.Id !== post_id)

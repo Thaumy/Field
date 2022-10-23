@@ -71,10 +71,10 @@
               name="comment-card"
 
               :body="comment.Body"
-              :userName="comment.UserName"
-              :userSiteUrl="comment.UserSiteUrl"
-              :userAvatarUrl="comment.UserAvatarUrl"
-              :createTime="comment.CreateTime"
+              :user-name="comment.UserName"
+              :user-site-url="comment.UserSiteUrl"
+              :user-avatar-url="comment.UserAvatarUrl"
+              :create-time="comment.CreateTime"
 
               :disable-reply='_binding===comment.Id&&_isReply'
               @reply-click="onReplyBtnClick(comment.Id,index)"
@@ -87,7 +87,6 @@
             </template>
           </CommentCard>
         </div>
-
       </transition-group>
 
     </f-card>
@@ -107,7 +106,7 @@ import FCard from "@/components/field/f-card.vue"
 import FSlider from "@/components/field/f-slider.vue"
 import FDivider from "@/components/field/f-divider.vue"
 import FTextRender from "@/components/field/f-text-render.vue"
-import {Rsp as Comment} from "~/scripts/data/client/api/comment/create/rsp"
+import {Rsp as Comment} from "@/ws/client/api/comment/create/rsp"
 import FData from "~/components/field/f-data.vue"
 
 const props =
@@ -127,7 +126,7 @@ const replyTargetSlider = ref()
 
 async function create(body: string) {
   const {handler: createComment} =
-      await import("@/scripts/data/client/api/comment/create/handler")
+      await import("@/ws/client/api/comment/create/handler")
   const comment = await createComment({
     Binding: _binding.value,
     IsReply: _isReply.value,
