@@ -48,43 +48,68 @@
 <script lang="ts" setup>
 
 import {removeHtmlTags} from "@/scripts/util/text"
-import {useAsyncData, useRoute, useRouter} from "#app"
+import {useAsyncData, useRoute, useRouter, useState} from "#app"
+import {aw} from "~/.output/server/chunks/app/styles.mjs"
+import {Rsp} from "@/ws/client/api/post/get/rsp"
 
 const props =
     defineProps<{
-      currentPostId: bigint
+      prevPostId: bigint
+      nextPostId: bigint
     }>()
 
 const route = useRoute()
 const router = useRouter()
 
 const prev_post = await (async () => {
-  const {handler: getPrevPost} = await (async () => {
-    if (process.server)
-      return import("@/scripts/data/server/api/post/get_prev/handler")
-    else
-      return import("@/scripts/data/client/api/post/get_prev/handler")
-  })()
-  const post = await getPrevPost({CurrentId: props.currentPostId})
-  if (post.Ok) {
-    return post.Data
-  } else {
+  const post_id = props.prevPostId
+  if (post_id === -1n)
     return null
+  else {
+    const cache = <Rsp>useState(`post:${post_id}`).value
+    if (cache)
+      return cache
+    else
+      return useState(`post:${post_id}`, async () => {
+        const {handler: getPost} = await (async () => {
+          if (process.server)
+            return import("@/ws/server/api/post/get/handler")
+          else
+            return import("@/ws/client/api/post/get/handler")
+        })()
+        const post = await getPost({Id: post_id})
+        if (post.Ok) {
+          return post.Data
+        } else {
+          return null
+        }
+      }).value
   }
 })()
 
 const next_post = await (async () => {
-  const {handler: getNextPost} = await (async () => {
-    if (process.server)
-      return import("@/scripts/data/server/api/post/get_next/handler")
-    else
-      return import("@/scripts/data/client/api/post/get_next/handler")
-  })()
-  const post = await getNextPost({CurrentId: props.currentPostId})
-  if (post.Ok) {
-    return post.Data
-  } else {
+  const post_id = props.nextPostId
+  if (post_id === -1n)
     return null
+  else {
+    const cache = <Rsp>useState(`post:${post_id}`).value
+    if (cache)
+      return cache
+    else
+      return useState(`post:${post_id}`, async () => {
+        const {handler: getPost} = await (async () => {
+          if (process.server)
+            return import("@/ws/server/api/post/get/handler")
+          else
+            return import("@/ws/client/api/post/get/handler")
+        })()
+        const post = await getPost({Id: post_id})
+        if (post.Ok) {
+          return post.Data
+        } else {
+          return null
+        }
+      }).value
   }
 })()
 

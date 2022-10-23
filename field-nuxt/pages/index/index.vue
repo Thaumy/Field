@@ -23,22 +23,11 @@
 
     <transition-group>
       <f-lazy
-          v-for="id in post_ids.slice(9,-1)"
+          v-for="id in post_ids.slice(9)"
           :key="id"
       >
         <f-data
-            :provider="async () => {
-                const {handler:getPost} =
-                  await import('@/scripts/data/client/api/post/get/handler')
-                const r = await getPost({
-                  Id:BigInt(id)
-                })
-                if(r.Ok){
-                  return r.Data
-                }else{
-                  return null
-                }
-            }"
+            :provider="()=>getPost(id)"
             v-slot="post:Rsp"
         >
           <PostCard
@@ -54,7 +43,7 @@
               :summary="post.Summary"
               :is-generated-summary="post.IsGeneratedSummary"
               :view-count="post.ViewCount"
-              :comment-count="0"
+              :comment-count="post.Comments.length"
               :is-archived="post.IsArchived"
               :is-scheduled="post.IsScheduled"
               :topics="post.Topics"
@@ -72,42 +61,68 @@
 import FData from "@/components/field/f-data.vue"
 import FLazy from "@/components/field/f-lazy.vue"
 import PostCard from "@/components/PostCard/PostCard.vue"
-import {useAsyncData, useRouter} from "#app"
-import {Rsp} from "~/scripts/data/client/api/post/get/rsp"
+import {useRouter, useState} from "#app"
+import {Rsp} from "@/ws/client/api/post/get/rsp"
+import {cache} from "browserslist"
 
 const router = useRouter()
 
-const {data: post_ids} = await useAsyncData('/post/get_all_id', async () => {
-  const {handler: getAllPostId} = await (async () => {
+const post_ids =
+    await (async () => {
+      const cache = useState<bigint[] | null>('all_post_id', () => null)
+      if (cache.value) {
+        return cache.value
+      } else {
+        const {handler: getAllPostId} = await (async () => {
+          if (process.server)
+            return import("@/ws/server/api/post/get_all_id/handler")
+          else
+            return import("@/ws/client/api/post/get_all_id/handler")
+        })()
+        const ids = await getAllPostId({})
+        if (ids.Ok) {
+          cache.value = ids.Data.PostIds
+        } else {
+          cache.value = []
+        }
+        return cache.value
+      }
+    })()
+
+const posts = await (async () => {
+  const {handler: getPostBatch} = await (async () => {
     if (process.server)
-      return import("@/scripts/data/server/api/post/get_all_id/handler")
+      return import("@/ws/server/api/post/get_batch/handler")
     else
-      return import("@/scripts/data/client/api/post/get_all_id/handler")
+      return import("@/ws/client/api/post/get_batch/handler")
   })()
-  const ids = await getAllPostId({})
-  if (ids.Ok) {
-    return ids.Data.PostIds
+  const posts = await getPostBatch({Ids: post_ids.slice(0, 9)})
+  if (posts.Ok) {
+    return posts.Data.Collection
   } else {
     return []
   }
-})
+})()
 
-const {data: posts} = await useAsyncData('/post/get_batch', async () => {
-  const {handler: getPostBatch} = await (async () => {
-    if (process.server)
-      return import("@/scripts/data/server/api/post/get_batch/handler")
-    else
-      return import("@/scripts/data/client/api/post/get_batch/handler")
-  })()
-  if (post_ids.value) {
-    const posts = await getPostBatch({Ids: post_ids.value.slice(0, 9)})
-    if (posts.Ok) {
-      return posts.Data.Collection
+for (const post of posts)
+  useState(`post:${post.Id}`, () => post)
+
+async function getPost(post_id: bigint) {
+  const cache = useState<Rsp | null>(`post:${post_id}`, () => null)
+  if (cache.value) {
+    return cache.value
+  } else {
+    const {handler: getPost} =
+        await import('@/ws/client/api/post/get/handler')
+    const post = await getPost({Id: post_id})
+    if (post.Ok) {
+      cache.value = post.Data
     } else {
-      return []
+      cache.value = null
     }
+    return cache.value
   }
-})
+}
 
 </script>
 
@@ -119,12 +134,5 @@ const {data: posts} = await useAsyncData('/post/get_batch', async () => {
 
 .v-enter-from
   transform translateX(50px) skewX(-1deg)
-
-/*
-.v-leave-to
-  transform scale(0.9)
-  filter blur(100px)
-  height 0
-  opacity 0*/
 
 </style>

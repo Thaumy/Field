@@ -30,7 +30,7 @@ import FSnackbar from "@/components/field/f-snackbar.vue"
 import {onBeforeMount, onMounted, provide, ref} from 'vue'
 import PageFoot from "@/components/common/PageFoot.vue"
 import FixedBtnZone from "@/components/common/FixedBtnZone.vue"
-import {menu_items} from "@/scripts/data/menu"
+import {menu_items} from "@/scripts/menu"
 import {useTheme} from "vuetify"
 import {addRouteMiddleware, useAsyncData, useNuxtApp, useRoute, useRouter} from "#app"
 
