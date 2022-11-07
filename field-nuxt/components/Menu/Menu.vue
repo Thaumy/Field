@@ -6,7 +6,10 @@
           class="position-absolute ma-1"
           style="opacity: 0.4"
       />
-      <Avatar :avatar-url="avatar_img_url"/>
+      <Avatar
+          :about_me_post_id="about_me_post_id"
+          :avatar-url="avatar_img_url"
+      />
       <Info
           class="mb-4"
           title="THAUMY的小站"
@@ -24,7 +27,7 @@
           double-bar
           router-binding
           v-slot="{tab}"
-          :tabs="items"
+          :tabs="tabs"
       >
         <f-tab
             class="menu-tab"
@@ -33,7 +36,10 @@
         />
       </f-tabs>
 
-      <About info="Thaumy's Blog©2016-2023<br>About Site" v-ripple/>
+      <About
+          :about_site_post_id="about_site_post_id"
+          info="Thaumy's Blog©2016-2023<br>About Site" v-ripple
+      />
 
     </f-card>
 
@@ -53,12 +59,12 @@ import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
 import {avatar_img_url} from "@/public/config/site"
 import {useRouter, useRoute} from "#app"
 
-const props = withDefaults(
+const props =
     defineProps<{
-      items: Tab[]
-    }>(), {
-      items: () => []
-    })
+      about_me_post_id: bigint,
+      about_site_post_id: bigint
+      tabs: Tab[]
+    }>()
 
 const router = useRouter()
 const route = useRoute()

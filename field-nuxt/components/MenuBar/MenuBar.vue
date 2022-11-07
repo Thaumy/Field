@@ -10,7 +10,7 @@
         <img
             class="avatar border-shadow"
             :src="avatar_img_url" alt="avatar"
-            @click="router.push('/'+about_me)"
+            @click="router.push('/'+about_me_post_id)"
         />
         <div
             class="name"
@@ -31,12 +31,12 @@
 
     <Drawer
         :visibility="drawerVisibility"
-        :items="items"
+        :tabs="tabs"
         info=
             "Thaumy's Blog@2016-2023
              <br>About Site"
         @tab-click="closeDrawer()"
-        @info-click="router.push('/'+about_site);closeDrawer()"
+        @info-click="router.push('/'+about_site_post_id);closeDrawer()"
     />
 
     <Shadow :visibility="drawerVisibility" @click="closeDrawer()"/>
@@ -51,14 +51,15 @@ import Drawer from "./Drawer.vue"
 import {Tab} from "@/components/field/type"
 import Shadow from "@/components/MenuBar/Shadow.vue"
 import {avatar_img_url} from "@/public/config/site"
-import {about_me, about_site} from "@/scripts/menu"
 import {useRouter} from "#app"
 
 const router = useRouter()
 
 const props =
     defineProps<{
-      items: Tab[]
+      about_me_post_id: bigint,
+      about_site_post_id: bigint,
+      tabs: Tab[]
     }>()
 
 const visibility = ref(true)

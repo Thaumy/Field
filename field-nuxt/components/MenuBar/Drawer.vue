@@ -15,7 +15,7 @@
           vertical
           double-bar
           router-binding
-          :tabs="items"
+          :tabs="tabs"
           v-slot="{tab}"
       >
         <f-tab
@@ -49,7 +49,7 @@ const emits = defineEmits<{
 
 const props = withDefaults(
     defineProps<{
-      items: Tab[],
+      tabs: Tab[],
       visibility: boolean
       info: string
     }>(), {

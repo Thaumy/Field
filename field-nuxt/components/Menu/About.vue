@@ -5,7 +5,7 @@
       <div
           class="text cursor-pointer"
           v-html="info"
-          @click="router.push('/'+about_site)"
+          @click="router.push('/'+about_site_post_id)"
       />
     </div>
 
@@ -14,12 +14,13 @@
 
 <script lang="ts" setup>
 
-import {about_site} from "@/scripts/menu"
 import {useRouter} from "#app"
 
-defineProps<{
-  info: string
-}>()
+let props =
+    defineProps<{
+      about_site_post_id: bigint
+      info: string
+    }>()
 
 const router = useRouter()
 
