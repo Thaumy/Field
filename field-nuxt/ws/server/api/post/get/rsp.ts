@@ -17,4 +17,5 @@ export type Rsp = {
     Topics: string []
     PrevId: bigint
     NextId: bigint
+    Mark: string
 }
