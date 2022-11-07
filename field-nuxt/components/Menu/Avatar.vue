@@ -6,7 +6,7 @@
       <div
           class="avatar-holder border-shadow cursor-pointer"
           v-ripple
-          @click="router.push('/'+about_me)"
+          @click="router.push('/'+about_me_post_id)"
       >
         <img
             class="avatar"
@@ -21,11 +21,11 @@
 
 <script lang="ts" setup>
 
-import {about_me} from "@/scripts/menu"
 import {useRouter} from "#app"
 
 const props =
     defineProps<{
+      about_me_post_id: bigint,
       avatarUrl: string,
     }>()
 
