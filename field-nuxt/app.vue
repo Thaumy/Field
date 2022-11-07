@@ -3,11 +3,17 @@
     <v-main>
 
       <div class="transition-standard" :class="{hidden:!contentVisibility}">
-        <MenuBar :items="menu_items"/>
+        <MenuBar
+            :about_me_post_id="about_me_post_id"
+            :about_site_post_id="about_site_post_id"
+            :tabs="menu_tabs"
+        />
         <div class="content">
           <Menu
               class="left-part"
-              :items="menu_items"
+              :about_me_post_id="about_me_post_id"
+              :about_site_post_id="about_site_post_id"
+              :tabs="menu_tabs"
           />
           <div class="right-part">
             <NuxtPage/>
@@ -30,9 +36,9 @@ import FSnackbar from "@/components/field/f-snackbar.vue"
 import {onBeforeMount, onMounted, provide, ref} from 'vue'
 import PageFoot from "@/components/common/PageFoot.vue"
 import FixedBtnZone from "@/components/common/FixedBtnZone.vue"
-import {menu_items} from "@/scripts/menu"
 import {useTheme} from "vuetify"
-import {addRouteMiddleware, useAsyncData, useNuxtApp, useRoute, useRouter} from "#app"
+import {addRouteMiddleware, useAsyncData, useNuxtApp, useRoute, useRouter, useState} from "#app"
+import {Tab} from "~/components/field/type"
 
 const route = useRoute()
 const router = useRouter()
@@ -68,6 +74,36 @@ onMounted(() => {
 
 const contentVisibility = ref(true)
 const pageFootVisibility = ref(true)
+
+const menu_posts = await (async () => {
+  const {handler: getMenuPosts} = await (async () => {
+    if (process.server)
+      return import("@/ws/server/api/post/get_menu/handler")
+    else
+      return import("@/ws/client/api/post/get_menu/handler")
+  })()
+  const posts = await getMenuPosts({})
+  if (posts.Ok) {
+    return posts.Data.Collection
+  } else {
+    return []
+  }
+})()
+
+for (const post of menu_posts)
+  useState(`post:${post.Id}`, () => post)
+
+const menu_tabs = (() => {
+  let tabs: Tab[] = []
+  tabs.push({title: "首页", disabled: false, route: "/"})
+  for (let post of menu_posts)
+    if (post.Mark === "menu")
+      tabs.push({title: post.Title, disabled: false, route: "/" + post.Id})
+  return tabs
+})()
+
+const about_me_post_id = menu_posts.find(x => x.Mark === "about_me")!.Id
+const about_site_post_id = menu_posts.find(x => x.Mark === "about_site")!.Id
 
 router.beforeEach(() => {
   pageFootVisibility.value = false

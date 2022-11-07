@@ -1,2 +1,2 @@
-export type Tab = { title: string, disabled: string, route: string }
+export type Tab = { title: string, disabled: boolean, route: string }
 
