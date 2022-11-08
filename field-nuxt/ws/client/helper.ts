@@ -1,8 +1,18 @@
 import {randomId, reqStringify, rspParse} from "@/ws/helper"
 import {ApiRequest, ApiResponse} from "@/ws/helper"
+import {wsClientRoot} from "~/ws/meta"
 
 export {
-    request
+    request,
+    makeHandler
+}
+
+async function makeHandler<REQ, RSP>(ws_root: string, api_path: string, req: REQ, conn: WebSocket) {
+    if (conn.CLOSED) {
+        conn = new WebSocket(`${wsClientRoot}${api_path}`)
+    }
+    const api_rsp = request<REQ, RSP>(api_path, conn, req)
+    return await api_rsp
 }
 
 async function request<REQ, RSP>
