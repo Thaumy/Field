@@ -69,7 +69,7 @@ const router = useRouter()
 
 const post_ids =
     await (async () => {
-      const cache = useState<bigint[] | null>('all_post_id', () => null)
+      const cache = useState<string[] | null>('all_post_id', () => null)
       if (cache.value) {
         return cache.value
       } else {
@@ -107,7 +107,7 @@ const posts = await (async () => {
 for (const post of posts)
   useState(`post:${post.Id}`, () => post)
 
-async function getPost(post_id: bigint) {
+async function getPost(post_id: string) {
   const cache = useState<Rsp | null>(`post:${post_id}`, () => null)
   if (cache.value) {
     return cache.value

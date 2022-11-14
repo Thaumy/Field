@@ -26,8 +26,8 @@
           />
           <SwitchZone
               class="margin-bottom"
-              :prev-post-id="post.PrevId"
-              :next-post-id="post.NextId"
+              :prev-post-id="searchPrevPostId(post_id)"
+              :next-post-id="searchNextPostId(post_id)"
           />
         </f-lazy>
       </transition-group>
@@ -53,7 +53,7 @@ const refresh = () => refreshNuxtData('/post/get')
 
 const post_id = (() => {
   try {
-    return BigInt(route.params.post_id.toString())
+    return route.params.post_id.toString()
   } catch (_) {
     return null
   }
@@ -97,6 +97,52 @@ watch(route, () => {
   if (post && post.Id !== post_id)
     refresh()
 })
+
+const post_ids =
+    await (async () => {
+      const cache = useState<string[] | null>('all_post_id', () => null)
+      if (cache.value) {
+        return cache.value
+      } else {
+        const {handler: getAllPostId} = await (async () => {
+          if (process.server)
+            return import("@/ws/server/api/post/get_all_id/handler")
+          else
+            return import("@/ws/client/api/post/get_all_id/handler")
+        })()
+        const ids = await getAllPostId({})
+        if (ids.Ok) {
+          cache.value = ids.Data.PostIds
+        } else {
+          cache.value = []
+        }
+        return cache.value
+      }
+    })()
+
+function searchPrevPostId(current_id: string) {
+  console.log(post_ids)
+  const index = post_ids.indexOf(current_id)
+  console.log(current_id)
+  console.log(index)
+  if (index >= 0 && index + 1 < post_ids.length) {
+    return post_ids[index + 1]
+  } else {
+    return "-1"
+  }
+}
+
+function searchNextPostId(current_id: string) {
+  console.log(post_ids)
+  const index = post_ids.indexOf(current_id)
+  console.log(current_id)
+  console.log(index)
+  if (index >= 0 && index - 1 >= 0) {
+    return post_ids[index - 1]
+  } else {
+    return "-1"
+  }
+}
 
 </script>
 

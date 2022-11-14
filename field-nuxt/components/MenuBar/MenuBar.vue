@@ -57,8 +57,8 @@ const router = useRouter()
 
 const props =
     defineProps<{
-      about_me_post_id: bigint,
-      about_site_post_id: bigint,
+      about_me_post_id: string,
+      about_site_post_id: string,
       tabs: Tab[]
     }>()
 

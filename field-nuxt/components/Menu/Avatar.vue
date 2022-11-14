@@ -25,7 +25,7 @@ import {useRouter} from "#app"
 
 const props =
     defineProps<{
-      about_me_post_id: bigint,
+      about_me_post_id: string,
       avatarUrl: string,
     }>()
 
