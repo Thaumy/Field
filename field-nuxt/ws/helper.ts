@@ -30,6 +30,12 @@ function isDateKey(key: string) {
     return key.search("Time") !== -1
 }
 
+//TODO
+//bigint在nuxt的useState服务端为bigint
+//但在客户端会被序列化成number导致精度缺失
+//并且bigint在本程序用例中性能表现不如string
+//所以所有Id均降阶为string表示
+
 function isBigIntKey(key: string) {
     return key.search("Id") !== -1
         || key === "Binding"
@@ -41,10 +47,11 @@ function isBigIntKeys(key: string) {
 
 function reqStringify<T>(req: ApiRequest<T>) {
     function replacer(key: string, value: any) {
+        /*
         if (isBigIntKeys(key))
             return value.map((id: any) => id.toString())
         if (isBigIntKey(key))
-            return value.toString()
+            return value.toString()*/
         if (isDateKey(key))
             return new Date(value).toISOString()
         return value
@@ -56,9 +63,9 @@ function reqStringify<T>(req: ApiRequest<T>) {
 function rspParse<T>(rsp: string) {
     function reviver(key: string, value: any) {
         if (isBigIntKeys(key))
-            return value.map((id: any) => BigInt(id))
+            return value.map((id: any) => id.toString())
         if (isBigIntKey(key))
-            return BigInt(value)
+            return value.toString()
         if (isDateKey(key))
             return new Date(value)
         return value

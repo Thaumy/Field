@@ -1,3 +1,3 @@
 export type Req = {
-    Id: bigint
+    Id: string
 }
