@@ -49,13 +49,12 @@
 
 import {removeHtmlTags} from "@/scripts/util/text"
 import {useAsyncData, useRoute, useRouter, useState} from "#app"
-import {aw} from "~/.output/server/chunks/app/styles.mjs"
 import {Rsp} from "@/ws/client/api/post/get/rsp"
 
 const props =
     defineProps<{
-      prevPostId: bigint
-      nextPostId: bigint
+      prevPostId: string
+      nextPostId: string
     }>()
 
 const route = useRoute()
@@ -63,7 +62,7 @@ const router = useRouter()
 
 const prev_post = await (async () => {
   const post_id = props.prevPostId
-  if (post_id === -1n)
+  if (post_id === "-1")
     return null
   else {
     const cache = <Rsp>useState(`post:${post_id}`).value
@@ -89,7 +88,7 @@ const prev_post = await (async () => {
 
 const next_post = await (async () => {
   const post_id = props.nextPostId
-  if (post_id === -1n)
+  if (post_id === "-1")
     return null
   else {
     const cache = <Rsp>useState(`post:${post_id}`).value

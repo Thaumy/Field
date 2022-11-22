@@ -1,7 +1,7 @@
 import {Rsp as Item} from "@/ws/client/api/comment/create/rsp"
 
 export type Rsp = {
-    Id: bigint
+    Id: string
     Title: string
     Body: string
     CreateTime: Date
@@ -15,7 +15,8 @@ export type Rsp = {
     IsArchived: boolean
     IsScheduled: boolean
     Topics: string []
-    PrevId: bigint
-    NextId: bigint
+    /*
+    PrevId: string
+    NextId: string*/
     Mark: string
 }

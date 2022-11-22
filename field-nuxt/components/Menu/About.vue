@@ -18,7 +18,7 @@ import {useRouter} from "#app"
 
 let props =
     defineProps<{
-      about_site_post_id: bigint
+      about_site_post_id: string
       info: string
     }>()
 

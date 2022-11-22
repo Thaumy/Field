@@ -111,7 +111,7 @@ import FData from "~/components/field/f-data.vue"
 
 const props =
     defineProps<{
-      postId: bigint,
+      postId: string,
       comments: Comment[],
       disableComment: boolean
     }>()
@@ -140,7 +140,7 @@ async function create(body: string) {
   commentEditor.value.reset()
 }
 
-function findComment(id: bigint) {
+function findComment(id: string) {
   return _comments.value.filter(x => x.Id === id)[0]
 }
 
@@ -167,7 +167,7 @@ function expandReference(index: number) {
 }
 
 //TODO 不优雅
-function onReplyBtnClick(comment_id: bigint, index: number) {
+function onReplyBtnClick(comment_id: string, index: number) {
   _binding.value = comment_id
   _isReply.value = true
   expandReference(index)

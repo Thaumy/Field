@@ -1,5 +1,5 @@
 export type Req = {
-    Binding: bigint
+    Binding: string
     IsReply: boolean
     Body: string
 }

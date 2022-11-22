@@ -1,3 +1,3 @@
 export type Rsp = {
-    PostIds: bigint[]
+    PostIds: string[]
 }
