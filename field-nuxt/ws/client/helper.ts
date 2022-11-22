@@ -3,13 +3,18 @@ import {ApiRequest, ApiResponse} from "@/ws/helper"
 import {wsClientRoot} from "~/ws/meta"
 
 export {
-    request,
+    makeWebSocket,
     makeHandler
 }
 
-async function makeHandler<REQ, RSP>(ws_root: string, api_path: string, req: REQ, conn: WebSocket) {
+function makeWebSocket(api_path: string) {
+    return new WebSocket(`${wsClientRoot}${api_path}`)
+}
+
+async function makeHandler<REQ, RSP>
+(api_path: string, req: REQ, conn: WebSocket) {
     if (conn.CLOSED) {
-        conn = new WebSocket(`${wsClientRoot}${api_path}`)
+        conn = makeWebSocket(api_path)
     }
     const api_rsp = request<REQ, RSP>(api_path, conn, req)
     return await api_rsp

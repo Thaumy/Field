@@ -2,16 +2,14 @@ import WebSocketSSR from "ws"
 import {randomId, reqStringify, rspParse} from "@/ws/helper"
 import {ApiRequest, ApiResponse} from "@/ws/helper"
 import {wsServerRoot} from "~/ws/meta"
-import {Req} from "~/ws/server/api/post/get_next/req"
-import {Rsp} from "~/ws/server/api/post/get_next/rsp"
 
 export {
-    request,
     makeHandler
 }
 
-async function makeHandler<REQ, RSP>(ws_root: string, api_path: string, req: REQ) {
-    const conn = new WebSocketSSR(`${ws_root}${api_path}`)
+async function makeHandler<REQ, RSP>
+(api_path: string, req: REQ) {
+    const conn = new WebSocketSSR(`${wsServerRoot}${api_path}`)
     const api_rsp = await request<REQ, RSP>(api_path, conn, req)
     conn.close()
     return api_rsp
