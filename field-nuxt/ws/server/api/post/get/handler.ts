@@ -1,14 +1,8 @@
 import {Req} from "@/ws/server/api/post/get/req"
 import {Rsp} from "@/ws/server/api/post/get/rsp"
-import WebSocketSSR from "ws"
-import {request} from "@/ws/server/helper"
-import {wsServerRoot} from "@/ws/meta"
+import {makeHandler} from "@/ws/server/helper"
 
 const api_path = '/post/get'
 
-export async function handler(req: Req) {
-    const conn = new WebSocketSSR(`${wsServerRoot}${api_path}`)
-    const api_rsp = await request<Req, Rsp>(api_path, conn, req)
-    conn.close()
-    return api_rsp
-}
+export let handler = async (req: Req) =>
+    makeHandler<Req, Rsp>(api_path, req)
