@@ -1,4 +1,5 @@
 import vuetify from "vite-plugin-vuetify"
+import prismjsPlugin from "vite-plugin-prismjs"
 
 export default defineNuxtConfig({
     /*
@@ -68,7 +69,25 @@ export default defineNuxtConfig({
         },
         ssr: {
             noExternal: ['vuetify']
-        }
+        },
+        plugins: [
+            prismjsPlugin({
+                languages: [
+                    'c',
+                    'go', 'go-module',
+                    'sql', 'coq', 'css', 'php', 'cpp',
+                    'java', 'html', 'toml', 'json', 'json5', 'yaml', 'scss', 'sass', 'rust',
+                    'shell', 'regex', 'latex', 'scala', 'cmake',
+                    'python', 'fsharp', 'scheme', 'kotlin',
+                    'haskell',
+                    'javascript', 'typescript',
+                    //rare usage
+                    'idris', 'less', 'lisp', 'agda', 'racket', 'julia', 'graphql', 'http', 'lua'
+                ]
+                /*TODO fix style
+                plugins: ['show-language']*/
+            })
+        ]
     }
     /*
     modules: [
