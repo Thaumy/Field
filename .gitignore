@@ -58,3 +58,11 @@ cmake-build-debug
 build
 bin
 obj
+
+# proj
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
