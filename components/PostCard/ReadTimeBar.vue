@@ -42,8 +42,10 @@ function genText(): string {
 
     if (sec < 12)
       return `几秒读完`
+    else if (sec < 180)
+      return `阅读需约 ${Math.ceil(sec / 60)} 分钟`
     else
-      return `约 ${words} 字 / 阅读成本 ${Math.round(sec / 60)} 分钟`
+      return `约 ${words} 字 / 阅读需约 ${Math.ceil(sec / 60)} 分钟`
   }
 }
 
