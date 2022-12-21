@@ -4,9 +4,9 @@
     <textarea
         class="f-textarea border-radius-all transition-standard"
         rows="3"
-        v-model="modelValue"
+        v-model="value"
+
         :placeholder="label"
-        v-on:input="$emit('update:modelValue',$event.target.value)"
     />
 
   </div>
@@ -14,13 +14,27 @@
 
 <script lang="ts" setup>
 
+import {computed} from "vue"
+
 const props =
     defineProps<{
       label: string,
       modelValue: string
     }>()
 
-defineEmits(['update:modelValue'])
+const emits =
+    defineEmits<{
+      (e: 'update:modelValue', string): void
+    }>()
+
+const value = computed({
+  get() {
+    return props.modelValue
+  },
+  set(value) {
+    emits('update:modelValue', value)
+  }
+})
 
 </script>
 
