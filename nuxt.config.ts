@@ -18,21 +18,20 @@ export default defineNuxtConfig({
     },
     app: {
         //config CDN here
-        //cdnURL: 'https://cdn.thaumy.cn',
+        cdnURL: 'https://cdn.thaumy.cn',
         head: {
             title: 'THAUMY的博客',
             link: [
                 {rel: 'icon', href: 'https://cdn.thaumy.cn/ui/icon.png'}
             ],
             script: [
-                //{src: './config/mathjax.js'},
-                /*
+                {src: './config/mathjax.js'},
                 {
                     async: true,
                     id: "MathJax-script",
                     type: "text/javascript",
                     src: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
-                }*/
+                }
             ]
         }
     },
