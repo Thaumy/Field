@@ -9,15 +9,14 @@
       <div class="cursor-pointer flex">
         <img
             class="avatar border-shadow"
-            :src="avatar_img_url" alt="avatar"
+            :src="build_meta.avatarImgUrl" alt="avatar"
             @click="router.push('/'+about_me_post_id)"
         />
         <div
             class="name"
             @click="router.push('/')"
-        >
-          THAUMY的小站
-        </div>
+            v-text=build_meta.siteTitle
+        />
       </div>
 
       <transition name="open-drawer-btn">
@@ -50,8 +49,8 @@ import {makeDebounce} from "@/scripts/util/debounce"
 import Drawer from "./Drawer.vue"
 import {Tab} from "@/components/field/type"
 import Shadow from "@/components/MenuBar/Shadow.vue"
-import {avatar_img_url} from "@/public/config/site"
 import {useRouter} from "#app"
+import build_meta from "~/field.meta"
 
 const router = useRouter()
 

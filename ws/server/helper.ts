@@ -1,7 +1,7 @@
 import WebSocketSSR from "ws"
 import {randomId, reqStringify, rspParse} from "@/ws/helper"
 import {ApiRequest, ApiResponse} from "@/ws/helper"
-import {wsServerRoot} from "~/ws/meta"
+import build_meta from "~/field.meta"
 
 export {
     makeHandler
@@ -9,7 +9,7 @@ export {
 
 async function makeHandler<REQ, RSP>
 (api_path: string, req: REQ) {
-    const conn = new WebSocketSSR(`${wsServerRoot}${api_path}`)
+    const conn = new WebSocketSSR(`${build_meta.wsServerRoot}${api_path}`)
     const api_rsp = await request<REQ, RSP>(api_path, conn, req)
     conn.close()
     return api_rsp
@@ -28,7 +28,9 @@ async function sendApiReq<T>
     if (ws.readyState === WebSocketSSR.OPEN) {
         const msg = reqStringify<T>(api_req)
         ws.send(msg)
-        console.log(`send ${loggingHead} req:\n${msg}`)
+
+        if (build_meta.enableServerDevLog)
+            console.log(`send ${loggingHead} req:\n${msg}`)
     } else
         setTimeout(() => {
             sendApiReq(loggingHead, ws, api_req)
@@ -42,10 +44,11 @@ async function recvApiRsp<T>
             const msg = data.toString()
             const api_rsp = rspParse<T>(msg)
             if (api_rsp.Seq === seq) {
-                ws
-                    .off("message", handler)
+                ws.off("message", handler)
                 resolve(api_rsp)
-                console.log(`recv ${loggingHead} rsp:\n${msg}`)
+
+                if (build_meta.enableServerDevLog)
+                    console.log(`recv ${loggingHead} rsp:\n${msg}`)
             }
         }
         ws

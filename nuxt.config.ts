@@ -1,5 +1,6 @@
 import vuetify from "vite-plugin-vuetify"
 import prismjsPlugin from "vite-plugin-prismjs"
+import build_meta from './field.meta'
 
 export default defineNuxtConfig({
     typescript: {
@@ -17,22 +18,20 @@ export default defineNuxtConfig({
         }
     },
     app: {
-        //config CDN here
-        //cdnURL: 'https://cdn.thaumy.cn',
+        cdnURL: build_meta.cdnURL,
         head: {
-            title: 'THAUMY的博客',
+            title: build_meta.siteTitle,
             link: [
-                {rel: 'icon', href: 'https://cdn.thaumy.cn/ui/icon.png'}
+                {rel: 'icon', href: build_meta.siteIconUrl}
             ],
             script: [
-                //{src: './config/mathjax.js'},
-                /*
+                {src: './config/mathjax.js'},
                 {
                     async: true,
                     id: "MathJax-script",
                     type: "text/javascript",
                     src: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
-                }*/
+                }
             ]
         }
     },
@@ -75,7 +74,6 @@ export default defineNuxtConfig({
                     'python', 'fsharp', 'scheme', 'kotlin',
                     'haskell',
                     'javascript', 'typescript',
-                    //rare usage
                     'idris', 'less', 'lisp', 'agda', 'racket', 'julia', 'graphql', 'http', 'lua'
                 ]
                 //TODO fix style
