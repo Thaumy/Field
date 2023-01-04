@@ -1,16 +1,18 @@
+const cdn_root = 'https://cdn.thaumy.cn/field_next'
+
 class BuildMeta {
     //config Field here
     #site_title = 'THAUMY的小站'
-    #site_icon_url = 'https://cdn.thaumy.cn/ui/icon.png'
-    #enable_cdn = false
-    #cdn_url = 'https://cdn.thaumy.cn'
+    #site_icon_url = `${cdn_root}/ui_img/icon.png`
+    #enable_cdn = true
+    #cdn_url = cdn_root
 
-    #avatar_img_url = 'https://cdn.thaumy.cn/ui/avatar.png'
-    #background_img_url = 'https://cdn.thaumy.cn/ui/background.jpg'
+    #avatar_img_url = `${cdn_root}/ui_img/avatar.png`
+    #background_img_url = `${cdn_root}/ui_img/background.jpg`
 
-    #ws_server_root = 'ws://127.0.0.1:10010'
-    #ws_client_root = 'ws://127.0.0.1:10011'
-    //#ws_client_root = 'wss://next.thaumy.cn:10011'
+    #ws_server_root = 'ws://127.0.0.1:40020'
+    //#ws_client_root = 'ws://127.0.0.1:40030'
+    #ws_client_root = 'wss://next.thaumy.cn:40030'
 
     #enable_server_dev_log = true
     #enable_client_dev_log = true
