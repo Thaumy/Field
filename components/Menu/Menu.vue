@@ -8,11 +8,11 @@
       />
       <Avatar
           :about_me_post_id="about_me_post_id"
-          :avatar-url="avatar_img_url"
+          :avatar-url="build_meta.avatarImgUrl"
       />
       <Info
           class="mb-4"
-          title="THAUMY的小站"
+          :title=build_meta.siteTitle
           :typing="[
             '你好！~~^400',
             '这里是THAUMY的博客！^300',
@@ -37,8 +37,9 @@
       </f-tabs>
 
       <About
+          v-ripple
           :about_site_post_id="about_site_post_id"
-          info="Thaumy's Blog©2016-2023<br>About Site" v-ripple
+          info="Thaumy's Blog©2016-2023<br>About Site"
       />
 
     </f-card>
@@ -56,7 +57,7 @@ import FTab from "@/components/field/f-tab.vue"
 import FTabs from "@/components/field/f-tabs.vue"
 import FCard from "@/components/field/f-card.vue"
 import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
-import {avatar_img_url} from "@/public/config/site"
+import build_meta from "~/field.meta"
 import {useRouter, useRoute} from "#app"
 
 const props =

@@ -39,6 +39,7 @@ import FixedBtnZone from "@/components/common/FixedBtnZone.vue"
 import {useTheme} from "vuetify"
 import {addRouteMiddleware, useAsyncData, useNuxtApp, useRoute, useRouter, useState} from "#app"
 import {Tab} from "~/components/field/type"
+import build_meta from "~/field.meta"
 
 const route = useRoute()
 const router = useRouter()
@@ -61,6 +62,7 @@ addRouteMiddleware(async (to, from) => {
 })
 
 onBeforeMount(() => {
+  document.body.style.backgroundImage = `url('${build_meta.backgroundImgUrl}')`
   provide('isDarkTheme', useTheme().global.current.value.dark)
 })
 
