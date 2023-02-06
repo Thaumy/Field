@@ -44,12 +44,12 @@ import SwitchZone from "@/components/common/SwitchZone.vue"
 import PostCard from "@/components/PostCard/PostCard.vue"
 import FLazy from "@/components/field/f-lazy.vue"
 import {onMounted, watch} from "vue"
-import {Rsp} from "@/ws/client/api/post/get/rsp"
+import {Rsp} from "@/ws/client/api/post/get_one/rsp"
 
 const route = useRoute()
 const router = useRouter()
 
-const refresh = () => refreshNuxtData('/post/get')
+//const refresh = () => refreshNuxtData('/post/get_one')
 
 const post_id = (() => {
   try {
@@ -78,9 +78,9 @@ const post = await (async () => {
     } else {
       const {handler: getPost} = await (async () => {
         if (process.server)
-          return import("@/ws/server/api/post/get/handler")
+          return import("@/ws/server/api/post/get_one/handler")
         else
-          return import("@/ws/client/api/post/get/handler")
+          return import("@/ws/client/api/post/get_one/handler")
       })()
       const post = await getPost({Id: post_id})
       if (post.Ok) {
@@ -93,10 +93,12 @@ const post = await (async () => {
   }
 })()
 
+/*
 watch(route, () => {
   if (post && post.Id !== post_id)
     refresh()
 })
+*/
 
 const post_ids =
     await (async () => {

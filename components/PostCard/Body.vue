@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 
-import {onMounted, toRefs} from "vue"
 import FTextRender from "@/components/field/f-text-render.vue"
 
 const props =

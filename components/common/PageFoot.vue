@@ -11,12 +11,13 @@
 
 <script lang="ts" setup>
 
-import {ref, onMounted} from "vue"
+import {onMounted, ref} from "vue"
 
-const emits = defineEmits<{
-  (e: 'fullyVisible'): void,
-  (e: 'fullyInvisible'): void,
-}>()
+const emits =
+    defineEmits<{
+      (e: 'fullyVisible'): void,
+      (e: 'fullyInvisible'): void,
+    }>()
 
 const props =
     defineProps<{

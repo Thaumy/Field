@@ -6,7 +6,7 @@
         :class="{'cursor-pointer':!disabled}"
         v-ripple
         v-ripple.stop="!disabled"
-        @click="disabled?()=>{}:$emit('click')"
+        @click="disabled?()=>{}:emits('click')"
     >
       <div
           :style="{color:disabled?'grey':'',
@@ -21,9 +21,10 @@
 
 <script lang="ts" setup>
 
-const emits = defineEmits<{
-  (e: 'click'): void
-}>()
+const emits =
+    defineEmits<{
+      (e: 'click'): void
+    }>()
 
 const props = withDefaults(
     defineProps<{

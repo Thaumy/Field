@@ -8,7 +8,7 @@
                  'reject':reject,
                  'light':!theme.global.current.value.dark,
                  'dark':theme.global.current.value.dark}"
-        @click="disabled?disableCLick():$emit('click')"
+        @click="disabled?disableCLick():emits('click')"
         type="submit"
         v-ripple
         v-ripple.stop="!disabled"
@@ -25,10 +25,11 @@ import {useTheme} from "vuetify"
 
 const theme = useTheme()
 
-const emits = defineEmits<{
-  (e: 'click'): void,
-  (e: 'disableClick'): void
-}>()
+const emits =
+    defineEmits<{
+      (e: 'click'): void,
+      (e: 'disableClick'): void
+    }>()
 
 withDefaults(
     defineProps<{

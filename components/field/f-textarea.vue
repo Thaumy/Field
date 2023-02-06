@@ -24,15 +24,15 @@ const props =
 
 const emits =
     defineEmits<{
-      (e: 'update:modelValue', string): void
+      (e: 'update:modelValue', newValue: string): void
     }>()
 
 const value = computed({
   get() {
     return props.modelValue
   },
-  set(value) {
-    emits('update:modelValue', value)
+  set(newValue) {
+    emits('update:modelValue', newValue)
   }
 })
 

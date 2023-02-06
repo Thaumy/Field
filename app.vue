@@ -34,10 +34,9 @@ import Menu from "@/components/Menu/Menu.vue"
 import MenuBar from "@/components/MenuBar/MenuBar.vue"
 import FSnackbar from "@/components/field/f-snackbar.vue"
 import {onBeforeMount, onMounted, provide, ref} from 'vue'
-import PageFoot from "@/components/common/PageFoot.vue"
 import FixedBtnZone from "@/components/common/FixedBtnZone.vue"
 import {useTheme} from "vuetify"
-import {addRouteMiddleware, useAsyncData, useNuxtApp, useRoute, useRouter, useState} from "#app"
+import {addRouteMiddleware, useNuxtApp, useRoute, useRouter, useState} from "#app"
 import {Tab} from "~/components/field/type"
 import build_meta from "~/field.meta"
 

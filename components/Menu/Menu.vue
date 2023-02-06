@@ -58,7 +58,7 @@ import FTabs from "@/components/field/f-tabs.vue"
 import FCard from "@/components/field/f-card.vue"
 import ThemeToggleBtn from "@/components/btn/ThemeToggleBtn.vue"
 import build_meta from "~/field.meta"
-import {useRouter, useRoute} from "#app"
+import {useRoute, useRouter} from "#app"
 
 const props =
     defineProps<{
