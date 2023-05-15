@@ -28,18 +28,29 @@ async function request<REQ, RSP>
     return await api_rsp
 }
 
+// @ts-ignore
+let reqMq = []
+let availableReq = build_meta.wsClientMaxConcurrent
+
 async function sendApiReq<T>
 (loggingHead: string, ws: WebSocket, api_req: ApiRequest<T>) {
     if (ws.readyState === WebSocket.OPEN) {
         const msg = reqStringify<T>(api_req)
-        ws.send(msg)
+
+        // 制最大请求数量, 过多的请求将被缓存到请求队列
+        if (availableReq > 0) {
+            ws.send(msg)
+            availableReq -= 1
+        } else {
+            reqMq.push([loggingHead, ws, api_req])
+        }
 
         if (build_meta.enableClientDevLog)
             console.log(`send ${loggingHead} req:\n${msg}`)
     } else
         setTimeout(() => {
             sendApiReq(loggingHead, ws, api_req)
-        }, 8)
+        }, build_meta.wsClientRetryInterval)
 }
 
 async function recvApiRsp<T>
@@ -55,7 +66,18 @@ async function recvApiRsp<T>
                 if (build_meta.enableClientDevLog)
                     console.log(`recv ${loggingHead} rsp:\n${msg}`)
             }
+
+            // 当收到请求结果时, 按需从请求队列中发起请求
+            if (reqMq.length > 0) {
+                availableReq += 1
+                // @ts-ignore
+                let [x, y, z] = reqMq.shift()
+                sendApiReq(x, y, z)
+            } else if (reqMq.length == 0 && availableReq < build_meta.wsClientMaxConcurrent) {
+                availableReq += 1
+            }
         }
+
         ws
             .addEventListener("message", handler)
     })
