@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 
-import {onMounted, ref} from "vue";
+import {onMounted, ref} from "vue"
 import {makeThrottle} from "@/scripts/util/throttle"
 
 const visibility = ref(false)

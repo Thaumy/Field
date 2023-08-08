@@ -28,7 +28,7 @@
       >
         <f-data
             :provider="()=>getPost(id)"
-            v-slot="post:Rsp"
+            v-slot="post:Resp"
         >
           <PostCard
               :key="id"
@@ -62,7 +62,7 @@ import FData from "@/components/field/f-data.vue"
 import FLazy from "@/components/field/f-lazy.vue"
 import PostCard from "@/components/PostCard/PostCard.vue"
 import {useRouter, useState} from "#app"
-import {Rsp} from "@/ws/client/api/post/get/rsp"
+import {Resp} from "@/ws/client/api/post/get_one/resp"
 import {cache} from "browserslist"
 
 const router = useRouter()
@@ -90,13 +90,13 @@ const post_ids =
     })()
 
 const posts = await (async () => {
-  const {handler: getPostBatch} = await (async () => {
+  const {handler: getSomePost} = await (async () => {
     if (process.server)
-      return import("@/ws/server/api/post/get_batch/handler")
+      return import("@/ws/server/api/post/get_some/handler")
     else
-      return import("@/ws/client/api/post/get_batch/handler")
+      return import("@/ws/client/api/post/get_some/handler")
   })()
-  const posts = await getPostBatch({Ids: post_ids.slice(0, 9)})
+  const posts = await getSomePost({Ids: post_ids.slice(0, 9)})
   if (posts.Ok) {
     return posts.Data.Collection
   } else {
@@ -108,12 +108,12 @@ for (const post of posts)
   useState(`post:${post.Id}`, () => post)
 
 async function getPost(post_id: string) {
-  const cache = useState<Rsp | null>(`post:${post_id}`, () => null)
+  const cache = useState<Resp | null>(`post:${post_id}`, () => null)
   if (cache.value) {
     return cache.value
   } else {
     const {handler: getPost} =
-        await import('@/ws/client/api/post/get/handler')
+        await import('@/ws/client/api/post/get_one/handler')
     const post = await getPost({Id: post_id})
     if (post.Ok) {
       cache.value = post.Data

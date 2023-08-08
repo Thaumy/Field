@@ -72,7 +72,7 @@
             :disabled="!body"
             :warning="isReply"
             :text="isReply ? '回复' : '提交'"
-            @click="$emit('createComment',body)"
+            @click="emits('createComment',body)"
             @disable-click="showGlobalSnackbar('mdi-tooltip-edit','填写评论内容是必要的','red')"
         />
       </div>
@@ -99,9 +99,10 @@ const props =
       isReply: boolean,
     }>()
 
-defineEmits<{
-  (e: 'createComment'): void
-}>()
+const emits =
+    defineEmits<{
+      (e: 'createComment'): void
+    }>()
 
 const body = ref("")
 const currentMode = ref(Mode.Edit)

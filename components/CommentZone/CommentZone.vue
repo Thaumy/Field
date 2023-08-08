@@ -106,7 +106,7 @@ import FCard from "@/components/field/f-card.vue"
 import FSlider from "@/components/field/f-slider.vue"
 import FDivider from "@/components/field/f-divider.vue"
 import FTextRender from "@/components/field/f-text-render.vue"
-import {Rsp as Comment} from "@/ws/client/api/comment/create/rsp"
+import {Resp as Comment} from "@/ws/client/api/comment/create/resp"
 import FData from "~/components/field/f-data.vue"
 
 const props =

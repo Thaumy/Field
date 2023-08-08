@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 
 import {queueTypeSet} from "@/scripts/mathjax/render"
-import {onMounted, Ref, ref, watch} from "vue"
+import {onMounted, ref} from "vue"
 import {useTheme} from "vuetify"
 import Prism from 'prismjs'
 

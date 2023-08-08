@@ -1,5 +1,5 @@
 import WebSocketSSR from "ws"
-import {randomId, reqStringify, rspParse} from "@/ws/helper"
+import {randomId, reqStringify, respParse} from "@/ws/helper"
 import {ApiRequest, ApiResponse} from "@/ws/helper"
 import build_meta from "~/field.meta"
 
@@ -7,20 +7,20 @@ export {
     makeHandler
 }
 
-async function makeHandler<REQ, RSP>
+async function makeHandler<REQ, RESP>
 (api_path: string, req: REQ) {
     const conn = new WebSocketSSR(`${build_meta.wsServerRoot}${api_path}`)
     const api_rsp = await request<REQ, RSP>(api_path, conn, req)
     conn.close()
-    return api_rsp
+    return api_resp
 }
 
-async function request<REQ, RSP>
+async function request<REQ, RESP>
 (loggingHead: string, ws: WebSocketSSR, req: REQ) {
     const api_req = {Seq: randomId(), Data: req}
-    const api_rsp = recvApiRsp<RSP>(loggingHead, ws, api_req.Seq)
+    const api_resp = recvApiResp<RESP>(loggingHead, ws, api_req.Seq)
     sendApiReq(loggingHead, ws, api_req).then()
-    return await api_rsp
+    return await api_resp
 }
 
 async function sendApiReq<T>
@@ -37,7 +37,7 @@ async function sendApiReq<T>
         }, 8)
 }
 
-async function recvApiRsp<T>
+async function recvApiResp<T>
 (loggingHead: string, ws: WebSocketSSR, seq: number) {
     const task = new Promise<ApiResponse<T>>(resolve => {
         let handler = (data: WebSocketSSR.RawData) => {

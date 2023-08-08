@@ -1,3 +1,3 @@
-export type Rsp = {
+export type Resp = {
     PostIds: string[]
 }

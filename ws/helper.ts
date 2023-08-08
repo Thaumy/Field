@@ -1,5 +1,5 @@
 export {
-    rspParse,
+    respParse,
     randomId,
     EmptyReq,
     ApiRequest,
@@ -60,7 +60,7 @@ function reqStringify<T>(req: ApiRequest<T>) {
     return JSON.stringify(req, replacer)
 }
 
-function rspParse<T>(rsp: string) {
+function respParse<T>(resp: string) {
     function reviver(key: string, value: any) {
         if (isBigIntKeys(key))
             return value.map((id: any) => id.toString())
@@ -71,5 +71,5 @@ function rspParse<T>(rsp: string) {
         return value
     }
 
-    return <ApiResponse<T>>JSON.parse(rsp, reviver)
+    return <ApiResponse<T>>JSON.parse(resp, reviver)
 }

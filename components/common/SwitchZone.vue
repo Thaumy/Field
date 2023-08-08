@@ -48,8 +48,8 @@
 <script lang="ts" setup>
 
 import {removeHtmlTags} from "@/scripts/util/text"
-import {useAsyncData, useRoute, useRouter, useState} from "#app"
-import {Rsp} from "@/ws/client/api/post/get/rsp"
+import {useRoute, useRouter, useState} from "#app"
+import {Resp} from "@/ws/client/api/post/get_one/resp"
 
 const props =
     defineProps<{
@@ -65,16 +65,16 @@ const prev_post = await (async () => {
   if (post_id === "-1")
     return null
   else {
-    const cache = <Rsp>useState(`post:${post_id}`).value
+    const cache = <Resp>useState(`post:${post_id}`).value
     if (cache)
       return cache
     else
       return useState(`post:${post_id}`, async () => {
         const {handler: getPost} = await (async () => {
           if (process.server)
-            return import("@/ws/server/api/post/get/handler")
+            return import("@/ws/server/api/post/get_one/handler")
           else
-            return import("@/ws/client/api/post/get/handler")
+            return import("@/ws/client/api/post/get_one/handler")
         })()
         const post = await getPost({Id: post_id})
         if (post.Ok) {
@@ -91,16 +91,16 @@ const next_post = await (async () => {
   if (post_id === "-1")
     return null
   else {
-    const cache = <Rsp>useState(`post:${post_id}`).value
+    const cache = <Resp>useState(`post:${post_id}`).value
     if (cache)
       return cache
     else
       return useState(`post:${post_id}`, async () => {
         const {handler: getPost} = await (async () => {
           if (process.server)
-            return import("@/ws/server/api/post/get/handler")
+            return import("@/ws/server/api/post/get_one/handler")
           else
-            return import("@/ws/client/api/post/get/handler")
+            return import("@/ws/client/api/post/get_one/handler")
         })()
         const post = await getPost({Id: post_id})
         if (post.Ok) {

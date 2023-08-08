@@ -21,11 +21,11 @@
         <f-tab
             class="menu-tab"
             :title="tab.title"
-            @click="$emit('tabClick');router.push(tab.route)"
+            @click="emits('tabClick');router.push(tab.route)"
         />
       </f-tabs>
 
-      <div class="info cursor-pointer" v-html="info" @click="$emit('infoClick')"/>
+      <div class="info cursor-pointer" v-html="info" @click="emits('infoClick')"/>
 
     </div>
 
@@ -42,10 +42,11 @@ import {useRouter} from "#app"
 
 const router = useRouter()
 
-const emits = defineEmits<{
-  (e: 'tabClick'): void,
-  (e: 'infoClick'): void
-}>()
+const emits =
+    defineEmits<{
+      (e: 'tabClick'): void,
+      (e: 'infoClick'): void
+    }>()
 
 const props = withDefaults(
     defineProps<{

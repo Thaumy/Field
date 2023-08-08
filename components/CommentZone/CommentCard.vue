@@ -35,7 +35,7 @@
                 icon="mdi-reply"
                 size="1.1rem"
                 v-show="replyBtnAlwaysOn||replyBtnVisibility"
-                @click="$emit('replyClick')"
+                @click="emits('replyClick')"
             />
           </transition>
         </div>
@@ -63,9 +63,10 @@ import {onMounted, ref} from "vue"
 import {formatToDateTime} from "@/scripts/util/time"
 import FTextRender from "@/components/field/f-text-render.vue"
 
-defineEmits<{
-  (e: 'replyClick'): void
-}>()
+const emits =
+    defineEmits<{
+      (e: 'replyClick'): void
+    }>()
 
 withDefaults(
     defineProps<{
