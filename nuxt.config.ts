@@ -25,7 +25,7 @@ export default defineNuxtConfig({
                 {rel: 'icon', href: build_meta.siteIconUrl}
             ],
             script: [
-                {src: './config/mathjax.js'},
+                {src: './script/mathjax.js'},
                 {
                     async: true,
                     id: "MathJax-script",
