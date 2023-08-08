@@ -1,6 +1,6 @@
-import {Rsp as Item} from "@/ws/client/api/comment/create/rsp"
+import {Resp as Item} from "@/ws/client/api/comment/create/resp"
 
-export type Rsp = {
+export type Resp = {
     Id: string
     Title: string
     Body: string

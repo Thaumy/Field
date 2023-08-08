@@ -1,4 +1,4 @@
-export type Rsp = {
+export type Resp = {
     Id: string
     UserName: string
     UserSiteUrl: string

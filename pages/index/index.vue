@@ -28,7 +28,7 @@
       >
         <f-data
             :provider="()=>getPost(id)"
-            v-slot="post:Rsp"
+            v-slot="post:Resp"
         >
           <PostCard
               :key="id"
@@ -62,7 +62,7 @@ import FData from "@/components/field/f-data.vue"
 import FLazy from "@/components/field/f-lazy.vue"
 import PostCard from "@/components/PostCard/PostCard.vue"
 import {useRouter, useState} from "#app"
-import {Rsp} from "@/ws/client/api/post/get_one/rsp"
+import {Resp} from "@/ws/client/api/post/get_one/resp"
 import {cache} from "browserslist"
 
 const router = useRouter()
@@ -108,7 +108,7 @@ for (const post of posts)
   useState(`post:${post.Id}`, () => post)
 
 async function getPost(post_id: string) {
-  const cache = useState<Rsp | null>(`post:${post_id}`, () => null)
+  const cache = useState<Resp | null>(`post:${post_id}`, () => null)
   if (cache.value) {
     return cache.value
   } else {

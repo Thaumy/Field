@@ -44,7 +44,7 @@ import SwitchZone from "@/components/common/SwitchZone.vue"
 import PostCard from "@/components/PostCard/PostCard.vue"
 import FLazy from "@/components/field/f-lazy.vue"
 import {onMounted, watch} from "vue"
-import {Rsp} from "@/ws/client/api/post/get_one/rsp"
+import {Resp} from "@/ws/client/api/post/get_one/resp"
 
 const route = useRoute()
 const router = useRouter()
@@ -72,7 +72,7 @@ const post = await (async () => {
   if (!post_id)
     return null
   else {
-    const cache = useState<Rsp | null>(`post:${post_id}`, () => null)
+    const cache = useState<Resp | null>(`post:${post_id}`, () => null)
     if (cache.value) {
       return cache.value
     } else {

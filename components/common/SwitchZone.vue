@@ -49,7 +49,7 @@
 
 import {removeHtmlTags} from "@/scripts/util/text"
 import {useRoute, useRouter, useState} from "#app"
-import {Rsp} from "@/ws/client/api/post/get_one/rsp"
+import {Resp} from "@/ws/client/api/post/get_one/resp"
 
 const props =
     defineProps<{
@@ -65,7 +65,7 @@ const prev_post = await (async () => {
   if (post_id === "-1")
     return null
   else {
-    const cache = <Rsp>useState(`post:${post_id}`).value
+    const cache = <Resp>useState(`post:${post_id}`).value
     if (cache)
       return cache
     else
@@ -91,7 +91,7 @@ const next_post = await (async () => {
   if (post_id === "-1")
     return null
   else {
-    const cache = <Rsp>useState(`post:${post_id}`).value
+    const cache = <Resp>useState(`post:${post_id}`).value
     if (cache)
       return cache
     else
